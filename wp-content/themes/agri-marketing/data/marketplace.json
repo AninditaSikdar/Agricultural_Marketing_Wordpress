@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "crop": "Organic Jyoti Potato",
+    "icon": "🥔",
+    "farmer": "Subhash Mondal (FPO Member)",
+    "location": "Arambagh, Hooghly",
+    "qty": "450 Bags (50kg)",
+    "price": "₹780 / Bag",
+    "grade": "Agmark Grade-A",
+    "harvestDate": "Aug 2026",
+    "contact": "9830112233"
+  },
+  {
+    "id": 2,
+    "crop": "Premium Gobindobhog Rice",
+    "icon": "🌾",
+    "farmer": "Burdwan Progressive Farmers SHG",
+    "location": "Memari, Burdwan",
+    "qty": "120 Quintals",
+    "price": "₹6,400 / Qtl",
+    "grade": "100% Certified",
+    "harvestDate": "Jul 2026",
+    "contact": "9434055667"
+  },
+  {
+    "id": 3,
+    "crop": "Export Quality Fresh Ginger",
+    "icon": "🫚",
+    "farmer": "Tapan Roy (Hill Agro)",
+    "location": "Alipurduar, North Bengal",
+    "qty": "85 Quintals",
+    "price": "₹7,900 / Qtl",
+    "grade": "Pesticide Free",
+    "harvestDate": "Aug 2026",
+    "contact": "9732188990"
+  },
+  {
+    "id": 4,
+    "crop": "Fresh Red Hybrid Tomato",
+    "icon": "🍅",
+    "farmer": "Pranab Ghosh",
+    "location": "Krishnanagar, Nadia",
+    "qty": "200 Crates",
+    "price": "₹420 / Crate",
+    "grade": "Farm Fresh",
+    "harvestDate": "Aug 2026",
+    "contact": "9474133445"
+  },
+  {
+    "id": 5,
+    "crop": "Golden Mustard Seeds (Yellow)",
+    "icon": "🌻",
+    "farmer": "Bankura Krishi Bikash Samiti",
+    "location": "Kotulpur, Bankura",
+    "qty": "90 Quintals",
+    "price": "₹5,600 / Qtl",
+    "grade": "Agmark Certified",
+    "harvestDate": "Aug 2026",
+    "contact": "9647244556"
+  },
+  {
+    "id": 6,
+    "crop": "Malda Premium Fazli & Himsagar Pulp",
+    "icon": "🥭",
+    "farmer": "Malda Mango Producer Co.",
+    "location": "Ratua, Malda",
+    "qty": "300 Barrels",
+    "price": "₹4,800 / Barrel",
+    "grade": "FSSAI Grade-A",
+    "harvestDate": "Jul 2026",
+    "contact": "9800266778"
+  }
+]

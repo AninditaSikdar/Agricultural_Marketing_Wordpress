@@ -1,0 +1,596 @@
+/* ==========================================================================
+   AGRICULTURAL MARKETING DEPARTMENT - BUTTON STYLES (button.css)
+   Comprehensive, Modern, Accessible & Reusable Button Component Library
+   ========================================================================== */
+
+/* ==========================================================================
+   1. CORE BASE BUTTON
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.65rem 1.45rem;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.3;
+    border-radius: var(--radius-md, 10px);
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+    flex-shrink: 0;
+    min-width: max-content;
+    box-sizing: border-box;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--primary, #ff9301);
+    outline-offset: 2px;
+}
+
+.btn:disabled,
+.btn.disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ==========================================================================
+   2. BUTTON COLOR VARIANTS
+   ========================================================================== */
+
+/* Primary Button (Government Saffron Radiant Gradient) */
+.btn-primary {
+    background: var(--primary-gradient, linear-gradient(135deg, #d97000 0%, #ff9301 50%, #ffa726 100%));
+    color: #ffffff !important;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(255, 147, 1, 0.38);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #b35500 0%, #d97000 50%, #ff9301 100%);
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 147, 1, 0.5);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(255, 147, 1, 0.3);
+}
+
+/* Accent Button (Amber / Gold Gradient) */
+.btn-accent {
+    background: var(--accent-gradient, linear-gradient(135deg, #cc5e00 0%, #ff9301 50%, #ffb74d 100%));
+    color: #ffffff !important;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(217, 119, 6, 0.32);
+}
+
+.btn-accent:hover {
+    background: linear-gradient(135deg, #92400e 0%, #b45309 50%, #d97706 100%);
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(217, 119, 6, 0.45);
+}
+
+.btn-accent:active {
+    transform: translateY(0);
+}
+
+/* Outline Button */
+.btn-outline {
+    background: transparent;
+    color: var(--primary, #ff9301) !important;
+    border: 1.5px solid var(--primary, #ff9301);
+}
+
+.btn-outline:hover {
+    background: var(--primary-soft, rgba(255, 147, 1, 0.12));
+    color: var(--primary-dark, #d97000) !important;
+    transform: translateY(-2px);
+    border-color: var(--primary-dark, #d97000);
+}
+
+.btn-outline:active {
+    transform: translateY(0);
+}
+
+
+/* White Solid Button */
+.btn-white {
+    background: #ffffff;
+    color: var(--primary-dark, #d97000) !important;
+    border-color: rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.btn-white:hover {
+    background: #f8fafc;
+    color: var(--primary, #ff9301) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
+}
+
+/* Secondary Button */
+.btn-secondary {
+    background: var(--bg-subtle, #f1f5f9);
+    color: var(--text-main, #1e293b) !important;
+    border: 1px solid var(--border-color, rgba(255, 147, 1, 0.22));
+}
+
+.btn-secondary:hover {
+    background: var(--bg-subtle-2, #e2e8f0);
+    color: var(--primary, #ff9301) !important;
+    transform: translateY(-2px);
+}
+
+/* Success / Emerald Button */
+.btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+}
+
+/* Danger / Crimson Button */
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
+}
+
+/* Ghost / Plain Button */
+.btn-ghost {
+    background: transparent;
+    color: var(--text-main, #1e293b);
+    border-color: transparent;
+}
+
+.btn-ghost:hover {
+    background: var(--primary-soft, rgba(255, 147, 1, 0.1));
+    color: var(--primary, #ff9301);
+}
+
+/* ==========================================================================
+   3. BUTTON SIZE MODIFIERS
+   ========================================================================== */
+.btn-sm {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.82rem;
+    border-radius: var(--radius-sm, 6px);
+}
+
+.btn-md {
+    padding: 0.65rem 1.35rem;
+    font-size: 0.92rem;
+    border-radius: var(--radius-md, 10px);
+}
+
+.btn-lg {
+    padding: 0.85rem 1.85rem;
+    font-size: 1.05rem;
+    border-radius: var(--radius-lg, 14px);
+}
+
+.btn-block {
+    display: flex;
+    width: 100%;
+}
+
+.btn-icon-only {
+    padding: 0.55rem;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+}
+
+/* ==========================================================================
+   4. ACCESSIBILITY & TOP UTILITY BAR BUTTONS
+   ========================================================================== */
+
+/* Font Size Switcher Buttons (A-, A, A+) */
+.font-size-control {
+    display: inline-flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.font-btn {
+    background: #ffffff;
+    color: var(--primary-dark, #d97000);
+    border: none;
+    border-right: 1px solid #e2e8f0;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition-fast, 0.15s ease);
+    line-height: 1.2;
+}
+
+.font-btn:last-child {
+    border-right: none;
+}
+
+.font-btn:hover:not(:disabled),
+.font-btn.active {
+    background: var(--primary-soft, rgba(255, 147, 1, 0.12));
+    color: var(--primary-dark, #d97000);
+}
+
+.font-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    background: #f8fafc;
+}
+
+.font-btn.font-dec {
+    font-size: 0.75rem;
+}
+
+.font-btn.font-std {
+    font-size: 0.85rem;
+}
+
+.font-btn.font-inc {
+    font-size: 0.95rem;
+}
+
+/* Language Switcher Buttons */
+.lang-switcher {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 4px;
+    padding: 2px;
+    gap: 2px;
+}
+
+.lang-btn {
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all var(--transition-fast, 0.15s ease);
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.lang-btn.active {
+    background: #ffffff;
+    color: var(--primary-dark, #d97000);
+    font-weight: 800;
+}
+
+/* Theme Toggle Button (Dark / Light) */
+.theme-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast, 0.15s ease);
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.28);
+    transform: scale(1.02);
+}
+
+/* Mobile Toggle Hamburger Button */
+.mobile-toggle-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-main, #1e293b);
+    font-size: 1.5rem;
+    padding: 0.35rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background var(--transition-fast, 0.15s ease);
+}
+
+.mobile-toggle-btn:hover {
+    background: var(--primary-soft, rgba(255, 147, 1, 0.12));
+    color: var(--primary, #ff9301);
+}
+
+/* ==========================================================================
+   5. INTERACTIVE FILTER & SELECTION BUTTONS
+   ========================================================================== */
+
+/* Mandi Category Filter Pills */
+.category-tabs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.35rem;
+}
+
+.category-pill {
+    background: var(--bg-subtle, #f8fafc);
+    color: var(--text-muted, #64748b);
+    border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
+    padding: 0.45rem 1.05rem;
+    border-radius: var(--radius-full, 9999px);
+    font-size: 0.86rem;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all var(--transition-fast, 0.15s ease);
+}
+
+.category-pill:hover {
+    background: var(--primary-soft, rgba(255, 147, 1, 0.12));
+    color: var(--primary, #ff9301);
+    border-color: var(--border-color, rgba(255, 147, 1, 0.22));
+    transform: translateY(-1px);
+}
+
+.category-pill.active {
+    background: var(--primary-gradient, linear-gradient(135deg, #d97000 0%, #ff9301 50%, #ffa726 100%));
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(255, 147, 1, 0.35);
+}
+
+/* Subsidy Calculator Option Selection Cards / Buttons */
+.calc-option-btn {
+    background: var(--bg-surface, #ffffff);
+    border: 1.5px solid var(--border-color, rgba(255, 147, 1, 0.22));
+    border-radius: var(--radius-md, 10px);
+    padding: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-fast, 0.15s ease);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.calc-option-btn:hover {
+    border-color: var(--primary, #ff9301);
+    background: var(--primary-soft, rgba(255, 147, 1, 0.08));
+    transform: translateY(-2px);
+}
+
+.calc-option-btn.active {
+    border-color: var(--primary, #ff9301);
+    background: var(--primary-soft, rgba(255, 147, 1, 0.14));
+    box-shadow: 0 0 0 2px var(--primary, #ff9301);
+}
+
+/* Notice Tabs & Download Buttons */
+.notice-tab-btn {
+    background: var(--bg-surface, #ffffff);
+    color: var(--text-muted, #64748b);
+    border: 1px solid var(--border-color, rgba(255, 147, 1, 0.22));
+    padding: 0.65rem 1.35rem;
+    border-radius: var(--radius-full, 9999px);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition-fast, 0.15s ease);
+}
+
+.notice-tab-btn:hover {
+    color: var(--primary, #ff9301);
+    background: var(--primary-soft, rgba(255, 147, 1, 0.1));
+}
+
+.notice-tab-btn.active {
+    background: var(--primary-gradient, linear-gradient(135deg, #d97000 0%, #ff9301 50%, #ffa726 100%));
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(255, 147, 1, 0.35);
+}
+
+.notice-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.85rem;
+    background: var(--primary-soft, rgba(255, 147, 1, 0.12));
+    color: var(--primary-dark, #d97000);
+    border-radius: var(--radius-sm, 6px);
+    font-size: 0.84rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all var(--transition-fast, 0.15s ease);
+}
+
+.notice-download-btn:hover {
+    background: var(--primary, #ff9301);
+    color: #ffffff !important;
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   6. MODAL & NAVIGATION ACTION BUTTONS
+   ========================================================================== */
+
+/* Modal Close Button */
+.modal-close-btn {
+    background: var(--bg-subtle, #f1f5f9);
+    color: var(--text-main, #1e293b);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition-fast, 0.15s ease);
+}
+
+.modal-close-btn:hover {
+    background: var(--danger-soft, #fef2f2);
+    color: var(--danger, #dc2626);
+    transform: rotate(90deg);
+}
+
+/* Contact Us Action CTA in Navigation */
+.contact-cta-pill {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 3px 12px rgba(16, 185, 129, 0.35);
+    padding: 0.45rem 0.95rem !important;
+    border-radius: var(--radius-full, 9999px) !important;
+    text-decoration: none;
+}
+
+.contact-cta-pill:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 5px 16px rgba(16, 185, 129, 0.45);
+}
+
+/* Home Icon Pill */
+.home-pill-btn {
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.95rem;
+    border-radius: var(--radius-full, 9999px) !important;
+}
+
+/* ==========================================================================
+   7. TABLE PAGINATION BUTTONS & CONTROLS
+   ========================================================================== */
+.mandi-pagination-bar,
+.table-pagination-bar {
+    padding: 0.9rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-surface-elevated, #ffffff);
+    border-top: 1.5px solid var(--border-color, rgba(255, 147, 1, 0.22));
+    font-size: 0.88rem;
+    color: var(--text-muted, #64748b);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.pagination-info {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-muted, #64748b);
+}
+
+.pagination-info strong,
+.pagination-info span {
+    color: var(--text-main, #1e293b);
+    font-weight: 700;
+}
+
+.pagination-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--bg-subtle, #f8fafc);
+    padding: 0.25rem 0.4rem;
+    border-radius: var(--radius-md, 10px);
+    border: 1px solid var(--border-color, rgba(255, 147, 1, 0.22));
+}
+
+.pagination-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-main, #1e293b);
+    background: var(--bg-surface, #ffffff);
+    border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
+    border-radius: var(--radius-sm, 6px);
+    cursor: pointer;
+    transition: all var(--transition-fast, 0.15s ease);
+}
+
+.pagination-nav-btn:hover:not(:disabled) {
+    background: var(--primary-soft, rgba(255, 147, 1, 0.14));
+    color: var(--primary-dark, #d97000);
+    border-color: var(--primary, #ff9301);
+}
+
+.pagination-nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: transparent;
+    border-color: transparent;
+}
+
+.pagination-pages {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.pagination-page-btn {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 0.35rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--text-main, #1e293b);
+    background: var(--bg-surface, #ffffff);
+    border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
+    border-radius: var(--radius-sm, 6px);
+    cursor: pointer;
+    transition: all var(--transition-fast, 0.15s ease);
+}
+
+.pagination-page-btn:hover:not(.active) {
+    background: var(--primary-soft, rgba(255, 147, 1, 0.14));
+    color: var(--primary-dark, #d97000);
+    border-color: var(--primary, #ff9301);
+}
+
+.pagination-page-btn.active {
+    background: var(--primary-gradient, linear-gradient(135deg, #d97000 0%, #ff9301 50%, #ffa726 100%));
+    color: #ffffff !important;
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(255, 147, 1, 0.4);
+}

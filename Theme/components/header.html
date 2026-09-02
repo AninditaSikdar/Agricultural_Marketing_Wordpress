@@ -1,0 +1,86 @@
+<!-- ==========================================================================
+   AGRICULTURAL MARKETING DEPARTMENT - COMMON HEADER COMPONENT
+   ========================================================================== -->
+
+<!-- Top Accessibility & Utility Bar -->
+<aside class="top-util-bar" aria-label="Accessibility & Quick Utility Bar">
+    <div class="container top-util-container">
+        <div class="util-left">
+            <span class="helpline-pill">
+                <span class="pulse-dot"></span>
+                <span data-i18n="farmer_helpline">Farmer Helpline (Toll-Free):</span>
+                <strong>1800-180-1551</strong>
+            </span>
+        </div>
+
+        <div class="util-right">
+            <!-- Font Size Switcher (A-, A, A+) -->
+            <div class="font-size-control" aria-label="Font Size Adjuster">
+                <button type="button" class="font-btn font-dec" data-size="dec" title="Decrease Font Size">A-</button>
+                <button type="button" class="font-btn font-std active" data-size="std"
+                    title="Normal Font Size">A</button>
+                <button type="button" class="font-btn font-inc" data-size="inc" title="Increase Font Size">A+</button>
+            </div>
+
+            <!-- Language Switcher -->
+            <div class="lang-switcher" aria-label="Language Selector">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="bn">বাংলা</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+
+            <!-- Theme Toggle Button -->
+            <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark/Light Mode">
+                <span id="themeIcon">🌙</span>
+                <span id="themeText" data-i18n="dark_mode">Dark</span>
+            </button>
+        </div>
+    </div>
+</aside>
+
+<!-- Main Brand Header & Mega Navigation -->
+<header class="main-header">
+    <div class="container header-container">
+        <a href="index.html" class="brand-section" aria-label="">
+            <div class="brand-emblem-wrapper">
+                <img src="./images/Logo.png" alt="" class="brand-logo-img">
+            </div>
+        </a>
+
+        <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">
+            <div class="nav-item"><a href="index.html" class="nav-link" data-i18n="nav_home">Home</a></div>
+            <div class="nav-item">
+                <a href="mandi-rates.html" class="nav-link">
+                    <span data-i18n="nav_rates">Mandi Rates</span>
+                </a>
+            </div>
+            <div class="nav-item"><a href="schemes.html" class="nav-link" data-i18n="nav_schemes">Schemes &
+                    Subsidies</a></div>
+            <div class="nav-item"><a href="cold-storage.html" class="nav-link" data-i18n="nav_cold_storage">Cold
+                    Storages</a></div>
+            <div class="nav-item"><a href="marketplace.html" class="nav-link" data-i18n="nav_marketplace">Farm
+                    Connect</a></div>
+            <div class="nav-item"><a href="about.html" class="nav-link" data-i18n="nav_about">About Us</a></div>
+            <div class="nav-item"><a href="contact.html" class="nav-link" data-i18n="nav_contact">Contact Us</a></div>
+        </nav>
+
+        <div class="header-actions">
+            <button class="mobile-toggle-btn" id="mobileMenuToggle" aria-label="Toggle Navigation Menu">
+                ☰
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Live Commodity Price Ticker -->
+<div class="ticker-wrapper" aria-label="Live Mandi Price Ticker">
+    <div class="ticker-label">
+        <span class="pulse-dot"></span>
+        <span data-i18n="ticker_label">Daily Market Rates</span>
+    </div>
+    <div class="ticker-track-container">
+        <div class="ticker-track" id="tickerTrack">
+            <!-- Populated dynamically via app.js -->
+        </div>
+    </div>
+</div>

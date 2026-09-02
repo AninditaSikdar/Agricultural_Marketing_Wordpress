@@ -1,0 +1,62 @@
+{
+  "tenders": [
+    {
+      "id": "T1",
+      "day": "28",
+      "month": "Aug",
+      "title": "Expression of Interest (EOI) for installation of Solar Powered Micro Cold Rooms in Hooghly and Burdwan APMC premises.",
+      "ref": "Ref: WBSAMB/NIT-14/2026",
+      "fileSize": "1.2 MB",
+      "lastDate": "15 Sep 2026"
+    },
+    {
+      "id": "T2",
+      "day": "25",
+      "month": "Aug",
+      "title": "Revised Daily Price Bulletin & Arrival Report for Agricultural and Horticultural Commodities for Kharif Season.",
+      "ref": "Ref: AMD/PB/AUG-2026/08",
+      "fileSize": "850 KB",
+      "lastDate": "Ongoing"
+    },
+    {
+      "id": "T3",
+      "day": "20",
+      "month": "Aug",
+      "title": "Notification regarding Minimum Support Price (MSP) and procurement centers for Paddy and Jute for Kharif Marketing Season.",
+      "ref": "Ref: GO-WB-AGRI-552/2026",
+      "fileSize": "2.1 MB",
+      "lastDate": "30 Oct 2026"
+    },
+    {
+      "id": "T4",
+      "day": "14",
+      "month": "Aug",
+      "title": "Tender for procurement of electronic weighing scales and moisture meters for APMC checkposts across 18 districts.",
+      "ref": "Ref: WBSAMB/EQP-09/2026",
+      "fileSize": "1.6 MB",
+      "lastDate": "10 Sep 2026"
+    }
+  ],
+  "advisory": [
+    {
+      "id": "A1",
+      "crop": "🥔 Potato (Jyoti / Chandramukhi)",
+      "text": "Cold storage release is steady. Maintain optimal humidity (85-90%) during transit to prevent spoilage in humid weather."
+    },
+    {
+      "id": "A2",
+      "crop": "🌾 Paddy & Rice (Kharif)",
+      "text": "Moisture content should not exceed 14% at APMC procurement checkposts for Grade-A MSP realization."
+    },
+    {
+      "id": "A3",
+      "crop": "🌿 Raw Jute (TD-5)",
+      "text": "Demand in North 24 Parganas and Nadia mills is surging. Farmers are advised to sort fiber cleanly for higher grades."
+    },
+    {
+      "id": "A4",
+      "crop": "🌻 Yellow Mustard",
+      "text": "Market demand is upward trending with festive season approaching. Sowing preparations for early rabi may be planned."
+    }
+  ]
+}

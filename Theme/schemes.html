@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Flagship Government Schemes & Interactive Subsidy Calculator - Amar Fasal Amar Gari, Sufal Bangla Outlets, Cold Chain Logistics Grants.">
+    <title>Schemes, Subsidies & Calculator | Agricultural Marketing Department</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/button.css">
+</head>
+
+<body>
+
+    <!-- Common Header Container (Rendered dynamically from components/header.html) -->
+    <div id="common-header"></div>
+
+    <!-- ==========================================================================
+       INNER PAGE BANNER WITH BREADCRUMBS
+       ========================================================================== -->
+    <section class="page-banner">
+        <div class="container">
+            <div class="page-banner-content">
+                <div class="breadcrumb">
+                    <a href="index.html" data-i18n="nav_home">Home</a>
+                    <span class="separator">/</span>
+                    <span class="current" data-i18n="nav_schemes">Schemes & Subsidies</span>
+                </div>
+                <h1 class="page-banner-title" data-i18n="init_title">Empowering Agri-Logistics & Direct Trade</h1>
+                <p class="page-banner-desc" data-i18n="init_subtitle">
+                    Key initiatives facilitating direct farm-to-consumer linkages, logistics subsidies, and storage infrastructure.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       FLAGSHIP INITIATIVES GRID
+       ========================================================================== -->
+    <section class="section">
+        <div class="container">
+            <div class="initiatives-grid">
+                <!-- Initiative Card 1: Sufal Bangla -->
+                <div class="initiative-card">
+                    <div class="initiative-img-wrap">
+                        <img src="./images/sufal-market.jpg" alt="Sufal Bangla Modern Retail Stall" class="initiative-img">
+                        <span class="initiative-badge">Direct Market</span>
+                    </div>
+                    <div class="initiative-body">
+                        <h3 class="initiative-title" data-i18n="sufal_title">Sufal Bangla Outlets</h3>
+                        <p class="initiative-desc" data-i18n="sufal_desc">
+                            Direct farm-to-door retail network selling fresh vegetables, fruits, and dairy at fair prices while eliminating intermediaries.
+                        </p>
+                        <ul class="initiative-features-list">
+                            <li><span class="check-icon">✓</span> <span data-i18n="sufal_f1">450+ Static and Mobile Kiosks</span></li>
+                            <li><span class="check-icon">✓</span> <span data-i18n="sufal_f2">Direct daily procurement from FPOs</span></li>
+                            <li><span class="check-icon">✓</span> <span data-i18n="sufal_f3">Quality grading & fair retail price tags</span></li>
+                        </ul>
+                        <button class="btn btn-outline" style="margin-top:auto" onclick="showToast('Locating nearest Sufal Bangla Kiosks in your area...', 'info')">
+                            📍 Locate Nearby Outlets
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Initiative Card 2: Amar Fasal Amar Gari -->
+                <div class="initiative-card">
+                    <div class="initiative-img-wrap">
+                        <img src="./images/hero-farmer.jpg" alt="Amar Fasal Amar Gari Logistics Support" class="initiative-img">
+                        <span class="initiative-badge" style="background:var(--accent-gradient);">50% Subsidy</span>
+                    </div>
+                    <div class="initiative-body">
+                        <h3 class="initiative-title" data-i18n="amar_fasal_title">Amar Fasal Amar Gari</h3>
+                        <p class="initiative-desc" data-i18n="amar_desc">
+                            Capital subsidy program offering up to 50% financial assistance to farmers and self-help groups for purchasing produce transport vans.
+                        </p>
+                        <ul class="initiative-features-list">
+                            <li><span class="check-icon">✓</span> <span data-i18n="amar_f1">50% Vehicle Cost Subsidy (Up to ₹1.5L)</span></li>
+                            <li><span class="check-icon">✓</span> <span data-i18n="amar_f2">Reduces post-harvest transit losses</span></li>
+                            <li><span class="check-icon">✓</span> <span data-i18n="amar_f3">Fast direct delivery to wholesale mandis</span></li>
+                        </ul>
+                        <a href="#calculator" class="btn btn-outline" style="margin-top:auto">
+                            🧮 Check Vehicle Subsidy
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Initiative Card 3: Cold Chain & Warehousing -->
+                <div class="initiative-card">
+                    <div class="initiative-img-wrap">
+                        <img src="./images/cold-storage.jpg" alt="Modern Cold Storage Network" class="initiative-img">
+                        <span class="initiative-badge" style="background:linear-gradient(135deg, #1a5276 0%, #2980b9 100%);">Infrastructure</span>
+                    </div>
+                    <div class="initiative-body">
+                        <h3 class="initiative-title" data-i18n="cold_grid_title">Cold Storage & Warehousing Grid</h3>
+                        <p class="initiative-desc" data-i18n="cold_desc">
+                            Integrated network of multi-chamber cold storage facilities with real-time slot booking and moisture-controlled potato chambers.
+                        </p>
+                        <ul class="initiative-features-list">
+                            <li><span class="check-icon">✓</span> <span data-i18n="cold_f1">Real-time district capacity tracker</span></li>
+                            <li><span class="check-icon">✓</span> <span data-i18n="cold_f2">Subsidized electricity tariff for agri-units</span></li>
+                            <li><span class="check-icon">✓</span> <span data-i18n="cold_f3">Scientific preservation & Agmark labs</span></li>
+                        </ul>
+                        <a href="cold-storage.html" class="btn btn-outline" style="margin-top:auto">
+                            ❄️ View Available Chambers
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       INTERACTIVE SUBSIDY & SCHEME CALCULATOR
+       ========================================================================== -->
+    <section class="section section-bg-alt" id="calculator">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">
+                    🧮 <span data-i18n="calc_tag">Interactive Subsidy Tool</span>
+                </div>
+                <h2 class="section-title" data-i18n="calc_title">Agri-Marketing Subsidy & Scheme Calculator</h2>
+                <p class="section-subtitle" data-i18n="calc_subtitle">
+                    Calculate your estimated government grant eligibility in 3 easy clicks.
+                </p>
+            </div>
+
+            <div class="calculator-card">
+                <!-- Form Configuration Side -->
+                <div class="calc-form-side">
+                    <h3 class="calc-title">Configure Your Application</h3>
+                    <p class="calc-subtitle">Select your beneficiary type and required infrastructure.</p>
+
+                    <!-- Beneficiary Selector -->
+                    <div class="calc-group">
+                        <label class="calc-label" data-i18n="lbl_beneficiary">Select Beneficiary Category:</label>
+                        <div class="calc-options-grid">
+                            <div class="calc-option-btn calc-opt-beneficiary active" data-val="small_farmer">
+                                <span class="option-name" data-i18n="opt_small_farmer">Small / Marginal Farmer</span>
+                                <span class="option-sub" data-i18n="opt_small_farmer_sub">Landholding up to 2 Hectares</span>
+                            </div>
+                            <div class="calc-option-btn calc-opt-beneficiary" data-val="women_farmer">
+                                <span class="option-name" data-i18n="opt_women_farmer">Women Farmer / SHG</span>
+                                <span class="option-sub" data-i18n="opt_women_farmer_sub">Women-led Agri Enterprises</span>
+                            </div>
+                            <div class="calc-option-btn calc-opt-beneficiary" data-val="fpo">
+                                <span class="option-name" data-i18n="opt_fpo">FPO / Farmers Cooperative</span>
+                                <span class="option-sub" data-i18n="opt_fpo_sub">Registered Producer Groups</span>
+                            </div>
+                            <div class="calc-option-btn calc-opt-beneficiary" data-val="agri_startup">
+                                <span class="option-name" data-i18n="opt_agri_startup">Agri-Entrepreneur / Startup</span>
+                                <span class="option-sub" data-i18n="opt_agri_startup_sub">Modern Marketing Infrastructure</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Facility Selector -->
+                    <div class="calc-group">
+                        <label class="calc-label" data-i18n="lbl_facility">Select Infrastructure / Support Needed:</label>
+                        <div class="calc-options-grid">
+                            <div class="calc-option-btn calc-opt-facility active" data-val="vehicle">
+                                <span class="option-name" data-i18n="opt_fac_vehicle">Produce Transport Van (Amar Fasal)</span>
+                                <span class="option-sub">3-Wheeler / 4-Wheeler Small Commercial</span>
+                            </div>
+                            <div class="calc-option-btn calc-opt-facility" data-val="cold">
+                                <span class="option-name" data-i18n="opt_fac_cold">Solar Cold Room / Storage Unit</span>
+                                <span class="option-sub">5 MT - 20 MT On-Farm Cold Chamber</span>
+                            </div>
+                            <div class="calc-option-btn calc-opt-facility" data-val="packhouse">
+                                <span class="option-name" data-i18n="opt_fac_packhouse">Grading, Sorting & Packhouse</span>
+                                <span class="option-sub">Integrated Washing & Packaging Line</span>
+                            </div>
+                            <div class="calc-option-btn calc-opt-facility" data-val="kiosk">
+                                <span class="option-name" data-i18n="opt_fac_kiosk">Amar Dukan Modern Retail Kiosk</span>
+                                <span class="option-sub">Urban & Sub-urban Direct Selling Stall</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estimated Cost Slider -->
+                    <div class="calc-group">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.45rem;">
+                            <label class="calc-label" style="margin-bottom:0;" data-i18n="lbl_cost">Estimated Project Cost (₹ in Lakhs):</label>
+                            <span id="calcCostDisplay" style="font-weight:800; color:var(--primary); font-size:1.1rem;">₹3.5 Lakhs</span>
+                        </div>
+                        <input type="range" id="calcCostInput" min="0.5" max="25.0" step="0.5" value="3.5"
+                            style="width:100%; accent-color:var(--primary);">
+                    </div>
+                </div>
+
+                <!-- Calculation Result Side -->
+                <div class="calc-result-side">
+                    <div class="res-header">
+                        <span class="res-badge" data-i18n="res_subsidy_title">Eligible Government Subsidy</span>
+                        <div class="res-amount" id="calcResAmount">₹1.50 Lakhs</div>
+                        <div style="font-size:0.95rem; opacity:0.95;" id="calcResPercent">50% (Max ₹1.5L)</div>
+                    </div>
+
+                    <div>
+                        <div style="font-size:0.8rem; text-transform:uppercase; letter-spacing:0.05em; opacity:0.85; margin-bottom:0.3rem;"
+                            data-i18n="res_scheme_label">Recommended Scheme:</div>
+                        <div class="res-scheme-name" id="calcResScheme">Amar Fasal Amar Gari Scheme</div>
+
+                        <div class="res-breakdown-box">
+                            <div class="breakdown-row">
+                                <span>Total Project Cost:</span>
+                                <strong id="calcBreakTotal">₹3.50 Lakhs</strong>
+                            </div>
+                            <div class="breakdown-row">
+                                <span>Government Subsidy Grant:</span>
+                                <strong id="calcBreakGov" style="color:#fde047;">₹1.50 Lakhs</strong>
+                            </div>
+                            <div class="breakdown-row">
+                                <span>Farmer Contribution / Bank Loan:</span>
+                                <strong id="calcBreakOwn">₹2.00 Lakhs</strong>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-white" style="width:100%"
+                            onclick="showToast('Guidelines & Application Checklist Downloaded!', 'success')">
+                            📥 <span data-i18n="btn_apply_scheme">Download Application Guidelines</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4-Step Application Workflow -->
+            <div class="section-header" style="margin-top:4rem; margin-bottom:1.5rem;">
+                <h3 class="section-title" style="font-size:1.6rem;">How to Apply for Agricultural Subsidies</h3>
+                <p class="section-subtitle">Simplified 4-step digital onboarding process for individual growers and FPOs.</p>
+            </div>
+
+            <div class="workflow-grid">
+                <div class="workflow-step-card">
+                    <span class="step-number">Step 1</span>
+                    <h4 class="step-title">Online Application</h4>
+                    <p class="step-desc">Fill out the simplified grant application form with your Krishak Bandhu ID / Aadhaar card details.</p>
+                </div>
+                <div class="workflow-step-card">
+                    <span class="step-number">Step 2</span>
+                    <h4 class="step-title">Document Verification</h4>
+                    <p class="step-desc">District Agri-Marketing Officer (DAMO) inspects land records and quotations submitted.</p>
+                </div>
+                <div class="workflow-step-card">
+                    <span class="step-number">Step 3</span>
+                    <h4 class="step-title">Administrative Sanction</h4>
+                    <p class="step-desc">Receive formal in-principle sanction letter with direct subsidy allocation code.</p>
+                </div>
+                <div class="workflow-step-card">
+                    <span class="step-number">Step 4</span>
+                    <h4 class="step-title">Direct Bank Transfer (DBT)</h4>
+                    <p class="step-desc">Subsidy amount is credited directly to the beneficiary's linked bank account upon asset delivery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Common Footer Container (Rendered dynamically from components/footer.html) -->
+    <div id="common-footer"></div>
+
+    <script src="./js/app.js"></script>
+</body>
+
+</html>

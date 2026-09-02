@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "name": "Hooghly Agro Cold Storage Unit-1",
+    "district": "Hooghly",
+    "capacity": 12000,
+    "available": 3200,
+    "temp": "2°C - 4°C (Potato / Veg)",
+    "phone": "+91 98301 44551",
+    "status": "available",
+    "address": "Dhaniakhali, Hooghly - 712302"
+  },
+  {
+    "id": 2,
+    "name": "Burdwan Central Krishi Bhandar",
+    "district": "Burdwan",
+    "capacity": 15000,
+    "available": 1400,
+    "temp": "1°C - 3°C (Multi-Chamber)",
+    "phone": "+91 94340 77890",
+    "status": "limited",
+    "address": "Memari GT Road, East Burdwan - 713146"
+  },
+  {
+    "id": 3,
+    "name": "Nadia Kisan Cold Chain & Packhouse",
+    "district": "Nadia",
+    "capacity": 8500,
+    "available": 2800,
+    "temp": "0°C - 5°C (Horticulture)",
+    "phone": "+91 97321 66542",
+    "status": "available",
+    "address": "Ranaghat Agro Hub, Nadia - 741201"
+  },
+  {
+    "id": 4,
+    "name": "Malda Mango & Fruit Preservation Hub",
+    "district": "Malda",
+    "capacity": 6000,
+    "available": 850,
+    "temp": "4°C - 8°C (Ripening & Storage)",
+    "phone": "+91 94741 22300",
+    "status": "limited",
+    "address": "English Bazar Industrial Zone, Malda - 732101"
+  },
+  {
+    "id": 5,
+    "name": "Bankura Multi-Commodity Cold Unit",
+    "district": "Bankura",
+    "capacity": 10000,
+    "available": 4100,
+    "temp": "2°C - 6°C (Seeds & Veg)",
+    "phone": "+91 96472 88910",
+    "status": "available",
+    "address": "Bishnupur Bypass, Bankura - 722122"
+  },
+  {
+    "id": 6,
+    "name": "Siliguri Agri Logistic Cold Center",
+    "district": "Darjeeling / Siliguri",
+    "capacity": 14000,
+    "available": 5200,
+    "temp": "-2°C - 4°C (Export Hub)",
+    "phone": "+91 98002 11456",
+    "status": "available",
+    "address": "Matigara APMC Complex, Siliguri - 734010"
+  }
+]
