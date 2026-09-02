@@ -65,9 +65,10 @@
     --glass-shadow: 0 8px 32px 0 rgba(255, 147, 1, 0.14);
 
     --success: #16a34a;
-    --success-soft: #f0fdf4;
+    --success-dark: #15803d;
+    --success-soft: rgba(22, 163, 74, 0.12);
     --danger: #dc2626;
-    --danger-soft: #fef2f2;
+    --danger-soft: rgba(220, 38, 38, 0.12);
     --warning: #ff9301;
     --warning-soft: #fff7ed;
     --info: #0284c7;
@@ -115,6 +116,16 @@
     --glass-bg: rgba(28, 23, 19, 0.85);
     --glass-border: rgba(255, 147, 1, 0.28);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+
+    --success: #22c55e;
+    --success-dark: #16a34a;
+    --success-soft: rgba(34, 197, 94, 0.2);
+    --danger: #ef4444;
+    --danger-soft: rgba(239, 68, 68, 0.2);
+    --warning: #f59e0b;
+    --warning-soft: rgba(245, 158, 11, 0.2);
+    --info: #38bdf8;
+    --info-soft: rgba(56, 189, 248, 0.2);
 }
 
 /* Base Reset & Typography */
@@ -2889,7 +2900,7 @@ tr:hover .table-icon-box {
     position: relative;
     background: linear-gradient(135deg, rgba(255, 147, 1, 0.08) 0%, rgba(255, 246, 235, 0.95) 40%, rgba(255, 147, 1, 0.05) 100%);
     border-bottom: 1.5px solid rgba(255, 147, 1, 0.22);
-    padding: 3rem 0;
+    padding: 1.2rem 0;
     overflow: hidden;
     isolation: isolate;
 }
@@ -3959,6 +3970,10 @@ tr:hover .table-icon-box {
     .assay-grid-params {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .net-real-grid {
+        grid-template-columns: 1fr !important;
+    }
 }
 
 @media (max-width: 680px) {
@@ -3981,6 +3996,389 @@ tr:hover .table-icon-box {
     .lang-dropdown-menu {
         width: 240px;
         grid-template-columns: 1fr;
+    }
+
+    .net-real-comparison-boxes {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ==========================================================================
+   NET FARMER REALISATION ADVISORY ENGINE STYLES (DOC SECTION 9)
+   ========================================================================== */
+.net-realisation-card {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 2.25rem;
+    box-shadow: var(--shadow-lg);
+    margin-top: 1.5rem;
+}
+
+.net-real-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.net-real-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.net-real-output-card {
+    background: var(--bg-subtle);
+    border: 1.5px solid rgba(15, 104, 56, 0.25);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+}
+
+[data-theme="dark"] .net-real-output-card {
+    background: rgba(28, 23, 19, 0.9);
+    border-color: rgba(255, 147, 1, 0.3);
+}
+
+.net-real-comparison-boxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.25rem 0;
+}
+
+.real-box {
+    padding: 1.25rem 0.85rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.real-box.local-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+}
+
+.real-box.term-box {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1.5px solid var(--success);
+}
+
+.real-box .box-lbl {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.real-box .box-val {
+    font-size: 1.65rem;
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif;
+    color: var(--primary);
+    margin: 0.25rem 0;
+}
+
+.real-box .box-val small {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.real-box .box-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.net-real-verdict-box {
+    background: var(--bg-surface);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.15rem;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.verdict-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.95rem;
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    font-size: 0.88rem;
+    transition: all var(--transition-fast);
+}
+
+.verdict-tag.recommended,
+.verdict-tag.tag-success {
+    background: rgba(22, 163, 74, 0.14) !important;
+    color: #15803d !important;
+    border: 1.5px solid rgba(22, 163, 74, 0.45);
+}
+
+[data-theme="dark"] .verdict-tag.recommended,
+[data-theme="dark"] .verdict-tag.tag-success {
+    background: rgba(34, 197, 94, 0.22) !important;
+    color: #4ade80 !important;
+    border: 1.5px solid rgba(74, 222, 128, 0.55);
+    text-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
+}
+
+.verdict-tag.warning,
+.verdict-tag.tag-danger {
+    background: rgba(239, 68, 68, 0.14) !important;
+    color: #dc2626 !important;
+    border: 1.5px solid rgba(239, 68, 68, 0.45);
+}
+
+[data-theme="dark"] .verdict-tag.warning,
+[data-theme="dark"] .verdict-tag.tag-danger {
+    background: rgba(239, 68, 68, 0.22) !important;
+    color: #f87171 !important;
+    border: 1.5px solid rgba(248, 113, 113, 0.55);
+    text-shadow: 0 0 12px rgba(248, 113, 113, 0.3);
+}
+
+/* ==========================================================================
+   4-TIER SUPPLY CHAIN ARCHITECTURE (DOC SECTION 5)
+   ========================================================================== */
+.supply-chain-tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.tier-card {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 1.25rem;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.tier-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+.tier-badge {
+    position: absolute;
+    top: -10px;
+    left: 1.25rem;
+    background: var(--primary-gradient);
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.tier-icon {
+    font-size: 2.2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.tier-title {
+    font-size: 1.12rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.85rem;
+}
+
+.tier-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.tier-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+}
+
+.tier-features li span {
+    color: var(--success);
+    font-weight: 800;
+}
+
+.tech-item-card {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    transition: all var(--transition-fast);
+}
+
+.tech-item-card:hover {
+    background: var(--bg-surface);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   WEST BENGAL GI COMMODITY SHOWCASE (DOC SECTION 11)
+   ========================================================================== --> */
+.gi-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.gi-card {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+}
+
+.gi-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent);
+}
+
+.gi-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 147, 1, 0.15);
+    color: var(--accent-dark);
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+}
+
+.gi-icon {
+    font-size: 2.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.gi-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.25rem;
+}
+
+.gi-origin {
+    font-size: 0.82rem;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+}
+
+.gi-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.gi-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: auto;
+    margin-bottom: 1.25rem;
+}
+
+.gi-tags span {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    font-size: 0.72rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-full);
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.gi-link {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: color var(--transition-fast);
+}
+
+/* ==========================================================================
+   FLOATING BACK TO TOP BUTTON
+   ========================================================================== */
+.back-to-top-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    background: var(--primary-gradient);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 6px 20px rgba(255, 147, 1, 0.45);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.9);
+    transition: all var(--transition-normal);
+    z-index: 999;
+}
+
+.back-to-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.back-to-top-btn:hover {
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 10px 28px rgba(255, 147, 1, 0.6);
+    background: linear-gradient(135deg, #e67600 0%, #ffa500 100%);
+    color: #ffffff;
+}
+
+.back-to-top-btn:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+[data-theme="dark"] .back-to-top-btn {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 16px rgba(255, 147, 1, 0.35);
+    border-color: rgba(255, 147, 1, 0.4);
+}
+
+@media (max-width: 680px) {
+    .back-to-top-btn {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 42px;
+        height: 42px;
     }
 }
 

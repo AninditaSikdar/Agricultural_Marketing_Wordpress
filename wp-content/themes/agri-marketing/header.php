@@ -90,8 +90,8 @@ $theme_uri = get_template_directory_uri();
                 </a>
             </div>
             <div class="nav-item">
-                <a href="<?php echo esc_url(home_url('/schemes/')); ?>" class="nav-link <?php echo (is_page('schemes') || is_page_template('template-schemes.php')) ? 'active' : ''; ?>">
-                    <span data-i18n="nav_schemes">Schemes & Subsidies</span>
+                <a href="<?php echo esc_url(home_url('/logistics-freight/')); ?>" class="nav-link <?php echo (is_page('logistics-freight') || is_page_template('template-logistics.php')) ? 'active' : ''; ?>">
+                    <span data-i18n="nav_logistics">Logistics</span>
                 </a>
             </div>
             <div class="nav-item">
@@ -102,6 +102,16 @@ $theme_uri = get_template_directory_uri();
             <div class="nav-item">
                 <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="nav-link <?php echo (is_page('marketplace') || is_page_template('template-marketplace.php')) ? 'active' : ''; ?>">
                     <span data-i18n="nav_marketplace">Farm Connect</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="<?php echo esc_url(home_url('/ebijak-ledger/')); ?>" class="nav-link <?php echo (is_page('ebijak-ledger') || is_page_template('template-ebijak.php')) ? 'active' : ''; ?>">
+                    <span data-i18n="nav_ebijak">e-Bijak</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="<?php echo esc_url(home_url('/schemes/')); ?>" class="nav-link <?php echo (is_page('schemes') || is_page_template('template-schemes.php')) ? 'active' : ''; ?>">
+                    <span data-i18n="nav_schemes">Schemes & Subsidies</span>
                 </a>
             </div>
             <div class="nav-item">

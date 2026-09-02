@@ -83,6 +83,13 @@ if (empty(trim((string)$email))) {
     </div>
 </footer>
 
+<!-- Floating Back to Top Button -->
+<button type="button" class="back-to-top-btn" id="backToTopBtn" aria-label="Back to top" title="Back to top">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 15l-6-6-6 6"/>
+    </svg>
+</button>
+
 <script src="<?php echo esc_url($theme_uri . '/js/app.js'); ?>"></script>
 <?php wp_footer(); ?>
 </body>

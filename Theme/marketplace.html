@@ -63,22 +63,35 @@
     </section>
 
     <!-- Produce Marketplace Listings -->
-    <section class="section" style="padding: 2rem 0;">
+    <section class="section" style="padding: 2.5rem 0;">
         <div class="container">
             <!-- Header Actions -->
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
                 <div>
-                    <h2 style="font-size:1.3rem; font-weight:800; color:var(--text-main); margin-bottom:0.2rem;">Live Verified Farm Stocks & Active Lots</h2>
-                    <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Direct farm-gate offers with lab quality parameters and zero middleman commissions.</p>
+                    <h2 style="font-size:1.4rem; font-weight:800; color:var(--text-main); margin-bottom:0.2rem;">Live Verified Farm Stocks & Active Lots</h2>
+                    <p style="font-size:0.88rem; color:var(--text-muted); margin:0;">Direct farm-gate and FPO aggregation offers with certified lab quality parameters and zero middleman commissions.</p>
                 </div>
                 <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
-                    <button class="btn btn-primary" onclick="ModalManager.open('liveAuctionModal')">
-                        Enter E-Auction Floor
+                    <button class="btn btn-accent" onclick="ModalManager.open('sellRequestModal')">
+                        ➕ Post Farmer Sell Offer
                     </button>
-                    <a href="ebijak-ledger.html" class="btn btn-outline">
-                        Generate e-Bijak Bill
-                    </a>
+                    <button class="btn btn-primary" onclick="ModalManager.open('liveAuctionModal')">
+                        ⚡ Enter E-Auction Floor
+                    </button>
+                    <button class="btn btn-outline" onclick="ModalManager.open('bulkRfpModal')">
+                        🏢 Post Institutional RFP
+                    </button>
                 </div>
+            </div>
+
+            <!-- Marketplace Category Filter Tabs (Doc Section 6 & 11) -->
+            <div class="marketplace-category-tabs" style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1.75rem;">
+                <button class="category-pill active" data-mp-cat="all">All Produce (সকল ফসল)</button>
+                <button class="category-pill" data-mp-cat="grain">🌾 Cereals & Rice</button>
+                <button class="category-pill" data-mp-cat="veg">🥔 Vegetables</button>
+                <button class="category-pill" data-mp-cat="gi">🏷️ GI & Speciality (Malda/Sundarbans)</button>
+                <button class="category-pill" data-mp-cat="oilseed">🌻 Oilseeds & Spices</button>
+                <button class="category-pill" data-mp-cat="fpo">👥 FPO Aggregated Lots</button>
             </div>
 
             <!-- Dynamic Produce Grid -->
@@ -86,8 +99,82 @@
                 <!-- Populated dynamically via app.js -->
             </div>
 
+            <!-- ==========================================================================
+               INSTITUTIONAL BULK PROCUREMENT BOARD (DOC SECTION 16 & 7)
+               ========================================================================== -->
+            <div style="margin-top:4rem;">
+                <div class="section-header-flex">
+                    <div>
+                        <div class="section-tag">🏢 Institutional & Commercial Procurement</div>
+                        <h3 class="section-title" style="font-size:1.4rem;">Institutional Buyer Tenders & Demand Notices</h3>
+                        <p class="section-subtitle">
+                            Direct procurement for Hotels, Restaurants, Hospitals, Hostels, Railways, Supermarket Chains, and Food Processors from certified FPOs.
+                        </p>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" onclick="ModalManager.open('bulkRfpModal')">
+                            📢 Submit New Institutional Demand RFP
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mandi-table-container" style="margin-top:1rem;">
+                    <table class="mandi-table">
+                        <thead>
+                            <tr>
+                                <th>Buyer Organization</th>
+                                <th>Category</th>
+                                <th>Commodity Required</th>
+                                <th>Monthly Volume</th>
+                                <th>Delivery Location</th>
+                                <th>Target Spec</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Bengal State Food Supply Corp</strong></td>
+                                <td><span class="badge-apmc-licensed">Govt Institution</span></td>
+                                <td>🌾 Miniket / Gobindobhog Rice</td>
+                                <td><strong>1,200 MT</strong></td>
+                                <td>Burdwan Central Hub</td>
+                                <td>Moisture &lt; 12%, AGMARK Grade-I</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="showToast('Quote submission form opened for WB Food Corp', 'success'); ModalManager.open('produceInquiryModal');">Submit FPO Quote</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Eastern Supermarket Chain Ltd</strong></td>
+                                <td><span class="badge-verified-kyc">Retail Chain</span></td>
+                                <td>🥔 Jyoti Potato (45mm+ Size)</td>
+                                <td><strong>450 MT</strong></td>
+                                <td>Kolkata Warehouse</td>
+                                <td>Washed, Sorted, Graded</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="showToast('Quote submission form opened for Eastern Supermarkets', 'success'); ModalManager.open('produceInquiryModal');">Submit FPO Quote</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sunrise Food Processors</strong></td>
+                                <td><span class="badge-verified-kyc">Food Processor</span></td>
+                                <td>🌶️ Dried Red Chilli (Stemless)</td>
+                                <td><strong>180 MT</strong></td>
+                                <td>Purba Medinipur Plant</td>
+                                <td>High Oleoresin / Pungency</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="showToast('Quote submission form opened for Sunrise Processors', 'success'); ModalManager.open('produceInquiryModal');">Submit FPO Quote</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Railway Catering Division</strong></td>
+                                <td><span class="badge-apmc-licensed">Public Catering</span></td>
+                                <td>🧅 Nashik Red Onion</td>
+                                <td><strong>300 MT</strong></td>
+                                <td>Howrah Terminal Hub</td>
+                                <td>50-60mm, Dry Skin</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="showToast('Quote submission form opened for Railway Catering', 'success'); ModalManager.open('produceInquiryModal');">Submit FPO Quote</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- Trade Security & Quality Assurance Safeguards -->
-            <div class="section-header" style="margin-top:2.5rem; margin-bottom:1.25rem;">
+            <div class="section-header" style="margin-top:4rem; margin-bottom:1.25rem;">
                 <h3 class="section-title" style="font-size:1.35rem;">Direct Marketing & Quality Safeguards</h3>
                 <p class="section-subtitle" style="font-size:0.88rem;">How the State Agricultural Marketing Board guarantees secure trade and transaction transparency.</p>
             </div>
@@ -216,6 +303,106 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Farmer Produce Sell Request Modal (Doc Sec 7) -->
+    <div class="modal-overlay" id="sellRequestModal">
+        <div class="modal-card" style="max-width:540px;">
+            <div class="modal-header">
+                <h3 class="modal-title">🌾 Farmer Direct Sell Request</h3>
+                <button type="button" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">
+                    List your harvest produce directly on the State Agricultural Marketing Board portal for verified buyers and institutional procurement.
+                </p>
+                <form onsubmit="event.preventDefault(); showToast('Sell Request submitted successfully! Local APMC Field Officer will verify lot.', 'success'); ModalManager.close('sellRequestModal');">
+                    <div class="form-grid-2">
+                        <div class="calc-group">
+                            <label class="calc-label">Farmer / FPO Name:</label>
+                            <input type="text" class="form-input" placeholder="e.g. Ramesh Ghosh" required>
+                        </div>
+                        <div class="calc-group">
+                            <label class="calc-label">Phone / WhatsApp:</label>
+                            <input type="tel" class="form-input" placeholder="e.g. 9830012345" required>
+                        </div>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="calc-group">
+                            <label class="calc-label">Crop & Variety:</label>
+                            <input type="text" class="form-input" placeholder="e.g. Gobindobhog Rice" required>
+                        </div>
+                        <div class="calc-group">
+                            <label class="calc-label">Available Quantity (Qtl):</label>
+                            <input type="number" class="form-input" placeholder="100" required>
+                        </div>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="calc-group">
+                            <label class="calc-label">Expected Price (₹/Qtl):</label>
+                            <input type="number" class="form-input" placeholder="6800" required>
+                        </div>
+                        <div class="calc-group">
+                            <label class="calc-label">Mandi / District Location:</label>
+                            <input type="text" class="form-input" placeholder="e.g. Burdwan" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.5rem;">
+                        🚀 Publish Sell Offer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Institutional Bulk RFP Post Modal (Doc Sec 7 & 16) -->
+    <div class="modal-overlay" id="bulkRfpModal">
+        <div class="modal-card" style="max-width:540px;">
+            <div class="modal-header">
+                <h3 class="modal-title">🏢 Institutional Bulk Procurement RFP</h3>
+                <button type="button" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">
+                    Post your bulk commodity demand (Hotels, Hospitals, Supermarkets, Food Processors, Government Caterers) to receive competitive FPO bids.
+                </p>
+                <form onsubmit="event.preventDefault(); showToast('Institutional RFP posted! Verified FPOs will submit quotations.', 'success'); ModalManager.close('bulkRfpModal');">
+                    <div class="calc-group">
+                        <label class="calc-label">Organization / Buyer Name:</label>
+                        <input type="text" class="form-input" placeholder="e.g. Metro Retail Supermarkets Ltd." required>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="calc-group">
+                            <label class="calc-label">Buyer Category:</label>
+                            <select class="form-select" required>
+                                <option value="hotel">Hotel / Restaurant Chain</option>
+                                <option value="supermarket">Supermarket / Retail Chain</option>
+                                <option value="processor">Food Processing Company</option>
+                                <option value="hospital">Hospital / Institution / Hostel</option>
+                                <option value="exporter">Agri Exporter</option>
+                            </select>
+                        </div>
+                        <div class="calc-group">
+                            <label class="calc-label">Contact Phone:</label>
+                            <input type="tel" class="form-input" placeholder="e.g. 9830012345" required>
+                        </div>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="calc-group">
+                            <label class="calc-label">Required Commodity:</label>
+                            <input type="text" class="form-input" placeholder="e.g. Potato / Yellow Mustard" required>
+                        </div>
+                        <div class="calc-group">
+                            <label class="calc-label">Monthly Volume (Qtl/MT):</label>
+                            <input type="number" class="form-input" placeholder="500" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-accent" style="width:100%; margin-top:0.5rem;">
+                        📢 Post Institutional RFP Tender
+                    </button>
+                </form>
             </div>
         </div>
     </div>

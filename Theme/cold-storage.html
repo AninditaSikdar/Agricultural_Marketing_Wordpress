@@ -65,9 +65,64 @@
     <!-- Cold Storage Directory -->
     <section class="section">
         <div class="container">
+            <!-- Warehousing & Cold Chain Spectrum (Doc Section 3 & 4) -->
+            <div style="margin-bottom:3.5rem;">
+                <div class="section-header">
+                    <div class="section-tag">❄️ Storage Infrastructure Types</div>
+                    <h2 class="section-title">Warehousing, Silos & Cold Chain Spectrum</h2>
+                    <p class="section-subtitle">
+                        Comprehensive storage network from rural godowns and grain silos to multi-commodity cold chains and solar-powered aggregation rooms.
+                    </p>
+                </div>
+
+                <div class="storage-types-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem;">
+                    <div class="storage-type-card" style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:1.5rem; box-shadow:var(--shadow-sm);">
+                        <div style="font-size:2rem; margin-bottom:0.5rem;">🥔</div>
+                        <h3 style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom:0.35rem;">Potato Preservation Units</h3>
+                        <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">Automated temperature (2°C - 4°C) with 85-90% RH and CIPC anti-sprouting treatment. e-NWR loan accredited.</p>
+                        <span class="badge-verified-kyc">650+ Active Units</span>
+                    </div>
+
+                    <div class="storage-type-card" style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:1.5rem; box-shadow:var(--shadow-sm);">
+                        <div style="font-size:2rem; margin-bottom:0.5rem;">🍎</div>
+                        <h3 style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom:0.35rem;">Multi-Commodity Cold Chain</h3>
+                        <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">Multi-chamber zones for fruits, vegetables, fish, dairy, and ripening chambers for Malda Mango and bananas.</p>
+                        <span class="badge-apmc-licensed">IoT Monitored</span>
+                    </div>
+
+                    <div class="storage-type-card" style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:1.5rem; box-shadow:var(--shadow-sm);">
+                        <div style="font-size:2rem; margin-bottom:0.5rem;">🌾</div>
+                        <h3 style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom:0.35rem;">Steel Grain Silos & Godowns</h3>
+                        <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">PACS and FPO grain silos with automated temperature aeration and pest fumigation for long-term grain preservation.</p>
+                        <span class="badge-verified-kyc">WDRA Certified</span>
+                    </div>
+
+                    <div class="storage-type-card" style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:1.5rem; box-shadow:var(--shadow-sm);">
+                        <div style="font-size:2rem; margin-bottom:0.5rem;">🧅</div>
+                        <h3 style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom:0.35rem;">Ventilated Onion Storages</h3>
+                        <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">Specialized low-humidity natural and forced-draft ventilated structures preventing bulb rot and weight loss.</p>
+                        <span class="badge-apmc-licensed">Subsidized 50%</span>
+                    </div>
+
+                    <div class="storage-type-card" style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:1.5rem; box-shadow:var(--shadow-sm);">
+                        <div style="font-size:2rem; margin-bottom:0.5rem;">☀️</div>
+                        <h3 style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom:0.35rem;">Solar-Powered Rural Cold Rooms</h3>
+                        <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">Micro cold rooms (5-10 MT) installed at village farmer aggregation points for daily vegetable pre-cooling.</p>
+                        <span class="badge-verified-kyc">Zero Grid Power</span>
+                    </div>
+
+                    <div class="storage-type-card" style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:1.5rem; box-shadow:var(--shadow-sm);">
+                        <div style="font-size:2rem; margin-bottom:0.5rem;">🌱</div>
+                        <h3 style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom:0.35rem;">Seed & Fertiliser Warehouses</h3>
+                        <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">Scientific input storage ensuring moisture-free preservation of high-yield certified seed stocks and nutrients.</p>
+                        <span class="badge-apmc-licensed">Certified Inputs</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- Filter Bar -->
             <div style="max-width:420px; margin:0 auto 2.5rem; text-align:center;">
-                <label class="calc-label" style="font-weight:700;">Filter by District / Region:</label>
+                <label class="calc-label" style="font-weight:700;">Filter Cold Storage Facilities by District:</label>
                 <select id="coldStorageDistFilter" class="form-select" aria-label="Filter Cold Storage by District">
                     <option value="all">All Districts (সকল জেলা)</option>
                     <option value="Hooghly">Hooghly (হুগলি)</option>

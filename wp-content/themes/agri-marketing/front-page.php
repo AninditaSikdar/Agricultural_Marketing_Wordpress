@@ -422,16 +422,126 @@ if (empty($hero_img)) {
 </section>
 
 <!-- ==========================================================================
-   SERVICES & INFRASTRUCTURE SLIDER
+   MODULE A.4: PRICE DISCOVERY & NET FARMER REALISATION ADVISORY ENGINE (DOC SEC 8 & 9)
    ========================================================================== -->
-<section class="section section-bg-alt services-slider-section" id="servicesSection">
+<section class="section section-bg-alt" id="netRealisationSection">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag" data-i18n="net_real_tag">⚖️ Price Discovery & Net Farmer Advisory</div>
+            <h2 class="section-title" data-i18n="net_real_title">Net Farmer Realisation Calculator & Corridor Advisory</h2>
+            <p class="section-subtitle" data-i18n="net_real_sub">
+                Instead of simply showing the highest gross market price, our intelligence engine calculates:
+                <strong style="color:var(--primary); display:block; margin-top:0.4rem; font-family:'Outfit';">Net Realisation = Selling Price – Transportation – Handling – Commission – Storage – Statutory Cess</strong>
+            </p>
+        </div>
+
+        <div class="net-realisation-card">
+            <div class="net-real-grid">
+                <!-- Left: Interactive Inputs -->
+                <div class="net-real-inputs">
+                    <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-main); margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem;">
+                        <span>⚙️ Trade & Cost Parameters</span>
+                    </h3>
+
+                    <div class="form-grid-2">
+                        <div class="calc-group">
+                            <label class="calc-label">Select Commodity:</label>
+                            <select id="nrCropSelect" class="form-select">
+                                <option value="potato" data-price-local="1540" data-price-term="1780" data-loss="2">🥔 Potato (Jyoti Grade-A)</option>
+                                <option value="rice" data-price-local="6500" data-price-term="7250" data-loss="1">🌾 Gobindobhog Rice</option>
+                                <option value="onion" data-price-local="2350" data-price-term="2680" data-loss="3">🧅 Onion (Nashik Red)</option>
+                                <option value="chilli" data-price-local="8200" data-price-term="9400" data-loss="2">🌶️ Purba Medinipur Chilli</option>
+                                <option value="mango" data-price-local="4500" data-price-term="5800" data-loss="4">🥭 Malda Himsagar Mango</option>
+                            </select>
+                        </div>
+                        <div class="calc-group">
+                            <label class="calc-label">Lot Quantity (in Quintals):</label>
+                            <input type="number" id="nrQuantity" class="form-input" value="100" min="10" max="1000">
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="calc-group">
+                            <label class="calc-label">Local Mandi Selling Price (₹/Qtl):</label>
+                            <input type="number" id="nrLocalPrice" class="form-input" value="1540">
+                        </div>
+                        <div class="calc-group">
+                            <label class="calc-label">Terminal / Distant Price (₹/Qtl):</label>
+                            <input type="number" id="nrTermPrice" class="form-input" value="1780">
+                        </div>
+                    </div>
+
+                    <div class="form-grid-3" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:0.75rem;">
+                        <div class="calc-group">
+                            <label class="calc-label">Transport (₹/Qtl):</label>
+                            <input type="number" id="nrTransport" class="form-input" value="85">
+                        </div>
+                        <div class="calc-group">
+                            <label class="calc-label">Handling/Hamali (₹/Qtl):</label>
+                            <input type="number" id="nrHandling" class="form-input" value="25">
+                        </div>
+                        <div class="calc-group">
+                            <label class="calc-label">Commission (₹/Qtl):</label>
+                            <input type="number" id="nrCommission" class="form-input" value="30">
+                        </div>
+                    </div>
+
+                    <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem; background:rgba(255, 147, 1, 0.08); padding:0.6rem 0.85rem; border-radius:var(--radius-md); border-left:3px solid var(--accent);">
+                        💡 <strong>Advisory Rule:</strong> Direct dispatch to terminal market is recommended only when Net Realisation exceeds Local Mandi return by ≥ 5%.
+                    </div>
+                </div>
+
+                <!-- Right: Calculation Breakdown & Result Box -->
+                <div class="net-real-output-card">
+                    <div style="font-size:0.82rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; font-weight:700;">Comparative Farmer Return</div>
+
+                    <div class="net-real-comparison-boxes">
+                        <div class="real-box local-box">
+                            <div class="box-lbl">Option A: Local Mandi</div>
+                            <div class="box-val" id="nrLocalNet">₹1,515 <small>/Qtl</small></div>
+                            <div class="box-sub">Gross: ₹1,540 | Cess: ₹25</div>
+                        </div>
+                        <div class="real-box term-box">
+                            <div class="box-lbl">Option B: Terminal Market</div>
+                            <div class="box-val" id="nrTermNet" style="color:var(--success);">₹1,640 <small>/Qtl</small></div>
+                            <div class="box-sub">Gross: ₹1,780 | Deductions: ₹140</div>
+                        </div>
+                    </div>
+
+                    <div class="net-real-verdict-box" id="nrVerdictBox">
+                        <div class="verdict-tag recommended">
+                            ✅ Recommended: Dispatch to Terminal Market
+                        </div>
+                        <div style="font-size:0.92rem; font-weight:700; color:var(--text-main); margin-top:0.6rem;" id="nrGainText">
+                            Farmer gains additional <strong style="color:var(--success);">+₹12,500 (+8.2%)</strong> Net Realisation on 100 Qtl lot!
+                        </div>
+                    </div>
+
+                    <div style="display:flex; gap:0.6rem; margin-top:1.25rem;">
+                        <a href="<?php echo esc_url(home_url('/logistics-freight/')); ?>" class="btn btn-primary" style="flex:1;">
+                            🚛 Book Freight Dispatch →
+                        </a>
+                        <button type="button" class="btn btn-outline" onclick="ModalManager.open('sellRequestModal')">
+                            📝 Post Sell Lot
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+   SERVICES & INFRASTRUCTURE SLIDER (10 DOCUMENT PILLARS - SEC 1 TO 19)
+   ========================================================================== -->
+<section class="section services-slider-section" id="servicesSection">
     <div class="container">
         <div class="section-header-flex">
             <div class="section-header-left">
-                <div class="section-tag" data-i18n="services_tag">🌟 Comprehensive Services</div>
-                <h2 class="section-title" data-i18n="services_title">Agricultural Marketing Services & Infrastructure</h2>
+                <div class="section-tag" data-i18n="services_tag">🌟 Comprehensive Infrastructure</div>
+                <h2 class="section-title" data-i18n="services_title">Agricultural Marketing Services & Infrastructure Grid</h2>
                 <p class="section-subtitle" data-i18n="services_subtitle">
-                    Access real-time commodity rates, government subsidies, cold chain storage facilities, and farm produce marketing.
+                    Explore end-to-end services across regulated markets, post-harvest processing, multi-tier logistics, cold chain, and direct trade.
                 </p>
             </div>
             <div class="slider-arrow-controls">
@@ -442,71 +552,239 @@ if (empty($hero_img)) {
 
         <div class="services-slider-container" id="servicesSliderContainer">
             <div class="services-slider-track" id="servicesSliderTrack">
+                <!-- 1. Daily Mandi Rates & AGMARKNET 2.0 (Sec 8) -->
                 <div class="service-slide-item">
                     <div class="service-card">
                         <div class="service-card-icon">📈</div>
-                        <h3 class="service-card-title" data-i18n="srv_mandi_title">Daily Mandi Rates</h3>
+                        <h3 class="service-card-title" data-i18n="srv_mandi_title">Daily Mandi Rates & Bhav</h3>
                         <p class="service-card-desc" data-i18n="srv_mandi_desc">
-                            Live APMC checkpost prices, 24-hour trends, modal price comparison, and interactive 7/30-day canvas charts.
+                            Live AGMARKNET 2.0 APMC prices, 24-hour arrivals, inter-district spread, and interactive 7/30-day price intelligence visualizer.
                         </p>
                         <a href="<?php echo esc_url(home_url('/mandi-rates/')); ?>" class="service-card-link" data-i18n="srv_mandi_link">Explore Mandi Rates →</a>
                     </div>
                 </div>
 
+                <!-- 2. e-Bijak Invoicing & Ledgers (Sec 7) -->
                 <div class="service-slide-item">
                     <div class="service-card">
                         <div class="service-card-icon" style="background:rgba(217, 119, 6, 0.15); color:var(--accent-dark);">📑</div>
-                        <h3 class="service-card-title" data-i18n="srv_ebijak_title">e-Bijak Digital Ledgers</h3>
+                        <h3 class="service-card-title" data-i18n="srv_ebijak_title">e-Bijak Digital Invoicing</h3>
                         <p class="service-card-desc" data-i18n="srv_ebijak_desc">
-                            Digital invoice generator with statutory fee breakdown, APMC cess, commission rates, and digital khata.
+                            Automated digital invoicing calculating APMC market cess (1.5%), commission %, hamali fees, and client digital ledgers (Khata).
                         </p>
-                        <a href="<?php echo esc_url(home_url('/ebijak-ledger/')); ?>" class="service-card-link" data-i18n="srv_ebijak_link">Open e-Bijak Hub →</a>
+                        <a href="<?php echo esc_url(home_url('/ebijak-ledger/')); ?>" class="service-card-link" data-i18n="srv_ebijak_link">Generate e-Bijak Bill →</a>
                     </div>
                 </div>
 
+                <!-- 3. 4-Tier Agri-Logistics & Freight Hub (Sec 5) -->
                 <div class="service-slide-item">
                     <div class="service-card">
                         <div class="service-card-icon" style="background:rgba(16, 185, 129, 0.15); color:var(--success);">🚛</div>
-                        <h3 class="service-card-title" data-i18n="srv_freight_title">Freight & Logistics Hub</h3>
+                        <h3 class="service-card-title" data-i18n="srv_freight_title">4-Tier Agri-Logistics Hub</h3>
                         <p class="service-card-desc" data-i18n="srv_freight_desc">
-                            Transport freight cost estimator, vehicle dispatch, and WDRA-accredited warehouse locator with e-NWR.
+                            Farm-to-hub transit, GPS tracking, load optimization, digital LR challans, and commercial fleet dispatch with subsidy integration.
                         </p>
                         <a href="<?php echo esc_url(home_url('/logistics-freight/')); ?>" class="service-card-link" data-i18n="srv_freight_link">Calculate Freight →</a>
                     </div>
                 </div>
 
-                <div class="service-slide-item">
-                    <div class="service-card">
-                        <div class="service-card-icon" style="background:var(--accent-soft); color:var(--accent-dark);">🧮</div>
-                        <h3 class="service-card-title" data-i18n="srv_schemes_title">Schemes & Subsidies</h3>
-                        <p class="service-card-desc" data-i18n="srv_schemes_desc">
-                            Amar Fasal Amar Gari vehicle subsidy, Sufal Bangla kiosks, and our 3-click interactive subsidy calculator.
-                        </p>
-                        <a href="<?php echo esc_url(home_url('/schemes/')); ?>" class="service-card-link" data-i18n="srv_schemes_link">Calculate Subsidy →</a>
-                    </div>
-                </div>
-
+                <!-- 4. WDRA Cold Storage & Grain Silos (Sec 3 & 4) -->
                 <div class="service-slide-item">
                     <div class="service-card">
                         <div class="service-card-icon" style="background:rgba(2, 132, 199, 0.15); color:var(--info);">❄️</div>
-                        <h3 class="service-card-title" data-i18n="srv_cold_title">Cold Storage Grid</h3>
+                        <h3 class="service-card-title" data-i18n="srv_cold_title">Cold Storage & Silos</h3>
                         <p class="service-card-desc" data-i18n="srv_cold_desc">
-                            Real-time MT capacity across districts, temperature zones, and e-NWR pledge financing eligibility.
+                            Multi-commodity cold storage, potato preservation, grain silos, and electronic Negotiable Warehouse Receipt (e-NWR) pledge financing.
                         </p>
                         <a href="<?php echo esc_url(home_url('/cold-storage/')); ?>" class="service-card-link" data-i18n="srv_cold_link">Find Storage Units →</a>
                     </div>
                 </div>
 
+                <!-- 5. Farm Connect & Direct Trade (Sec 7 & 16) -->
                 <div class="service-slide-item">
                     <div class="service-card">
                         <div class="service-card-icon" style="background:rgba(99, 102, 241, 0.15); color:#6366f1;">🤝</div>
-                        <h3 class="service-card-title" data-i18n="srv_market_title">Farm Connect Hub</h3>
+                        <h3 class="service-card-title" data-i18n="srv_market_title">Farm Connect Marketplace</h3>
                         <p class="service-card-desc" data-i18n="srv_market_desc">
-                            Direct farm-to-buyer e-marketplace for verified grains, vegetables, spices, and live auction bidding.
+                            Direct farm-to-buyer e-marketplace for verified produce, institutional bulk procurement RFPs, and transparent live electronic auction floor.
                         </p>
-                        <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="service-card-link" data-i18n="srv_market_link">View Farm Listings →</a>
+                        <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="service-card-link" data-i18n="srv_market_link">View Produce Lots →</a>
                     </div>
                 </div>
+
+                <!-- 6. Post-Harvest & Quality Assaying (Sec 2 & 10) -->
+                <div class="service-slide-item">
+                    <div class="service-card">
+                        <div class="service-card-icon" style="background:rgba(168, 85, 247, 0.15); color:#a855f7;">🧪</div>
+                        <h3 class="service-card-title">Post-Harvest & Quality Labs</h3>
+                        <p class="service-card-desc">
+                            Scientific moisture testing, grade determination, visual purity, and AGMARK laboratory certificates with QR code traceability.
+                        </p>
+                        <a href="<?php echo esc_url(home_url('/about/')); ?>" class="service-card-link">View Lab Infrastructure →</a>
+                    </div>
+                </div>
+
+                <!-- 7. Regional GI Produce & Branding (Sec 11) -->
+                <div class="service-slide-item">
+                    <div class="service-card">
+                        <div class="service-card-icon" style="background:rgba(236, 72, 153, 0.15); color:#ec4899;">🏷️</div>
+                        <h3 class="service-card-title">GI Produce & Branding Hub</h3>
+                        <p class="service-card-desc">
+                            Promoting West Bengal GI commodities: Malda Mango, Purba Medinipur Chilli, Bankura Rice, and Sundarbans Honey with retail packaging.
+                        </p>
+                        <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="service-card-link">Explore GI Produce →</a>
+                    </div>
+                </div>
+
+                <!-- 8. Krishak Bazar Managed Services (Sec 1 & 17) -->
+                <div class="service-slide-item">
+                    <div class="service-card">
+                        <div class="service-card-icon" style="background:rgba(20, 184, 166, 0.15); color:#14b8a6;">🏛️</div>
+                        <h3 class="service-card-title">Krishak Bazar O&M Services</h3>
+                        <p class="service-card-desc">
+                            Comprehensive market administration, stall allocations, shop-cum-godowns, electronic weighbridges, and waste management.
+                        </p>
+                        <a href="<?php echo esc_url(home_url('/about/')); ?>" class="service-card-link">Explore Market Yards →</a>
+                    </div>
+                </div>
+
+                <!-- 9. FPO & Farmer Aggregation (Sec 6 & 14) -->
+                <div class="service-slide-item">
+                    <div class="service-card">
+                        <div class="service-card-icon" style="background:rgba(249, 115, 22, 0.15); color:#f97316;">👥</div>
+                        <h3 class="service-card-title">FPO Marketing Support Center</h3>
+                        <p class="service-card-desc">
+                            Dedicated FPO registration, collective bargaining, bulk procurement aggregation, buyer matching, and working-capital advisory.
+                        </p>
+                        <a href="<?php echo esc_url(home_url('/schemes/')); ?>" class="service-card-link">FPO Support Services →</a>
+                    </div>
+                </div>
+
+                <!-- 10. Export Infrastructure & Cargo (Sec 13) -->
+                <div class="service-slide-item">
+                    <div class="service-card">
+                        <div class="service-card-icon" style="background:rgba(59, 130, 246, 0.15); color:#3b82f6;">✈️</div>
+                        <h3 class="service-card-title">Export Pack Houses & Logistics</h3>
+                        <p class="service-card-desc">
+                            APEDA certified export pack houses, integrated cold chains, container consolidation, and port cargo logistics for mango, tea, and rice.
+                        </p>
+                        <a href="<?php echo esc_url(home_url('/about/')); ?>" class="service-card-link">Export Facilities →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+   MODULE B.1: WEST BENGAL REGIONAL GI & SPECIALITY COMMODITY SHOWCASE (DOC SEC 11)
+   ========================================================================== -->
+<section class="section section-bg-alt" id="giShowcaseSection">
+    <div class="container">
+        <div class="section-header-flex">
+            <div>
+                <div class="section-tag">🏷️ Geographical Indication (GI) & Speciality Produce</div>
+                <h2 class="section-title">West Bengal Flagship Commodity Branding</h2>
+                <p class="section-subtitle">
+                    Dedicated commodity-specific infrastructure, branding, certified packaging, and QR traceability for indigenous agricultural wealth.
+                </p>
+            </div>
+            <div>
+                <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="btn btn-outline">
+                    🛒 Browse All GI Produce Lots →
+                </a>
+            </div>
+        </div>
+
+        <div class="gi-showcase-grid">
+            <!-- 1. Malda Mango -->
+            <div class="gi-card">
+                <div class="gi-badge">GI Tagged</div>
+                <div class="gi-icon">🥭</div>
+                <h3 class="gi-title">Malda Mango (Fazli & Himsagar)</h3>
+                <p class="gi-origin">📍 District: Malda (মালদা)</p>
+                <p class="gi-desc">Famous for sweet pulp and high export demand. Supported by dedicated cold rooms, vapor heat treatment, and packaging centres.</p>
+                <div class="gi-tags">
+                    <span>Export Quality</span>
+                    <span>APEDA Certified</span>
+                    <span>Traceable</span>
+                </div>
+                <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="gi-link">View Malda Lots →</a>
+            </div>
+
+            <!-- 2. Purba Medinipur Chilli -->
+            <div class="gi-card">
+                <div class="gi-badge">Speciality Cluster</div>
+                <div class="gi-icon">🌶️</div>
+                <h3 class="gi-title">Purba Medinipur Chilli</h3>
+                <p class="gi-origin">📍 District: Purba Medinipur (পূর্ব মেদিনীপুর)</p>
+                <p class="gi-desc">High capsaicin content and vibrant color. Supported by commodity-specific drying yards, sorting facilities, and bulk processing.</p>
+                <div class="gi-tags">
+                    <span>High Pungency</span>
+                    <span>Direct FPO</span>
+                    <span>Lab Tested</span>
+                </div>
+                <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="gi-link">View Chilli Lots →</a>
+            </div>
+
+            <!-- 3. Bankura Gobindobhog Rice -->
+            <div class="gi-card">
+                <div class="gi-badge">GI Tagged</div>
+                <div class="gi-icon">🌾</div>
+                <h3 class="gi-title">Bankura Gobindobhog Rice</h3>
+                <p class="gi-origin">📍 District: Bankura & Burdwan (বাঁকুড়া / বর্ধমান)</p>
+                <p class="gi-desc">Aromatic short-grain heritage rice. Premium grading, dehusking, destoning, and vacuum retail packaging support.</p>
+                <div class="gi-tags">
+                    <span>Aromatic Heritage</span>
+                    <span>AGMARK Graded</span>
+                    <span>100% Pure</span>
+                </div>
+                <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="gi-link">View Rice Lots →</a>
+            </div>
+
+            <!-- 4. Sundarbans Organic Honey -->
+            <div class="gi-card">
+                <div class="gi-badge">GI Tagged</div>
+                <div class="gi-icon">🍯</div>
+                <h3 class="gi-title">Sundarbans Mangrove Honey</h3>
+                <p class="gi-origin">📍 District: South 24 Parganas (সুন্দরবন)</p>
+                <p class="gi-desc">Pure wild mangrove forest honey with high therapeutic properties. AGMARK Grade-A certified with FSSAI compliance.</p>
+                <div class="gi-tags">
+                    <span>100% Wild Forest</span>
+                    <span>AGMARK Grade-A</span>
+                    <span>FSSAI Compliant</span>
+                </div>
+                <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="gi-link">View Honey Lots →</a>
+            </div>
+
+            <!-- 5. Nadia Fresh Vegetables -->
+            <div class="gi-card">
+                <div class="gi-badge">Agri Export Cluster</div>
+                <div class="gi-icon">🥬</div>
+                <h3 class="gi-title">Nadia Intensive Vegetables</h3>
+                <p class="gi-origin">📍 District: Nadia (নদিয়া)</p>
+                <p class="gi-desc">High-yield direct farm-fresh greens and exotic vegetables connected to Sufal Bangla retail hubs via reefer logistics.</p>
+                <div class="gi-tags">
+                    <span>Same-Day Harvest</span>
+                    <span>Sufal Bangla</span>
+                    <span>0% Residue</span>
+                </div>
+                <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="gi-link">View Vegetable Lots →</a>
+            </div>
+
+            <!-- 6. Darjeeling Orthodox Tea -->
+            <div class="gi-card">
+                <div class="gi-badge">GI Tagged</div>
+                <div class="gi-icon">🍵</div>
+                <h3 class="gi-title">Darjeeling Orthodox Tea</h3>
+                <p class="gi-origin">📍 District: Darjeeling (দার্জিলিং)</p>
+                <p class="gi-desc">The 'Champagne of Teas' with distinct muscatel flavour. Complete electronic auction catalogue and international export testing.</p>
+                <div class="gi-tags">
+                    <span>World GI</span>
+                    <span>Single Estate</span>
+                    <span>E-Auction</span>
+                </div>
+                <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="gi-link">View Tea Lots →</a>
             </div>
         </div>
     </div>
@@ -725,6 +1003,106 @@ if (empty($hero_img)) {
                 </div>
                 <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.5rem;">
                     ✨ Activate Free SMS Alerts
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 8. Farmer Produce Sell Request Modal (Doc Sec 7) -->
+<div class="modal-overlay" id="sellRequestModal">
+    <div class="modal-card" style="max-width:540px;">
+        <div class="modal-header">
+            <h3 class="modal-title">🌾 Farmer Direct Sell Request</h3>
+            <button type="button" class="modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">
+                List your harvest produce directly on the State Agricultural Marketing Board portal for verified buyers and institutional procurement.
+            </p>
+            <form onsubmit="event.preventDefault(); showToast('Sell Request submitted successfully! Local APMC Field Officer will verify lot.', 'success'); ModalManager.close('sellRequestModal');">
+                <div class="form-grid-2">
+                    <div class="calc-group">
+                        <label class="calc-label">Farmer / FPO Name:</label>
+                        <input type="text" class="form-input" placeholder="e.g. Ramesh Ghosh" required>
+                    </div>
+                    <div class="calc-group">
+                        <label class="calc-label">Phone / WhatsApp:</label>
+                        <input type="tel" class="form-input" placeholder="e.g. 9830012345" required>
+                    </div>
+                </div>
+                <div class="form-grid-2">
+                    <div class="calc-group">
+                        <label class="calc-label">Crop & Variety:</label>
+                        <input type="text" class="form-input" placeholder="e.g. Gobindobhog Rice" required>
+                    </div>
+                    <div class="calc-group">
+                        <label class="calc-label">Available Quantity (Qtl):</label>
+                        <input type="number" class="form-input" placeholder="100" required>
+                    </div>
+                </div>
+                <div class="form-grid-2">
+                    <div class="calc-group">
+                        <label class="calc-label">Expected Price (₹/Qtl):</label>
+                        <input type="number" class="form-input" placeholder="6800" required>
+                    </div>
+                    <div class="calc-group">
+                        <label class="calc-label">Mandi / District Location:</label>
+                        <input type="text" class="form-input" placeholder="e.g. Burdwan" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.5rem;">
+                    🚀 Publish Sell Offer
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 9. Institutional Bulk RFP Post Modal (Doc Sec 7 & 16) -->
+<div class="modal-overlay" id="bulkRfpModal">
+    <div class="modal-card" style="max-width:540px;">
+        <div class="modal-header">
+            <h3 class="modal-title">🏢 Institutional Bulk Procurement RFP</h3>
+            <button type="button" class="modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">
+                Post your bulk commodity demand (Hotels, Hospitals, Supermarkets, Food Processors, Government Caterers) to receive competitive FPO bids.
+            </p>
+            <form onsubmit="event.preventDefault(); showToast('Institutional RFP posted! Verified FPOs will submit quotations.', 'success'); ModalManager.close('bulkRfpModal');">
+                <div class="calc-group">
+                    <label class="calc-label">Organization / Buyer Name:</label>
+                    <input type="text" class="form-input" placeholder="e.g. Metro Retail Supermarkets Ltd." required>
+                </div>
+                <div class="form-grid-2">
+                    <div class="calc-group">
+                        <label class="calc-label">Buyer Category:</label>
+                        <select class="form-select" required>
+                            <option value="hotel">Hotel / Restaurant Chain</option>
+                            <option value="supermarket">Supermarket / Retail Chain</option>
+                            <option value="processor">Food Processing Company</option>
+                            <option value="hospital">Hospital / Institution / Hostel</option>
+                            <option value="exporter">Agri Exporter</option>
+                        </select>
+                    </div>
+                    <div class="calc-group">
+                        <label class="calc-label">Contact Phone:</label>
+                        <input type="tel" class="form-input" placeholder="e.g. 9830012345" required>
+                    </div>
+                </div>
+                <div class="form-grid-2">
+                    <div class="calc-group">
+                        <label class="calc-label">Required Commodity:</label>
+                        <input type="text" class="form-input" placeholder="e.g. Potato / Yellow Mustard" required>
+                    </div>
+                    <div class="calc-group">
+                        <label class="calc-label">Monthly Volume (Qtl/MT):</label>
+                        <input type="number" class="form-input" placeholder="500" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-accent" style="width:100%; margin-top:0.5rem;">
+                    📢 Post Institutional RFP Tender
                 </button>
             </form>
         </div>

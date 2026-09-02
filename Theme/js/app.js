@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     NumberCounterModule.init();
     ServicesSliderModule.init();
     SchemesSliderModule.init();
+    NetRealisationModule.init();
+    BackToTopModule.init();
     PWAModule.init();
 });
 
@@ -220,23 +222,58 @@ const FooterComponent = {
             </div>
         </div>
     </div>
-</footer>`,
+</footer>
+
+<!-- Floating Back to Top Button -->
+<button type="button" class="back-to-top-btn" id="backToTopBtn" aria-label="Back to top" title="Back to top">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 15l-6-6-6 6"/>
+    </svg>
+</button>`,
 
     async init() {
         const footerContainer = document.getElementById('common-footer') || document.getElementById('site-footer');
-        if (!footerContainer) return;
-
-        if (window.location.protocol.startsWith('http')) {
-            try {
-                const res = await fetch('./components/footer.html');
-                if (res.ok) {
-                    footerContainer.innerHTML = await res.text();
-                    return;
-                }
-            } catch (err) { }
+        if (footerContainer) {
+            if (window.location.protocol.startsWith('http')) {
+                try {
+                    const res = await fetch('./components/footer.html');
+                    if (res.ok) {
+                        footerContainer.innerHTML = await res.text();
+                        BackToTopModule.init();
+                        return;
+                    }
+                } catch (err) { }
+            }
+            footerContainer.innerHTML = this.template;
         }
+        BackToTopModule.init();
+    }
+};
 
-        footerContainer.innerHTML = this.template;
+/* ==========================================================================
+   0.2 BACK TO TOP MODULE
+   ========================================================================== */
+const BackToTopModule = {
+    init() {
+        const btn = document.getElementById('backToTopBtn');
+        if (!btn || btn.dataset.initialized) return;
+        btn.dataset.initialized = "true";
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     }
 };
 
@@ -542,12 +579,12 @@ const MandiRatesModule = {
                     <td><span class="price-modal-badge">₹${item.modal.toLocaleString('en-IN')}</span></td>
                     <td>${trendBadge}<br><span style="font-size:0.75rem; color:var(--text-muted);">📦 ${item.arrivals} Qtl</span></td>
                     <td>
-                        <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
-                            <button class="btn btn-sm btn-outline" onclick="MandiRatesModule.openChartModal(${item.id})">
-                                📈 <span>Trend</span>
+                        <div class="table-actions-cell">
+                            <button type="button" class="btn-table-icon btn-table-trend" onclick="MandiRatesModule.openChartModal(${item.id})" title="View 7/30-Day Price Trend Chart" aria-label="View Price Trend Chart">
+                                📈
                             </button>
-                            <button class="btn btn-sm btn-primary" onclick="MandiRatesModule.openAssayModal(${item.id})">
-                                🧪 <span>Assay</span>
+                            <button type="button" class="btn-table-icon btn-table-assay" onclick="MandiRatesModule.openAssayModal(${item.id})" title="View Quality Assaying Certificate" aria-label="View Quality Assaying Certificate">
+                                🧪
                             </button>
                         </div>
                     </td>
@@ -1353,19 +1390,31 @@ const ColdStorageModule = {
 };
 
 /* ==========================================================================
-   9. E-MARKETPLACE & DIRECT FARM PRODUCE MODULE
+   9. E-MARKETPLACE & DIRECT FARM PRODUCE MODULE (DOC SEC 6, 7, 11, 16)
    ========================================================================== */
 const MarketplaceModule = {
     produce: [
-        { id: 1, crop: "Organic Jyoti Potato", icon: "🥔", farmer: "Subhash Mondal (FPO Member)", location: "Arambagh, Hooghly", qty: "450 Bags (50kg)", price: "₹780 / Bag", grade: "AGMARK Grade-I", lotId: "LOT-HGY-8841", rating: "4.9 ★ (KYC Verified)" },
-        { id: 2, crop: "Premium Gobindobhog Rice", icon: "🌾", farmer: "Burdwan Progressive Farmers SHG", location: "Memari, Burdwan", qty: "120 Quintals", price: "₹6,400 / Qtl", grade: "AGMARK Special", lotId: "LOT-BWN-5520", rating: "5.0 ★ (APMC Licensed)" },
-        { id: 3, crop: "Export Quality Fresh Ginger", icon: "🫚", farmer: "Tapan Roy (Hill Agro)", location: "Alipurduar, North Bengal", qty: "85 Quintals", price: "₹7,900 / Qtl", grade: "Pesticide Free", lotId: "LOT-JPG-7801", rating: "4.8 ★ (KYC Verified)" },
-        { id: 4, crop: "Fresh Red Hybrid Tomato", icon: "🍅", farmer: "Pranab Ghosh", location: "Krishnanagar, Nadia", qty: "200 Crates", price: "₹420 / Crate", grade: "FSSAI Grade-A", lotId: "LOT-NDA-9014", rating: "4.9 ★ (Verified)" },
-        { id: 5, crop: "Golden Mustard Seeds", icon: "🌻", farmer: "Bankura Krishi Bikash", location: "Kotulpur, Bankura", qty: "90 Quintals", price: "₹5,600 / Qtl", grade: "AGMARK Grade-I", lotId: "LOT-BKR-6180", rating: "4.9 ★ (KYC Verified)" },
-        { id: 6, crop: "Malda Mango Pulp (Fazli)", icon: "🥭", farmer: "Malda Mango Producer Co.", location: "Ratua, Malda", qty: "300 Barrels", price: "₹4,800 / Barrel", grade: "GI Certified", lotId: "LOT-MLD-9902", rating: "5.0 ★ (APMC Licensed)" }
+        { id: 1, category: "veg", crop: "Organic Jyoti Potato", icon: "🥔", farmer: "Subhash Mondal (FPO Member)", location: "Arambagh, Hooghly", qty: "450 Bags (50kg)", price: "₹780 / Bag", grade: "AGMARK Grade-I", lotId: "LOT-HGY-8841", rating: "4.9 ★ (KYC Verified)" },
+        { id: 2, category: "grain", crop: "Premium Gobindobhog Rice", icon: "🌾", farmer: "Burdwan Progressive Farmers SHG", location: "Memari, Burdwan", qty: "120 Quintals", price: "₹6,400 / Qtl", grade: "AGMARK Special", lotId: "LOT-BWN-5520", rating: "5.0 ★ (APMC Licensed)" },
+        { id: 3, category: "veg", crop: "Export Quality Fresh Ginger", icon: "🫚", farmer: "Tapan Roy (Hill Agro)", location: "Alipurduar, North Bengal", qty: "85 Quintals", price: "₹7,900 / Qtl", grade: "Pesticide Free", lotId: "LOT-JPG-7801", rating: "4.8 ★ (KYC Verified)" },
+        { id: 4, category: "veg", crop: "Fresh Red Hybrid Tomato", icon: "🍅", farmer: "Pranab Ghosh", location: "Krishnanagar, Nadia", qty: "200 Crates", price: "₹420 / Crate", grade: "FSSAI Grade-A", lotId: "LOT-NDA-9014", rating: "4.9 ★ (Verified)" },
+        { id: 5, category: "oilseed", crop: "Golden Mustard Seeds", icon: "🌻", farmer: "Bankura Krishi Bikash", location: "Kotulpur, Bankura", qty: "90 Quintals", price: "₹5,600 / Qtl", grade: "AGMARK Grade-I", lotId: "LOT-BKR-6180", rating: "4.9 ★ (KYC Verified)" },
+        { id: 6, category: "gi", crop: "Malda Mango Pulp (Fazli)", icon: "🥭", farmer: "Malda Mango Producer Co.", location: "Ratua, Malda", qty: "300 Barrels", price: "₹4,800 / Barrel", grade: "GI Certified", lotId: "LOT-MLD-9902", rating: "5.0 ★ (APMC Licensed)" },
+        { id: 7, category: "gi", crop: "Purba Medinipur Dried Chilli", icon: "🌶️", farmer: "Kanthi Spice Farmers FPO", location: "Purba Medinipur", qty: "60 Quintals", price: "₹8,400 / Qtl", grade: "Grade-A High Pungency", lotId: "LOT-MED-4412", rating: "4.9 ★ (FPO Verified)" },
+        { id: 8, category: "fpo", crop: "Sundarbans Organic Forest Honey", icon: "🍯", farmer: "Sundarbans Bio-Reserve SHG (FPO)", location: "Canning, South 24 Pgs", qty: "500 Jars (1kg)", price: "₹450 / Jar", grade: "100% Wild Organic", lotId: "LOT-SND-1109", rating: "5.0 ★ (GI Certified)" }
     ],
 
+    activeCat: 'all',
+
     init() {
+        document.querySelectorAll('[data-mp-cat]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('[data-mp-cat]').forEach(b => b.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                this.activeCat = e.currentTarget.dataset.mpCat;
+                this.render();
+            });
+        });
         this.render();
     },
 
@@ -1373,8 +1422,13 @@ const MarketplaceModule = {
         const grid = document.getElementById('marketplaceGrid');
         if (!grid) return;
 
+        let filtered = this.produce;
+        if (this.activeCat !== 'all') {
+            filtered = this.produce.filter(p => p.category === this.activeCat || (this.activeCat === 'fpo' && p.farmer.includes('FPO')));
+        }
+
         let html = '';
-        this.produce.forEach(p => {
+        filtered.forEach(p => {
             html += `
                 <div class="produce-card">
                     <div class="produce-card-header">
@@ -1411,6 +1465,83 @@ const MarketplaceModule = {
 };
 
 /* ==========================================================================
+   9.1 NET FARMER REALISATION & CORRIDOR ADVISORY ENGINE (DOC SEC 8 & 9)
+   ========================================================================== */
+const NetRealisationModule = {
+    init() {
+        const cropSelect = document.getElementById('nrCropSelect');
+        const qtyInput = document.getElementById('nrQuantity');
+        const localInput = document.getElementById('nrLocalPrice');
+        const termInput = document.getElementById('nrTermPrice');
+        const transInput = document.getElementById('nrTransport');
+        const handleInput = document.getElementById('nrHandling');
+        const commInput = document.getElementById('nrCommission');
+
+        if (!cropSelect) return;
+
+        cropSelect.addEventListener('change', () => {
+            const opt = cropSelect.selectedOptions[0];
+            if (opt) {
+                if (localInput && opt.dataset.priceLocal) localInput.value = opt.dataset.priceLocal;
+                if (termInput && opt.dataset.priceTerm) termInput.value = opt.dataset.priceTerm;
+            }
+            this.calculate();
+        });
+
+        [qtyInput, localInput, termInput, transInput, handleInput, commInput].forEach(inp => {
+            if (inp) inp.addEventListener('input', () => this.calculate());
+        });
+
+        this.calculate();
+    },
+
+    calculate() {
+        const qty = parseFloat(document.getElementById('nrQuantity')?.value) || 100;
+        const localGross = parseFloat(document.getElementById('nrLocalPrice')?.value) || 1540;
+        const termGross = parseFloat(document.getElementById('nrTermPrice')?.value) || 1780;
+        const transport = parseFloat(document.getElementById('nrTransport')?.value) || 85;
+        const handling = parseFloat(document.getElementById('nrHandling')?.value) || 25;
+        const commission = parseFloat(document.getElementById('nrCommission')?.value) || 30;
+
+        const localCess = 25;
+        const localNet = Math.max(0, localGross - localCess);
+        const termDeductions = transport + handling + commission;
+        const termNet = Math.max(0, termGross - termDeductions);
+
+        const localNetEl = document.getElementById('nrLocalNet');
+        const termNetEl = document.getElementById('nrTermNet');
+        const verdictBox = document.getElementById('nrVerdictBox');
+        const gainText = document.getElementById('nrGainText');
+
+        if (localNetEl) localNetEl.innerHTML = `₹${localNet.toLocaleString('en-IN')} <small>/Qtl</small>`;
+        if (termNetEl) termNetEl.innerHTML = `₹${termNet.toLocaleString('en-IN')} <small>/Qtl</small>`;
+
+        const diffPerQtl = termNet - localNet;
+        const totalGain = Math.round(diffPerQtl * qty);
+        const pctGain = ((diffPerQtl / localNet) * 100).toFixed(1);
+
+        if (gainText && verdictBox) {
+            const tagEl = verdictBox.querySelector('.verdict-tag');
+            if (diffPerQtl > 0) {
+                gainText.innerHTML = `Farmer gains additional <strong style="color:var(--success);">+₹${totalGain.toLocaleString('en-IN')} (+${pctGain}%)</strong> Net Realisation on ${qty} Qtl lot!`;
+                if (tagEl) {
+                    tagEl.className = 'verdict-tag recommended';
+                    tagEl.removeAttribute('style');
+                    tagEl.innerHTML = '✅ Recommended: Dispatch to Terminal Market';
+                }
+            } else {
+                gainText.innerHTML = `Local Mandi offers <strong style="color:var(--primary);">+₹${Math.abs(totalGain).toLocaleString('en-IN')}</strong> higher net return due to transit deductions.`;
+                if (tagEl) {
+                    tagEl.className = 'verdict-tag warning';
+                    tagEl.removeAttribute('style');
+                    tagEl.innerHTML = '⚠️ Recommended: Sell in Local Mandi Yard';
+                }
+            }
+        }
+    }
+};
+
+/* ==========================================================================
    10. NOTICES & SCHEMES MODULE
    ========================================================================== */
 const SchemesModule = { data: [] };
@@ -1422,7 +1553,7 @@ const NoticesModule = {
             { id: "T3", day: "20", month: "Aug", title: "Notification regarding Minimum Support Price (MSP) and procurement centers for Paddy and Jute for Kharif Marketing Season.", ref: "Ref: GO-WB-AGRI-552/2026", fileSize: "2.1 MB" }
         ]
     },
-    init() { }
+    init() {}
 };
 
 /* ==========================================================================
@@ -1869,11 +2000,4 @@ function showToast(message, type = 'info') {
         toast.style.transform = 'translateX(100%)';
         setTimeout(() => toast.remove(), 300);
     }, 3800);
-}
-
-setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(100%)';
-    setTimeout(() => toast.remove(), 300);
-}, 3800);
 }

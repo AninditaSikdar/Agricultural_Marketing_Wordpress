@@ -148,6 +148,103 @@ agri_render_inner_banner(array(
             </div>
         </div>
 
+        <!-- 4-Tier Agricultural Logistics Chain (Doc Section 5) -->
+        <div style="margin-top:4.5rem;">
+            <div class="section-header">
+                <div class="section-tag">🔄 End-to-End Agri Logistics</div>
+                <h2 class="section-title">4-Tier Farm-to-Consumer Supply Chain Architecture</h2>
+                <p class="section-subtitle">
+                    Seamless transit infrastructure connecting smallholder farms to regional mandis, commercial food processors, and urban consumer markets.
+                </p>
+            </div>
+
+            <div class="supply-chain-tiers-grid">
+                <!-- Tier 1 -->
+                <div class="tier-card">
+                    <div class="tier-badge">Tier 1: Farm Gate</div>
+                    <div class="tier-icon">🚜</div>
+                    <h3 class="tier-title">Farm → Collection Centre</h3>
+                    <ul class="tier-features">
+                        <li><span>✔</span> Farmer pickup & tractor dispatch</li>
+                        <li><span>✔</span> Mini-truck aggregation routes</li>
+                        <li><span>✔</span> FPO aggregation centre intake</li>
+                        <li><span>✔</span> Digital weighing & moisture test</li>
+                    </ul>
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="tier-card">
+                    <div class="tier-badge">Tier 2: Consolidation</div>
+                    <div class="tier-icon">🚚</div>
+                    <h3 class="tier-title">Collection Hub → APMC Market</h3>
+                    <ul class="tier-features">
+                        <li><span>✔</span> Scheduled bulk transportation</li>
+                        <li><span>✔</span> Consolidated produce vehicle pooling</li>
+                        <li><span>✔</span> Digital Gate Entry Pass & Lot ID</li>
+                        <li><span>✔</span> Real-time electronic weighbridge queue</li>
+                    </ul>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="tier-card">
+                    <div class="tier-badge">Tier 3: Commercial</div>
+                    <div class="tier-icon">🏭</div>
+                    <h3 class="tier-title">Market → Food Processor</h3>
+                    <ul class="tier-features">
+                        <li><span>✔</span> Bulk commercial transportation</li>
+                        <li><span>✔</span> Contract logistics & freight guarantee</li>
+                        <li><span>✔</span> Direct delivery to Dal & Rice Mills</li>
+                        <li><span>✔</span> Automated statutory cess reconciliation</li>
+                    </ul>
+                </div>
+
+                <!-- Tier 4 -->
+                <div class="tier-card">
+                    <div class="tier-badge">Tier 4: Distribution</div>
+                    <div class="tier-icon">❄️</div>
+                    <h3 class="tier-title">Processor → Retailer & Export</h3>
+                    <ul class="tier-features">
+                        <li><span>✔</span> Reefer cold chain transit vans</li>
+                        <li><span>✔</span> Sufal Bangla direct kiosk supply</li>
+                        <li><span>✔</span> Last-mile urban grocery delivery</li>
+                        <li><span>✔</span> Port / Air cargo container freight</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logistics Technology & Digital Compliance Suite (Doc Section 5) -->
+        <div style="margin-top:4rem; background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:2.5rem; box-shadow:var(--shadow-md);">
+            <div class="section-header" style="margin-bottom:2rem; text-align:left;">
+                <div class="section-tag">⚡ Digital Supply Chain Tech</div>
+                <h3 class="section-title" style="font-size:1.45rem;">Digital Freight Management & Fleet Compliance Suite</h3>
+                <p class="section-subtitle" style="margin:0;">Technology tools powering transparency, vehicle scheduling, and paperless logistics operations.</p>
+            </div>
+
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.25rem;">
+                <div class="tech-item-card">
+                    <div style="font-size:1.6rem; margin-bottom:0.4rem;">🛰️</div>
+                    <h4 style="font-size:1rem; font-weight:700; color:var(--text-main); margin-bottom:0.25rem;">GPS Vehicle Tracking</h4>
+                    <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">Live route tracking with driver speed, trip milestones, and checkpoint geofencing.</p>
+                </div>
+                <div class="tech-item-card">
+                    <div style="font-size:1.6rem; margin-bottom:0.4rem;">📑</div>
+                    <h4 style="font-size:1rem; font-weight:700; color:var(--text-main); margin-bottom:0.25rem;">Digital Challan & LR</h4>
+                    <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">Instant digital Lorry Receipts (LR) and APMC transport challans with QR verification.</p>
+                </div>
+                <div class="tech-item-card">
+                    <div style="font-size:1.6rem; margin-bottom:0.4rem;">🧭</div>
+                    <h4 style="font-size:1rem; font-weight:700; color:var(--text-main); margin-bottom:0.25rem;">Route & Load Optimisation</h4>
+                    <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">AI route planning minimizing fuel consumption and preventing transit cargo spoilage.</p>
+                </div>
+                <div class="tech-item-card">
+                    <div style="font-size:1.6rem; margin-bottom:0.4rem;">💳</div>
+                    <h4 style="font-size:1rem; font-weight:700; color:var(--text-main); margin-bottom:0.25rem;">Direct Freight Settlement</h4>
+                    <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">Electronic bank transfer for transporter freight charges with GST & toll reconciliation.</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Inter-Mandi Price Arbitrage Matrix (Module D.3) -->
         <div style="margin-top:4.5rem;">
             <div class="section-header">
