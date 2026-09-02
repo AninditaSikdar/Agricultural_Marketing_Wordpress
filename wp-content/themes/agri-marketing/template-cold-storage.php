@@ -1,52 +1,47 @@
 <?php
 /**
- * Template Name: Cold Storage Network
+ * Template Name: Cold Storage Locator
  *
  * @package AgriMarketing
  */
 get_header();
+$theme_uri = get_template_directory_uri();
 $post_id = get_the_ID();
-$banner_subtitle    = agri_get_meta($post_id, 'banner_subtitle', 'Check available capacity, contact managers, and book temperature-controlled storage.');
-$protocols_title    = agri_get_meta($post_id, 'cs_protocols_title', 'Recommended Cold Preservation Protocols');
-$protocols_subtitle = agri_get_meta($post_id, 'cs_protocols_subtitle', 'Official state standards for optimum storage life and quality maintenance.');
+$banner_subtitle = agri_get_meta($post_id, 'banner_subtitle', 'Check available capacity, contact unit managers, reserve temperature-controlled storage, and access electronic Negotiable Warehouse Receipt (e-NWR) pledge financing.');
+$info_title      = agri_get_meta($post_id, 'cs_info_title', 'WDRA Standards & e-NWR Warehouse Financing');
+$info_subtitle   = agri_get_meta($post_id, 'cs_info_subtitle', 'How farmers can pledge electronic receipts to receive bank credit without distress selling.');
 
-// 3 Cold Preservation Protocols
-$p1_title = agri_get_meta($post_id, 'cs_p1_title', '🥔 Potato (Table & Seed)');
-$p1_desc  = agri_get_meta($post_id, 'cs_p1_desc', 'Storage temperature: 2°C - 4°C with 85%-90% relative humidity. Regular CIPC treatment for sprout suppression.');
+// 3 Storage Features
+$f1_title = agri_get_meta($post_id, 'cs_f1_title', '📜 e-NWR Electronic Receipts');
+$f1_desc  = agri_get_meta($post_id, 'cs_f1_desc', 'WDRA-accredited warehouses issue digital warehouse receipts recognized by NABARD and commercial banks for 75% pledge financing.');
 
-$p2_title = agri_get_meta($post_id, 'cs_p2_title', '🧅 Onion & Garlic');
-$p2_desc  = agri_get_meta($post_id, 'cs_p2_desc', 'Storage temperature: 0°C - 2°C with 65%-70% relative humidity. Good forced air ventilation is essential to avoid fungal neck rot.');
+$f2_title = agri_get_meta($post_id, 'cs_f2_title', '🥔 Potato Preservation Protocol');
+$f2_desc  = agri_get_meta($post_id, 'cs_f2_desc', 'Storage temperature: 2°C - 4°C with 85%-90% relative humidity. Regular CIPC treatment for sprout suppression.');
 
-$p3_title = agri_get_meta($post_id, 'cs_p3_title', '🥭 Fruits & Vegetables');
-$p3_desc  = agri_get_meta($post_id, 'cs_p3_desc', 'Pre-cooling at 10°C followed by preservation in controlled atmosphere chambers at 4°C - 8°C for maximum crispness.');
+$f3_title = agri_get_meta($post_id, 'cs_f3_title', '⚡ Subsidized Power Tariff');
+$f3_desc  = agri_get_meta($post_id, 'cs_f3_desc', 'Special government agricultural electricity tariff concessions for registered cold chain operators maintaining quality grades.');
 ?>
 
-<!-- ==========================================================================
-   INNER PAGE BANNER WITH BREADCRUMBS
-   ========================================================================== -->
-<section class="page-banner">
-    <div class="container">
-        <div class="page-banner-content">
-            <div class="breadcrumb">
-                <a href="<?php echo esc_url(home_url('/')); ?>" data-i18n="nav_home">Home</a>
-                <span class="separator">/</span>
-                <span class="current" data-i18n="nav_cold_storage"><?php the_title(); ?></span>
-            </div>
-            <h1 class="page-banner-title"><?php the_title(); ?></h1>
-            <p class="page-banner-desc">
-                <?php echo esc_html($banner_subtitle); ?>
-            </p>
-        </div>
-    </div>
-</section>
+<?php
+agri_render_inner_banner(array(
+    'title'       => get_the_title(),
+    'subtitle'    => $banner_subtitle,
+    'tag'         => '❄️ WDRA Cold Storage & Warehousing Grid',
+    'image'       => $theme_uri . '/images/banner-cold-storage.jpg',
+    'badge_label' => 'WDRA & e-NWR Hub',
+    'badge_val'   => 'Real-Time Space Availability',
+    'i18n_title'  => 'cs_title',
+    'i18n_sub'    => 'cs_subtitle',
+    'i18n_crumb'  => 'nav_cold_storage',
+    'meta_pills'  => array('📜 e-NWR Pledge Loans', '🌡️ IoT Multi-Chamber', '🛡️ Zero Post-Harvest Loss')
+));
+?>
 
-<!-- ==========================================================================
-   COLD STORAGE DIRECTORY
-   ========================================================================== -->
+<!-- Cold Storage Directory -->
 <section class="section">
     <div class="container">
         <!-- Filter Bar -->
-        <div style="max-width:380px; margin:0 auto 2.5rem; text-align:center;">
+        <div style="max-width:420px; margin:0 auto 2.5rem; text-align:center;">
             <label class="calc-label" style="font-weight:700;">Filter by District / Region:</label>
             <select id="coldStorageDistFilter" class="form-select" aria-label="Filter Cold Storage by District">
                 <option value="all">All Districts (সকল জেলা)</option>
@@ -55,7 +50,7 @@ $p3_desc  = agri_get_meta($post_id, 'cs_p3_desc', 'Pre-cooling at 10°C followed
                 <option value="Nadia">Nadia (নদিয়া)</option>
                 <option value="Malda">Malda (মালদা)</option>
                 <option value="Bankura">Bankura (বাঁকুড়া)</option>
-                <option value="Siliguri">Siliguri / North Bengal</option>
+                <option value="Darjeeling">Siliguri / North Bengal</option>
             </select>
         </div>
 
@@ -64,35 +59,33 @@ $p3_desc  = agri_get_meta($post_id, 'cs_p3_desc', 'Pre-cooling at 10°C followed
             <!-- Populated dynamically via app.js -->
         </div>
 
-        <!-- Cold Storage Advisory & Standards -->
-        <div class="section-header" style="margin-top:4rem; margin-bottom:1.5rem;">
-            <h3 class="section-title" style="font-size:1.5rem;"><?php echo esc_html($protocols_title); ?></h3>
-            <p class="section-subtitle"><?php echo esc_html($protocols_subtitle); ?></p>
+        <!-- e-NWR Financing & Quality Preservation Protocols -->
+        <div class="section-header" style="margin-top:4.5rem; margin-bottom:1.5rem;">
+            <h3 class="section-title" style="font-size:1.5rem;"><?php echo esc_html($info_title); ?></h3>
+            <p class="section-subtitle"><?php echo esc_html($info_subtitle); ?></p>
         </div>
 
         <div class="workflow-grid">
             <div class="workflow-step-card">
-                <span class="step-number">1</span>
-                <h4 class="step-title"><?php echo esc_html($p1_title); ?></h4>
-                <p class="step-desc"><?php echo esc_html($p1_desc); ?></p>
+                <span class="step-number">📜</span>
+                <h4 class="step-title"><?php echo esc_html($f1_title); ?></h4>
+                <p class="step-desc"><?php echo esc_html($f1_desc); ?></p>
             </div>
             <div class="workflow-step-card">
-                <span class="step-number">2</span>
-                <h4 class="step-title"><?php echo esc_html($p2_title); ?></h4>
-                <p class="step-desc"><?php echo esc_html($p2_desc); ?></p>
+                <span class="step-number">🥔</span>
+                <h4 class="step-title"><?php echo esc_html($f2_title); ?></h4>
+                <p class="step-desc"><?php echo esc_html($f2_desc); ?></p>
             </div>
             <div class="workflow-step-card">
-                <span class="step-number">3</span>
-                <h4 class="step-title"><?php echo esc_html($p3_title); ?></h4>
-                <p class="step-desc"><?php echo esc_html($p3_desc); ?></p>
+                <span class="step-number">⚡</span>
+                <h4 class="step-title"><?php echo esc_html($f3_title); ?></h4>
+                <p class="step-desc"><?php echo esc_html($f3_desc); ?></p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ==========================================================================
-   STORAGE RESERVATION MODAL
-   ========================================================================== -->
+<!-- Storage Reservation Modal -->
 <div class="modal-overlay" id="storageBookingModal">
     <div class="modal-card" style="max-width:480px;">
         <div class="modal-header">
@@ -100,29 +93,46 @@ $p3_desc  = agri_get_meta($post_id, 'cs_p3_desc', 'Pre-cooling at 10°C followed
             <button type="button" class="modal-close-btn">&times;</button>
         </div>
         <div class="modal-body">
-            <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;">
-                Selected Facility: <strong id="bookingUnitName" style="color:var(--primary);">Hooghly Cold Storage</strong>
-            </p>
-            <form id="storageBookingForm">
+            <div style="background:var(--primary-soft); padding:0.85rem; border-radius:var(--radius-md); margin-bottom:1.25rem;">
+                <div>Unit: <strong id="bookingUnitName" style="color:var(--primary);">Hooghly Agro Cold Storage Unit-1</strong></div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Status: Available for immediate produce intake (e-NWR Eligible)</div>
+            </div>
+
+            <form onsubmit="event.preventDefault(); showToast('Storage Slot Reservation Request Sent! Unit Manager will call for intake schedule.', 'success'); ModalManager.close('storageBookingModal');">
                 <div class="calc-group">
-                    <label class="calc-label">Farmer / FPO Name:</label>
-                    <input type="text" id="bookingFarmerName" class="form-input" placeholder="Your Full Name" required>
+                    <label class="calc-label">Farmer / Depositor Name:</label>
+                    <input type="text" class="form-input" placeholder="e.g. Subhash Mondal" required value="Subhash Mondal">
                 </div>
                 <div class="calc-group">
-                    <label class="calc-label">Commodity & Quantity (Metric Tonnes / Bags):</label>
-                    <input type="text" id="bookingCropDetails" class="form-input" placeholder="e.g. 500 Bags Potato Jyoti" required>
+                    <label class="calc-label">Mobile Number:</label>
+                    <input type="tel" class="form-input" placeholder="e.g. 9830012345" required value="9830112233">
+                </div>
+                <div class="form-grid-2">
+                    <div class="calc-group">
+                        <label class="calc-label">Required MT Capacity:</label>
+                        <input type="number" class="form-input" placeholder="25" required value="25">
+                    </div>
+                    <div class="calc-group">
+                        <label class="calc-label">Storage Duration:</label>
+                        <select class="form-select">
+                            <option value="3">3 Months</option>
+                            <option value="6">6 Months</option>
+                            <option value="9">9 Months (Full Season)</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="calc-group">
-                    <label class="calc-label">Contact Phone Number:</label>
-                    <input type="tel" id="bookingPhone" class="form-input" placeholder="10-digit mobile number" required pattern="[0-9]{10}">
+                    <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.85rem; cursor:pointer;">
+                        <input type="checkbox" checked>
+                        <span>Generate <strong>e-NWR (Electronic Negotiable Receipt)</strong> for Bank Loan</span>
+                    </label>
                 </div>
-                <button type="submit" class="btn btn-primary" id="bookingSubmitBtn" style="width:100%; margin-top:1rem;">
-                    🚀 Confirm Slot Reservation
+                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.5rem;">
+                    📦 Confirm Slot Reservation
                 </button>
             </form>
         </div>
     </div>
 </div>
 
-<?php
-get_footer();
+<?php get_footer(); ?>

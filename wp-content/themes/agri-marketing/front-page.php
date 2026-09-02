@@ -7,13 +7,11 @@
 get_header();
 
 $theme_uri = get_template_directory_uri();
-$hero_badge = get_option('agri_hero_badge', 'Agricultural Price Discovery & Market Intelligence');
-$hero_title = get_option('agri_hero_title', 'Empowering Farmers with Fair Prices & Smart Markets');
-$hero_desc  = get_option('agri_hero_desc', 'Connecting 1.6M+ farmers directly with regulated mandis, Sufal Bangla retail hubs, modern cold chains, and transparent electronic trading across the state.');
+$hero_badge = get_option('agri_hero_badge', 'National Benchmark AgriTech & Price Intelligence Platform');
+$hero_title = get_option('agri_hero_title', 'Empowering Farmers with Fair Prices & Digital Trade');
+$hero_desc  = get_option('agri_hero_desc', 'Integrated digital infrastructure connecting 1.6M+ farmers, 4,367 connected mandis, instant e-Bijak invoicing, scientific quality assaying, and direct bank settlement.');
 $stat_farmers = get_option('agri_stat_farmers', '1.6M+');
 $stat_mandis  = get_option('agri_stat_mandis', '650+');
-$stat_cold_storage = get_option('agri_stat_cold_storage', '480+');
-$stat_subsidy = get_option('agri_stat_subsidy', '₹1,250 Cr');
 
 $hero_img = get_option('agri_hero_image');
 if (empty($hero_img)) {
@@ -28,7 +26,7 @@ if (empty($hero_img)) {
 ?>
 
 <!-- ==========================================================================
-   HERO SECTION WITH VISUAL SHOWCASE & QUICK LOOKUP
+   HERO SECTION WITH VISUAL SHOWCASE & QUICK LOOKUP + VOICE SEARCH
    ========================================================================== -->
 <section class="hero-section" id="home">
     <div class="container">
@@ -45,22 +43,25 @@ if (empty($hero_img)) {
                 </p>
 
                 <div class="hero-actions">
-                    <a href="<?php echo esc_url(home_url('/mandi-rates/')); ?>" class="btn btn-primary">
+                    <a href="<?php echo esc_url(home_url('/mandi-rates/')); ?>" class="btn hero-btn-rates">
                         📊 <span data-i18n="btn_explore_rates">Check Today's Mandi Rates</span>
                     </a>
-                    <a href="<?php echo esc_url(home_url('/schemes/')); ?>" class="btn btn-outline">
-                        🛒 <span data-i18n="btn_sufal_bangla">Sufal Bangla Outlets</span>
+                    <a href="<?php echo esc_url(home_url('/ebijak-ledger/')); ?>" class="btn hero-btn-ebijak">
+                        📑 <span data-i18n="btn_ebijak">Generate e-Bijak Invoice</span>
+                    </a>
+                    <a href="<?php echo esc_url(home_url('/schemes/')); ?>" class="btn hero-btn-subsidy">
+                        🧮 <span data-i18n="btn_calc_subsidy">Subsidy Calculator</span>
                     </a>
                 </div>
 
                 <!-- Instant Commodity Price Discovery Card -->
                 <div class="hero-quick-discovery">
                     <div class="discovery-title">
-                        ⚡ <span data-i18n="quick_widget_title">Instant Commodity Price Discovery</span>
+                        <span>⚡ <span data-i18n="quick_widget_title">Instant Commodity Price Discovery</span></span>
                     </div>
                     <div class="discovery-form-row">
                         <select id="heroCropSelect" class="form-select" aria-label="Select Commodity">
-                            <!-- Populated dynamically -->
+                            <!-- Populated dynamically via app.js -->
                         </select>
 
                         <select id="heroDistrictSelect" class="form-select" aria-label="Select District">
@@ -100,24 +101,24 @@ if (empty($hero_img)) {
             <!-- Hero Visual Media with Floating Interactive Cards -->
             <div class="hero-media-wrapper">
                 <div class="hero-image-frame">
-                    <img src="<?php echo esc_url($hero_img); ?>" alt="Agricultural Farmland & Fresh Harvest Produce" class="hero-main-img">
+                    <img src="<?php echo esc_url($hero_img); ?>" alt="Agricultural Farmland & Fair Price Discovery" class="hero-main-img">
                 </div>
 
                 <!-- Floating Glass Card 1 -->
                 <div class="hero-floating-card floating-card-1">
                     <div class="float-icon">🏛️</div>
                     <div>
-                        <div class="float-val"><?php echo esc_html($stat_mandis); ?> APMC</div>
-                        <div class="float-lbl" data-i18n="float_mandi_count">Regulated APMC Mandis</div>
+                        <div class="float-val">4,367 Mandis</div>
+                        <div class="float-lbl" data-i18n="float_mandi_count">Regulated Mandis (AGMARKNET)</div>
                     </div>
                 </div>
 
                 <!-- Floating Glass Card 2 -->
                 <div class="hero-floating-card floating-card-2">
-                    <div class="float-icon" style="background:var(--accent-soft); color:var(--accent-dark);">✨</div>
+                    <div class="float-icon" style="background:var(--accent-soft); color:var(--accent-dark);">⚡</div>
                     <div>
-                        <div class="float-val">98.4%</div>
-                        <div class="float-lbl" data-i18n="float_accuracy">Price Discovery Accuracy</div>
+                        <div class="float-val">100% DBT</div>
+                        <div class="float-lbl" data-i18n="float_settlement">Direct Trade Settlements</div>
                     </div>
                 </div>
             </div>
@@ -126,23 +127,23 @@ if (empty($hero_img)) {
 </section>
 
 <!-- ==========================================================================
-   KEY IMPACT STATS TICKER SECTION
+   KEY IMPACT STATS COUNTERS
    ========================================================================== -->
-<section class="stats-ribbon">
+<section class="stats-banner-section">
     <div class="container">
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-icon-box">🌾</div>
+                <div class="stat-icon-box">🏢</div>
                 <div>
-                    <div class="stat-number" data-counter-target="650" data-counter-suffix="+" data-counter-duration="2000"><?php echo esc_html($stat_mandis); ?></div>
-                    <div class="stat-label" data-i18n="stat_mandis">Regulated APMC Mandis</div>
+                    <div class="stat-number" data-counter-target="650" data-counter-suffix="+" data-counter-duration="2000">0+</div>
+                    <div class="stat-label" data-i18n="stat_mandis">Regulated Mandis</div>
                 </div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-icon-box green-bg">👨‍🌾</div>
+                <div class="stat-icon-box accent-bg">🌾</div>
                 <div>
-                    <div class="stat-number" data-counter-target="1.6" data-counter-suffix="M+" data-counter-decimals="1" data-counter-duration="2200"><?php echo esc_html($stat_farmers); ?></div>
+                    <div class="stat-number" data-counter-target="1.6" data-counter-decimals="1" data-counter-suffix="M+" data-counter-duration="2200">0.0M+</div>
                     <div class="stat-label" data-i18n="stat_farmers">Registered Farmers</div>
                 </div>
             </div>
@@ -150,7 +151,7 @@ if (empty($hero_img)) {
             <div class="stat-card">
                 <div class="stat-icon-box blue-bg">🛒</div>
                 <div>
-                    <div class="stat-number" data-counter-target="450" data-counter-suffix="+" data-counter-duration="2400"><?php echo esc_html($stat_cold_storage); ?></div>
+                    <div class="stat-number" data-counter-target="450" data-counter-suffix="+" data-counter-duration="2400">0+</div>
                     <div class="stat-label" data-i18n="stat_outlets">Sufal Bangla Centers</div>
                 </div>
             </div>
@@ -158,7 +159,7 @@ if (empty($hero_img)) {
             <div class="stat-card">
                 <div class="stat-icon-box">💰</div>
                 <div>
-                    <div class="stat-number" data-counter-target="7200" data-counter-prefix="₹" data-counter-suffix="+ Cr" data-counter-duration="2500"><?php echo esc_html($stat_subsidy); ?></div>
+                    <div class="stat-number" data-counter-target="7200" data-counter-prefix="₹" data-counter-suffix="+ Cr" data-counter-duration="2500">₹0+ Cr</div>
                     <div class="stat-label" data-i18n="stat_trade">Annual Trade Volume</div>
                 </div>
             </div>
@@ -167,122 +168,177 @@ if (empty($hero_img)) {
 </section>
 
 <!-- ==========================================================================
-   DEPARTMENT SERVICES & INFRASTRUCTURE
+   MODULE A.3: ROLE-BASED PERSONA HUBS (FARMERS, TRADERS, COMMISSION AGENTS)
    ========================================================================== -->
-<section class="section section-bg-alt services-slider-section" id="servicesSection">
+<section class="section section-bg-alt" id="personaPortals">
     <div class="container">
-        <div class="section-header-flex">
-            <div class="section-header-left">
-                <div class="section-tag" data-i18n="services_tag">🌟 Comprehensive Services</div>
-                <h2 class="section-title" data-i18n="services_title">Agricultural Marketing Services & Infrastructure</h2>
-                <p class="section-subtitle" data-i18n="services_subtitle">
-                    Access real-time commodity rates, government subsidies, cold chain storage facilities, and farm produce marketing.
-                </p>
-            </div>
-            <!-- Slider Nav Arrow Controls -->
-            <div class="slider-arrow-controls">
-                <button class="slider-arrow-btn" id="servicesPrevBtn" aria-label="Previous Service Slide">‹</button>
-                <button class="slider-arrow-btn" id="servicesNextBtn" aria-label="Next Service Slide">›</button>
-            </div>
+        <div class="section-header">
+            <div class="section-tag" data-i18n="persona_section_tag">🎯 Role-Based AgriTech Portals</div>
+            <h2 class="section-title" data-i18n="persona_section_title">Workflows for Every Market Stakeholder</h2>
+            <p class="section-subtitle" data-i18n="persona_section_sub">
+                Benchmark workflows inspired by eNAM, AGMARKNET 2.0, Bijak, and FarmERP for farmers, buyers, and commission agents.
+            </p>
         </div>
 
-        <!-- Auto Slider Track Container -->
-        <div class="services-slider-container" id="servicesSliderContainer">
-            <div class="services-slider-track" id="servicesSliderTrack">
-                <!-- Service 1: Mandi Rates -->
-                <div class="service-slide-item">
-                    <div class="service-card">
-                        <div class="service-card-icon">📈</div>
-                        <h3 class="service-card-title" data-i18n="srv_mandi_title">Daily Mandi Rates</h3>
-                        <p class="service-card-desc" data-i18n="srv_mandi_desc">
-                            Live APMC checkpost prices, 24-hour trends, modal price comparison, and interactive 7-day canvas charts.
-                        </p>
-                        <a href="<?php echo esc_url(home_url('/mandi-rates/')); ?>" class="service-card-link" data-i18n="srv_mandi_link">Explore Mandi Rates →</a>
-                    </div>
+        <!-- Persona Navigation Switcher -->
+        <div class="persona-tabs-nav">
+            <button type="button" class="persona-tab-btn active" data-persona="farmer" data-i18n="tab_farmer">
+                👨‍🌾 For Farmers & FPOs
+            </button>
+            <button type="button" class="persona-tab-btn" data-persona="trader" data-i18n="tab_trader">
+                💼 For Traders & Buyers
+            </button>
+            <button type="button" class="persona-tab-btn" data-persona="agent" data-i18n="tab_agent">
+                📑 For Commission Agents (Arhtiyas)
+            </button>
+        </div>
+
+        <!-- PANE 1: FARMER WORKFLOWS -->
+        <div class="persona-hub-pane active" id="pane-farmer">
+            <div class="persona-grid">
+                <!-- Feature 1: Check Mandi Bhav -->
+                <div class="persona-feature-card">
+                    <div class="persona-icon-box">📈</div>
+                    <h3 class="persona-card-title" data-i18n="farmer_w1_title">Check Today's Mandi Bhav</h3>
+                    <p class="persona-card-desc" data-i18n="farmer_w1_desc">
+                        Real-time modal prices and arrival volume trends for 247 notified commodities across state mandis.
+                    </p>
+                    <a href="<?php echo esc_url(home_url('/mandi-rates/')); ?>" class="btn btn-outline" style="margin-top:auto;">
+                        📊 Browse Mandi Rates →
+                    </a>
                 </div>
 
-                <!-- Service 2: Schemes & Subsidies -->
-                <div class="service-slide-item">
-                    <div class="service-card">
-                        <div class="service-card-icon" style="background:var(--accent-soft); color:var(--accent-dark);">🧮</div>
-                        <h3 class="service-card-title" data-i18n="srv_schemes_title">Schemes & Subsidies</h3>
-                        <p class="service-card-desc" data-i18n="srv_schemes_desc">
-                            Amar Fasal Amar Gari vehicle subsidy, Sufal Bangla kiosks, and our 3-click interactive subsidy eligibility calculator.
-                        </p>
-                        <a href="<?php echo esc_url(home_url('/schemes/')); ?>" class="service-card-link" data-i18n="srv_schemes_link">Calculate Subsidy →</a>
-                    </div>
+                <!-- Feature 2: Advance Gate Entry & Lot Creation -->
+                <div class="persona-feature-card">
+                    <div class="persona-icon-box" style="background:rgba(245, 158, 11, 0.15); color:var(--warning);">🚛</div>
+                    <h3 class="persona-card-title" data-i18n="farmer_w2_title">Advance Gate Entry & Lot Creation</h3>
+                    <p class="persona-card-desc" data-i18n="farmer_w2_desc">
+                        Pre-register produce vehicle before arriving at APMC, generate a dynamic Lot ID, and track live weighbridge queue.
+                    </p>
+                    <button type="button" class="btn btn-primary" onclick="ModalManager.open('gateEntryModal')" style="margin-top:auto;">
+                        📝 Pre-Register Vehicle & Lot →
+                    </button>
                 </div>
 
-                <!-- Service 3: Cold Storages -->
-                <div class="service-slide-item">
-                    <div class="service-card">
-                        <div class="service-card-icon" style="background:rgba(2, 132, 199, 0.15); color:var(--info);">❄️</div>
-                        <h3 class="service-card-title" data-i18n="srv_cold_title">Cold Storage Grid</h3>
-                        <p class="service-card-desc" data-i18n="srv_cold_desc">
-                            Check real-time capacity across districts, view temperature zones, and reserve potato & vegetable storage slots online.
-                        </p>
-                        <a href="<?php echo esc_url(home_url('/cold-storage/')); ?>" class="service-card-link" data-i18n="srv_cold_link">Find Storage Units →</a>
-                    </div>
-                </div>
-
-                <!-- Service 4: Farm Connect -->
-                <div class="service-slide-item">
-                    <div class="service-card">
-                        <div class="service-card-icon" style="background:rgba(245, 158, 11, 0.15); color:var(--warning);">🤝</div>
-                        <h3 class="service-card-title" data-i18n="srv_market_title">Farm Connect Hub</h3>
-                        <p class="service-card-desc" data-i18n="srv_market_desc">
-                            Direct farm-to-buyer e-marketplace for verified grains, vegetables, spices, and organic fruits without middlemen.
-                        </p>
-                        <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="service-card-link" data-i18n="srv_market_link">View Farm Listings →</a>
-                    </div>
-                </div>
-
-                <!-- Service 5: Krishak Bazar Hubs -->
-                <div class="service-slide-item">
-                    <div class="service-card">
-                        <div class="service-card-icon" style="background:rgba(16, 185, 129, 0.15); color:var(--success);">🏪</div>
-                        <h3 class="service-card-title" data-i18n="srv_krishak_title">Krishak Bazar Hubs</h3>
-                        <p class="service-card-desc" data-i18n="srv_krishak_desc">
-                            Modern farmer-to-consumer retail yards, weekly rural hats, electronic weighing, and transparent direct spot auctioning.
-                        </p>
-                        <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="service-card-link" data-i18n="srv_krishak_link">Explore Krishak Bazars →</a>
-                    </div>
-                </div>
-
-                <!-- Service 6: Agmark Quality Certification -->
-                <div class="service-slide-item">
-                    <div class="service-card">
-                        <div class="service-card-icon" style="background:rgba(99, 102, 241, 0.15); color:#6366f1;">🧪</div>
-                        <h3 class="service-card-title" data-i18n="srv_agmark_title">Agmark Quality Testing</h3>
-                        <p class="service-card-desc" data-i18n="srv_agmark_desc">
-                            Regional testing laboratories for edible oils, spices, and honey, ensuring chemical residue compliance and AGMARK grading.
-                        </p>
-                        <a href="<?php echo esc_url(home_url('/schemes/')); ?>" class="service-card-link" data-i18n="srv_agmark_link">View Quality Standards →</a>
-                    </div>
+                <!-- Feature 3: Payment DBT Settlement Tracker -->
+                <div class="persona-feature-card">
+                    <div class="persona-icon-box" style="background:rgba(16, 185, 129, 0.15); color:var(--success);">💳</div>
+                    <h3 class="persona-card-title" data-i18n="farmer_w3_title">Track Payment Transfer Status</h3>
+                    <p class="persona-card-desc" data-i18n="farmer_w3_desc">
+                        Track electronic bank credit and escrow release status using your Mandi Lot ID or UTR number.
+                    </p>
+                    <button type="button" class="btn btn-outline" onclick="ModalManager.open('dbtTrackerModal')" style="margin-top:auto;">
+                        🔍 Check Settlement Status →
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Slider Dots Pagination Indicator -->
-        <div class="services-slider-dots" id="servicesSliderDots">
-            <!-- Populated dynamically via app.js -->
+        <!-- PANE 2: TRADER & BUYER WORKFLOWS -->
+        <div class="persona-hub-pane" id="pane-trader">
+            <div class="persona-grid">
+                <!-- Feature 1: Browse Verified Lots -->
+                <div class="persona-feature-card">
+                    <div class="persona-icon-box">🔍</div>
+                    <h3 class="persona-card-title" data-i18n="trader_w1_title">Browse Verified Produce Lots</h3>
+                    <p class="persona-card-desc" data-i18n="trader_w1_desc">
+                        Filter high-grade produce lots with objective moisture, grain size, and verified farmer KYC credentials.
+                    </p>
+                    <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="btn btn-outline" style="margin-top:auto;">
+                        🌾 View Verified Lots →
+                    </a>
+                </div>
+
+                <!-- Feature 2: Quality Assaying Certificates -->
+                <div class="persona-feature-card">
+                    <div class="persona-icon-box" style="background:rgba(99, 102, 241, 0.15); color:#6366f1;">🧪</div>
+                    <h3 class="persona-card-title" data-i18n="trader_w2_title">Digital Quality Assaying Certificates</h3>
+                    <p class="persona-card-desc" data-i18n="trader_w2_desc">
+                        Inspect laboratory-certified assay reports covering moisture content %, foreign matter %, and visual defect %.
+                    </p>
+                    <button type="button" class="btn btn-primary" onclick="MandiRatesModule.openAssayModal(1)" style="margin-top:auto;">
+                        📄 View Sample Certificate →
+                    </button>
+                </div>
+
+                <!-- Feature 3: Live E-Auction Floor -->
+                <div class="persona-feature-card">
+                    <div class="persona-icon-box" style="background:rgba(239, 68, 68, 0.15); color:#ef4444;">🏷️</div>
+                    <h3 class="persona-card-title" data-i18n="trader_w3_title">Participate in Live E-Auction Floor</h3>
+                    <p class="persona-card-desc" data-i18n="trader_w3_desc">
+                        Transparent electronic bidding engine with countdown timers, competitive lot bidding, and instant trade confirmation.
+                    </p>
+                    <button type="button" class="btn btn-accent" onclick="ModalManager.open('liveAuctionModal')" style="margin-top:auto;">
+                        ⚡ Enter Live Bidding Floor →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANE 3: COMMISSION AGENT (ARHTIYA) WORKFLOWS -->
+        <div class="persona-hub-pane" id="pane-agent">
+            <div class="persona-grid">
+                <!-- Feature 1: e-Bijak Invoicing -->
+                <div class="persona-feature-card">
+                    <div class="persona-icon-box">📑</div>
+                    <h3 class="persona-card-title" data-i18n="agent_w1_title">Generate e-Bijak Digital Invoices</h3>
+                    <p class="persona-card-desc" data-i18n="agent_w1_desc">
+                        Standardized digital invoice builder calculating produce cost, APMC market cess (1.5%), commission %, and hamali fees.
+                    </p>
+                    <a href="<?php echo esc_url(home_url('/ebijak-ledger/')); ?>" class="btn btn-primary" style="margin-top:auto;">
+                        ✨ Generate e-Bijak Bill →
+                    </a>
+                </div>
+
+                <!-- Feature 2: Digital Khata -->
+                <div class="persona-feature-card">
+                    <div class="persona-icon-box" style="background:rgba(2, 132, 199, 0.15); color:var(--info);">📚</div>
+                    <h3 class="persona-card-title" data-i18n="agent_w2_title">Manage Client Digital Ledgers (Khata)</h3>
+                    <p class="persona-card-desc" data-i18n="agent_w2_desc">
+                        Track client transaction records, buyer credit limits, outstanding dues, and digital payment receipts without paper ledgers.
+                    </p>
+                    <a href="<?php echo esc_url(home_url('/ebijak-ledger/')); ?>" class="btn btn-outline" style="margin-top:auto;">
+                        📖 Open Digital Ledger →
+                    </a>
+                </div>
+
+                <!-- Feature 3: APMC Tax Compliance -->
+                <div class="persona-feature-card">
+                    <div class="persona-icon-box" style="background:rgba(16, 185, 129, 0.15); color:var(--success);">🏛️</div>
+                    <h3 class="persona-card-title" data-i18n="agent_w3_title">APMC Statutory & Tax Reports</h3>
+                    <p class="persona-card-desc" data-i18n="agent_w3_desc">
+                        Download itemized statutory fee statements, cess audit reports, and trade logs for state regulatory compliance.
+                    </p>
+                    <a href="<?php echo esc_url(home_url('/ebijak-ledger/')); ?>" class="btn btn-outline" style="margin-top:auto;">
+                        📊 View Tax Statements →
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- ==========================================================================
-   SPOTLIGHT: DAILY MANDI RATES PREVIEW
+   MODULE A.2: INTERACTIVE PRICE INTELLIGENCE DASHBOARD (7/30-DAY TRENDS)
    ========================================================================== -->
 <section class="section" id="mandiPreview">
     <div class="container">
-        <div class="section-header">
-            <div class="section-tag">
-                📈 <span data-i18n="mandi_tag">Real-Time Market Intelligence</span>
+        <div class="section-header-flex">
+            <div>
+                <div class="section-tag" data-i18n="dashboard_tag">📊 Interactive Price Intelligence</div>
+                <h2 class="section-title" data-i18n="dashboard_title">Multi-Mandi Price Intelligence & Trend Visualizer</h2>
+                <p class="section-subtitle" data-i18n="dashboard_sub">
+                    Analyze 7-day and 30-day historical modal price movements with daily arrival volume bars.
+                </p>
             </div>
-            <h2 class="section-title" data-i18n="mandi_title">Daily Commodity Mandi Rates</h2>
-            <p class="section-subtitle" data-i18n="mandi_subtitle">
-                Live modal prices, minimum-maximum ranges, and daily arrivals updated directly from APMC checkposts.
-            </p>
+            <div style="display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap;">
+                <a href="<?php echo esc_url(home_url('/mandi-rates/')); ?>" class="btn btn-sm btn-outline">
+                    🗺️ <span data-i18n="btn_arbitrage">Inter-Mandi Arbitrage</span>
+                </a>
+                <button class="btn btn-sm btn-primary" onclick="MandiRatesModule.exportCSV()">
+                    📥 <span data-i18n="btn_download_csv">Export CSV</span>
+                </button>
+            </div>
         </div>
 
         <div class="mandi-board-card">
@@ -294,12 +350,14 @@ if (empty($hero_img)) {
                     <button class="category-pill" data-cat="grain" data-i18n="tab_grain">Cereals & Grains</button>
                     <button class="category-pill" data-cat="oilseed" data-i18n="tab_oilseed">Oilseeds & Cash Crops</button>
                     <button class="category-pill" data-cat="fruits" data-i18n="tab_fruits">Fruits</button>
+                    <button class="category-pill" data-cat="spices" data-i18n="tab_spices">Spices</button>
                 </div>
 
                 <div class="filter-search-row">
                     <div class="search-input-wrap">
                         <span class="search-icon">🔍</span>
-                        <input type="text" id="mandiSearchInput" class="form-input" placeholder="Search crop (e.g. Potato, Onion, Rice)..." data-i18n="search_crop_ph">
+                        <input type="text" id="mandiSearchInput" class="form-input"
+                            placeholder="Search crop (e.g. Potato, Onion, Rice)..." data-i18n="search_crop_ph">
                     </div>
 
                     <div class="filter-dropdowns">
@@ -332,7 +390,7 @@ if (empty($hero_img)) {
                             <th data-i18n="th_min">Min (₹/Qtl)</th>
                             <th data-i18n="th_max">Max (₹/Qtl)</th>
                             <th data-i18n="th_modal">Modal Price (₹/Qtl)</th>
-                            <th data-i18n="th_trend">24h Trend</th>
+                            <th data-i18n="th_trend">24h Trend & Arrivals</th>
                             <th data-i18n="th_action">Action</th>
                         </tr>
                     </thead>
@@ -359,6 +417,98 @@ if (empty($hero_img)) {
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+   SERVICES & INFRASTRUCTURE SLIDER
+   ========================================================================== -->
+<section class="section section-bg-alt services-slider-section" id="servicesSection">
+    <div class="container">
+        <div class="section-header-flex">
+            <div class="section-header-left">
+                <div class="section-tag" data-i18n="services_tag">🌟 Comprehensive Services</div>
+                <h2 class="section-title" data-i18n="services_title">Agricultural Marketing Services & Infrastructure</h2>
+                <p class="section-subtitle" data-i18n="services_subtitle">
+                    Access real-time commodity rates, government subsidies, cold chain storage facilities, and farm produce marketing.
+                </p>
+            </div>
+            <div class="slider-arrow-controls">
+                <button class="slider-arrow-btn" id="servicesPrevBtn" aria-label="Previous Service Slide">‹</button>
+                <button class="slider-arrow-btn" id="servicesNextBtn" aria-label="Next Service Slide">›</button>
+            </div>
+        </div>
+
+        <div class="services-slider-container" id="servicesSliderContainer">
+            <div class="services-slider-track" id="servicesSliderTrack">
+                <div class="service-slide-item">
+                    <div class="service-card">
+                        <div class="service-card-icon">📈</div>
+                        <h3 class="service-card-title" data-i18n="srv_mandi_title">Daily Mandi Rates</h3>
+                        <p class="service-card-desc" data-i18n="srv_mandi_desc">
+                            Live APMC checkpost prices, 24-hour trends, modal price comparison, and interactive 7/30-day canvas charts.
+                        </p>
+                        <a href="<?php echo esc_url(home_url('/mandi-rates/')); ?>" class="service-card-link" data-i18n="srv_mandi_link">Explore Mandi Rates →</a>
+                    </div>
+                </div>
+
+                <div class="service-slide-item">
+                    <div class="service-card">
+                        <div class="service-card-icon" style="background:rgba(217, 119, 6, 0.15); color:var(--accent-dark);">📑</div>
+                        <h3 class="service-card-title" data-i18n="srv_ebijak_title">e-Bijak Digital Ledgers</h3>
+                        <p class="service-card-desc" data-i18n="srv_ebijak_desc">
+                            Digital invoice generator with statutory fee breakdown, APMC cess, commission rates, and digital khata.
+                        </p>
+                        <a href="<?php echo esc_url(home_url('/ebijak-ledger/')); ?>" class="service-card-link" data-i18n="srv_ebijak_link">Open e-Bijak Hub →</a>
+                    </div>
+                </div>
+
+                <div class="service-slide-item">
+                    <div class="service-card">
+                        <div class="service-card-icon" style="background:rgba(16, 185, 129, 0.15); color:var(--success);">🚛</div>
+                        <h3 class="service-card-title" data-i18n="srv_freight_title">Freight & Logistics Hub</h3>
+                        <p class="service-card-desc" data-i18n="srv_freight_desc">
+                            Transport freight cost estimator, vehicle dispatch, and WDRA-accredited warehouse locator with e-NWR.
+                        </p>
+                        <a href="<?php echo esc_url(home_url('/logistics-freight/')); ?>" class="service-card-link" data-i18n="srv_freight_link">Calculate Freight →</a>
+                    </div>
+                </div>
+
+                <div class="service-slide-item">
+                    <div class="service-card">
+                        <div class="service-card-icon" style="background:var(--accent-soft); color:var(--accent-dark);">🧮</div>
+                        <h3 class="service-card-title" data-i18n="srv_schemes_title">Schemes & Subsidies</h3>
+                        <p class="service-card-desc" data-i18n="srv_schemes_desc">
+                            Amar Fasal Amar Gari vehicle subsidy, Sufal Bangla kiosks, and our 3-click interactive subsidy calculator.
+                        </p>
+                        <a href="<?php echo esc_url(home_url('/schemes/')); ?>" class="service-card-link" data-i18n="srv_schemes_link">Calculate Subsidy →</a>
+                    </div>
+                </div>
+
+                <div class="service-slide-item">
+                    <div class="service-card">
+                        <div class="service-card-icon" style="background:rgba(2, 132, 199, 0.15); color:var(--info);">❄️</div>
+                        <h3 class="service-card-title" data-i18n="srv_cold_title">Cold Storage Grid</h3>
+                        <p class="service-card-desc" data-i18n="srv_cold_desc">
+                            Real-time MT capacity across districts, temperature zones, and e-NWR pledge financing eligibility.
+                        </p>
+                        <a href="<?php echo esc_url(home_url('/cold-storage/')); ?>" class="service-card-link" data-i18n="srv_cold_link">Find Storage Units →</a>
+                    </div>
+                </div>
+
+                <div class="service-slide-item">
+                    <div class="service-card">
+                        <div class="service-card-icon" style="background:rgba(99, 102, 241, 0.15); color:#6366f1;">🤝</div>
+                        <h3 class="service-card-title" data-i18n="srv_market_title">Farm Connect Hub</h3>
+                        <p class="service-card-desc" data-i18n="srv_market_desc">
+                            Direct farm-to-buyer e-marketplace for verified grains, vegetables, spices, and live auction bidding.
+                        </p>
+                        <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="service-card-link" data-i18n="srv_market_link">View Farm Listings →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -367,40 +517,176 @@ if (empty($hero_img)) {
    ========================================================================== -->
 <!-- 1. Interactive Canvas Price Chart Modal -->
 <div class="modal-overlay" id="chartModal">
-    <div class="modal-card">
+    <div class="modal-card" style="max-width:720px;">
         <div class="modal-header">
             <div>
                 <h3 class="modal-title" id="modalCropTitle">Potato (Jyoti) - Hooghly APMC</h3>
-                <div style="font-size:0.85rem; color:var(--text-muted);">7-Day Price Trend & Volume Fluctuation</div>
+                <div style="font-size:0.85rem; color:var(--text-muted);">
+                    Lot Ref: <span id="modalLotBadge" class="badge-apmc-licensed" style="margin-left:0.35rem;">LOT-HGY-8841</span>
+                </div>
             </div>
             <button type="button" class="modal-close-btn">&times;</button>
         </div>
         <div class="modal-body">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
                 <div>
                     <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Today's Modal Rate</span>
                     <div style="font-size:1.8rem; font-weight:800; color:var(--primary); font-family:'Outfit';" id="modalCurrentPrice">₹1,540 / Qtl</div>
                 </div>
                 <div style="text-align:right;">
-                    <div style="font-size:0.8rem; color:var(--text-muted);" id="modalMinMax">Min: ₹1,450 | Max: ₹1,620</div>
+                    <div class="timeframe-switchers">
+                        <button type="button" class="timeframe-btn active" data-days="7" data-i18n="tab_7day">7-Day Trend</button>
+                        <button type="button" class="timeframe-btn" data-days="30" data-i18n="tab_30day">30-Day Trend</button>
+                    </div>
+                    <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.4rem;" id="modalMinMax">Min: ₹1,450 | Max: ₹1,620</div>
                 </div>
             </div>
-
             <div class="chart-canvas-wrapper">
                 <canvas id="priceTrendChart"></canvas>
             </div>
-
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; color:var(--text-muted);">
-                <span>📊 Source: Agricultural Marketing Department APMC Feed</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; color:var(--text-muted); margin-top:1rem; flex-wrap:wrap; gap:0.5rem;">
+                <span>📊 Source: AGMARKNET 2.0 / e-NAM Live APMC Checkpost Feed</span>
                 <button class="btn btn-sm btn-primary" onclick="ModalManager.open('alertModal'); ModalManager.close('chartModal');">
-                    🔔 Track This Crop via SMS
+                    🔔 Track Crop via SMS
                 </button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- 2. SMS / WhatsApp Price Alert Modal -->
+<!-- 3. Quality Assaying Certificate Modal -->
+<div class="modal-overlay" id="assayModal">
+    <div class="modal-card" style="max-width:620px;">
+        <div class="modal-header">
+            <div>
+                <h3 class="modal-title" id="assayCropTitle">🧪 Quality Assaying Certificate</h3>
+                <div style="font-size:0.85rem; color:var(--text-muted);">Assaying Lab Report Ref: <strong id="assayCertId">WB-QC-2026-8841</strong></div>
+            </div>
+            <button type="button" class="modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <span class="assay-header-badge" id="assayAgmarkBadge">AGMARK Grade-I</span>
+                <span class="badge-verified-kyc" id="assayFssaiBadge">FSSAI Grade-A</span>
+                <span style="font-size:0.85rem; color:var(--text-muted);">Lot: <strong id="assayLotId">LOT-HGY-8841</strong></span>
+            </div>
+            <div class="assay-grid-params">
+                <div class="assay-param-box"><div class="assay-param-val" id="assayMoisture">11.2%</div><div class="assay-param-lbl">Moisture Level</div></div>
+                <div class="assay-param-box"><div class="assay-param-val" id="assayForeign">0.3%</div><div class="assay-param-lbl">Foreign Matter</div></div>
+                <div class="assay-param-box"><div class="assay-param-val" id="assayGrain">45-55 mm</div><div class="assay-param-lbl">Size Uniformity</div></div>
+                <div class="assay-param-box"><div class="assay-param-val" id="assayDefect">0.5%</div><div class="assay-param-lbl">Visual Defect</div></div>
+            </div>
+            <button type="button" class="btn btn-primary" style="width:100%;" onclick="showToast('Assaying Certificate PDF Downloaded!', 'success')">
+                📄 Download Official Assaying Certificate (PDF)
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- 4. Advance Gate Entry Registration Modal -->
+<div class="modal-overlay" id="gateEntryModal">
+    <div class="modal-card" style="max-width:540px;">
+        <div class="modal-header">
+            <h3 class="modal-title">🚛 Advance APMC Gate Entry Registration</h3>
+            <button type="button" class="modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="advanceGateEntryForm">
+                <div class="calc-group">
+                    <label class="calc-label">Farmer / Producer Name:</label>
+                    <input type="text" id="gateFarmerName" class="form-input" value="Subhash Mondal" required>
+                </div>
+                <div class="form-grid-2">
+                    <div class="calc-group">
+                        <label class="calc-label">Mobile Number:</label>
+                        <input type="tel" id="gateFarmerMobile" class="form-input" value="9830112233" required>
+                    </div>
+                    <div class="calc-group">
+                        <label class="calc-label">Transport Vehicle No:</label>
+                        <input type="text" id="gateVehicleNum" class="form-input" value="WB-15-B-4412" required>
+                    </div>
+                </div>
+                <div class="form-grid-2">
+                    <div class="calc-group">
+                        <label class="calc-label">Commodity & Variety:</label>
+                        <select id="gateCropSelect" class="form-select">
+                            <option value="Potato (Jyoti)">🥔 Potato (Jyoti Grade-A)</option>
+                            <option value="Potato (Chandramukhi)">🥔 Potato (Chandramukhi)</option>
+                            <option value="Gobindobhog Rice">🌾 Gobindobhog Rice</option>
+                            <option value="Mustard Seeds">🌻 Mustard (Yellow)</option>
+                            <option value="Raw Jute">🌿 Raw Jute (TD-5)</option>
+                        </select>
+                    </div>
+                    <div class="calc-group">
+                        <label class="calc-label">Estimated Quantity (Qtl):</label>
+                        <input type="number" id="gateQtyInput" class="form-input" value="50" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.75rem;">
+                    ✨ Generate Dynamic Lot ID & Gate Pass
+                </button>
+            </form>
+            <div id="gatePassResult"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 5. Payment Settlement DBT Status Modal -->
+<div class="modal-overlay" id="dbtTrackerModal">
+    <div class="modal-card" style="max-width:480px;">
+        <div class="modal-header">
+            <h3 class="modal-title">💳 DBT Payment Settlement Tracker</h3>
+            <button type="button" class="modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="dbtStatusForm">
+                <div class="calc-group">
+                    <label class="calc-label">Enter Lot ID or UTR Number:</label>
+                    <input type="text" id="dbtUtrInput" class="form-input" value="UTR-2026-WB-8819" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">
+                    🔍 Verify Payment Status
+                </button>
+            </form>
+            <div id="dbtStatusResult"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 6. Live E-Auction Simulator Modal -->
+<div class="modal-overlay" id="liveAuctionModal">
+    <div class="modal-card" style="max-width:540px;">
+        <div class="modal-header">
+            <div>
+                <h3 class="modal-title">🏷️ Live APMC Electronic Auction Floor</h3>
+                <div style="font-size:0.85rem; color:var(--text-muted);">Active Lot: <strong>LOT-HGY-8841 (Potato Jyoti - 100 Qtl)</strong></div>
+            </div>
+            <button type="button" class="modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="auction-card">
+                <span class="auction-live-pill">🔴 LIVE BIDDING</span>
+                <div style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase;">Time Remaining for Lot</div>
+                <div class="auction-timer" id="auctionTimerDisplay">02:25</div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-end; margin:1rem 0;">
+                    <div>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">Current Highest Bid:</span>
+                        <div style="font-size:2rem; font-weight:800; color:var(--primary); font-family:'Outfit';" id="auctionCurrentBid">₹1,540</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <span class="badge-verified-kyc">4 Verified Bidders Active</span>
+                    </div>
+                </div>
+                <div style="display:flex; gap:0.5rem; margin-top:1.25rem;">
+                    <button type="button" class="btn btn-primary" style="flex:1;" onclick="placeAuctionBid(20)">+₹20 (Bid ₹1,560)</button>
+                    <button type="button" class="btn btn-accent" style="flex:1;" onclick="placeAuctionBid(50)">+₹50 (Bid ₹1,590)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 7. SMS Alert Modal -->
 <div class="modal-overlay" id="alertModal">
     <div class="modal-card" style="max-width:480px;">
         <div class="modal-header">
@@ -445,5 +731,4 @@ if (empty($hero_img)) {
     </div>
 </div>
 
-<?php
-get_footer();
+<?php get_footer(); ?>

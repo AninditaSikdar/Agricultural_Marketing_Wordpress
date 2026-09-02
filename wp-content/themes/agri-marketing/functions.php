@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define Theme Constants
-define('AGRI_THEME_VERSION', '1.2.0');
+define('AGRI_THEME_VERSION', '1.2.1');
 define('AGRI_THEME_DIR', get_template_directory());
 define('AGRI_THEME_URI', get_template_directory_uri());
 
@@ -966,19 +966,25 @@ function agri_render_page_cms_meta_box($post) {
                 <tr>
                     <th scope="row"><label>Card 1 Image (Sufal Bangla):</label></th>
                     <td>
-                        <?php agri_render_image_uploader_field('scheme_card1_image', get_post_meta($post->ID, '_scheme_card1_image', true), 'Sufal Bangla Image', get_template_directory_uri() . '/images/sufal-market.jpg'); ?>
+                        <?php agri_render_image_uploader_field('scheme_card1_image', get_post_meta($post->ID, '_scheme_card1_image', true), 'Sufal Bangla Image', get_template_directory_uri() . '/images/scheme-sufal-bangla.jpg'); ?>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row"><label>Card 2 Image (Amar Fasal Amar Gari):</label></th>
                     <td>
-                        <?php agri_render_image_uploader_field('scheme_card2_image', get_post_meta($post->ID, '_scheme_card2_image', true), 'Amar Fasal Image', get_template_directory_uri() . '/images/hero-farmer.jpg'); ?>
+                        <?php agri_render_image_uploader_field('scheme_card2_image', get_post_meta($post->ID, '_scheme_card2_image', true), 'Amar Fasal Image', get_template_directory_uri() . '/images/scheme-amar-fasal.jpg'); ?>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row"><label>Card 3 Image (Cold Storage Grid):</label></th>
                     <td>
-                        <?php agri_render_image_uploader_field('scheme_card3_image', get_post_meta($post->ID, '_scheme_card3_image', true), 'Cold Storage Grid Image', get_template_directory_uri() . '/images/cold-storage.jpg'); ?>
+                        <?php agri_render_image_uploader_field('scheme_card3_image', get_post_meta($post->ID, '_scheme_card3_image', true), 'Cold Storage Grid Image', get_template_directory_uri() . '/images/scheme-cold-storage.jpg'); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><label>Card 4 Image (AMI Packhouse):</label></th>
+                    <td>
+                        <?php agri_render_image_uploader_field('scheme_card4_image', get_post_meta($post->ID, '_scheme_card4_image', true), 'AMI Packhouse Image', get_template_directory_uri() . '/images/scheme-ami-packhouse.jpg'); ?>
                     </td>
                 </tr>
             </table>
@@ -1534,13 +1540,30 @@ function agri_get_cms_data() {
         while ($scheme_query->have_posts()) {
             $scheme_query->the_post();
             $id = get_the_ID();
+            $title_l = strtolower(get_the_title());
+            $default_img = AGRI_THEME_URI . '/images/scheme-amar-fasal.jpg';
+            if (strpos($title_l, 'amar fasal') !== false || strpos($title_l, 'gari') !== false) {
+                $default_img = AGRI_THEME_URI . '/images/scheme-amar-fasal.jpg';
+            } elseif (strpos($title_l, 'sufal') !== false || strpos($title_l, 'retail') !== false) {
+                $default_img = AGRI_THEME_URI . '/images/scheme-sufal-bangla.jpg';
+            } elseif (strpos($title_l, 'cold') !== false || strpos($title_l, 'storage') !== false || strpos($title_l, 'warehous') !== false) {
+                $default_img = AGRI_THEME_URI . '/images/scheme-cold-storage.jpg';
+            } elseif (strpos($title_l, 'ami') !== false || strpos($title_l, 'packhouse') !== false || strpos($title_l, 'infra') !== false) {
+                $default_img = AGRI_THEME_URI . '/images/scheme-ami-packhouse.jpg';
+            }
+
+            $s_img = get_post_meta($id, '_scheme_image', true);
+            if (empty($s_img) || strpos($s_img, 'hero-farmer') !== false || strpos($s_img, 'banner-schemes') !== false) {
+                $s_img = get_the_post_thumbnail_url($id, 'large') ?: $default_img;
+            }
+
             $schemes[] = array(
                 'id'          => get_post_meta($id, '_scheme_code', true) ?: ('scheme_' . $id),
                 'titleEn'     => get_the_title(),
                 'titleBn'     => get_post_meta($id, '_title_bn', true) ?: get_the_title(),
                 'titleHi'     => get_post_meta($id, '_title_hi', true) ?: get_the_title(),
                 'badge'       => (get_post_meta($id, '_subsidy_pct', true) ? get_post_meta($id, '_subsidy_pct', true) . '% Subsidy' : 'Subsidy Scheme'),
-                'image'       => get_post_meta($id, '_scheme_image', true) ?: (get_the_post_thumbnail_url($id, 'medium') ?: (AGRI_THEME_URI . '/images/hero-farmer.jpg')),
+                'image'       => $s_img,
                 'descEn'      => get_the_content() ?: 'Government financial and technical assistance scheme.',
                 'descBn'      => get_post_meta($id, '_desc_bn', true) ?: get_the_content(),
                 'descHi'      => get_post_meta($id, '_desc_hi', true) ?: get_the_content(),
@@ -1732,4 +1755,139 @@ function agri_handle_produce_bid_rest($request) {
         'trackingId' => $tracking_id,
         'message'    => 'Purchase quote submitted successfully to the seller. Ref ID: ' . $tracking_id
     ));
+}
+
+/**
+ * Auto-create required benchmark pages if not already existing
+ */
+function agri_create_default_pages() {
+    $pages = array(
+        'ebijak-ledger' => array(
+            'title'    => 'e-Bijak & Digital Ledgers',
+            'template' => 'template-ebijak.php',
+            'content'  => 'e-Bijak digital invoicing and commission agent ledger engine.'
+        ),
+        'logistics-freight' => array(
+            'title'    => 'Logistics & Freight Transport',
+            'template' => 'template-logistics.php',
+            'content'  => 'Agri-freight transport estimator and WDRA-accredited warehouse directory.'
+        )
+    );
+
+    foreach ($pages as $slug => $data) {
+        $existing = get_page_by_path($slug);
+        if (!$existing) {
+            $page_id = wp_insert_post(array(
+                'post_title'   => $data['title'],
+                'post_name'    => $slug,
+                'post_content' => $data['content'],
+                'post_status'  => 'publish',
+                'post_type'    => 'page'
+            ));
+            if ($page_id && !empty($data['template'])) {
+                update_post_meta($page_id, '_wp_page_template', $data['template']);
+            }
+        }
+    }
+}
+add_action('after_switch_theme', 'agri_create_default_pages');
+
+/**
+ * 15. Creative Inner Page Banner Renderer with Visual Media & Floating Chips
+ */
+function agri_render_inner_banner($args = array()) {
+    $theme_uri = get_template_directory_uri();
+    
+    // Auto-fix any relative or missing theme uri paths in image arg
+    if (!empty($args['image']) && is_string($args['image'])) {
+        if (strpos($args['image'], 'http://') === false && strpos($args['image'], 'https://') === false) {
+            $img_clean = ltrim($args['image'], '.');
+            $img_clean = ltrim($img_clean, '/');
+            if (strpos($img_clean, 'images/') === 0) {
+                $args['image'] = $theme_uri . '/' . $img_clean;
+            } else {
+                $args['image'] = $theme_uri . '/images/' . $img_clean;
+            }
+        }
+    }
+
+    $defaults = array(
+        'title'        => get_the_title(),
+        'subtitle'     => '',
+        'tag'          => '🏛️ State AgriTech Portal',
+        'image'        => $theme_uri . '/images/banner-default.jpg',
+        'badge_label'  => 'Official Portal Service',
+        'badge_val'    => 'Active & Verified',
+        'i18n_title'   => '',
+        'i18n_sub'     => '',
+        'i18n_crumb'   => '',
+        'meta_pills'   => array(
+            '⚡ AGMARKNET 2.0 Live',
+            '🛡️ Directorate Verified',
+            '📞 Helpline: 1800-180-1551'
+        )
+    );
+    
+    $params = wp_parse_args($args, $defaults);
+    
+    // Check if custom hero/banner image was uploaded on page meta
+    $meta_img = get_post_meta(get_the_ID(), '_hero_image', true);
+    if (!empty($meta_img)) {
+        $params['image'] = $meta_img;
+    } elseif (has_post_thumbnail()) {
+        $params['image'] = get_the_post_thumbnail_url(null, 'full');
+    }
+    
+    ?>
+    <section class="page-banner">
+        <div class="banner-ambient-glow"></div>
+        <div class="container">
+            <div class="page-banner-grid">
+                <div class="page-banner-content">
+                    <div class="page-banner-badge">
+                        <span class="pulse-dot"></span>
+                        <span><?php echo esc_html($params['tag']); ?></span>
+                    </div>
+
+                    <div class="breadcrumb">
+                        <a href="<?php echo esc_url(home_url('/')); ?>" data-i18n="nav_home">Home</a>
+                        <span class="separator">/</span>
+                        <span class="current" <?php echo !empty($params['i18n_crumb']) ? 'data-i18n="' . esc_attr($params['i18n_crumb']) . '"' : (!empty($params['i18n_title']) ? 'data-i18n="' . esc_attr($params['i18n_title']) . '"' : ''); ?>><?php echo esc_html($params['title']); ?></span>
+                    </div>
+
+                    <h1 class="page-banner-title" <?php echo !empty($params['i18n_title']) ? 'data-i18n="' . esc_attr($params['i18n_title']) . '"' : ''; ?>>
+                        <?php echo esc_html($params['title']); ?>
+                    </h1>
+
+                    <?php if (!empty($params['subtitle'])) : ?>
+                        <p class="page-banner-desc" <?php echo !empty($params['i18n_sub']) ? 'data-i18n="' . esc_attr($params['i18n_sub']) . '"' : ''; ?>>
+                            <?php echo esc_html($params['subtitle']); ?>
+                        </p>
+                    <?php endif; ?>
+
+                    <?php if (!empty($params['meta_pills']) && is_array($params['meta_pills'])) : ?>
+                        <div class="page-banner-meta-pills">
+                            <?php foreach ($params['meta_pills'] as $pill) : ?>
+                                <span class="meta-pill"><?php echo esc_html($pill); ?></span>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="page-banner-visual">
+                    <div class="banner-image-frame">
+                        <img src="<?php echo esc_url($params['image']); ?>" alt="<?php echo esc_attr($params['title']); ?>" class="banner-main-img">
+                        <div class="banner-floating-chip">
+                            <span class="chip-icon">✨</span>
+                            <div>
+                                <div class="chip-label"><?php echo esc_html($params['badge_label']); ?></div>
+                                <div class="chip-val"><?php echo esc_html($params['badge_val']); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <?php
 }

@@ -5,6 +5,7 @@
  * @package AgriMarketing
  */
 get_header();
+$theme_uri = get_template_directory_uri();
 $post_id  = get_the_ID();
 $helpline = get_option('agri_helpline', '1800-180-1551');
 $alt_help = get_option('agri_alt_helpline', '033-2225-8888');
@@ -47,24 +48,20 @@ if (empty($apmc_list)) {
 }
 ?>
 
-<!-- ==========================================================================
-   INNER PAGE BANNER WITH BREADCRUMBS
-   ========================================================================== -->
-<section class="page-banner">
-    <div class="container">
-        <div class="page-banner-content">
-            <div class="breadcrumb">
-                <a href="<?php echo esc_url(home_url('/')); ?>" data-i18n="nav_home">Home</a>
-                <span class="separator">/</span>
-                <span class="current" data-i18n="nav_contact"><?php the_title(); ?></span>
-            </div>
-            <h1 class="page-banner-title"><?php the_title(); ?></h1>
-            <p class="page-banner-desc">
-                <?php echo esc_html($banner_subtitle); ?>
-            </p>
-        </div>
-    </div>
-</section>
+<?php
+agri_render_inner_banner(array(
+    'title'       => get_the_title(),
+    'subtitle'    => $banner_subtitle,
+    'tag'         => '📞 24x7 Farmer Helpline & Citizen Desk',
+    'image'       => $theme_uri . '/images/banner-contact.jpg',
+    'badge_label' => 'Kisan Call Center',
+    'badge_val'   => 'Toll-Free: 1800-180-1551',
+    'i18n_title'  => 'nav_contact',
+    'i18n_sub'    => '',
+    'i18n_crumb'  => 'nav_contact',
+    'meta_pills'  => array('💬 WhatsApp Grievance', '✉️ agrimarketing@gov.in', '🏢 Subhanna, Salt Lake')
+));
+?>
 
 <!-- ==========================================================================
    CONTACT INFORMATION & CITIZEN FEEDBACK FORM

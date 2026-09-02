@@ -1,5 +1,5 @@
 <!-- ==========================================================================
-   AGRICULTURAL MARKETING DEPARTMENT - COMMON HEADER COMPONENT
+   AGRICULTURAL MARKETING DEPARTMENT - COMMON HEADER
    ========================================================================== -->
 
 <!-- Top Accessibility & Utility Bar -->
@@ -22,7 +22,7 @@
                 <button type="button" class="font-btn font-inc" data-size="inc" title="Increase Font Size">A+</button>
             </div>
 
-            <!-- Language Switcher -->
+            <!-- 3-Language Switcher (English, Bengali, Hindi) -->
             <div class="lang-switcher" aria-label="Language Selector">
                 <button type="button" class="lang-btn active" data-lang="en">English</button>
                 <button type="button" class="lang-btn" data-lang="bn">বাংলা</button>
@@ -38,12 +38,12 @@
     </div>
 </aside>
 
-<!-- Main Brand Header & Mega Navigation -->
+<!-- Main Brand Header & Navigation -->
 <header class="main-header">
     <div class="container header-container">
-        <a href="index.html" class="brand-section" aria-label="">
+        <a href="index.html" class="brand-section" aria-label="Agricultural Marketing Department">
             <div class="brand-emblem-wrapper">
-                <img src="./images/Logo.png" alt="" class="brand-logo-img">
+                <img src="./images/Logo.png" alt="Agricultural Marketing Department Logo" class="brand-logo-img">
             </div>
         </a>
 
@@ -54,13 +54,24 @@
                     <span data-i18n="nav_rates">Mandi Rates</span>
                 </a>
             </div>
-            <div class="nav-item"><a href="schemes.html" class="nav-link" data-i18n="nav_schemes">Schemes &
-                    Subsidies</a></div>
-            <div class="nav-item"><a href="cold-storage.html" class="nav-link" data-i18n="nav_cold_storage">Cold
-                    Storages</a></div>
-            <div class="nav-item"><a href="marketplace.html" class="nav-link" data-i18n="nav_marketplace">Farm
-                    Connect</a></div>
+            <div class="nav-item">
+                <a href="schemes.html" class="nav-link">
+                    <span data-i18n="nav_schemes">Schemes & Subsidies</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="cold-storage.html" class="nav-link">
+                    <span data-i18n="nav_cold_storage">Cold Storages</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="marketplace.html" class="nav-link">
+                    <span data-i18n="nav_marketplace">Farm Connect</span>
+                </a>
+            </div>
             <div class="nav-item"><a href="about.html" class="nav-link" data-i18n="nav_about">About Us</a></div>
+            <div class="nav-item"><a href="notices.html" class="nav-link"><span data-i18n="nav_notices">Tenders &
+                        Notices</span></a></div>
             <div class="nav-item"><a href="contact.html" class="nav-link" data-i18n="nav_contact">Contact Us</a></div>
         </nav>
 
@@ -72,9 +83,10 @@
     </div>
 </header>
 
-<!-- Live Commodity Price Ticker -->
+<!-- Live AGMARKNET 2.0 / e-NAM Commodity Price Ticker -->
 <div class="ticker-wrapper" aria-label="Live Mandi Price Ticker">
     <div class="ticker-label">
+        <!-- <span class="ticker-source-badge">⚡ AGMARKNET 2.0 LIVE</span> -->
         <span class="pulse-dot"></span>
         <span data-i18n="ticker_label">Daily Market Rates</span>
     </div>

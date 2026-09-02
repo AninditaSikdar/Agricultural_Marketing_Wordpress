@@ -73,24 +73,20 @@ $cta_btn           = agri_get_meta($post_id, 'about_cta_btn', '📞 Go to Contac
 $cta_url           = agri_get_meta($post_id, 'about_cta_url', home_url('/contact/'));
 ?>
 
-<!-- ==========================================================================
-   INNER PAGE BANNER WITH BREADCRUMBS
-   ========================================================================== -->
-<section class="page-banner">
-    <div class="container">
-        <div class="page-banner-content">
-            <div class="breadcrumb">
-                <a href="<?php echo esc_url(home_url('/')); ?>" data-i18n="nav_home">Home</a>
-                <span class="separator">/</span>
-                <span class="current"><?php the_title(); ?></span>
-            </div>
-            <h1 class="page-banner-title"><?php the_title(); ?></h1>
-            <p class="page-banner-desc">
-                <?php echo esc_html($banner_subtitle); ?>
-            </p>
-        </div>
-    </div>
-</section>
+<?php
+agri_render_inner_banner(array(
+    'title'       => get_the_title(),
+    'subtitle'    => $banner_subtitle,
+    'tag'         => '🏛️ Directorate & State Marketing Board',
+    'image'       => $theme_uri . '/images/banner-about.jpg',
+    'badge_label' => 'Agricultural Marketing',
+    'badge_val'   => 'Govt. of West Bengal',
+    'i18n_title'  => 'nav_about',
+    'i18n_sub'    => 'footer_about_desc',
+    'i18n_crumb'  => 'nav_about',
+    'meta_pills'  => array('🏛️ APMC Regulation', '📈 Price Stabilization', '🤝 1.6M+ Empowered Farmers')
+));
+?>
 
 <!-- ==========================================================================
    DEPARTMENT MISSION & OVERVIEW

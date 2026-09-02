@@ -5,39 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Real-Time Daily Mandi Rates - Live wholesale commodity prices, APMC checkpost arrivals, and 7-day price trends.">
-    <title>Daily Mandi Rates & Market Intelligence | Agricultural Marketing Department</title>
+        content="Real-Time Daily Mandi Rates - Live wholesale commodity prices, AGMARKNET 2.0 arrivals, 7/30-day price trends, and quality assaying.">
+    <title>Daily Mandi Rates & Price Intelligence | Agricultural Marketing Department</title>
+    <link rel="manifest" href="./manifest.json">
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/button.css">
 </head>
 
 <body>
 
-    <!-- Common Header Container (Rendered dynamically from components/header.html) -->
+    <!-- Common Header Container (Rendered dynamically via app.js) -->
     <div id="common-header"></div>
 
-    <!-- ==========================================================================
-       INNER PAGE BANNER WITH BREADCRUMBS
-       ========================================================================== -->
+    <!-- Page Banner -->
     <section class="page-banner">
+        <div class="banner-ambient-glow"></div>
         <div class="container">
-            <div class="page-banner-content">
-                <div class="breadcrumb">
-                    <a href="index.html" data-i18n="nav_home">Home</a>
-                    <span class="separator">/</span>
-                    <span class="current" data-i18n="nav_rates">Mandi Rates</span>
+            <div class="page-banner-grid">
+                <div class="page-banner-content">
+                    <div class="page-banner-badge">
+                        <span class="pulse-dot"></span>
+                        <span>📊 Real-Time Market Intelligence</span>
+                    </div>
+
+                    <div class="breadcrumb">
+                        <a href="index.html" data-i18n="nav_home">Home</a>
+                        <span class="separator">/</span>
+                        <span class="current" data-i18n="nav_rates">Mandi Rates</span>
+                    </div>
+
+                    <h1 class="page-banner-title" data-i18n="mandi_title">Daily Commodity Mandi Rates</h1>
+                    <p class="page-banner-desc" data-i18n="mandi_subtitle">
+                        Live modal prices, minimum-maximum ranges, quality assaying, and daily arrivals updated directly from AGMARKNET 2.0 connected mandis.
+                    </p>
+
+                    <div class="page-banner-meta-pills">
+                        <span class="meta-pill">⚡ 24h Price Updates</span>
+                        <span class="meta-pill">🌾 247 Commodities</span>
+                        <span class="meta-pill">⚖️ Electronic Weighbridge</span>
+                    </div>
                 </div>
-                <h1 class="page-banner-title" data-i18n="mandi_title">Daily Commodity Mandi Rates</h1>
-                <p class="page-banner-desc" data-i18n="mandi_subtitle">
-                    Live modal prices, minimum-maximum ranges, and daily arrivals updated directly from APMC checkposts.
-                </p>
+
+                <div class="page-banner-visual">
+                    <div class="banner-image-frame">
+                        <img src="./images/banner-mandi-rates.jpg" alt="Daily Commodity Mandi Rates" class="banner-main-img">
+                        <div class="banner-floating-chip">
+                            <span class="chip-icon">✨</span>
+                            <div>
+                                <div class="chip-label">AGMARKNET 2.0 Feed</div>
+                                <div class="chip-val">4,367 Mandis Synced</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ==========================================================================
-       FULL MANDI RATES BOARD
-       ========================================================================== -->
+    <!-- Full Mandi Rates Board -->
     <section class="section">
         <div class="container">
             <div class="mandi-board-card">
@@ -63,8 +88,7 @@
                         </div>
 
                         <div class="filter-dropdowns">
-                            <select id="mandiDistrictSelect" class="form-select"
-                                aria-label="Filter Mandi District">
+                            <select id="mandiDistrictSelect" class="form-select" aria-label="Filter Mandi District">
                                 <option value="all" data-i18n="all_districts">All Districts</option>
                                 <option value="Hooghly">Hooghly</option>
                                 <option value="Burdwan">Burdwan</option>
@@ -81,6 +105,9 @@
                             <button class="btn btn-accent" onclick="ModalManager.open('alertModal')">
                                 🔔 <span data-i18n="btn_set_alert">Get SMS Alert</span>
                             </button>
+                            <button class="btn btn-outline" onclick="MandiRatesModule.exportCSV()">
+                                📥 <span data-i18n="btn_download_csv">Export CSV</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -95,7 +122,7 @@
                                 <th data-i18n="th_min">Min (₹/Qtl)</th>
                                 <th data-i18n="th_max">Max (₹/Qtl)</th>
                                 <th data-i18n="th_modal">Modal Price (₹/Qtl)</th>
-                                <th data-i18n="th_trend">24h Trend</th>
+                                <th data-i18n="th_trend">24h Trend & Arrivals</th>
                                 <th data-i18n="th_action">Action</th>
                             </tr>
                         </thead>
@@ -145,27 +172,31 @@
         </div>
     </section>
 
-    <!-- ==========================================================================
-       MODAL DIALOGS
-       ========================================================================== -->
+    <!-- Modals -->
     <!-- 1. Interactive Canvas Price Chart Modal -->
     <div class="modal-overlay" id="chartModal">
-        <div class="modal-card">
+        <div class="modal-card" style="max-width:720px;">
             <div class="modal-header">
                 <div>
                     <h3 class="modal-title" id="modalCropTitle">Potato (Jyoti) - Hooghly APMC</h3>
-                    <div style="font-size:0.85rem; color:var(--text-muted);">7-Day Price Trend & Volume Fluctuation</div>
+                    <div style="font-size:0.85rem; color:var(--text-muted);">
+                        Lot Ref: <span id="modalLotBadge" class="badge-apmc-licensed" style="margin-left:0.35rem;">LOT-HGY-8841</span>
+                    </div>
                 </div>
                 <button type="button" class="modal-close-btn">&times;</button>
             </div>
             <div class="modal-body">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
                     <div>
                         <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Today's Modal Rate</span>
                         <div style="font-size:1.8rem; font-weight:800; color:var(--primary); font-family:'Outfit';" id="modalCurrentPrice">₹1,540 / Qtl</div>
                     </div>
                     <div style="text-align:right;">
-                        <div style="font-size:0.8rem; color:var(--text-muted);" id="modalMinMax">Min: ₹1,450 | Max: ₹1,620</div>
+                        <div class="timeframe-switchers">
+                            <button type="button" class="timeframe-btn active" data-days="7" data-i18n="tab_7day">7-Day Trend</button>
+                            <button type="button" class="timeframe-btn" data-days="30" data-i18n="tab_30day">30-Day Trend</button>
+                        </div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.4rem;" id="modalMinMax">Min: ₹1,450 | Max: ₹1,620</div>
                     </div>
                 </div>
 
@@ -173,17 +204,67 @@
                     <canvas id="priceTrendChart"></canvas>
                 </div>
 
-                <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; color:var(--text-muted);">
-                    <span>📊 Source: Agricultural Marketing Department APMC Feed</span>
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; color:var(--text-muted); margin-top:1rem; flex-wrap:wrap; gap:0.5rem;">
+                    <span>📊 Source: AGMARKNET 2.0 / e-NAM APMC Checkpost Feed</span>
                     <button class="btn btn-sm btn-primary" onclick="ModalManager.open('alertModal'); ModalManager.close('chartModal');">
-                        🔔 Track This Crop via SMS
+                        🔔 Track Crop via SMS
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 2. SMS / WhatsApp Price Alert Modal -->
+    <!-- 3. Quality Assaying Certificate Modal -->
+    <div class="modal-overlay" id="assayModal">
+        <div class="modal-card" style="max-width:620px;">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title" id="assayCropTitle">🧪 Quality Assaying Certificate</h3>
+                    <div style="font-size:0.85rem; color:var(--text-muted);">
+                        Assaying Lab Report Ref: <strong id="assayCertId">WB-QC-2026-8841</strong>
+                    </div>
+                </div>
+                <button type="button" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                    <span class="assay-header-badge" id="assayAgmarkBadge">AGMARK Grade-I</span>
+                    <span class="badge-verified-kyc" id="assayFssaiBadge">FSSAI Grade-A</span>
+                    <span style="font-size:0.85rem; color:var(--text-muted);">Lot: <strong id="assayLotId">LOT-HGY-8841</strong></span>
+                </div>
+
+                <div class="assay-grid-params">
+                    <div class="assay-param-box">
+                        <div class="assay-param-val" id="assayMoisture">11.2%</div>
+                        <div class="assay-param-lbl">Moisture Level</div>
+                    </div>
+                    <div class="assay-param-box">
+                        <div class="assay-param-val" id="assayForeign">0.3%</div>
+                        <div class="assay-param-lbl">Foreign Matter</div>
+                    </div>
+                    <div class="assay-param-box">
+                        <div class="assay-param-val" id="assayGrain">45-55 mm</div>
+                        <div class="assay-param-lbl">Size Uniformity</div>
+                    </div>
+                    <div class="assay-param-box">
+                        <div class="assay-param-val" id="assayDefect">0.5%</div>
+                        <div class="assay-param-lbl">Visual Defect</div>
+                    </div>
+                </div>
+
+                <div style="background:var(--bg-subtle); padding:1rem; border-radius:var(--radius-md); font-size:0.85rem; line-height:1.6; margin-bottom:1.25rem;">
+                    <div><strong>Testing Laboratory:</strong> Regional Agmark Quality Testing Lab, Hooghly Mandi Yard</div>
+                    <div><strong>Assaying Status:</strong> Certified for Direct Electronic Bidding & Sufal Bangla Retail Linkage</div>
+                </div>
+
+                <button type="button" class="btn btn-primary" style="width:100%;" onclick="showToast('Assaying Certificate PDF Downloaded!', 'success')">
+                    📄 Download Official Assaying Certificate (PDF)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. SMS Price Alert Modal -->
     <div class="modal-overlay" id="alertModal">
         <div class="modal-card" style="max-width:480px;">
             <div class="modal-header">
@@ -228,9 +309,7 @@
         </div>
     </div>
 
-
-
-    <!-- Common Footer Container (Rendered dynamically from components/footer.html) -->
+    <!-- Common Footer Container (Rendered dynamically via app.js) -->
     <div id="common-footer"></div>
 
     <script src="./js/app.js"></script>

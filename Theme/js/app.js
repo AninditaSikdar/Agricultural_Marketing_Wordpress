@@ -1,35 +1,39 @@
 /**
- * Agricultural Marketing Department - Official Website
- * Interactive Application Engine & Multilingual System (EN, BN, HI)
- * Multi-Page Architecture with External Data JSON Support
+ * Agricultural Marketing Portal - National Benchmark AgriTech Engine
+ * 3 Core Languages: English, Bengali (বাংলা), Hindi (हिंदी)
+ * e-Bijak Invoicing, 7/30-Day Price Intelligence, Role-Based Persona Hubs, and PWA Support
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // 0. Load Common Header & Footer Components from components/*.html
+    // 0. Load Common Header & Footer Components
     await HeaderComponent.init();
     await FooterComponent.init();
 
-    // 1. Initialize Core UI Managers
+    // 1. Initialize Core UI & Accessibility Managers
     AccessibilityManager.init();
     ThemeManager.init();
     NavigationModule.init();
     ModalManager.init();
 
-    // 2. Load Data from JSON Files & Initialize Business Modules
+    // 2. Load Data from JSON & Initialize Business Modules
     await DataLoader.init();
     I18nEngine.init();
     MandiRatesModule.init();
     QuickDiscoveryModule.init();
+    PersonaHubModule.init();
+    EBijakModule.init();
+    FreightCalculatorModule.init();
     SubsidyCalculatorModule.init();
     ColdStorageModule.init();
     MarketplaceModule.init();
-    NoticesModule.init();
     NumberCounterModule.init();
     ServicesSliderModule.init();
+    SchemesSliderModule.init();
+    PWAModule.init();
 });
 
 /* ==========================================================================
-   0. COMMON HEADER COMPONENT LOADER
+   0. COMMON HEADER COMPONENT LOADER (ENGLISH, BENGALI, HINDI)
    ========================================================================== */
 const HeaderComponent = {
     template: `
@@ -52,7 +56,7 @@ const HeaderComponent = {
                 <button type="button" class="font-btn font-inc" data-size="inc" title="Increase Font Size">A+</button>
             </div>
 
-            <!-- Language Switcher -->
+            <!-- 3-Language Switcher (English, Bengali, Hindi) -->
             <div class="lang-switcher" aria-label="Language Selector">
                 <button type="button" class="lang-btn active" data-lang="en">English</button>
                 <button type="button" class="lang-btn" data-lang="bn">বাংলা</button>
@@ -68,7 +72,7 @@ const HeaderComponent = {
     </div>
 </aside>
 
-<!-- Main Brand Header & Mega Navigation -->
+<!-- Main Brand Header & Navigation -->
 <header class="main-header">
     <div class="container header-container">
         <a href="index.html" class="brand-section" aria-label="Agricultural Marketing Department">
@@ -84,10 +88,23 @@ const HeaderComponent = {
                     <span data-i18n="nav_rates">Mandi Rates</span>
                 </a>
             </div>
-            <div class="nav-item"><a href="schemes.html" class="nav-link" data-i18n="nav_schemes">Schemes & Subsidies</a></div>
-            <div class="nav-item"><a href="cold-storage.html" class="nav-link" data-i18n="nav_cold_storage">Cold Storages</a></div>
-            <div class="nav-item"><a href="marketplace.html" class="nav-link" data-i18n="nav_marketplace">Farm Connect</a></div>
+            <div class="nav-item">
+                <a href="schemes.html" class="nav-link">
+                    <span data-i18n="nav_schemes">Schemes & Subsidies</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="cold-storage.html" class="nav-link">
+                    <span data-i18n="nav_cold_storage">Cold Storages</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="marketplace.html" class="nav-link">
+                    <span data-i18n="nav_marketplace">Farm Connect</span>
+                </a>
+            </div>
             <div class="nav-item"><a href="about.html" class="nav-link" data-i18n="nav_about">About Us</a></div>
+            <div class="nav-item"><a href="notices.html" class="nav-link"><span data-i18n="nav_notices">Tenders & Notices</span></a></div>
             <div class="nav-item"><a href="contact.html" class="nav-link" data-i18n="nav_contact">Contact Us</a></div>
         </nav>
 
@@ -99,9 +116,10 @@ const HeaderComponent = {
     </div>
 </header>
 
-<!-- Live Commodity Price Ticker -->
+<!-- Live AGMARKNET 2.0 / e-NAM Commodity Price Ticker -->
 <div class="ticker-wrapper" aria-label="Live Mandi Price Ticker">
     <div class="ticker-label">
+        <span class="ticker-source-badge">⚡ AGMARKNET 2.0 LIVE</span>
         <span class="pulse-dot"></span>
         <span data-i18n="ticker_label">Daily Market Rates</span>
     </div>
@@ -116,7 +134,6 @@ const HeaderComponent = {
         const headerContainer = document.getElementById('common-header') || document.getElementById('site-header');
         if (!headerContainer) return;
 
-        // Try fetch first if served via HTTP server
         if (window.location.protocol.startsWith('http')) {
             try {
                 const res = await fetch('./components/header.html');
@@ -124,12 +141,9 @@ const HeaderComponent = {
                     headerContainer.innerHTML = await res.text();
                     return;
                 }
-            } catch (err) {
-                // fall through to embedded template
-            }
+            } catch (err) { }
         }
 
-        // Immediate fallback for direct file:/// opening or offline environments
         headerContainer.innerHTML = this.template;
     }
 };
@@ -149,7 +163,7 @@ const FooterComponent = {
                     agricultural logistics, and building transparent market mechanisms.
                 </p>
                 <div class="footer-helpline-box">
-                    <div class="f-help-label" data-i18n="footer_helpline_label">Kisan Call Center / 24x7 Helpline:</div>
+                    <div class="f-help-label" data-i18n="farmer_helpline">Kisan Call Center / 24x7 Helpline:</div>
                     <span class="f-help-num">1800-180-1551</span>
                 </div>
             </div>
@@ -159,6 +173,8 @@ const FooterComponent = {
                 <ul class="footer-links">
                     <li><a href="index.html">› <span data-i18n="nav_home">Home</span></a></li>
                     <li><a href="mandi-rates.html">› <span data-i18n="nav_rates">Daily Mandi Rates</span></a></li>
+                    <li><a href="ebijak-ledger.html">› <span data-i18n="nav_ebijak">e-Bijak & Ledgers</span></a></li>
+                    <li><a href="logistics-freight.html">› <span data-i18n="nav_logistics">Logistics & Freight</span></a></li>
                     <li><a href="schemes.html">› <span data-i18n="nav_schemes">Schemes & Subsidies</span></a></li>
                     <li><a href="cold-storage.html">› <span data-i18n="nav_cold_storage">Cold Storage Network</span></a></li>
                     <li><a href="marketplace.html">› <span data-i18n="nav_marketplace">Farm Connect Hub</span></a></li>
@@ -168,27 +184,26 @@ const FooterComponent = {
             </div>
 
             <div>
-                <h4 class="footer-col-title" data-i18n="footer_schemes_links">Important Schemes</h4>
+                <h4 class="footer-col-title" data-i18n="footer_schemes_links">AgriTech & Schemes</h4>
                 <ul class="footer-links">
-                    <li><a href="schemes.html">› <span data-i18n="footer_scheme_amar">Amar Fasal Amar Gari</span></a></li>
-                    <li><a href="schemes.html">› <span data-i18n="footer_scheme_sufal">Sufal Bangla Outlets</span></a></li>
-                    <li><a href="schemes.html">› <span data-i18n="footer_scheme_solar">Solar Cold Chain Assistance</span></a></li>
-                    <li><a href="schemes.html">› <span data-i18n="footer_scheme_krishak">Krishak Bandhu Linkage</span></a></li>
-                    <li><a href="schemes.html">› <span data-i18n="footer_scheme_enam">e-NAM Inter-state Trade</span></a></li>
-                    <li><a href="schemes.html">› <span data-i18n="footer_scheme_agmark">Agmark Quality Certification</span></a></li>
+                    <li><a href="ebijak-ledger.html">› <span>e-Bijak Invoicing (APMC Cess)</span></a></li>
+                    <li><a href="logistics-freight.html">› <span>Freight Transport Calculator</span></a></li>
+                    <li><a href="cold-storage.html">› <span>WDRA Cold Storage & e-NWR</span></a></li>
+                    <li><a href="schemes.html">› <span>Amar Fasal Amar Gari</span></a></li>
+                    <li><a href="schemes.html">› <span>Sufal Bangla Outlets</span></a></li>
+                    <li><a href="marketplace.html">› <span>Live Mandi E-Auction Floor</span></a></li>
                 </ul>
             </div>
 
             <div>
-                <h4 class="footer-col-title" data-i18n="footer_contact_title">Headquarters</h4>
-                <p style="font-size:0.88rem; color:#94a3b8; line-height:1.6; margin-bottom:1rem;"
-                    data-i18n="footer_address">
+                <h4 class="footer-col-title">Headquarters</h4>
+                <p style="font-size:0.88rem; color:#94a3b8; line-height:1.6; margin-bottom:1rem;">
                     Subhanna, 5th & 6th Floor, DF Block, Sector-I, Salt Lake, Kolkata - 700064
                 </p>
                 <div style="font-size:0.85rem; color:#cbd5e1; display:flex; flex-direction:column; gap:0.35rem;">
-                    <div>📞 <strong data-i18n="footer_lbl_helpline">Helpline:</strong> 1800-180-1551</div>
-                    <div>✉️ <strong data-i18n="footer_lbl_email">Email:</strong> agrimarketing@gov.in</div>
-                    <div>🌐 <strong data-i18n="footer_lbl_website">Website:</strong> agrimarketing.gov.in</div>
+                    <div>📞 <strong>Helpline:</strong> 1800-180-1551</div>
+                    <div>✉️ <strong>Email:</strong> agrimarketing@gov.in</div>
+                    <div>🌐 <strong>Portal:</strong> agrimarketing.wb.gov.in</div>
                 </div>
             </div>
         </div>
@@ -198,10 +213,10 @@ const FooterComponent = {
                 © 2026 Agricultural Marketing Department. All Rights Reserved.
             </div>
             <div style="display:flex; gap:1.2rem; flex-wrap:wrap;">
-                <a href="about.html" style="color:#94a3b8;" data-i18n="footer_privacy">Privacy Policy</a>
-                <a href="about.html" style="color:#94a3b8;" data-i18n="footer_terms">Terms of Use</a>
-                <a href="about.html" style="color:#94a3b8;" data-i18n="footer_accessibility">Accessibility Statement</a>
-                <a href="about.html" style="color:#94a3b8;" data-i18n="footer_sitemap">Sitemap</a>
+                <a href="about.html" style="color:#94a3b8;">Privacy Policy</a>
+                <a href="about.html" style="color:#94a3b8;">Terms of Trade</a>
+                <a href="about.html" style="color:#94a3b8;">AGMARKNET 2.0 Compliance</a>
+                <a href="about.html" style="color:#94a3b8;">Sitemap</a>
             </div>
         </div>
     </div>
@@ -211,7 +226,6 @@ const FooterComponent = {
         const footerContainer = document.getElementById('common-footer') || document.getElementById('site-footer');
         if (!footerContainer) return;
 
-        // Try fetch first if served via HTTP server
         if (window.location.protocol.startsWith('http')) {
             try {
                 const res = await fetch('./components/footer.html');
@@ -219,18 +233,15 @@ const FooterComponent = {
                     footerContainer.innerHTML = await res.text();
                     return;
                 }
-            } catch (err) {
-                // fall through to embedded template
-            }
+            } catch (err) { }
         }
 
-        // Immediate fallback for direct file:/// opening or offline environments
         footerContainer.innerHTML = this.template;
     }
 };
 
 /* ==========================================================================
-   DATA LOADER (Loads from ./data/*.json with Embedded Fallbacks)
+   DATA LOADER
    ========================================================================== */
 const DataLoader = {
     async init() {
@@ -257,554 +268,66 @@ const DataLoader = {
                 NoticesModule.data = noticesRes.value;
             }
             if (schemesRes.status === 'fulfilled' && Array.isArray(schemesRes.value)) {
-                SchemesModule.data = schemesRes.value;
+                if (typeof SchemesModule !== 'undefined') {
+                    SchemesModule.data = schemesRes.value;
+                }
             }
             if (transRes.status === 'fulfilled' && transRes.value) {
                 I18nEngine.translations = transRes.value;
             }
         } catch (e) {
-            console.info("Using embedded default datasets.");
+            console.info("Using embedded datasets.");
         }
     }
 };
 
 /* ==========================================================================
-   1. MULTILINGUAL I18N ENGINE (English, Bengali, Hindi)
+   1. 3-LANGUAGE I18N ENGINE (ENGLISH, BENGALI, HINDI)
    ========================================================================== */
 const I18nEngine = {
     currentLang: 'en',
-    translations: {
-        en: {
-            "gov_name": "State Agricultural Marketing Board",
-            "farmer_helpline": "Farmer Helpline (Toll-Free):",
-            "skip_content": "Skip to Content",
-            "light_mode": "Light",
-            "dark_mode": "Dark",
-            "dept_gov": "Agricultural Marketing Department",
-            "dept_title": "Agricultural Marketing Department",
-            "dept_subtitle": "Directorate of Agricultural Marketing | State Marketing Board",
-            "nav_home": "Home",
-            "nav_rates": "Mandi Rates",
-            "nav_schemes": "Schemes & Subsidies",
-            "nav_cold_storage": "Cold Storages",
-            "nav_marketplace": "Farm Connect",
-            "nav_about": "About Us",
-            "nav_contact": "Contact Us",
-            "ticker_label": "Daily Market Rates",
-            "hero_badge": "Agricultural Price Discovery & Market Intelligence",
-            "hero_title_prefix": "Empowering Farmers with ",
-            "hero_title_highlight": "Fair Prices & Smart Markets",
-            "hero_desc": "Connecting 1.6M+ farmers directly with regulated mandis, Sufal Bangla retail hubs, modern cold chains, and transparent electronic trading across the state.",
-            "btn_explore_rates": "Check Today's Mandi Rates",
-            "btn_sufal_bangla": "Sufal Bangla Outlets",
-            "quick_widget_title": "Instant Commodity Price Discovery",
-            "select_crop_ph": "Select Commodity...",
-            "select_dist_ph": "Select District...",
-            "btn_check_price": "Get Price",
-            "quick_res_modal": "Modal Price:",
-            "quick_res_range": "Range:",
-            "quick_res_trend": "Trend:",
-            "quick_res_arrivals": "Arrivals:",
-            "float_mandi_count": "Regulated APMC Mandis",
-            "float_settlement": "Direct Trade Settlements",
-            "stat_mandis": "Regulated Mandis",
-            "stat_farmers": "Registered Farmers",
-            "stat_outlets": "Sufal Bangla Centers",
-            "stat_trade": "Annual Trade Volume",
-            "services_tag": "🌟 Comprehensive Services",
-            "services_title": "Agricultural Marketing Services & Infrastructure",
-            "services_subtitle": "Access real-time commodity rates, government subsidies, cold chain storage facilities, and farm produce marketing.",
-            "srv_mandi_title": "Daily Mandi Rates",
-            "srv_mandi_desc": "Live APMC checkpost prices, 24-hour trends, modal price comparison, and interactive 7-day canvas charts.",
-            "srv_mandi_link": "Explore Mandi Rates →",
-            "srv_schemes_title": "Schemes & Subsidies",
-            "srv_schemes_desc": "Amar Fasal Amar Gari vehicle subsidy, Sufal Bangla kiosks, and our 3-click interactive subsidy eligibility calculator.",
-            "srv_schemes_link": "Calculate Subsidy →",
-            "srv_cold_title": "Cold Storage Grid",
-            "srv_cold_desc": "Check real-time capacity across districts, view temperature zones, and reserve potato & vegetable storage slots online.",
-            "srv_cold_link": "Find Storage Units →",
-            "srv_market_title": "Farm Connect Hub",
-            "srv_market_desc": "Direct farm-to-buyer e-marketplace for verified grains, vegetables, spices, and organic fruits without middlemen.",
-            "srv_market_link": "View Farm Listings →",
-            "srv_krishak_title": "Krishak Bazar Hubs",
-            "srv_krishak_desc": "Modern farmer-to-consumer retail yards, weekly rural hats, electronic weighing, and transparent direct spot auctioning.",
-            "srv_krishak_link": "Explore Krishak Bazars →",
-            "srv_agmark_title": "Agmark Quality Testing",
-            "srv_agmark_desc": "Regional testing laboratories for edible oils, spices, and honey, ensuring chemical residue compliance and AGMARK grading.",
-            "srv_agmark_link": "View Quality Standards →",
-            "mandi_tag": "Real-Time Market Intelligence",
-            "mandi_title": "Daily Commodity Mandi Rates",
-            "mandi_subtitle": "Live modal prices, minimum-maximum ranges, and daily arrivals updated directly from APMC checkposts.",
-            "tab_all": "All Commodities",
-            "tab_veg": "Vegetables",
-            "tab_grain": "Cereals & Grains",
-            "tab_pulses": "Pulses",
-            "tab_oilseed": "Oilseeds & Cash Crops",
-            "tab_fruits": "Fruits",
-            "tab_spices": "Spices",
-            "search_crop_ph": "Search crop (e.g. Potato, Onion, Rice)...",
-            "all_districts": "All Districts",
-            "th_commodity": "Commodity & Variety",
-            "th_mandi": "Market / Mandi",
-            "th_min": "Min (₹/Qtl)",
-            "th_max": "Max (₹/Qtl)",
-            "th_modal": "Modal Price (₹/Qtl)",
-            "th_trend": "24h Trend",
-            "th_action": "Action",
-            "btn_view_trend": "7-Day Trend",
-            "btn_set_alert": "Get SMS Alert",
-            "btn_download_csv": "Export CSV",
-            "btn_print_rates": "Print Rates",
-            "mandi_guide_1_title": "Daily Modal Rate Formula",
-            "mandi_guide_1_desc": "Modal price represents the most frequent transaction price realized by farmers on the trading floor for standard quality grade.",
-            "mandi_guide_2_title": "Transparent Electronic Auction",
-            "mandi_guide_2_desc": "All APMC yards operate under e-NAM electronic weighing and direct bank settlement within 24 hours.",
-            "mandi_guide_3_title": "Dispute Resolution",
-            "mandi_guide_3_desc": "For pricing disputes or weighing anomalies, contact the APMC Market Secretary or call Toll-Free Helpline: 1800-180-1551.",
-            "init_tag": "Flagship Programs",
-            "init_title": "Empowering Agri-Logistics & Direct Trade",
-            "init_subtitle": "Key initiatives facilitating direct farm-to-consumer linkages, logistics subsidies, and storage infrastructure.",
-            "sufal_title": "Sufal Bangla Outlets",
-            "sufal_desc": "Direct farm-to-door retail network selling fresh vegetables, fruits, and dairy at fair prices while eliminating intermediaries.",
-            "sufal_f1": "450+ Static and Mobile Kiosks",
-            "sufal_f2": "Direct daily procurement from FPOs",
-            "sufal_f3": "Quality grading & fair retail price tags",
-            "amar_fasal_title": "Amar Fasal Amar Gari",
-            "amar_desc": "Capital subsidy program offering up to 50% financial assistance to farmers and self-help groups for purchasing produce transport vans.",
-            "amar_f1": "50% Vehicle Cost Subsidy (Up to ₹1.5L)",
-            "amar_f2": "Reduces post-harvest transit losses",
-            "amar_f3": "Fast direct delivery to wholesale mandis",
-            "cold_grid_title": "Cold Storage & Warehousing Grid",
-            "cold_desc": "Integrated network of multi-chamber cold storage facilities with real-time slot booking and moisture-controlled potato chambers.",
-            "cold_f1": "Real-time district capacity tracker",
-            "cold_f2": "Subsidized electricity tariff for agri-units",
-            "cold_f3": "Scientific preservation & Agmark labs",
-            "calc_tag": "Interactive Subsidy Tool",
-            "calc_title": "Agri-Marketing Subsidy & Scheme Calculator",
-            "calc_subtitle": "Calculate your estimated grant eligibility in 3 easy clicks.",
-            "lbl_beneficiary": "Select Beneficiary Category:",
-            "opt_small_farmer": "Small / Marginal Farmer",
-            "opt_small_farmer_sub": "Landholding up to 2 Hectares",
-            "opt_women_farmer": "Women Farmer / SHG",
-            "opt_women_farmer_sub": "Women-led Agri Enterprises",
-            "opt_fpo": "FPO / Farmers Cooperative",
-            "opt_fpo_sub": "Registered Producer Groups",
-            "opt_agri_startup": "Agri-Entrepreneur / Startup",
-            "opt_agri_startup_sub": "Modern Marketing Infrastructure",
-            "lbl_facility": "Select Infrastructure / Support Needed:",
-            "opt_fac_vehicle": "Produce Transport Van (Amar Fasal)",
-            "opt_fac_cold": "Solar Cold Room / Storage Unit",
-            "opt_fac_packhouse": "Grading, Sorting & Packhouse",
-            "opt_fac_kiosk": "Amar Dukan Modern Retail Kiosk",
-            "lbl_cost": "Estimated Project Cost (₹ in Lakhs):",
-            "res_subsidy_title": "Eligible Government Subsidy",
-            "res_scheme_label": "Recommended Scheme:",
-            "btn_apply_scheme": "Download Application Guidelines",
-            "cs_tag": "Storage Infrastructure",
-            "cs_title": "District Cold Storage & APMC Locator",
-            "cs_subtitle": "Check available capacity, contact managers, and book temperature-controlled storage.",
-            "btn_book_space": "Reserve Storage Slot",
-            "cs_available": "Available Space",
-            "cs_limited": "Filling Fast",
-            "market_tag": "Direct Farm Connect",
-            "market_title": "Farmer Produce Showcase & Trade Hub",
-            "market_subtitle": "Direct verified farm listings from agricultural cooperatives and farmer producer organizations.",
-            "btn_contact_farmer": "Send Bid / Inquiry",
-            "notices_tag": "Official Communications",
-            "notices_title": "Tenders, Notifications & Advisory",
-            "tab_tenders": "Tenders & EOIs",
-            "tab_bulletins": "Daily Price Bulletins",
-            "tab_circulars": "MSP & Notifications",
-            "btn_download_pdf": "Download PDF",
-            "advisory_heading": "Daily Farmer Market Advisory",
-            "footer_about_title": "Agricultural Marketing Department",
-            "footer_about_desc": "Committed to empowering farmers, stabilizing food prices, providing state-of-the-art agricultural logistics, and building transparent market mechanisms.",
-            "footer_quick_links": "Quick Navigation",
-            "footer_schemes_links": "Important Schemes",
-            "footer_scheme_amar": "Amar Fasal Amar Gari",
-            "footer_scheme_sufal": "Sufal Bangla Outlets",
-            "footer_scheme_solar": "Solar Cold Chain Assistance",
-            "footer_scheme_krishak": "Krishak Bandhu Linkage",
-            "footer_scheme_enam": "e-NAM Inter-state Trade",
-            "footer_scheme_agmark": "Agmark Quality Certification",
-            "footer_helpline_label": "Kisan Call Center / 24x7 Helpline:",
-            "footer_lbl_helpline": "Helpline:",
-            "footer_lbl_email": "Email:",
-            "footer_lbl_website": "Website:",
-            "footer_privacy": "Privacy Policy",
-            "footer_terms": "Terms of Use",
-            "footer_accessibility": "Accessibility Statement",
-            "footer_sitemap": "Sitemap",
-            "footer_contact_title": "Headquarters",
-            "footer_address": "Subhanna, 5th & 6th Floor, DF Block, Sector-I, Salt Lake, Kolkata - 700064",
-            "footer_rights": "© 2026 Agricultural Marketing Department. All Rights Reserved."
-        },
-        bn: {
-            "gov_name": "রাজ্য কৃষি বিপণন পর্ষদ",
-            "farmer_helpline": "কৃষক হেল্পলাইন (টোল-ফ্রি):",
-            "skip_content": "সরাসরি মূল অংশে যান",
-            "light_mode": "লাইট",
-            "dark_mode": "ডার্ক",
-            "dept_gov": "কৃষি বিপণন বিভাগ",
-            "dept_title": "কৃষি বিপণন বিভাগ",
-            "dept_subtitle": "কৃষি বিপণন অধিকার | রাজ্য কৃষি বিপণন পর্ষদ",
-            "nav_home": "হোম",
-            "nav_rates": "মান্ডি দর",
-            "nav_schemes": "প্রকল্প ও ভর্তুকি",
-            "nav_cold_storage": "হিমাগার",
-            "nav_marketplace": "কৃষক সংযোগ",
-            "nav_about": "পরিচিতি",
-            "nav_contact": "যোগাযোগ",
-            "ticker_label": "সরাসরি মান্ডি দর",
-            "hero_badge": "কৃষি বাজার দর ও বিপণন সেবা",
-            "hero_title_prefix": "কৃষকদের ক্ষমতায়নে ",
-            "hero_title_highlight": "ন্যায্য মূল্য ও আধুনিক বাজার",
-            "hero_desc": "রাজ্যের ১৬ লক্ষেরও বেশি কৃষককে নিয়ন্ত্রিত মান্ডি, সুফল বাংলা আউটলেট, আধুনিক হিমাগার এবং স্বচ্ছ ই-ট্রেডিং ব্যবস্থার সাথে সরাসরি যুক্ত করা হচ্ছে।",
-            "btn_explore_rates": "আজকের বাজার দর দেখুন",
-            "btn_sufal_bangla": "সুফল বাংলা কেন্দ্রসমূহ",
-            "quick_widget_title": "দ্রুত শস্যের দর সন্ধান",
-            "select_crop_ph": "শস্য নির্বাচন করুন...",
-            "select_dist_ph": "জেলা নির্বাচন করুন...",
-            "btn_check_price": "দর দেখুন",
-            "quick_res_modal": "গড় দর:",
-            "quick_res_range": "সর্বনিম্ন - সর্বোচ্চ:",
-            "quick_res_trend": "পরিবর্তন:",
-            "quick_res_arrivals": "আমদানি:",
-            "float_mandi_count": "নিয়ন্ত্রিত এপিএমসি মান্ডি",
-            "float_settlement": "সরাসরি লেনদেন নিষ্পত্তি",
-            "stat_mandis": "নিয়ন্ত্রিত মান্ডি",
-            "stat_farmers": "নিবন্ধিত কৃষক",
-            "stat_outlets": "সুফল বাংলা কেন্দ্র",
-            "stat_trade": "বার্ষিক বাণিজ্য পরিমাণ",
-            "services_tag": "🌟 শীর্ষ সেবাসমূহ",
-            "services_title": "কৃষি বিপণন সেবা ও পরিকাঠামো",
-            "services_subtitle": "রিয়েল-টাইম কৃষি বাজার দর, সরকারি ভর্তুকি, কোল্ড চেইন সংরক্ষণ এবং ফসল বিপণন সুবিধা।",
-            "srv_mandi_title": "দৈনিক মান্ডি দর",
-            "srv_mandi_desc": "এপিএমসি চেকপোস্ট থেকে সরাসরি বাজার দর, ২৪ ঘণ্টার ট্রেন্ড এবং ৭ দিনের চার্ট।",
-            "srv_mandi_link": "বাজার দর দেখুন →",
-            "srv_schemes_title": "প্রকল্প ও ভর্তুকি",
-            "srv_schemes_desc": "আমার ফসল আমার গাড়ি যানবাহন ভর্তুকি এবং সহজ ভর্তুকি ক্যালকুলেটর।",
-            "srv_schemes_link": "ভর্তুকি গণনা করুন →",
-            "srv_cold_title": "হিমাগার গ্রিড",
-            "srv_cold_desc": "জেলা ভিত্তিক হিমাগারের ধারণক্ষমতা জানুন এবং অনলাইনে সংরক্ষণের স্লট বুক করুন।",
-            "srv_cold_link": "হিমাগার সন্ধান →",
-            "srv_market_title": "কৃষক সংযোগ হাব",
-            "srv_market_desc": "মধ্যস্বত্বভোগী ছাড়া কৃষকদের থেকে সরাসরি শস্য, শাকসবজি ও ফল ক্রয়ের প্ল্যাটফর্ম।",
-            "srv_market_link": "তালিকা দেখুন →",
-            "srv_krishak_title": "কৃষক বাজার হাব",
-            "srv_krishak_desc": "আধুনিক কৃষক বাজার, গ্রামীণ হাট, ইলেকট্রনিক ওজন মাপক ও স্বচ্ছ স্পট নিলাম ব্যবস্থা।",
-            "srv_krishak_link": "কৃষক বাজার দেখুন →",
-            "srv_agmark_title": "এগমার্ক গুণমান পরীক্ষা",
-            "srv_agmark_desc": "খাদ্যতেল, মসলা ও মধুর গুণমান যাচাইয়ের জন্য আঞ্চলিক অত্যাধুনিক এগমার্ক গবেষণাগার।",
-            "srv_agmark_link": "গুণমান মানদণ্ড দেখুন →",
-            "mandi_tag": "সরাসরি বাজার তথ্য",
-            "mandi_title": "দৈনিক কৃষি মান্ডি দর",
-            "mandi_subtitle": "এপিএমসি চেকপোস্ট থেকে সরাসরি সংগৃহীত সর্বনিম্ন, সর্বোচ্চ এবং গড় দর।",
-            "tab_all": "সকল শস্য",
-            "tab_veg": "শাকসবজি",
-            "tab_grain": "দানাশস্য ও চাল",
-            "tab_pulses": "ডালজাতীয়",
-            "tab_oilseed": "তৈলবীজ ও অর্থকরী",
-            "tab_fruits": "ফলমূল",
-            "tab_spices": "মসলাপাতি",
-            "search_crop_ph": "শস্য খুঁজুন (যেমন: আলু, পেঁয়াজ, চাল)...",
-            "all_districts": "সকল জেলা",
-            "th_commodity": "শস্য ও প্রকারভেদ",
-            "th_mandi": "বাজার / মান্ডি",
-            "th_min": "সর্বনিম্ন (₹/কুইন্টাল)",
-            "th_max": "সর্বোচ্চ (₹/কুইন্টাল)",
-            "th_modal": "গড় দর (₹/কুইন্টাল)",
-            "th_trend": "২৪ ঘণ্টার ট্রেন্ড",
-            "th_action": "পদক্ষেপ",
-            "btn_view_trend": "৭ দিনের ট্রেন্ড",
-            "btn_set_alert": "এসএমএস এলার্ট পান",
-            "btn_download_csv": "সিএসভি ডাউনলোড",
-            "btn_print_rates": "প্রিন্ট করুন",
-            "mandi_guide_1_title": "দৈনিক মডেল দরের নিয়ম",
-            "mandi_guide_1_desc": "মডেল দর হল নির্দিষ্ট মানের ফসলের জন্য বাজারে সবচেয়ে বেশি সংখ্যক লেনদেন যে মূল্যে সম্পন্ন হয়েছে।",
-            "mandi_guide_2_title": "স্বচ্ছ ইলেকট্রনিক নিলাম",
-            "mandi_guide_2_desc": "সমস্ত এপিএমসি মান্ডি ই-ন্যাম (e-NAM) ডিজিটাল ওজন এবং ২৪ ঘণ্টার মধ্যে সরাসরি ব্যাঙ্ক ট্রান্সফারে পরিচালিত হয়।",
-            "mandi_guide_3_title": "অভিযোগ ও সমাধান",
-            "mandi_guide_3_desc": "মূল্য নির্ধারণ বা ওজনের অসঙ্গতির জন্য মান্ডি সচিবের সাথে যোগাযোগ করুন বা টোল-ফ্রি হেল্পলাইনে কল করুন: ১৮০০-১৮০-১৫৫১।",
-            "init_tag": "শীর্ষ কর্মসূচি",
-            "init_title": "কৃষি লজিস্টিকস ও সরাসরি বিপণন সম্প্রসারণ",
-            "init_subtitle": "কৃষক ও উপভোক্তাদের সরাসরি সংযোগ, পরিবহন ভর্তুকি এবং আধুনিক সংরক্ষণ পরিকাঠামো।",
-            "sufal_title": "সুফল বাংলা আউটলেট",
-            "sufal_desc": "মধ্যস্বত্বভোগী ছাড়া কৃষকদের থেকে সরাসরি ন্যায্য মূল্যে তাজা শাকসবজি ও ফল সাধারণ মানুষের কাছে পৌঁছে দেওয়ার উদ্যোগ।",
-            "sufal_f1": "৪৫০+ স্থায়ী ও ভ্রাম্যমাণ আউটলেট",
-            "sufal_f2": "কৃষক উৎপাদক সংস্থা (FPO) থেকে সরাসরি সংগ্রহ",
-            "sufal_f3": "গুণমান পরীক্ষা ও ন্যায্য মূল্য তালিকা",
-            "amar_fasal_title": "আমার ফসল আমার গাড়ি",
-            "amar_desc": "কৃষক ও স্বনির্ভর গোষ্ঠীর জন্য ফসল পরিবহন যান ক্রয়ে ৫০% পর্যন্ত সরকারি আর্থিক ভর্তুকি প্রকল্প।",
-            "amar_f1": "৫০% যানবাহন ভর্তুকি (সর্বোচ্চ ১.৫ লাখ টাকা)",
-            "amar_f2": "ফসল পরিবহনের অপচয় রোধ",
-            "amar_f3": "পাইকারি মান্ডিতে দ্রুত সরাসরি সরবরাহ",
-            "cold_grid_title": "হিমাগার ও কোল্ড চেইন পরিকাঠামো",
-            "cold_desc": "রিয়েল-টাইম স্লট বুকিং এবং আর্দ্রতা-নিয়ন্ত্রিত আলু ও সবজি সংরক্ষণের জন্য আধুনিক কোল্ড চেইন গ্রিড।",
-            "cold_f1": "জেলা ভিত্তিক খালি জায়গার সঠিক তথ্য",
-            "cold_f2": "কৃষি হিমাগারে বিদ্যুৎ শুল্কে বিশেষ ছাড়",
-            "cold_f3": "বিজ্ঞানসম্মত সংরক্ষণ ও এগমার্ক ল্যাব",
-            "calc_tag": "ইন্টারেক্টিভ ভর্তুকি ক্যালকুলেটর",
-            "calc_title": "কৃষি বিপণন ভর্তুকি ও প্রকল্প গণক",
-            "calc_subtitle": "সহজে মাত্র ৩টি ক্লিকে আপনার সম্ভাব্য সরকারি অনুদান ও ভর্তুকির পরিমাণ হিসাব করুন।",
-            "lbl_beneficiary": "আবেদনকারীর শ্রেণি নির্বাচন করুন:",
-            "opt_small_farmer": "ক্ষুদ্র ও প্রান্তিক কৃষক",
-            "opt_small_farmer_sub": "২ হেক্টর পর্যন্ত কৃষিজমি",
-            "opt_women_farmer": "মহিলা কৃষক / স্বনির্ভর দল",
-            "opt_women_farmer_sub": "মহিলা পরিচালিত কৃষি উদ্যোগ",
-            "opt_fpo": "এফপিও / কৃষক সমবায়",
-            "opt_fpo_sub": "নিবন্ধিত কৃষক উৎপাদক দল",
-            "opt_agri_startup": "কৃষি উদ্যোক্তা / স্টার্টআপ",
-            "opt_agri_startup_sub": "আধুনিক বিপণন পরিকাঠামো",
-            "lbl_facility": "প্রয়োজনীয় পরিকাঠামো / সহায়তা:",
-            "opt_fac_vehicle": "ফসল পরিবহন যান (আমার ফসল)",
-            "opt_fac_cold": "সোলার কোল্ড রুম / ছোট হিমাগার",
-            "opt_fac_packhouse": "গ্রেডিং ও প্যাকেজিং কেন্দ্র",
-            "opt_fac_kiosk": "আমার দোকান আধুনিক রিটেল স্টল",
-            "lbl_cost": "আনুমানিক প্রকল্প ব্যয় (লক্ষ টাকায়):",
-            "res_subsidy_title": "প্রাপ্য সরকারি ভর্তুকি",
-            "res_scheme_label": "প্রস্তাবিত প্রকল্প:",
-            "btn_apply_scheme": "আবেদন নির্দেশিকা ডাউনলোড করুন",
-            "cs_tag": "সংরক্ষণ পরিকাঠামো",
-            "cs_title": "জেলা ভিত্তিক হিমাগার ও এপিএমসি সন্ধান",
-            "cs_subtitle": "হিমাগারের খালি ধারণক্ষমতা জানুন এবং সরাসরি সংরক্ষণের স্লট বুক করুন।",
-            "btn_book_space": "সংরক্ষণ স্লট বুক করুন",
-            "cs_available": "স্থান খালি আছে",
-            "cs_limited": "দ্রুত ভর্তি হচ্ছে",
-            "market_tag": "সরাসরি কৃষক সংযোগ",
-            "market_title": "কৃষকদের উৎপাদিত শস্যের সরাসরি প্রদর্শনী",
-            "market_subtitle": "কৃষকদের থেকে সরাসরি শস্য ক্রয়ের জন্য যাচাইকৃত তালিকা।",
-            "btn_contact_farmer": "দরপ্রস্তাব / যোগাযোগ পাঠান",
-            "notices_tag": "অফিসিয়াল বিজ্ঞপ্তি",
-            "notices_title": "টেন্ডার, সরকারি বিজ্ঞপ্তি ও কৃষক বার্তা",
-            "tab_tenders": "টেন্ডার ও ইওআই",
-            "tab_bulletins": "দৈনিক মূল্য বুলেটিন",
-            "tab_circulars": "সহায়ক মূল্য ও বিজ্ঞপ্তি",
-            "btn_download_pdf": "পিডিএফ ডাউনলোড",
-            "advisory_heading": "কৃষকদের জন্য দৈনিক বাজার পরামর্শ",
-            "footer_about_title": "কৃষি বিপণন বিভাগ",
-            "footer_about_desc": "কৃষকদের ন্যায্য মূল্য প্রদান, খাদ্যদ্রব্যের মূল্য স্থিতিশীল রাখা ও আধুনিক বিপণন ব্যবস্থা গড়ে তুলতে দায়বদ্ধ।",
-            "footer_quick_links": "প্রয়োজনীয় লিংক",
-            "footer_schemes_links": "গুরুত্বপূর্ণ প্রকল্প",
-            "footer_scheme_amar": "আমার ফসল আমার গাড়ি",
-            "footer_scheme_sufal": "সুফল বাংলা আউটলেট",
-            "footer_scheme_solar": "সৌর কোল্ড চেইন সহায়তা",
-            "footer_scheme_krishak": "কৃষক বন্ধু সংযুক্তি",
-            "footer_scheme_enam": "ই-ন্যাম আন্তঃরাজ্য বাণিজ্য",
-            "footer_scheme_agmark": "এগমার্ক মান পরীক্ষণ ও শংসাপত্র",
-            "footer_helpline_label": "কিষাণ কল সেন্টার / ২৪x৭ হেল্পলাইন:",
-            "footer_lbl_helpline": "হেল্পলাইন:",
-            "footer_lbl_email": "ইমেল:",
-            "footer_lbl_website": "ওয়েবসাইট:",
-            "footer_privacy": "গোপনীয়তা নীতি",
-            "footer_terms": "ব্যবহারের শর্তাবলী",
-            "footer_accessibility": "অ্যাক্সেসিবিলিটি বিবৃতি",
-            "footer_sitemap": "সাইটম্যাপ",
-            "footer_contact_title": "প্রধান কার্যালয়",
-            "footer_address": "শুভন্না ভবন, ৫ম ও ৬ষ্ঠ তল, ডিএফ ব্লক, সেক্টর-১, সল্টলেক, কলকাতা - ৭০০০৬৪",
-            "footer_rights": "© ২০২৬ কৃষি বিপণন বিভাগ। সর্বস্বত্ব সংরক্ষিত।"
-        },
-        hi: {
-            "gov_name": "राज्य कृषि विपणन बोर्ड",
-            "farmer_helpline": "किसान हेल्पलाइन (टोल-फ्री):",
-            "skip_content": "सीधे मुख्य सामग्री पर जाएं",
-            "light_mode": "लाइट",
-            "dark_mode": "डार्क",
-            "dept_gov": "কৃषि विपणन विभाग",
-            "dept_title": "कृषि विपणन विभाग",
-            "dept_subtitle": "कृषि विपणन निदेशालय | राज्य विपणन बोर्ड",
-            "nav_home": "होम",
-            "nav_rates": "मंडी भाव",
-            "nav_schemes": "योजनाएं व सब्सिडी",
-            "nav_cold_storage": "कोल्ड स्टोरेज",
-            "nav_marketplace": "फार्म कनेक्ट",
-            "nav_about": "परिचय",
-            "nav_contact": "संपर्क",
-            "ticker_label": "लाइव मंडी भाव",
-            "hero_badge": "कृषि मूल्य खोज एवं विपणन सेवाएं",
-            "hero_title_prefix": "किसानों का सशक्तिकरण ",
-            "hero_title_highlight": "उचित मूल्य व आधुनिक बाजार से",
-            "hero_desc": "राज्य के 16 लाख से अधिक किसानों को विनियमित मंडियों, सुफल बांग्ला आउटलेट्स, आधुनिक कोल्ड स्टोरेज और पारदर्शी ई-ट्रेडिंग से सीधे जोड़ना।",
-            "btn_explore_rates": "आज का मंडी भाव देखें",
-            "btn_sufal_bangla": "सुफल बांग्ला केंद्र",
-            "quick_widget_title": "त्वरित फसल मूल्य खोज",
-            "select_crop_ph": "फसल चुनें...",
-            "select_dist_ph": "जिला चुनें...",
-            "btn_check_price": "भाव देखें",
-            "quick_res_modal": "मॉडल भाव:",
-            "quick_res_range": "न्यूनतम - अधिकतम:",
-            "quick_res_trend": "रुझान:",
-            "quick_res_arrivals": "आवक:",
-            "float_mandi_count": "विनियमित एपीएमसी मंडियां",
-            "float_settlement": "प्रत्यक्ष व्यापार निपटान",
-            "stat_mandis": "विनियमित मंडियां",
-            "stat_farmers": "पंजीकृत किसान",
-            "stat_outlets": "सुफल बांग्ला केंद्र",
-            "stat_trade": "वार्षिक व्यापार मात्रा",
-            "services_tag": "🌟 प्रमुख सेवाएं",
-            "services_title": "कृषि विपणन सेवाएं एवं अवसंरचना",
-            "services_subtitle": "रीयल-टाइम मंडी भाव, सरकारी सब्सिडी, कोल्ड स्टोरेज और कृषि उत्पाद विपणन सुविधाएं।",
-            "srv_mandi_title": "दैनिक मंडी भाव",
-            "srv_mandi_desc": "एपीएमसी चौकियों से सीधे न्यूनतम, अधिकतम और 7-दिवसीय चार्ट।",
-            "srv_mandi_link": "मंडी भाव देखें →",
-            "srv_schemes_title": "योजनाएं व सब्सिडी",
-            "srv_schemes_desc": "अमर फसल अमर गाड़ी वाहन सब्सिडी और इंटरैक्टिव सब्सिडी कैलकुलेटर।",
-            "srv_schemes_link": "सब्सिडी गणना करें →",
-            "srv_cold_title": "कोल्ड स्टोरेज ग्रिड",
-            "srv_cold_desc": "जिलावार कोल्ड स्टोरेज क्षमता जांचें और ऑनलाइन स्लॉट बुक करें।",
-            "srv_cold_link": "स्टोरेज खोजें →",
-            "srv_market_title": "फार्म कनेक्ट हब",
-            "srv_market_desc": "बिचौलियों के बिना किसानों से सीधे फसल व फल खरीदने का ई-मार्केटप्लेस।",
-            "srv_market_link": "लिस्टिंग देखें →",
-            "srv_krishak_title": "कृषक बाजार हब",
-            "srv_krishak_desc": "आधुनिक कृषक बाजार, ग्रामीण हाट, इलेक्ट्रॉनिक वजन और पारदर्शी नीलामी।",
-            "srv_krishak_link": "कृषक बाजार देखें →",
-            "srv_agmark_title": "एगमार्क गुणवत्ता परीक्षण",
-            "srv_agmark_desc": "खाद्य तेल, मसाले और शहद के लिए क्षेत्रीय एगमार्क प्रयोगशालाएं।",
-            "srv_agmark_link": "गुणवत्ता मानक देखें →",
-            "mandi_tag": "रियल-टाइम बाजार सूचना",
-            "mandi_title": "दैनिक कृषि मंडी भाव",
-            "mandi_subtitle": "एपीएमसी चौकियों से सीधे न्यूनतम, अधिकतम और मॉडल भाव की अद्यतन जानकारी।",
-            "tab_all": "सभी फसलें",
-            "tab_veg": "सब्जियां",
-            "tab_grain": "अनाज व खाद्यान्न",
-            "tab_pulses": "दालें",
-            "tab_oilseed": "तिलहन व नकदी फसलें",
-            "tab_fruits": "फल",
-            "tab_spices": "मसाले",
-            "search_crop_ph": "फसल खोजें (जैसे: आलू, प्याज, चावल)...",
-            "all_districts": "सभी जिले",
-            "th_commodity": "फसल व किस्म",
-            "th_mandi": "बाजार / मंडी",
-            "th_min": "न्यूनतम (₹/क्विंटल)",
-            "th_max": "अधिकतम (₹/क्विंटल)",
-            "th_modal": "मॉडल भाव (₹/क्विंटल)",
-            "th_trend": "24 घंटे का रुझान",
-            "th_action": "कार्रवाई",
-            "btn_view_trend": "7-दिवसीय रुझान",
-            "btn_set_alert": "एसएमएस अलर्ट पाएं",
-            "btn_download_csv": "सीएसवी डाउनलोड",
-            "btn_print_rates": "प्रिंट करें",
-            "mandi_guide_1_title": "दैनिक मॉडल भाव सूत्र",
-            "mandi_guide_1_desc": "मॉडल भाव मानक गुणवत्ता वाली उपज के लिए ट्रेडिंग फ्लोर पर किसानों द्वारा प्राप्त सर्वाधिक लेनदेन मूल्य को दर्शाता है।",
-            "mandi_guide_2_title": "पारदर्शी इलेक्ट्रॉनिक नीलामी",
-            "mandi_guide_2_desc": "सभी एपीएमसी मंडियां ई-नाम (e-NAM) इलेक्ट्रॉनिक तौल और 24 घंटे के भीतर सीधे बैंक निपटान के तहत कार्य करती हैं।",
-            "mandi_guide_3_title": "विवाद समाधान",
-            "mandi_guide_3_desc": "मूल्य विवाद या तौल विसंगतियों के लिए एपीएमसी सचिव से संपर्क करें या टोल-फ्री हेल्पलाइन पर कॉल करें: 1800-180-1551।",
-            "init_tag": "प्रमुख कार्यक्रम",
-            "init_title": "कृषि लॉजिस्टिक्स एवं प्रत्यक्ष व्यापार का विस्तार",
-            "init_subtitle": "किसान और उपभोक्ताओं का सीधा संपर्क, वाहन सब्सिडी और आधुनिक भंडारण बुनियादी ढांचा।",
-            "sufal_title": "सुफल बांग्ला आउटलेट",
-            "sufal_desc": "बिचौलियों के बिना किसानों से सीधे ताजी सब्जियां और फल उपभोक्ताओं तक उचित मूल्य पर पहुंचाने का उपक्रम।",
-            "sufal_f1": "450+ स्थायी व मोबाइल कियोस्क",
-            "sufal_f2": "एफपीओ से सीधे दैनिक खरीद",
-            "sufal_f3": "गुणवत्ता परीक्षण और पारदर्शी मूल्य",
-            "amar_fasal_title": "अमर फसल अमर गाड़ी",
-            "amar_desc": "किसानों और स्वयं सहायता समूहों के लिए कृषि परिवहन वाहन खरीदने हेतु 50% तक सरकारी सब्सिडी योजना।",
-            "amar_f1": "50% वाहन लागत सब्सिडी (अधिकतम ₹1.5 लाख)",
-            "amar_f2": "परिवहन में फसल बर्बादी में कमी",
-            "amar_f3": "थोक मंडियों तक त्वरित सीधी आपूर्ति",
-            "cold_grid_title": "कोल्ड स्टोरेज व वेयरहाउसिंग ग्रिड",
-            "cold_desc": "रीयल-टाइम स्लॉट बुकिंग और नमी-नियंत्रित भंडारण कक्षों के साथ आधुनिक कोल्ड चेन नेटवर्क।",
-            "cold_f1": "जिलावार उपलब्ध क्षमता ट्रैकर",
-            "cold_f2": "कृषि इकाइयों के लिए रियायती बिजली दर",
-            "cold_f3": "वैज्ञानिक संरक्षण व एगमार्क प्रयोगशालाएं",
-            "calc_tag": "इंटरैक्टिव सब्सिडी टूल",
-            "calc_title": "कृषि विपणन सब्सिडी व योजना कैलकुलेटर",
-            "calc_subtitle": "आसानी से मात्र 3 क्लिक में अपनी अनुमानित सब्सिडी पात्रता की गणना करें।",
-            "lbl_beneficiary": "लाभार्थी श्रेणी चुनें:",
-            "opt_small_farmer": "लघु एवं सीमांत किसान",
-            "opt_small_farmer_sub": "2 हेक्टेयर तक कृषि भूमि",
-            "opt_women_farmer": "महिला किसान / स्वयं सहायता समूह",
-            "opt_women_farmer_sub": "महिला संचालित कृषि उद्यम",
-            "opt_fpo": "एफपीओ / किसान सहकारी समिति",
-            "opt_fpo_sub": "पंजीकृत उत्पादक समूह",
-            "opt_agri_startup": "कृषि उद्यमी / स्टार्टअप",
-            "opt_agri_startup_sub": "आधुनिक विपणन अवसंरचना",
-            "lbl_facility": "आवश्यक अवसंरचना / सहायता:",
-            "opt_fac_vehicle": "उपज परिवहन वाहन (अमर फसल)",
-            "opt_fac_cold": "सोलर कोल्ड रूम / भंडारण इकाई",
-            "opt_fac_packhouse": "ग्रेडिंग व पैकेजिंग केंद्र",
-            "opt_fac_kiosk": "अमर दुकान आधुनिक रिटेल कियोस्क",
-            "lbl_cost": "अनुमानित परियोजना लागत (₹ लाख में):",
-            "res_subsidy_title": "पात्र सरकारी सब्सिडी",
-            "res_scheme_label": "अनुशंसित योजना:",
-            "btn_apply_scheme": "आवेदन दिशानिर्देश डाउनलोड करें",
-            "cs_tag": "भंडारण अवसंरचना",
-            "cs_title": "जिला कोल्ड स्टोरेज व एपीएमसी खोजें",
-            "cs_subtitle": "उपलब्ध भंडारण क्षमता की जांच करें और सीधे स्लॉट बुक करें।",
-            "btn_book_space": "स्टोरेज स्लॉट आरक्षित करें",
-            "cs_available": "स्थान उपलब्ध है",
-            "cs_limited": "तेजी से भर रहा है",
-            "market_tag": "प्रत्यक्ष किसान संपर्क",
-            "market_title": "किसान उत्पाद प्रदर्शनी एवं व्यापार केंद्र",
-            "market_subtitle": "किसानों से सीधे कृषि उत्पाद खरीदने के लिए सत्यापित सूची।",
-            "btn_contact_farmer": "बोली / पूछताछ भेजें",
-            "notices_tag": "आधिकारिक सूचनाएं",
-            "notices_title": "निविदाएं, सरकारी आदेश व किसान सलाह",
-            "tab_tenders": "निविदा व ईओआई",
-            "tab_bulletins": "दैनिक मूल्य बुलेटिन",
-            "tab_circulars": "न्यूनतम समर्थन मूल्य व आदेश",
-            "btn_download_pdf": "पीडीएफ डाउनलोड",
-            "advisory_heading": "किसानों के लिए दैनिक मंडी सलाह",
-            "footer_about_title": "कृषि विपणन विभाग",
-            "footer_about_desc": "किसानों के सशक्तिकरण, खाद्य मूल्यों में स्थिरता और आधुनिक कृषि विपणन प्रणाली के निर्माण के लिए प्रतिबद्ध।",
-            "footer_quick_links": "त्वरित लिंक",
-            "footer_schemes_links": "प्रमुख योजनाएं",
-            "footer_scheme_amar": "आमार फसल आमार गाड़ी",
-            "footer_scheme_sufal": "सुफल बांग्ला आउटलेट्स",
-            "footer_scheme_solar": "सोलर कोल्ड चेन सहायता",
-            "footer_scheme_krishak": "कृषक बंधु लिंकेज",
-            "footer_scheme_enam": "ई-नाम अंतर-राज्यीय व्यापार",
-            "footer_scheme_agmark": "एगमार्क गुणवत्ता प्रमाणन",
-            "footer_helpline_label": "किसान कॉल सेंटर / २४x७ हेल्पलाइन:",
-            "footer_lbl_helpline": "हेल्पलाइन:",
-            "footer_lbl_email": "ईमेल:",
-            "footer_lbl_website": "वेबसाइट:",
-            "footer_privacy": "गोपनीयता नीति",
-            "footer_terms": "उपयोग की शर्तें",
-            "footer_accessibility": "सुलभता विवरण",
-            "footer_sitemap": "साइटमैप",
-            "footer_contact_title": "मुख्यालय",
-            "footer_address": "सुभन्ना भवन, 5वीं व 6वीं मंजिल, डीएफ ब्लॉक, सेक्टर-1, साल्ट लेक, कोलकाता - 700064",
-            "footer_rights": "© 2026 कृषि विपणन विभाग। सर्वाधिकार सुरक्षित।"
-        }
+    translations: {},
+
+    langMap: {
+        'en': 'English',
+        'bn': 'বাংলা',
+        'hi': 'हिंदी'
     },
 
     init() {
-        const savedLang = localStorage.getItem('app_lang') || 'en';
+        const savedLang = localStorage.getItem('site_lang') || 'en';
         this.setLanguage(savedLang);
+        this.bindEvents();
+    },
 
-        // Global delegated click listener for language switch buttons
-        document.addEventListener('click', (e) => {
-            const btn = e.target.closest('[data-lang]');
-            if (btn && btn.classList.contains('lang-btn')) {
-                const lang = btn.getAttribute('data-lang');
-                this.setLanguage(lang);
-            }
+    bindEvents() {
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const lang = e.currentTarget.getAttribute('data-lang');
+                if (lang) {
+                    this.setLanguage(lang);
+                }
+            });
         });
     },
 
     _getDict(lang) {
         if (this.translations && this.translations[lang]) {
-            return this.translations[lang];
+            return { ...this.translations['en'], ...this.translations[lang] };
         }
         return this.translations['en'] || {};
     },
 
     setLanguage(lang) {
-        const validLangs = ['en', 'bn', 'hi'];
-        if (!validLangs.includes(lang)) lang = 'en';
+        if (!this.langMap[lang]) lang = 'en';
         this.currentLang = lang;
-        localStorage.setItem('app_lang', lang);
+        localStorage.setItem('site_lang', lang);
         document.documentElement.setAttribute('lang', lang);
 
-        // Update active state on all lang buttons
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
         });
 
-        // Translate all [data-i18n] elements across the entire page
         const dict = this._getDict(lang);
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
@@ -817,9 +340,11 @@ const I18nEngine = {
             }
         });
 
-        // Re-render active dynamic modules safely
+        // Refresh UI components with translated text
         try { if (typeof MandiRatesModule !== 'undefined') { MandiRatesModule.renderTicker(); MandiRatesModule.renderTable(); } } catch (e) { }
         try { if (typeof QuickDiscoveryModule !== 'undefined') QuickDiscoveryModule.updateLocalizedOptions(); } catch (e) { }
+        try { if (typeof EBijakModule !== 'undefined') EBijakModule.updateLocalizedLabels(); } catch (e) { }
+        try { if (typeof FreightCalculatorModule !== 'undefined') FreightCalculatorModule.calculate(); } catch (e) { }
         try { if (typeof SubsidyCalculatorModule !== 'undefined') SubsidyCalculatorModule.calculate(); } catch (e) { }
         try { if (typeof ColdStorageModule !== 'undefined') ColdStorageModule.render(); } catch (e) { }
         try { if (typeof MarketplaceModule !== 'undefined') MarketplaceModule.render(); } catch (e) { }
@@ -827,160 +352,34 @@ const I18nEngine = {
 };
 
 /* ==========================================================================
-   2. ACCESSIBILITY CONTROLLER (A-, A, A+ Continuous Font Size Scaling)
-   ========================================================================== */
-const AccessibilityManager = {
-    currentScale: 1.0,
-    minScale: 0.75, // Min 75%
-    maxScale: 1.40, // Max 140%
-    step: 0.05,     // 5% per click continuous adjustment
-
-    init() {
-        const saved = localStorage.getItem('font_scale');
-        let initialScale = 1.0;
-        if (saved) {
-            if (saved === 'std') initialScale = 1.0;
-            else if (saved === 'dec') initialScale = 0.90;
-            else if (saved === 'inc') initialScale = 1.15;
-            else {
-                const parsed = parseFloat(saved);
-                if (!isNaN(parsed) && isFinite(parsed)) initialScale = parsed;
-            }
-        }
-        this.setScale(initialScale);
-
-        document.querySelectorAll('.font-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const action = e.currentTarget.getAttribute('data-size');
-                this.handleAction(action);
-            });
-        });
-    },
-
-    handleAction(action) {
-        if (action === 'std') this.reset();
-        else if (action === 'inc') this.increase();
-        else if (action === 'dec') this.decrease();
-    },
-
-    increase() {
-        const next = Math.min(this.maxScale, parseFloat((this.currentScale + this.step).toFixed(2)));
-        this.setScale(next);
-    },
-
-    decrease() {
-        const next = Math.max(this.minScale, parseFloat((this.currentScale - this.step).toFixed(2)));
-        this.setScale(next);
-    },
-
-    reset() {
-        this.setScale(1.0);
-    },
-
-    setFontScale(sizeKeyOrValue) {
-        if (sizeKeyOrValue === 'std') this.reset();
-        else if (sizeKeyOrValue === 'inc') this.increase();
-        else if (sizeKeyOrValue === 'dec') this.decrease();
-        else {
-            const parsed = parseFloat(sizeKeyOrValue);
-            if (!isNaN(parsed)) this.setScale(parsed);
-        }
-    },
-
-    setScale(scaleVal) {
-        const numericVal = typeof scaleVal === 'number' ? scaleVal : parseFloat(scaleVal);
-        const clamped = Math.min(this.maxScale, Math.max(this.minScale, isNaN(numericVal) ? 1.0 : numericVal));
-        this.currentScale = parseFloat(clamped.toFixed(2));
-
-        document.documentElement.style.setProperty('--font-scale', this.currentScale);
-        localStorage.setItem('font_scale', this.currentScale.toString());
-
-        this.updateUI();
-    },
-
-    updateUI() {
-        const isStd = Math.abs(this.currentScale - 1.0) < 0.01;
-        const isInc = this.currentScale > 1.01;
-        const isDec = this.currentScale < 0.99;
-        const pct = Math.round(this.currentScale * 100);
-
-        document.querySelectorAll('.font-btn').forEach(btn => {
-            const type = btn.getAttribute('data-size');
-            if (type === 'std') {
-                btn.classList.toggle('active', isStd);
-                btn.setAttribute('title', 'Normal Font Size (100%)');
-            } else if (type === 'inc') {
-                btn.classList.toggle('active', isInc);
-                const isMax = this.currentScale >= this.maxScale;
-                btn.disabled = isMax;
-                btn.setAttribute('title', isMax ? `Maximum Font Size Reached (${pct}%)` : `Increase Font Size (Current: ${pct}%)`);
-            } else if (type === 'dec') {
-                btn.classList.toggle('active', isDec);
-                const isMin = this.currentScale <= this.minScale;
-                btn.disabled = isMin;
-                btn.setAttribute('title', isMin ? `Minimum Font Size Reached (${pct}%)` : `Decrease Font Size (Current: ${pct}%)`);
-            }
-        });
-    }
-};
-
-/* ==========================================================================
-   3. THEME MANAGER (Light / Dark Mode)
-   ========================================================================== */
-const ThemeManager = {
-    init() {
-        const savedTheme = localStorage.getItem('theme_mode') || 'light';
-        this.setTheme(savedTheme);
-
-        const toggleBtn = document.getElementById('themeToggleBtn');
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', () => {
-                const current = document.documentElement.getAttribute('data-theme') || 'light';
-                const next = current === 'light' ? 'dark' : 'light';
-                this.setTheme(next);
-            });
-        }
-    },
-
-    setTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme_mode', theme);
-
-        const iconSpan = document.getElementById('themeIcon');
-        const textSpan = document.getElementById('themeText');
-        if (iconSpan) iconSpan.textContent = theme === 'light' ? '🌙' : '☀️';
-        if (textSpan) {
-            textSpan.textContent = theme === 'light' ? 'Dark' : 'Light';
-        }
-    }
-};
-
-/* ==========================================================================
-   4. MANDI RATES & PRICE DISCOVERY MODULE
+   2. MANDI RATES & 7/30-DAY HISTORICAL PRICE INTELLIGENCE MODULE
    ========================================================================== */
 const MandiRatesModule = {
     data: [
-        { id: 1, nameEn: "Potato (Jyoti)", nameBn: "আলু (জ্যোতি)", nameHi: "आलू (ज्योति)", category: "veg", icon: "🥔", mandi: "Hooghly APMC", district: "Hooghly", min: 1450, max: 1620, modal: 1540, trend: "+40", trendType: "up", history: [1420, 1450, 1480, 1500, 1510, 1500, 1540] },
-        { id: 2, nameEn: "Potato (Chandramukhi)", nameBn: "আলু (চন্দ্রমুখী)", nameHi: "आलू (चंद्रमुखी)", category: "veg", icon: "🥔", mandi: "Burdwan Central", district: "Burdwan", min: 1750, max: 1950, modal: 1880, trend: "+60", trendType: "up", history: [1700, 1720, 1760, 1800, 1820, 1850, 1880] },
-        { id: 3, nameEn: "Onion (Nashik Red)", nameBn: "পেঁয়াজ (নাসিক লাল)", nameHi: "प्याज (नासिक लाल)", category: "veg", icon: "🧅", mandi: "Kolkata (Koley Market)", district: "Kolkata", min: 2400, max: 2750, modal: 2600, trend: "-50", trendType: "down", history: [2800, 2750, 2720, 2680, 2650, 2620, 2600] },
-        { id: 4, nameEn: "Tomato (Hybrid)", nameBn: "টমেটো (হাইব্রিড)", nameHi: "टमाटर (हाइब्रिड)", category: "veg", icon: "🍅", mandi: "Nadia APMC", district: "Nadia", min: 1800, max: 2200, modal: 2050, trend: "+80", trendType: "up", history: [1750, 1820, 1880, 1920, 1950, 2000, 2050] },
-        { id: 5, nameEn: "Gobindobhog Rice", nameBn: "গোবিন্দভোগ চাল", nameHi: "गोविंदभोग चावल", category: "grain", icon: "🌾", mandi: "Burdwan Regulated", district: "Burdwan", min: 6200, max: 6800, modal: 6500, trend: "0", trendType: "stable", history: [6450, 6500, 6500, 6480, 6500, 6500, 6500] },
-        { id: 6, nameEn: "Basmati Paddy (1121)", nameBn: "বাসমতী ধান (১১২১)", nameHi: "बासमती धान (1121)", category: "grain", icon: "🌾", mandi: "Murshidabad Market", district: "Murshidabad", min: 3800, max: 4250, modal: 4100, trend: "+75", trendType: "up", history: [3900, 3950, 3980, 4020, 4050, 4080, 4100] },
-        { id: 7, nameEn: "Mustard (Yellow)", nameBn: "হলুদ সরিষা", nameHi: "पीली सरसों", category: "oilseed", icon: "🌻", mandi: "Bankura Mandi", district: "Bankura", min: 5400, max: 5850, modal: 5650, trend: "-30", trendType: "down", history: [5800, 5780, 5750, 5720, 5700, 5680, 5650] },
-        { id: 8, nameEn: "Raw Jute (TD-5)", nameBn: "কাঁচা পাট (টিডি-৫)", nameHi: "कच्चा जूट (TD-5)", category: "oilseed", icon: "🌿", mandi: "North 24 Pgs (Barasat)", district: "North 24 Parganas", min: 5100, max: 5500, modal: 5350, trend: "+120", trendType: "up", history: [4950, 5050, 5120, 5200, 5250, 5300, 5350] },
-        { id: 9, nameEn: "Green Chili (Tejas)", nameBn: "কাঁচা লঙ্কা (তেজস)", nameHi: "हरी मिर्च (तेजस)", category: "veg", icon: "🌶️", mandi: "South 24 Pgs", district: "South 24 Parganas", min: 3200, max: 3900, modal: 3600, trend: "-110", trendType: "down", history: [4100, 3950, 3850, 3800, 3720, 3650, 3600] },
-        { id: 10, nameEn: "Turmeric (Raw Finger)", nameBn: "কাঁচা হলুদ", nameHi: "কচ্চি হলদি", category: "spices", icon: "🫚", mandi: "Jalpaiguri APMC", district: "Jalpaiguri", min: 7800, max: 8600, modal: 8300, trend: "+150", trendType: "up", history: [7900, 8000, 8050, 8120, 8200, 8250, 8300] },
-        { id: 11, nameEn: "Pointed Gourd (Potol)", nameBn: "পটল", nameHi: "परवल", category: "veg", icon: "🥒", mandi: "Hooghly APMC", district: "Hooghly", min: 2800, max: 3400, modal: 3100, trend: "+45", trendType: "up", history: [2900, 2950, 3000, 3020, 3050, 3080, 3100] },
-        { id: 12, nameEn: "Mango (Himsagar)", nameBn: "আম (হিমসাগর)", nameHi: "आम (हिमसागर)", category: "fruits", icon: "🥭", mandi: "Malda English Bazar", district: "Malda", min: 4500, max: 5500, modal: 5000, trend: "-80", trendType: "down", history: [5400, 5350, 5280, 5200, 5150, 5080, 5000] }
+        { id: 1, nameEn: "Potato (Jyoti)", nameBn: "আলু (জ্যোতি)", nameHi: "आलू (ज्योति)", category: "veg", icon: "🥔", variety: "Jyoti Grade-A", mandi: "Hooghly APMC", district: "Hooghly", state: "West Bengal", arrivals: 840, min: 1450, max: 1620, modal: 1540, trend: "+40", trendType: "up", lotId: "LOT-HGY-8841", assayQuality: { moisture: "11.2%", moistureRating: "Optimal (<12%)", foreignMatter: "0.3%", grainSize: "45-55 mm", defect: "0.5%", fssaiGrade: "FSSAI Grade-A", agmarkGrade: "AGMARK Grade-I", certId: "WB-QC-2026-8841", verified: true }, history7: [1420, 1450, 1480, 1500, 1510, 1500, 1540], history30: [1360, 1380, 1390, 1400, 1410, 1420, 1410, 1430, 1440, 1450, 1440, 1460, 1470, 1480, 1490, 1500, 1490, 1510, 1520, 1510, 1500, 1510, 1520, 1530, 1520, 1500, 1510, 1500, 1520, 1540] },
+        { id: 2, nameEn: "Potato (Chandramukhi)", nameBn: "আলু (চন্দ্রমুখী)", nameHi: "आलू (चंद्रमुखी)", category: "veg", icon: "🥔", variety: "Chandramukhi Premium", mandi: "Burdwan Central", district: "Burdwan", state: "West Bengal", arrivals: 620, min: 1750, max: 1950, modal: 1880, trend: "+60", trendType: "up", lotId: "LOT-BWN-4102", assayQuality: { moisture: "10.9%", moistureRating: "Optimal (<12%)", foreignMatter: "0.2%", grainSize: "50-65 mm", defect: "0.4%", fssaiGrade: "FSSAI Grade-A", agmarkGrade: "AGMARK Grade-I", certId: "WB-QC-2026-4102", verified: true }, history7: [1700, 1720, 1760, 1800, 1820, 1850, 1880], history30: [1600, 1620, 1640, 1650, 1680, 1700, 1690, 1710, 1720, 1740, 1730, 1750, 1760, 1770, 1790, 1800, 1810, 1800, 1820, 1830, 1820, 1840, 1850, 1860, 1850, 1840, 1860, 1850, 1870, 1880] },
+        { id: 3, nameEn: "Onion (Nashik Red)", nameBn: "পেঁয়াজ (নাসিক লাল)", nameHi: "प्याज (नासिक लाल)", category: "veg", icon: "🧅", variety: "Nashik Medium Red", mandi: "Kolkata (Koley Market)", district: "Kolkata", state: "West Bengal", arrivals: 1250, min: 2400, max: 2750, modal: 2600, trend: "-50", trendType: "down", lotId: "LOT-KOL-7731", assayQuality: { moisture: "12.5%", moistureRating: "Good (<14%)", foreignMatter: "0.5%", grainSize: "40-60 mm", defect: "1.2%", fssaiGrade: "FSSAI Grade-B+", agmarkGrade: "AGMARK Grade-II", certId: "WB-QC-2026-7731", verified: true }, history7: [2800, 2750, 2720, 2680, 2650, 2620, 2600], history30: [3100, 3050, 3000, 2980, 2950, 2920, 2900, 2880, 2850, 2840, 2820, 2800, 2780, 2760, 2750, 2730, 2720, 2700, 2690, 2680, 2660, 2650, 2640, 2630, 2620, 2620, 2610, 2610, 2605, 2600] },
+        { id: 4, nameEn: "Tomato (Hybrid)", nameBn: "টমেটো (হাইব্রিড)", nameHi: "टमाटर (हाइब्रिड)", category: "veg", icon: "🍅", variety: "Hybrid Red Firm", mandi: "Nadia APMC", district: "Nadia", state: "West Bengal", arrivals: 580, min: 1800, max: 2200, modal: 2050, trend: "+80", trendType: "up", lotId: "LOT-NDA-9014", assayQuality: { moisture: "91.0%", moistureRating: "Fresh Harvest", foreignMatter: "0.1%", grainSize: "55-70 mm", defect: "0.3%", fssaiGrade: "FSSAI Grade-A", agmarkGrade: "AGMARK Grade-I", certId: "WB-QC-2026-9014", verified: true }, history7: [1750, 1820, 1880, 1920, 1950, 2000, 2050], history30: [1500, 1520, 1550, 1580, 1600, 1640, 1660, 1680, 1700, 1720, 1750, 1780, 1800, 1820, 1850, 1860, 1880, 1900, 1920, 1940, 1950, 1960, 1980, 2000, 2010, 2020, 2030, 2035, 2040, 2050] },
+        { id: 5, nameEn: "Gobindobhog Rice", nameBn: "গোবিন্দভোগ চাল", nameHi: "गोविंदभोग चावल", category: "grain", icon: "🌾", variety: "Aromatic Special Grade", mandi: "Burdwan Regulated", district: "Burdwan", state: "West Bengal", arrivals: 950, min: 6200, max: 6800, modal: 6500, trend: "0", trendType: "stable", lotId: "LOT-BWN-5520", assayQuality: { moisture: "11.5%", moistureRating: "Safe Storage (<13%)", foreignMatter: "0.1%", grainSize: "4.8 mm", defect: "0.2%", fssaiGrade: "FSSAI Premium", agmarkGrade: "AGMARK Special", certId: "WB-QC-2026-5520", verified: true }, history7: [6450, 6500, 6500, 6480, 6500, 6500, 6500], history30: [6400, 6420, 6450, 6450, 6460, 6470, 6480, 6500, 6500, 6490, 6480, 6500, 6500, 6510, 6500, 6490, 6500, 6500, 6480, 6500, 6500, 6510, 6500, 6490, 6500, 6500, 6480, 6500, 6500, 6500] },
+        { id: 6, nameEn: "Basmati Paddy (1121)", nameBn: "বাসমতী ধান (১১২১)", nameHi: "बासमती धान (1121)", category: "grain", icon: "🌾", variety: "Pusa 1121 Long Grain", mandi: "Murshidabad Market", district: "Murshidabad", state: "West Bengal", arrivals: 720, min: 3800, max: 4250, modal: 4100, trend: "+75", trendType: "up", lotId: "LOT-MSD-3391", assayQuality: { moisture: "12.0%", moistureRating: "Dry Milling Grade", foreignMatter: "0.3%", grainSize: "8.2 mm", defect: "0.4%", fssaiGrade: "FSSAI Grade-A", agmarkGrade: "AGMARK Grade-I", certId: "WB-QC-2026-3391", verified: true }, history7: [3900, 3950, 3980, 4020, 4050, 4080, 4100], history30: [3700, 3720, 3750, 3780, 3800, 3820, 3850, 3880, 3900, 3920, 3940, 3950, 3970, 3980, 4000, 4020, 4030, 4050, 4060, 4070, 4080, 4080, 4090, 4090, 4095, 4100, 4090, 4095, 4090, 4100] },
+        { id: 7, nameEn: "Mustard (Yellow)", nameBn: "হলুদ সরিষা", nameHi: "पीली सरसों", category: "oilseed", icon: "🌻", variety: "Yellow Bold High-Oil", mandi: "Bankura Mandi", district: "Bankura", state: "West Bengal", arrivals: 410, min: 5400, max: 5850, modal: 5650, trend: "-30", trendType: "down", lotId: "LOT-BKR-6180", assayQuality: { moisture: "8.5%", moistureRating: "Optimal (<9%)", foreignMatter: "0.5%", grainSize: "2.1 mm", defect: "0.3%", fssaiGrade: "FSSAI Grade-A", agmarkGrade: "AGMARK Grade-I", certId: "WB-QC-2026-6180", verified: true }, history7: [5800, 5780, 5750, 5720, 5700, 5680, 5650], history30: [6100, 6080, 6050, 6000, 5980, 5950, 5920, 5900, 5880, 5860, 5850, 5830, 5800, 5790, 5780, 5760, 5750, 5740, 5720, 5710, 5700, 5690, 5680, 5670, 5670, 5660, 5660, 5655, 5650, 5650] },
+        { id: 8, nameEn: "Raw Jute (TD-5)", nameBn: "কাঁচা পাট (টিডি-৫)", nameHi: "कच्चा जूट (TD-5)", category: "oilseed", icon: "🌿", variety: "Tossa TD-5 Grade", mandi: "North 24 Pgs (Barasat)", district: "North 24 Parganas", state: "West Bengal", arrivals: 890, min: 5100, max: 5500, modal: 5350, trend: "+120", trendType: "up", lotId: "LOT-N24-9122", assayQuality: { moisture: "14.2%", moistureRating: "Standard (<15%)", foreignMatter: "0.8%", grainSize: "High Fiber Strength", defect: "0.5%", fssaiGrade: "N/A (Fiber)", agmarkGrade: "JCI Grade-TD5", certId: "WB-QC-2026-9122", verified: true }, history7: [4950, 5050, 5120, 5200, 5250, 5300, 5350], history30: [4600, 4650, 4700, 4750, 4800, 4850, 4880, 4900, 4920, 4950, 4980, 5000, 5030, 5050, 5080, 5100, 5120, 5150, 5180, 5200, 5220, 5250, 5260, 5280, 5300, 5320, 5330, 5340, 5345, 5350] },
+        { id: 9, nameEn: "Green Chili (Tejas)", nameBn: "কাঁচা লঙ্কা (তেজস)", nameHi: "开展 मिर्च (तेजस)", category: "veg", icon: "🌶️", variety: "Tejas Extra Pungent", mandi: "South 24 Pgs", district: "South 24 Parganas", state: "West Bengal", arrivals: 320, min: 3200, max: 3900, modal: 3600, trend: "-110", trendType: "down", lotId: "LOT-S24-1184", assayQuality: { moisture: "82.0%", moistureRating: "Fresh Green", foreignMatter: "0.2%", grainSize: "60-80 mm", defect: "1.0%", fssaiGrade: "FSSAI Grade-A", agmarkGrade: "AGMARK Grade-I", certId: "WB-QC-2026-1184", verified: true }, history7: [4100, 3950, 3850, 3800, 3720, 3650, 3600], history30: [4500, 4450, 4400, 4350, 4300, 4250, 4200, 4150, 4100, 4050, 4000, 3950, 3920, 3900, 3880, 3850, 3820, 3800, 3780, 3750, 3720, 3700, 3680, 3650, 3640, 3620, 3610, 3605, 3600, 3600] },
+        { id: 10, nameEn: "Turmeric (Raw Finger)", nameBn: "কাঁচা হলুদ", nameHi: "कच्ची हल्दी", category: "spices", icon: "🫚", variety: "Lakadong High Curcumin", mandi: "Jalpaiguri APMC", district: "Jalpaiguri", state: "West Bengal", arrivals: 260, min: 7800, max: 8600, modal: 8300, trend: "+150", trendType: "up", lotId: "LOT-JPG-7801", assayQuality: { moisture: "10.1%", moistureRating: "Dry Finger (<11%)", foreignMatter: "0.3%", grainSize: "Curcumin 6.2%", defect: "0.4%", fssaiGrade: "FSSAI Grade-A+", agmarkGrade: "AGMARK Special", certId: "WB-QC-2026-7801", verified: true }, history7: [7900, 8000, 8050, 8120, 8200, 8250, 8300], history30: [7400, 7450, 7500, 7550, 7600, 7650, 7700, 7750, 7800, 7850, 7900, 7920, 7950, 7980, 8000, 8030, 8050, 8080, 8100, 8120, 8150, 8180, 8200, 8220, 8240, 8250, 8270, 8280, 8290, 8300] },
+        { id: 11, nameEn: "Pointed Gourd (Potol)", nameBn: "পটল", nameHi: "परवल", category: "veg", icon: "🥒", variety: "Swarna Alaukik Green", mandi: "Hooghly APMC", district: "Hooghly", state: "West Bengal", arrivals: 470, min: 2800, max: 3400, modal: 3100, trend: "+45", trendType: "up", lotId: "LOT-HGY-6623", assayQuality: { moisture: "88.0%", moistureRating: "Fresh Harvest", foreignMatter: "0.1%", grainSize: "75-90 mm", defect: "0.6%", fssaiGrade: "FSSAI Grade-A", agmarkGrade: "AGMARK Grade-I", certId: "WB-QC-2026-6623", verified: true }, history7: [2900, 2950, 3000, 3020, 3050, 3080, 3100], history30: [2600, 2650, 2680, 2700, 2720, 2750, 2780, 2800, 2820, 2850, 2880, 2900, 2920, 2940, 2960, 2980, 3000, 3010, 3020, 3030, 3040, 3050, 3060, 3070, 3080, 3080, 3090, 3095, 3100, 3100] },
+        { id: 12, nameEn: "Mango (Himsagar)", nameBn: "আম (হিমসাগর)", nameHi: "आम (हिमसागर)", category: "fruits", icon: "🥭", variety: "GI Tagged Himsagar", mandi: "Malda English Bazar", district: "Malda", state: "West Bengal", arrivals: 780, min: 4500, max: 5500, modal: 5000, trend: "-80", trendType: "down", lotId: "LOT-MLD-9902", assayQuality: { moisture: "84.0%", moistureRating: "Optimal Brix (18.5°)", foreignMatter: "0.0%", grainSize: "220-260 gm", defect: "0.2%", fssaiGrade: "FSSAI Grade-A+", agmarkGrade: "GI Certified Himsagar", certId: "WB-QC-2026-9902", verified: true }, history7: [5400, 5350, 5280, 5200, 5150, 5080, 5000], history30: [5800, 5750, 5700, 5650, 5600, 5550, 5500, 5450, 5400, 5380, 5350, 5320, 5300, 5280, 5250, 5220, 5200, 5180, 5160, 5140, 5120, 5100, 5080, 5060, 5040, 5030, 5020, 5010, 5005, 5000] }
     ],
 
     activeCategory: 'all',
     searchQuery: '',
     selectedDistrict: 'all',
+    selectedTimeframe: 7,
+    activeCommodityForChart: null,
     currentPage: 1,
     pageSize: 6,
 
     init() {
+        this.activeCommodityForChart = this.data[0];
         this.renderTicker();
         this.renderTable();
         this.bindEvents();
@@ -1014,6 +413,17 @@ const MandiRatesModule = {
                 this.renderTable();
             });
         }
+
+        document.querySelectorAll('.timeframe-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.timeframe-btn').forEach(b => b.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                this.selectedTimeframe = parseInt(e.currentTarget.getAttribute('data-days'), 10) || 7;
+                if (this.activeCommodityForChart) {
+                    this.drawCanvasChart(this.activeCommodityForChart, this.selectedTimeframe);
+                }
+            });
+        });
     },
 
     getFilteredData() {
@@ -1022,7 +432,7 @@ const MandiRatesModule = {
             const matchesCat = this.activeCategory === 'all' || item.category === this.activeCategory;
             const matchesDist = this.selectedDistrict === 'all' || item.district === this.selectedDistrict;
             const cropName = (lang === 'bn' ? item.nameBn : lang === 'hi' ? item.nameHi : item.nameEn).toLowerCase();
-            const matchesSearch = !this.searchQuery || cropName.includes(this.searchQuery) || item.mandi.toLowerCase().includes(this.searchQuery);
+            const matchesSearch = !this.searchQuery || cropName.includes(this.searchQuery) || item.mandi.toLowerCase().includes(this.searchQuery) || item.variety.toLowerCase().includes(this.searchQuery);
             return matchesCat && matchesDist && matchesSearch;
         });
     },
@@ -1069,6 +479,7 @@ const MandiRatesModule = {
                     <span class="ticker-crop">${cropName}</span>
                     <span class="ticker-price">₹${item.modal.toLocaleString('en-IN')}/Q</span>
                     ${trendHtml}
+                    <span class="ticker-arrivals">${item.arrivals} Qtl</span>
                 </div>
             `;
         });
@@ -1121,19 +532,24 @@ const MandiRatesModule = {
                             <span class="crop-emoji-icon">${item.icon}</span>
                             <div>
                                 <span class="crop-name-title">${cropName}</span>
-                                <span class="crop-variety">${item.mandi}</span>
+                                <span class="crop-variety">${item.variety} (${item.lotId})</span>
                             </div>
                         </div>
                     </td>
-                    <td><strong>${item.district}</strong></td>
+                    <td><strong>${item.district}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${item.mandi}</span></td>
                     <td>₹${item.min.toLocaleString('en-IN')}</td>
                     <td>₹${item.max.toLocaleString('en-IN')}</td>
                     <td><span class="price-modal-badge">₹${item.modal.toLocaleString('en-IN')}</span></td>
-                    <td>${trendBadge}</td>
+                    <td>${trendBadge}<br><span style="font-size:0.75rem; color:var(--text-muted);">📦 ${item.arrivals} Qtl</span></td>
                     <td>
-                        <button class="btn btn-sm btn-outline" onclick="MandiRatesModule.openChartModal(${item.id})">
-                            📈 <span>7-Day Trend</span>
-                        </button>
+                        <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+                            <button class="btn btn-sm btn-outline" onclick="MandiRatesModule.openChartModal(${item.id})">
+                                📈 <span>Trend</span>
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="MandiRatesModule.openAssayModal(${item.id})">
+                                🧪 <span>Assay</span>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             `;
@@ -1170,46 +586,79 @@ const MandiRatesModule = {
         const item = this.data.find(d => d.id === commodityId);
         if (!item) return;
 
+        this.activeCommodityForChart = item;
         const lang = I18nEngine.currentLang;
         const cropName = lang === 'bn' ? item.nameBn : lang === 'hi' ? item.nameHi : item.nameEn;
 
         const modalTitle = document.getElementById('modalCropTitle');
         const modalCurPrice = document.getElementById('modalCurrentPrice');
         const modalMinMax = document.getElementById('modalMinMax');
+        const modalLotBadge = document.getElementById('modalLotBadge');
 
         if (modalTitle) modalTitle.textContent = `${item.icon} ${cropName} - ${item.mandi}`;
         if (modalCurPrice) modalCurPrice.textContent = `₹${item.modal.toLocaleString('en-IN')} / Quintal`;
-        if (modalMinMax) modalMinMax.textContent = `Min: ₹${item.min} | Max: ₹${item.max}`;
+        if (modalMinMax) modalMinMax.textContent = `Min: ₹${item.min} | Max: ₹${item.max} | Arrivals: ${item.arrivals} Qtl`;
+        if (modalLotBadge) modalLotBadge.textContent = item.lotId;
 
         ModalManager.open('chartModal');
-        setTimeout(() => this.drawCanvasChart(item), 150);
+        setTimeout(() => this.drawCanvasChart(item, this.selectedTimeframe), 150);
     },
 
-    drawCanvasChart(item) {
+    openAssayModal(commodityId) {
+        const item = this.data.find(d => d.id === commodityId);
+        if (!item) return;
+
+        const lang = I18nEngine.currentLang;
+        const cropName = lang === 'bn' ? item.nameBn : lang === 'hi' ? item.nameHi : item.nameEn;
+
+        const titleEl = document.getElementById('assayCropTitle');
+        const lotEl = document.getElementById('assayLotId');
+        const certEl = document.getElementById('assayCertId');
+        const moistureEl = document.getElementById('assayMoisture');
+        const foreignEl = document.getElementById('assayForeign');
+        const grainEl = document.getElementById('assayGrain');
+        const defectEl = document.getElementById('assayDefect');
+        const fssaiEl = document.getElementById('assayFssaiBadge');
+        const agmarkEl = document.getElementById('assayAgmarkBadge');
+
+        if (titleEl) titleEl.textContent = `${item.icon} ${cropName} (${item.variety})`;
+        if (lotEl) lotEl.textContent = item.lotId;
+        if (certEl) certEl.textContent = item.assayQuality.certId;
+        if (moistureEl) moistureEl.textContent = item.assayQuality.moisture;
+        if (foreignEl) foreignEl.textContent = item.assayQuality.foreignMatter;
+        if (grainEl) grainEl.textContent = item.assayQuality.grainSize;
+        if (defectEl) defectEl.textContent = item.assayQuality.defect;
+        if (fssaiEl) fssaiEl.textContent = item.assayQuality.fssaiGrade;
+        if (agmarkEl) agmarkEl.textContent = item.assayQuality.agmarkGrade;
+
+        ModalManager.open('assayModal');
+    },
+
+    drawCanvasChart(item, daysCount = 7) {
         const canvas = document.getElementById('priceTrendChart');
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
         const dpr = window.devicePixelRatio || 1;
 
         canvas.width = canvas.parentElement.clientWidth * dpr;
-        canvas.height = 260 * dpr;
+        canvas.height = 280 * dpr;
         ctx.scale(dpr, dpr);
 
         const width = canvas.parentElement.clientWidth;
-        const height = 260;
-        const padding = { top: 25, right: 30, bottom: 40, left: 55 };
+        const height = 280;
+        const padding = { top: 25, right: 30, bottom: 45, left: 60 };
 
         ctx.clearRect(0, 0, width, height);
 
-        const prices = item.history;
-        const minP = Math.min(...prices) * 0.95;
-        const maxP = Math.max(...prices) * 1.05;
-        const days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Today'];
+        const prices = (daysCount === 30 && item.history30) ? item.history30 : item.history7;
+        const minP = Math.floor(Math.min(...prices) * 0.94);
+        const maxP = Math.ceil(Math.max(...prices) * 1.06);
 
         const getX = index => padding.left + (index / (prices.length - 1)) * (width - padding.left - padding.right);
         const getY = price => height - padding.bottom - ((price - minP) / (maxP - minP)) * (height - padding.top - padding.bottom);
 
-        ctx.strokeStyle = 'rgba(15, 104, 56, 0.12)';
+        // Grid lines
+        ctx.strokeStyle = 'rgba(255, 147, 1, 0.15)';
         ctx.fillStyle = '#64748b';
         ctx.font = '11px Plus Jakarta Sans, sans-serif';
         ctx.textAlign = 'right';
@@ -1225,9 +674,10 @@ const MandiRatesModule = {
             ctx.fillText('₹' + Math.round(val), padding.left - 8, y + 4);
         }
 
+        // Fill area gradient
         const grad = ctx.createLinearGradient(0, padding.top, 0, height - padding.bottom);
-        grad.addColorStop(0, 'rgba(15, 104, 56, 0.35)');
-        grad.addColorStop(1, 'rgba(15, 104, 56, 0.00)');
+        grad.addColorStop(0, 'rgba(255, 147, 1, 0.38)');
+        grad.addColorStop(1, 'rgba(255, 147, 1, 0.00)');
 
         ctx.beginPath();
         ctx.moveTo(getX(0), getY(prices[0]));
@@ -1240,56 +690,62 @@ const MandiRatesModule = {
         ctx.fillStyle = grad;
         ctx.fill();
 
+        // Line Stroke
         ctx.beginPath();
         ctx.moveTo(getX(0), getY(prices[0]));
         for (let i = 1; i < prices.length; i++) {
             ctx.lineTo(getX(i), getY(prices[i]));
         }
-        ctx.strokeStyle = '#0f6838';
+        ctx.strokeStyle = '#ff9301';
         ctx.lineWidth = 3;
         ctx.stroke();
 
+        // Data Points & X-Labels
         ctx.textAlign = 'center';
+        const step = daysCount === 30 ? 5 : 1;
         for (let i = 0; i < prices.length; i++) {
             const x = getX(i);
             const y = getY(prices[i]);
 
-            ctx.beginPath();
-            ctx.arc(x, y, 5, 0, Math.PI * 2);
-            ctx.fillStyle = '#ffffff';
-            ctx.fill();
-            ctx.strokeStyle = '#0f6838';
-            ctx.lineWidth = 2.5;
-            ctx.stroke();
+            if (i % step === 0 || i === prices.length - 1) {
+                ctx.beginPath();
+                ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff';
+                ctx.fill();
+                ctx.strokeStyle = '#ff9301';
+                ctx.lineWidth = 2.5;
+                ctx.stroke();
 
-            ctx.beginPath();
-            ctx.arc(x, y, 2.5, 0, Math.PI * 2);
-            ctx.fillStyle = '#0f6838';
-            ctx.fill();
+                ctx.beginPath();
+                ctx.arc(x, y, 2.2, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff9301';
+                ctx.fill();
 
-            ctx.fillStyle = '#64748b';
-            ctx.fillText(days[i], x, height - padding.bottom + 18);
+                ctx.fillStyle = '#64748b';
+                const label = daysCount === 30 ? `D-${30 - i}` : (i === prices.length - 1 ? 'Today' : `D${i + 1}`);
+                ctx.fillText(label, x, height - padding.bottom + 18);
+            }
         }
     },
 
     exportCSV() {
-        let csv = "Commodity,Market,District,Min_Price,Max_Price,Modal_Price,Trend\n";
+        let csv = "Lot_ID,Commodity,Variety,Market,District,Min_Price,Max_Price,Modal_Price,Arrivals_Qtl,Quality_Grade,Trend\n";
         this.data.forEach(d => {
-            csv += `"${d.nameEn}","${d.mandi}","${d.district}",${d.min},${d.max},${d.modal},"${d.trend}"\n`;
+            csv += `"${d.lotId}","${d.nameEn}","${d.variety}","${d.mandi}","${d.district}",${d.min},${d.max},${d.modal},${d.arrivals},"${d.assayQuality.agmarkGrade}","${d.trend}"\n`;
         });
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.setAttribute("download", `WB_Mandi_Rates_${new Date().toISOString().slice(0, 10)}.csv`);
+        link.setAttribute("download", `AGMARKNET_WB_Mandi_Rates_${new Date().toISOString().slice(0, 10)}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        showToast('Mandi rates exported successfully as CSV file!', 'success');
+        showToast('AGMARKNET 2.0 Mandi rates exported successfully as CSV file!', 'success');
     }
 };
 
 /* ==========================================================================
-   5. QUICK PRICE DISCOVERY MODULE (HERO SECTION)
+   3. QUICK PRICE DISCOVERY MODULE (HERO SECTION)
    ========================================================================== */
 const QuickDiscoveryModule = {
     init() {
@@ -1308,11 +764,11 @@ const QuickDiscoveryModule = {
 
         if (cropSelect) {
             const curVal = cropSelect.value;
-            const cropPh = dict.select_crop_ph || (lang === 'bn' ? 'শস্য নির্বাচন করুন...' : lang === 'hi' ? 'फसल चुनें...' : 'Select Commodity...');
+            const cropPh = dict.select_crop_ph || 'Select Commodity...';
             let optionsHtml = `<option value="">${cropPh}</option>`;
             MandiRatesModule.data.forEach(item => {
                 const name = lang === 'bn' ? item.nameBn : lang === 'hi' ? item.nameHi : item.nameEn;
-                optionsHtml += `<option value="${item.id}">${item.icon} ${name}</option>`;
+                optionsHtml += `<option value="${item.id}">${item.icon} ${name} (${item.variety})</option>`;
             });
             cropSelect.innerHTML = optionsHtml;
             if (curVal) cropSelect.value = curVal;
@@ -1320,17 +776,17 @@ const QuickDiscoveryModule = {
 
         if (distSelect) {
             const curDist = distSelect.value || 'all';
-            const allDistText = dict.all_districts || (lang === 'bn' ? 'সকল জেলা' : lang === 'hi' ? 'सभी जिले' : 'All Districts');
+            const allDistText = dict.all_districts || 'All Districts';
             const districts = [
                 { val: "all", label: allDistText },
-                { val: "Hooghly", label: lang === 'bn' ? "হুগলি (Hooghly)" : lang === 'hi' ? "हुगली (Hooghly)" : "Hooghly" },
-                { val: "Burdwan", label: lang === 'bn' ? "পূর্ব ও পশ্চিম বর্ধমান (Burdwan)" : lang === 'hi' ? "बर्धमान (Burdwan)" : "Burdwan" },
-                { val: "Nadia", label: lang === 'bn' ? "নদিয়া (Nadia)" : lang === 'hi' ? "नादिया (Nadia)" : "Nadia" },
-                { val: "Kolkata", label: lang === 'bn' ? "কলকাতা (Kolkata)" : lang === 'hi' ? "कोलकाता (Kolkata)" : "Kolkata" },
-                { val: "Murshidabad", label: lang === 'bn' ? "মুর্শিদাবাদ (Murshidabad)" : lang === 'hi' ? "मुर्शिदाबाद (Murshidabad)" : "Murshidabad" },
-                { val: "Bankura", label: lang === 'bn' ? "বাঁকুড়া (Bankura)" : lang === 'hi' ? "बांकुड़ा (Bankura)" : "Bankura" },
-                { val: "Jalpaiguri", label: lang === 'bn' ? "জলপাইগুড়ি (Jalpaiguri)" : lang === 'hi' ? "जलपाईगुड़ी (Jalpaiguri)" : "Jalpaiguri" },
-                { val: "Malda", label: lang === 'bn' ? "মালদা (Malda)" : lang === 'hi' ? "मालदा (Malda)" : "Malda" }
+                { val: "Hooghly", label: "Hooghly (হুগলি)" },
+                { val: "Burdwan", label: "Burdwan (পূর্ব ও পশ্চিম বর্ধমান)" },
+                { val: "Nadia", label: "Nadia (নদিয়া)" },
+                { val: "Kolkata", label: "Kolkata (কলকাতা)" },
+                { val: "Murshidabad", label: "Murshidabad (মুর্শিদাবাদ)" },
+                { val: "Bankura", label: "Bankura (বাঁকুড়া)" },
+                { val: "Jalpaiguri", label: "Jalpaiguri (জলপাইগুড়ি)" },
+                { val: "Malda", label: "Malda (মালদা)" }
             ];
             let distHtml = '';
             districts.forEach(d => {
@@ -1357,9 +813,9 @@ const QuickDiscoveryModule = {
         const lang = I18nEngine.currentLang;
         const cropName = lang === 'bn' ? item.nameBn : lang === 'hi' ? item.nameHi : item.nameEn;
 
-        document.getElementById('qrCropName').textContent = `${item.icon} ${cropName} (${item.mandi})`;
+        document.getElementById('qrCropName').textContent = `${item.icon} ${cropName} (${item.variety})`;
         document.getElementById('qrModalPrice').textContent = `₹${item.modal.toLocaleString('en-IN')}/Qtl`;
-        document.getElementById('qrRange').textContent = `₹${item.min} - ₹${item.max}`;
+        document.getElementById('qrRange').textContent = `₹${item.min} - ₹${item.max} | Arrivals: ${item.arrivals} Qtl`;
         document.getElementById('qrTrend').textContent = `${item.trendType === 'up' ? '▲ +' : item.trendType === 'down' ? '▼ -' : '━ '}₹${item.trend.replace('-', '')}`;
 
         resCard.classList.add('active');
@@ -1367,7 +823,379 @@ const QuickDiscoveryModule = {
 };
 
 /* ==========================================================================
-   6. INTERACTIVE SUBSIDY & SCHEME CALCULATOR
+   4. ROLE-BASED PERSONA HUBS MODULE (FARMER, TRADER, AGENT)
+   ========================================================================== */
+const PersonaHubModule = {
+    activePersona: 'farmer',
+
+    init() {
+        document.querySelectorAll('.persona-tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.persona-tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.persona-hub-pane').forEach(p => p.classList.remove('active'));
+
+                e.currentTarget.classList.add('active');
+                const persona = e.currentTarget.getAttribute('data-persona');
+                this.activePersona = persona;
+
+                const pane = document.getElementById(`pane-${persona}`);
+                if (pane) pane.classList.add('active');
+            });
+        });
+
+        // Advance Gate Entry Form Submission
+        const gateForm = document.getElementById('advanceGateEntryForm');
+        if (gateForm) {
+            gateForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.generateGatePass();
+            });
+        }
+
+        // DBT Payment Status Form Submission
+        const dbtForm = document.getElementById('dbtStatusForm');
+        if (dbtForm) {
+            dbtForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.checkDbtStatus();
+            });
+        }
+
+        // Live E-Auction Simulator Timer
+        this.initAuctionSimulator();
+    },
+
+    generateGatePass() {
+        const name = document.getElementById('gateFarmerName')?.value || 'Subhash Mondal';
+        const mobile = document.getElementById('gateFarmerMobile')?.value || '9830112233';
+        const crop = document.getElementById('gateCropSelect')?.value || 'Potato (Jyoti)';
+        const qty = document.getElementById('gateQtyInput')?.value || '50';
+        const vehicle = document.getElementById('gateVehicleNum')?.value || 'WB-15-B-4412';
+
+        const lotId = 'LOT-WB-' + Math.floor(1000 + Math.random() * 9000);
+        const slipEl = document.getElementById('gatePassResult');
+        if (slipEl) {
+            slipEl.innerHTML = `
+                <div style="background:var(--primary-soft); border:2px dashed var(--primary); padding:1.25rem; border-radius:var(--radius-lg); margin-top:1.5rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="badge-apmc-licensed">✅ Advance Gate Slip Generated</span>
+                        <strong style="color:var(--primary); font-family:'Outfit'; font-size:1.1rem;">${lotId}</strong>
+                    </div>
+                    <div style="margin-top:0.75rem; font-size:0.9rem; line-height:1.6;">
+                        <div><strong>Farmer:</strong> ${name} (${mobile})</div>
+                        <div><strong>Commodity:</strong> ${crop} - <strong>Qty:</strong> ${qty} Quintals</div>
+                        <div><strong>Vehicle No:</strong> ${vehicle}</div>
+                        <div><strong>Allocated APMC Yard:</strong> Hooghly Central Mandi (Gate-2)</div>
+                    </div>
+                    <div class="weighbridge-stepper">
+                        <div class="step-node completed">
+                            <div class="step-node-icon">✓</div>
+                            <span class="step-node-label">Gate In</span>
+                        </div>
+                        <div class="step-node active">
+                            <div class="step-node-icon">⚖️</div>
+                            <span class="step-node-label">Weighbridge</span>
+                        </div>
+                        <div class="step-node">
+                            <div class="step-node-icon">🧪</div>
+                            <span class="step-node-label">Assay Lab</span>
+                        </div>
+                        <div class="step-node">
+                            <div class="step-node-icon">🏷️</div>
+                            <span class="step-node-label">E-Auction</span>
+                        </div>
+                        <div class="step-node">
+                            <div class="step-node-icon">💳</div>
+                            <span class="step-node-label">DBT Pay</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary" style="width:100%; margin-top:1rem;" onclick="window.print()">
+                        🖨️ Print Advance Gate Pass
+                    </button>
+                </div>
+            `;
+            showToast(`Gate Entry Slip ${lotId} Created Successfully!`, 'success');
+        }
+    },
+
+    checkDbtStatus() {
+        const utr = document.getElementById('dbtUtrInput')?.value || 'UTR-2026-WB-8819';
+        const resEl = document.getElementById('dbtStatusResult');
+        if (resEl) {
+            resEl.innerHTML = `
+                <div style="background:var(--bg-subtle); border:1px solid var(--border-color); padding:1.25rem; border-radius:var(--radius-lg); margin-top:1.25rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="badge-verified-kyc">⚡ Direct DBT Settlement</span>
+                        <span style="font-weight:800; color:var(--success);">Settlement Completed</span>
+                    </div>
+                    <div style="margin:0.75rem 0; font-size:0.88rem; line-height:1.6;">
+                        <div><strong>Reference / UTR:</strong> ${utr}</div>
+                        <div><strong>Amount Credited:</strong> <span style="color:var(--primary); font-size:1.1rem; font-weight:800;">₹77,000.00</span></div>
+                        <div><strong>Beneficiary:</strong> Subhash Mondal (A/C: ******4819)</div>
+                        <div><strong>Clearing Bank:</strong> State Cooperative Bank (IFSC: WBSC000104)</div>
+                        <div><strong>Timestamp:</strong> ${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })} at 11:24 AM</div>
+                    </div>
+                </div>
+            `;
+            showToast('DBT Escrow Payment Verified & Credited!', 'success');
+        }
+    },
+
+    initAuctionSimulator() {
+        let timeLeft = 145;
+        let currentBid = 1540;
+        const timerEl = document.getElementById('auctionTimerDisplay');
+        const bidEl = document.getElementById('auctionCurrentBid');
+
+        setInterval(() => {
+            if (timeLeft > 0) {
+                timeLeft--;
+                const mins = Math.floor(timeLeft / 60);
+                const secs = timeLeft % 60;
+                if (timerEl) timerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+        }, 1000);
+
+        window.placeAuctionBid = (increment) => {
+            currentBid += increment;
+            if (bidEl) bidEl.textContent = `₹${currentBid.toLocaleString('en-IN')}`;
+            showToast(`Bid Placed: ₹${currentBid}/Qtl! You are highest bidder.`, 'success');
+        };
+    }
+};
+
+/* ==========================================================================
+   5. E-BIJAK DIGITAL INVOICING & APMC TAX LEDGER MODULE
+   ========================================================================== */
+const EBijakModule = {
+    init() {
+        const calcBtn = document.getElementById('ebijakCalculateBtn');
+        if (calcBtn) {
+            calcBtn.addEventListener('click', () => this.generateInvoice());
+        }
+
+        const cropSelect = document.getElementById('ebijakCropSelect');
+        if (cropSelect) {
+            cropSelect.addEventListener('change', (e) => {
+                const item = MandiRatesModule.data.find(d => d.id === parseInt(e.target.value));
+                if (item) {
+                    const rateInput = document.getElementById('ebijakRateInput');
+                    if (rateInput) rateInput.value = item.modal;
+                }
+            });
+        }
+    },
+
+    updateLocalizedLabels() {
+        const cropSelect = document.getElementById('ebijakCropSelect');
+        if (cropSelect && MandiRatesModule.data) {
+            const lang = I18nEngine.currentLang;
+            let html = '';
+            MandiRatesModule.data.forEach(item => {
+                const name = lang === 'bn' ? item.nameBn : lang === 'hi' ? item.nameHi : item.nameEn;
+                html += `<option value="${item.id}">${item.icon} ${name} (${item.variety})</option>`;
+            });
+            cropSelect.innerHTML = html;
+        }
+    },
+
+    generateInvoice() {
+        const farmerName = document.getElementById('ebijakFarmerName')?.value || 'Subhash Mondal';
+        const farmerKyc = document.getElementById('ebijakFarmerKyc')?.value || 'WB-KYC-994821';
+        const traderName = document.getElementById('ebijakTraderName')?.value || 'Bengal Agro Wholesale Traders';
+        const traderLic = document.getElementById('ebijakTraderLic')?.value || 'APMC-LIC-HGY-2026-441';
+        const cropId = parseInt(document.getElementById('ebijakCropSelect')?.value) || 1;
+        const qty = parseFloat(document.getElementById('ebijakQtyInput')?.value) || 100;
+        const rate = parseFloat(document.getElementById('ebijakRateInput')?.value) || 1540;
+
+        const cropItem = MandiRatesModule.data.find(d => d.id === cropId) || MandiRatesModule.data[0];
+
+        // Itemized Statutory Fee Calculations
+        const baseProduceValue = qty * rate;
+        const apmcCess = baseProduceValue * 0.015; // 1.5% APMC Statutory Cess
+        const agentCommission = baseProduceValue * 0.02; // 2.0% Commission Agent Fee
+        const hamaliCharges = qty * 12.0; // ₹12 per Quintal handling & weighment
+        const transportSurcharge = qty * 25.0; // ₹25 per Quintal logistics
+        const totalStatutoryFees = apmcCess + agentCommission + hamaliCharges + transportSurcharge;
+        const netInvoiceTotal = baseProduceValue + totalStatutoryFees;
+        const netFarmerRealization = baseProduceValue - (hamaliCharges / 2);
+
+        const voucherEl = document.getElementById('ebijakVoucherPreview');
+        if (voucherEl) {
+            const invoiceNum = 'EB-WB-' + Math.floor(100000 + Math.random() * 900000);
+            const dateStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+
+            voucherEl.innerHTML = `
+                <div class="ebijak-voucher">
+                    <div class="ebijak-stamp">APPROVED APMC VOUCHER</div>
+                    <div class="ebijak-header-top">
+                        <div>
+                            <h3 style="font-size:1.3rem; font-weight:800; color:var(--primary); margin:0;">STATE AGRICULTURAL MARKETING BOARD</h3>
+                            <div style="font-size:0.8rem; color:#64748b;">Directorate of Agricultural Marketing | Standard e-Bijak Format</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <strong style="color:var(--primary); font-size:1.1rem; font-family:'Outfit';">${invoiceNum}</strong>
+                            <div style="font-size:0.8rem; color:#64748b;">Date: ${dateStr}</div>
+                        </div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem; font-size:0.85rem;">
+                        <div style="background:rgba(255, 147, 1, 0.06); padding:0.85rem; border-radius:6px;">
+                            <div style="font-weight:700; color:var(--primary-dark); margin-bottom:0.35rem;">👨‍🌾 SELLER / FARMER DETAILS</div>
+                            <div><strong>Name:</strong> ${farmerName}</div>
+                            <div><strong>KYC / Aadhaar Ref:</strong> ${farmerKyc}</div>
+                            <div><strong>Market Yard:</strong> ${cropItem.mandi}</div>
+                        </div>
+                        <div style="background:rgba(217, 119, 6, 0.06); padding:0.85rem; border-radius:6px;">
+                            <div style="font-weight:700; color:#b45309; margin-bottom:0.35rem;">💼 BUYER / TRADER DETAILS</div>
+                            <div><strong>Trader Entity:</strong> ${traderName}</div>
+                            <div><strong>APMC License No:</strong> ${traderLic}</div>
+                            <div><strong>Payment Mode:</strong> Direct Escrow DBT</div>
+                        </div>
+                    </div>
+
+                    <table style="width:100%; font-size:0.88rem; margin-bottom:1.25rem; border-collapse:collapse;">
+                        <thead>
+                            <tr style="background:#f1f5f9; border-bottom:2px solid #cbd5e1; text-align:left;">
+                                <th style="padding:0.6rem;">Item Description</th>
+                                <th style="padding:0.6rem;">Lot Ref</th>
+                                <th style="padding:0.6rem;">Assay Grade</th>
+                                <th style="padding:0.6rem; text-align:right;">Qty (Qtl)</th>
+                                <th style="padding:0.6rem; text-align:right;">Rate (₹/Qtl)</th>
+                                <th style="padding:0.6rem; text-align:right;">Base Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #e2e8f0;">
+                                <td style="padding:0.6rem;"><strong>${cropItem.icon} ${cropItem.nameEn}</strong> (${cropItem.variety})</td>
+                                <td style="padding:0.6rem;">${cropItem.lotId}</td>
+                                <td style="padding:0.6rem;"><span class="badge-verified-kyc">${cropItem.assayQuality.agmarkGrade}</span></td>
+                                <td style="padding:0.6rem; text-align:right;">${qty.toLocaleString('en-IN')}</td>
+                                <td style="padding:0.6rem; text-align:right;">₹${rate.toLocaleString('en-IN')}</td>
+                                <td style="padding:0.6rem; text-align:right; font-weight:700;">₹${baseProduceValue.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="max-width:380px; margin-left:auto; margin-bottom:1.5rem;">
+                        <div class="fee-breakdown-row">
+                            <span>Produce Base Cost:</span>
+                            <strong>₹${baseProduceValue.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong>
+                        </div>
+                        <div class="fee-breakdown-row">
+                            <span>APMC Market Cess (1.5%):</span>
+                            <span>₹${apmcCess.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                        </div>
+                        <div class="fee-breakdown-row">
+                            <span>Commission Agent Fee (2.0%):</span>
+                            <span>₹${agentCommission.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                        </div>
+                        <div class="fee-breakdown-row">
+                            <span>Weighbridge & Hamali (₹12/Qtl):</span>
+                            <span>₹${hamaliCharges.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                        </div>
+                        <div class="fee-breakdown-row">
+                            <span>Agricultural Logistics Surcharge:</span>
+                            <span>₹${transportSurcharge.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                        </div>
+                        <div class="fee-breakdown-row total-row">
+                            <span>Total Gross Payable (Buyer):</span>
+                            <span>₹${netInvoiceTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                        </div>
+                        <div style="font-size:0.85rem; color:#10b981; font-weight:700; margin-top:0.4rem; text-align:right;">
+                            Net Farmer Direct Realization: ₹${netFarmerRealization.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                        </div>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:flex-end; border-top:1px dashed #cbd5e1; padding-top:1rem; font-size:0.8rem; color:#64748b;">
+                        <div>
+                            <div>Digital Hash: SHA256-${Math.random().toString(36).substring(2, 10).toUpperCase()}</div>
+                            <div>Generated via State e-Bijak Invoicing Portal</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-family:'Courier New', monospace; font-size:1.1rem; letter-spacing:2px;">||| | |||| | ||||| || |</div>
+                            <div>Authorized APMC Secretary Signature</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:1rem; margin-top:1.5rem;">
+                    <button class="btn btn-primary" onclick="window.print()" style="flex:1;">
+                        🖨️ Print e-Bijak Tax Invoice
+                    </button>
+                    <button class="btn btn-outline" onclick="showToast('e-Bijak Invoice sent via WhatsApp & SMS to Farmer & Trader!', 'success')" style="flex:1;">
+                        📲 Send WhatsApp Copy
+                    </button>
+                </div>
+            `;
+            showToast('e-Bijak Tax Invoice Generated Successfully!', 'success');
+        }
+    }
+};
+
+/* ==========================================================================
+   6. INTEGRATED AGRI-FREIGHT TRANSPORT CALCULATOR
+   ========================================================================== */
+const FreightCalculatorModule = {
+    selectedVehicle: 'ace',
+    vehicleTariffs: {
+        'ace': { name: 'Tata Ace / Small Pickup', capacity: 15, baseKmRate: 24, baseFixed: 600, speedKmH: 40 },
+        'pickup': { name: 'Bolero Maxi Truck (2.5 MT)', capacity: 25, baseKmRate: 32, baseFixed: 850, speedKmH: 45 },
+        'eicher': { name: 'Eicher 14ft Truck (4.5 MT)', capacity: 45, baseKmRate: 48, baseFixed: 1400, speedKmH: 45 },
+        'truck6': { name: '6-Wheeler Heavy Truck (9 MT)', capacity: 90, baseKmRate: 72, baseFixed: 2200, speedKmH: 50 },
+        'truck10': { name: '10-Wheeler Multi-Axle (16 MT)', capacity: 160, baseKmRate: 110, baseFixed: 3500, speedKmH: 45 },
+        'reefer': { name: 'Reefer Cold Chain Van (6 MT)', capacity: 60, baseKmRate: 85, baseFixed: 2800, speedKmH: 45 }
+    },
+
+    init() {
+        document.querySelectorAll('.vehicle-card-radio').forEach(card => {
+            card.addEventListener('click', (e) => {
+                document.querySelectorAll('.vehicle-card-radio').forEach(c => c.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                this.selectedVehicle = e.currentTarget.getAttribute('data-vehicle');
+                this.calculate();
+            });
+        });
+
+        const distInput = document.getElementById('freightDistanceInput');
+        const weightInput = document.getElementById('freightWeightInput');
+        const calcBtn = document.getElementById('freightCalculateBtn');
+
+        if (distInput) distInput.addEventListener('input', () => this.calculate());
+        if (weightInput) weightInput.addEventListener('input', () => this.calculate());
+        if (calcBtn) calcBtn.addEventListener('click', () => this.calculate());
+
+        this.calculate();
+    },
+
+    calculate() {
+        const distance = parseFloat(document.getElementById('freightDistanceInput')?.value) || 85;
+        const weightQtl = parseFloat(document.getElementById('freightWeightInput')?.value) || 40;
+
+        const vInfo = this.vehicleTariffs[this.selectedVehicle] || this.vehicleTariffs['ace'];
+
+        const distanceTariff = distance * vInfo.baseKmRate;
+        const tollEstimates = Math.floor(distance / 50) * 140;
+        const totalFreight = vInfo.baseFixed + distanceTariff + tollEstimates;
+        const perQuintalRate = totalFreight / (weightQtl || 1);
+        const transitHours = (distance / vInfo.speedKmH).toFixed(1);
+
+        const totalEl = document.getElementById('freightTotalCost');
+        const perQtlEl = document.getElementById('freightPerQtl');
+        const timeEl = document.getElementById('freightTransitTime');
+        const tollEl = document.getElementById('freightToll');
+        const summaryVehicleEl = document.getElementById('freightVehicleName');
+
+        if (totalEl) totalEl.textContent = `₹${Math.round(totalFreight).toLocaleString('en-IN')}`;
+        if (perQtlEl) perQtlEl.textContent = `₹${perQuintalRate.toFixed(1)} / Qtl`;
+        if (timeEl) timeEl.textContent = `${transitHours} Hours`;
+        if (tollEl) tollEl.textContent = `₹${tollEstimates}`;
+        if (summaryVehicleEl) summaryVehicleEl.textContent = vInfo.name;
+    }
+};
+
+/* ==========================================================================
+   7. SUBSIDY & SCHEME CALCULATOR
    ========================================================================== */
 const SubsidyCalculatorModule = {
     selectedBeneficiary: 'small_farmer',
@@ -1407,8 +1235,8 @@ const SubsidyCalculatorModule = {
     },
 
     calculate() {
-        let percent = 40;
-        let maxCap = 2.0;
+        let percent = 50;
+        let maxCap = 1.5;
         let schemeName = "Amar Fasal Amar Gari Scheme";
 
         if (this.selectedBeneficiary === 'small_farmer') {
@@ -1457,16 +1285,16 @@ const SubsidyCalculatorModule = {
 };
 
 /* ==========================================================================
-   7. COLD STORAGE LOCATOR MODULE
+   8. COLD STORAGE & WDRA E-NWR LOCATOR MODULE
    ========================================================================== */
 const ColdStorageModule = {
     units: [
-        { id: 1, name: "Hooghly Agro Cold Storage Unit-1", district: "Hooghly", capacity: 12000, available: 3200, temp: "2°C - 4°C (Potato / Veg)", phone: "+91 98301 44551", status: "available" },
-        { id: 2, name: "Burdwan Central Krishi Bhandar", district: "Burdwan", capacity: 15000, available: 1400, temp: "1°C - 3°C (Multi-Chamber)", phone: "+91 94340 77890", status: "limited" },
-        { id: 3, name: "Nadia Kisan Cold Chain & Packhouse", district: "Nadia", capacity: 8500, available: 2800, temp: "0°C - 5°C (Horticulture)", phone: "+91 97321 66542", status: "available" },
-        { id: 4, name: "Malda Mango & Fruit Preservation Hub", district: "Malda", capacity: 6000, available: 850, temp: "4°C - 8°C (Ripening & Storage)", phone: "+91 94741 22300", status: "limited" },
-        { id: 5, name: "Bankura Multi-Commodity Cold Unit", district: "Bankura", capacity: 10000, available: 4100, temp: "2°C - 6°C (Seeds & Veg)", phone: "+91 96472 88910", status: "available" },
-        { id: 6, name: "Siliguri Agri Logistic Cold Center", district: "Darjeeling / Siliguri", capacity: 14000, available: 5200, temp: "-2°C - 4°C (Export Hub)", phone: "+91 98002 11456", status: "available" }
+        { id: 1, name: "Hooghly Agro Cold Storage Unit-1", district: "Hooghly", capacity: 12000, available: 3200, temp: "2°C - 4°C (Potato / Veg)", phone: "+91 98301 44551", wdraAccredited: true, eNwrEligible: true, status: "available" },
+        { id: 2, name: "Burdwan Central Krishi Bhandar", district: "Burdwan", capacity: 15000, available: 1400, temp: "1°C - 3°C (Multi-Chamber)", phone: "+91 94340 77890", wdraAccredited: true, eNwrEligible: true, status: "limited" },
+        { id: 3, name: "Nadia Kisan Cold Chain & Packhouse", district: "Nadia", capacity: 8500, available: 2800, temp: "0°C - 5°C (Horticulture)", phone: "+91 97321 66542", wdraAccredited: true, eNwrEligible: true, status: "available" },
+        { id: 4, name: "Malda Mango & Fruit Preservation Hub", district: "Malda", capacity: 6000, available: 850, temp: "4°C - 8°C (Ripening & Storage)", phone: "+91 94741 22300", wdraAccredited: false, eNwrEligible: false, status: "limited" },
+        { id: 5, name: "Bankura Multi-Commodity Cold Unit", district: "Bankura", capacity: 10000, available: 4100, temp: "2°C - 6°C (Seeds & Veg)", phone: "+91 96472 88910", wdraAccredited: true, eNwrEligible: true, status: "available" },
+        { id: 6, name: "Siliguri Agri Logistic Cold Center", district: "Darjeeling / Siliguri", capacity: 14000, available: 5200, temp: "-2°C - 4°C (Export Hub)", phone: "+91 98002 11456", wdraAccredited: true, eNwrEligible: true, status: "available" }
     ],
 
     init() {
@@ -1488,12 +1316,18 @@ const ColdStorageModule = {
             const percentFilled = Math.round(((unit.capacity - unit.available) / unit.capacity) * 100);
             const badgeClass = unit.status === 'available' ? 'available' : 'limited';
             const badgeText = unit.status === 'available' ? 'Available Space' : 'Filling Fast';
+            const eNwrBadge = unit.eNwrEligible
+                ? `<span class="badge-verified-kyc" style="margin-left:0.5rem;">📜 e-NWR Loan Eligible</span>`
+                : '';
 
             html += `
                 <div class="facility-card">
-                    <span class="facility-badge-status ${badgeClass}">${badgeText}</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+                        <span class="facility-badge-status ${badgeClass}">${badgeText}</span>
+                        ${eNwrBadge}
+                    </div>
                     <h3 class="facility-title">${unit.name}</h3>
-                    <div class="facility-location">📍 ${unit.district}</div>
+                    <div class="facility-location">📍 ${unit.district} (WDRA Accredited: ${unit.wdraAccredited ? 'Yes' : 'No'})</div>
                     <div class="capacity-meter-wrap">
                         <div class="capacity-labels">
                             <span>${unit.available.toLocaleString('en-IN')} MT Free</span>
@@ -1519,16 +1353,16 @@ const ColdStorageModule = {
 };
 
 /* ==========================================================================
-   8. E-MARKETPLACE & DIRECT FARM PRODUCE MODULE
+   9. E-MARKETPLACE & DIRECT FARM PRODUCE MODULE
    ========================================================================== */
 const MarketplaceModule = {
     produce: [
-        { id: 1, crop: "Organic Jyoti Potato", icon: "🥔", farmer: "Subhash Mondal (FPO Member)", location: "Arambagh, Hooghly", qty: "450 Bags (50kg)", price: "₹780 / Bag", grade: "Agmark Grade-A" },
-        { id: 2, crop: "Premium Gobindobhog Rice", icon: "🌾", farmer: "Burdwan Progressive Farmers SHG", location: "Memari, Burdwan", qty: "120 Quintals", price: "₹6,400 / Qtl", grade: "100% Certified" },
-        { id: 3, crop: "Export Quality Fresh Ginger", icon: "🫚", farmer: "Tapan Roy (Hill Agro)", location: "Alipurduar, North Bengal", qty: "85 Quintals", price: "₹7,900 / Qtl", grade: "Pesticide Free" },
-        { id: 4, crop: "Fresh Red Hybrid Tomato", icon: "🍅", farmer: "Pranab Ghosh", location: "Krishnanagar, Nadia", qty: "200 Crates", price: "₹420 / Crate", grade: "Farm Fresh" },
-        { id: 5, crop: "Golden Mustard Seeds", icon: "🌻", farmer: "Bankura Krishi Bikash", location: "Kotulpur, Bankura", qty: "90 Quintals", price: "₹5,600 / Qtl", grade: "Agmark Certified" },
-        { id: 6, crop: "Malda Mango Pulp (Fazli)", icon: "🥭", farmer: "Malda Mango Producer Co.", location: "Ratua, Malda", qty: "300 Barrels", price: "₹4,800 / Barrel", grade: "FSSAI Grade-A" }
+        { id: 1, crop: "Organic Jyoti Potato", icon: "🥔", farmer: "Subhash Mondal (FPO Member)", location: "Arambagh, Hooghly", qty: "450 Bags (50kg)", price: "₹780 / Bag", grade: "AGMARK Grade-I", lotId: "LOT-HGY-8841", rating: "4.9 ★ (KYC Verified)" },
+        { id: 2, crop: "Premium Gobindobhog Rice", icon: "🌾", farmer: "Burdwan Progressive Farmers SHG", location: "Memari, Burdwan", qty: "120 Quintals", price: "₹6,400 / Qtl", grade: "AGMARK Special", lotId: "LOT-BWN-5520", rating: "5.0 ★ (APMC Licensed)" },
+        { id: 3, crop: "Export Quality Fresh Ginger", icon: "🫚", farmer: "Tapan Roy (Hill Agro)", location: "Alipurduar, North Bengal", qty: "85 Quintals", price: "₹7,900 / Qtl", grade: "Pesticide Free", lotId: "LOT-JPG-7801", rating: "4.8 ★ (KYC Verified)" },
+        { id: 4, crop: "Fresh Red Hybrid Tomato", icon: "🍅", farmer: "Pranab Ghosh", location: "Krishnanagar, Nadia", qty: "200 Crates", price: "₹420 / Crate", grade: "FSSAI Grade-A", lotId: "LOT-NDA-9014", rating: "4.9 ★ (Verified)" },
+        { id: 5, crop: "Golden Mustard Seeds", icon: "🌻", farmer: "Bankura Krishi Bikash", location: "Kotulpur, Bankura", qty: "90 Quintals", price: "₹5,600 / Qtl", grade: "AGMARK Grade-I", lotId: "LOT-BKR-6180", rating: "4.9 ★ (KYC Verified)" },
+        { id: 6, crop: "Malda Mango Pulp (Fazli)", icon: "🥭", farmer: "Malda Mango Producer Co.", location: "Ratua, Malda", qty: "300 Barrels", price: "₹4,800 / Barrel", grade: "GI Certified", lotId: "LOT-MLD-9902", rating: "5.0 ★ (APMC Licensed)" }
     ],
 
     init() {
@@ -1543,10 +1377,12 @@ const MarketplaceModule = {
         this.produce.forEach(p => {
             html += `
                 <div class="produce-card">
-                    <span class="produce-grade-tag">${p.grade}</span>
-                    <div class="produce-icon-box">${p.icon}</div>
+                    <div class="produce-card-header">
+                        <span class="produce-grade-tag">${p.grade}</span>
+                        <span class="badge-verified-kyc">${p.rating}</span>
+                    </div>
                     <h3 class="produce-title">${p.crop}</h3>
-                    <div class="produce-farmer">👨‍🌾 ${p.farmer}</div>
+                    <div class="produce-farmer">${p.farmer} <span style="font-size:0.75rem; color:var(--text-muted);">(${p.lotId})</span></div>
                     <div class="produce-stats-row">
                         <div>
                             <span class="p-stat-lbl">Available</span>
@@ -1557,10 +1393,15 @@ const MarketplaceModule = {
                             <span class="p-stat-val">${p.price}</span>
                         </div>
                     </div>
-                    <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:1rem;">📍 ${p.location}</div>
-                    <button class="btn btn-sm btn-accent" style="margin-top:auto" onclick="ModalManager.openProduceInquiry('${p.crop}', '${p.farmer}')">
-                        🤝 Send Bid / Inquiry
-                    </button>
+                    <div class="produce-location">${p.location}</div>
+                    <div class="produce-actions-row">
+                        <button class="btn btn-sm btn-primary" style="flex:1" onclick="ModalManager.openProduceInquiry('${p.crop}', '${p.farmer}')">
+                            Send Bid
+                        </button>
+                        <button class="btn btn-sm btn-outline" style="padding:0.35rem 0.65rem; font-size:0.78rem;" onclick="MandiRatesModule.openAssayModal(1)" title="View Quality Assaying Certificate">
+                            Assay Cert
+                        </button>
+                    </div>
                 </div>
             `;
         });
@@ -1570,35 +1411,22 @@ const MarketplaceModule = {
 };
 
 /* ==========================================================================
-   9. SCHEMES & NOTICES MODULE
+   10. NOTICES & SCHEMES MODULE
    ========================================================================== */
-const SchemesModule = {
-    data: []
-};
-
+const SchemesModule = { data: [] };
 const NoticesModule = {
     data: {
         tenders: [
             { id: "T1", day: "28", month: "Aug", title: "Expression of Interest (EOI) for installation of Solar Powered Micro Cold Rooms in Hooghly and Burdwan APMC premises.", ref: "Ref: WBSAMB/NIT-14/2026", fileSize: "1.2 MB" },
             { id: "T2", day: "25", month: "Aug", title: "Revised Daily Price Bulletin & Arrival Report for Agricultural and Horticultural Commodities for Kharif Season.", ref: "Ref: AMD/PB/AUG-2026/08", fileSize: "850 KB" },
             { id: "T3", day: "20", month: "Aug", title: "Notification regarding Minimum Support Price (MSP) and procurement centers for Paddy and Jute for Kharif Marketing Season.", ref: "Ref: GO-WB-AGRI-552/2026", fileSize: "2.1 MB" }
-        ],
-        advisory: []
+        ]
     },
-
-    init() {
-        document.querySelectorAll('.notice-tab-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.notice-tab-btn').forEach(b => b.classList.remove('active'));
-                e.currentTarget.classList.add('active');
-                showToast('Switched notice filter category', 'info');
-            });
-        });
-    }
+    init() { }
 };
 
 /* ==========================================================================
-   10. MODAL & DIALOG MANAGER
+   11. MODAL & DIALOG MANAGER
    ========================================================================== */
 const ModalManager = {
     init() {
@@ -1621,17 +1449,6 @@ const ModalManager = {
                 e.preventDefault();
                 showToast('✅ SMS / WhatsApp Daily Price Alert Activated successfully!', 'success');
                 this.close('alertModal');
-            });
-        }
-
-
-
-        const contactForm = document.getElementById('citizenContactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                showToast('✅ Grievance / Inquiry submitted! Ticket ID: WB-AGRI-' + Math.floor(100000 + Math.random() * 900000), 'success');
-                contactForm.reset();
             });
         }
     },
@@ -1662,315 +1479,375 @@ const ModalManager = {
 };
 
 /* ==========================================================================
-   11. NUMBER COUNTER MODULE (Smooth Rolling Count-Up with Easing)
+   12. ACCESSIBILITY CONTROLLER (Continuous Font Scaling)
    ========================================================================== */
-const NumberCounterModule = {
-    animatedElements: new Set(),
+const AccessibilityManager = {
+    currentScale: 1.0,
+    minScale: 0.75,
+    maxScale: 1.40,
+    step: 0.05,
 
     init() {
-        const counters = document.querySelectorAll('[data-counter-target]');
-        if (!counters.length) return;
-
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        this.animateCounter(entry.target);
-                        obs.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.15,
-                rootMargin: '0px 0px -40px 0px'
-            });
-
-            counters.forEach(counter => observer.observe(counter));
-        } else {
-            counters.forEach(counter => this.animateCounter(counter));
+        const saved = localStorage.getItem('font_scale');
+        let initialScale = 1.0;
+        if (saved) {
+            const parsed = parseFloat(saved);
+            if (!isNaN(parsed)) initialScale = parsed;
         }
+        this.setScale(initialScale);
+
+        document.querySelectorAll('.font-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const action = e.currentTarget.getAttribute('data-size');
+                if (action === 'std') this.setScale(1.0);
+                else if (action === 'inc') this.setScale(this.currentScale + this.step);
+                else if (action === 'dec') this.setScale(this.currentScale - this.step);
+            });
+        });
     },
 
-    animateCounter(el) {
-        if (this.animatedElements.has(el)) return;
-        this.animatedElements.add(el);
-
-        const target = parseFloat(el.getAttribute('data-counter-target')) || 0;
-        const prefix = el.getAttribute('data-counter-prefix') || '';
-        const suffix = el.getAttribute('data-counter-suffix') || '';
-        const decimals = parseInt(el.getAttribute('data-counter-decimals'), 10) || 0;
-        const duration = parseInt(el.getAttribute('data-counter-duration'), 10) || 2000;
-
-        const startTime = performance.now();
-
-        // Quintic Easing Out for smooth deceleration
-        const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5);
-
-        const updateNumber = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easedProgress = easeOutQuint(progress);
-            const currentVal = (easedProgress * target);
-
-            let formattedVal;
-            if (decimals > 0) {
-                formattedVal = currentVal.toFixed(decimals);
-            } else {
-                formattedVal = Math.floor(currentVal).toLocaleString('en-IN');
-            }
-
-            el.textContent = `${prefix}${formattedVal}${suffix}`;
-
-            if (progress < 1) {
-                requestAnimationFrame(updateNumber);
-            } else {
-                const finalVal = decimals > 0 ? target.toFixed(decimals) : target.toLocaleString('en-IN');
-                el.textContent = `${prefix}${finalVal}${suffix}`;
-                el.classList.add('counter-completed');
-            }
-        };
-
-        requestAnimationFrame(updateNumber);
+    setScale(scaleVal) {
+        const numericVal = typeof scaleVal === 'number' ? scaleVal : parseFloat(scaleVal);
+        const clamped = Math.min(this.maxScale, Math.max(this.minScale, isNaN(numericVal) ? 1.0 : numericVal));
+        this.currentScale = parseFloat(clamped.toFixed(2));
+        document.documentElement.style.setProperty('--font-scale', this.currentScale);
+        localStorage.setItem('font_scale', this.currentScale.toString());
     }
 };
 
 /* ==========================================================================
-   12. SERVICES & INFRASTRUCTURE AUTO-SLIDER MODULE
+   13. THEME MANAGER (Dark / Light Theme)
    ========================================================================== */
+const ThemeManager = {
+    init() {
+        const savedTheme = localStorage.getItem('theme_mode') || 'light';
+        this.setTheme(savedTheme);
+
+        const toggleBtn = document.getElementById('themeToggleBtn');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                const current = document.documentElement.getAttribute('data-theme') || 'light';
+                this.setTheme(current === 'light' ? 'dark' : 'light');
+            });
+        }
+    },
+
+    setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme_mode', theme);
+        const iconSpan = document.getElementById('themeIcon');
+        const textSpan = document.getElementById('themeText');
+        if (iconSpan) iconSpan.textContent = theme === 'light' ? '🌙' : '☀️';
+        if (textSpan) textSpan.textContent = theme === 'light' ? 'Dark' : 'Light';
+    }
+};
+
+/* ==========================================================================
+   14. NUMBER COUNTER & SLIDER MODULES
+   ========================================================================== */
+const NumberCounterModule = {
+    init() {
+        const counters = document.querySelectorAll('[data-counter-target]');
+        if (!counters.length) return;
+
+        counters.forEach(el => {
+            const target = parseFloat(el.getAttribute('data-counter-target')) || 0;
+            const prefix = el.getAttribute('data-counter-prefix') || '';
+            const suffix = el.getAttribute('data-counter-suffix') || '';
+            const decimals = parseInt(el.getAttribute('data-counter-decimals'), 10) || 0;
+            const finalVal = decimals > 0 ? target.toFixed(decimals) : target.toLocaleString('en-IN');
+            el.textContent = `${prefix}${finalVal}${suffix}`;
+        });
+    }
+};
+
 const ServicesSliderModule = {
     currentIndex: 0,
-    intervalTimer: null,
-    slideInterval: 3200,
-    isPaused: false,
-    touchStartX: 0,
-    touchEndX: 0,
-
     init() {
-        const track = document.getElementById('servicesSliderTrack');
-        const container = document.getElementById('servicesSliderContainer');
-        if (!track || !container) return;
-
-        this.renderDots();
-        this.updateSlider();
-        setTimeout(() => this.updateSlider(), 150);
-        this.startAutoSlide();
-        this.bindEvents();
-    },
-
-    getVisibleCount() {
-        const width = window.innerWidth;
-        if (width <= 680) return 1;
-        if (width <= 1024) return 2;
-        return 3;
-    },
-
-    getTotalSlides() {
-        const items = document.querySelectorAll('.service-slide-item');
-        return items.length || 0;
-    },
-
-    getMaxIndex() {
-        const total = this.getTotalSlides();
-        const visible = this.getVisibleCount();
-        return Math.max(0, total - visible);
-    },
-
-    renderDots() {
-        const dotsContainer = document.getElementById('servicesSliderDots');
-        if (!dotsContainer) return;
-
-        const maxIdx = this.getMaxIndex();
-        let dotsHtml = '';
-        for (let i = 0; i <= maxIdx; i++) {
-            const activeCls = i === this.currentIndex ? 'active' : '';
-            dotsHtml += `<button type="button" class="slider-dot ${activeCls}" data-slide="${i}" aria-label="Go to service slide ${i + 1}"></button>`;
-        }
-        dotsContainer.innerHTML = dotsHtml;
-
-        dotsContainer.querySelectorAll('.slider-dot').forEach(dot => {
-            dot.addEventListener('click', (e) => {
-                const idx = parseInt(e.currentTarget.getAttribute('data-slide'), 10);
-                this.goToSlide(idx);
-                this.startAutoSlide();
-            });
-        });
-    },
-
-    updateSlider() {
+        const prevBtn = document.getElementById('servicesPrevBtn');
+        const nextBtn = document.getElementById('servicesNextBtn');
         const track = document.getElementById('servicesSliderTrack');
         if (!track) return;
 
-        const items = document.querySelectorAll('.service-slide-item');
-        if (!items.length) return;
+        const update = () => {
+            const items = document.querySelectorAll('.service-slide-item');
+            if (items.length) {
+                const width = items[0].getBoundingClientRect().width + 24;
+                track.style.transform = `translateX(-${this.currentIndex * width}px)`;
+            }
+        };
 
-        const itemWidth = items[0].getBoundingClientRect().width;
-        const gap = 24;
-        const offset = this.currentIndex * (itemWidth + gap);
-
-        track.style.transform = `translateX(-${offset}px)`;
-
-        const dots = document.querySelectorAll('.slider-dot');
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === this.currentIndex);
+        if (prevBtn) prevBtn.addEventListener('click', () => {
+            if (this.currentIndex > 0) this.currentIndex--;
+            update();
         });
 
-        const prevBtn = document.getElementById('servicesPrevBtn');
-        const nextBtn = document.getElementById('servicesNextBtn');
-        if (prevBtn) prevBtn.style.opacity = '1';
-        if (nextBtn) nextBtn.style.opacity = '1';
-    },
+        if (nextBtn) nextBtn.addEventListener('click', () => {
+            const max = Math.max(0, document.querySelectorAll('.service-slide-item').length - 2);
+            if (this.currentIndex < max) this.currentIndex++;
+            else this.currentIndex = 0;
+            update();
+        });
+    }
+};
 
-    nextSlide() {
-        const maxIdx = this.getMaxIndex();
-        if (this.currentIndex < maxIdx) {
-            this.currentIndex++;
-        } else {
-            this.currentIndex = 0;
-        }
-        this.updateSlider();
-    },
+const SchemesSliderModule = {
+    currentIndex: 0,
+    timer: null,
 
-    prevSlide() {
-        const maxIdx = this.getMaxIndex();
-        if (this.currentIndex > 0) {
-            this.currentIndex--;
-        } else {
-            this.currentIndex = maxIdx;
-        }
-        this.updateSlider();
-    },
+    init() {
+        const prevBtn = document.getElementById('schemesPrevBtn');
+        const nextBtn = document.getElementById('schemesNextBtn');
+        const track = document.getElementById('schemesSliderTrack');
+        const container = document.getElementById('schemesSliderContainer');
+        const dotsContainer = document.getElementById('schemesSliderDots');
+        if (!track || !container) return;
 
-    goToSlide(idx) {
-        const maxIdx = this.getMaxIndex();
-        this.currentIndex = Math.max(0, Math.min(idx, maxIdx));
-        this.updateSlider();
-    },
+        const items = track.querySelectorAll('.initiative-slide-item');
+        if (!items.length) return;
 
-    startAutoSlide() {
-        this.stopAutoSlide();
-        this.intervalTimer = setInterval(() => {
-            if (!this.isPaused) {
-                this.nextSlide();
+        const getVisibleCount = () => {
+            if (window.innerWidth <= 680) return 1;
+            if (window.innerWidth <= 1024) return 2;
+            return 3;
+        };
+
+        const getMaxIndex = () => {
+            return Math.max(0, items.length - getVisibleCount());
+        };
+
+        const restartAutoplay = () => {
+            if (this.timer) clearInterval(this.timer);
+            const max = getMaxIndex();
+            if (max > 0) {
+                this.timer = setInterval(() => {
+                    const currentMax = getMaxIndex();
+                    if (currentMax > 0) {
+                        this.currentIndex = (this.currentIndex < currentMax) ? this.currentIndex + 1 : 0;
+                        update();
+                    }
+                }, 5000);
             }
-        }, this.slideInterval);
-    },
+        };
 
-    stopAutoSlide() {
-        if (this.intervalTimer) {
-            clearInterval(this.intervalTimer);
-            this.intervalTimer = null;
-        }
-    },
+        const renderDots = () => {
+            if (!dotsContainer) return;
+            dotsContainer.innerHTML = '';
+            const maxIdx = getMaxIndex();
+            const totalDots = maxIdx + 1;
+            if (totalDots <= 1) {
+                dotsContainer.style.display = 'none';
+                return;
+            }
+            dotsContainer.style.display = 'flex';
 
-    bindEvents() {
-        const prevBtn = document.getElementById('servicesPrevBtn');
-        const nextBtn = document.getElementById('servicesNextBtn');
-        const container = document.getElementById('servicesSliderContainer');
+            for (let i = 0; i < totalDots; i++) {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = `slider-dot ${i === this.currentIndex ? 'active' : ''}`;
+                dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                dot.addEventListener('click', () => {
+                    this.currentIndex = i;
+                    update();
+                    restartAutoplay();
+                });
+                dotsContainer.appendChild(dot);
+            }
+        };
+
+        const update = () => {
+            const max = getMaxIndex();
+            if (this.currentIndex > max) this.currentIndex = max;
+            if (this.currentIndex < 0) this.currentIndex = 0;
+
+            const firstItem = items[0];
+            if (!firstItem) return;
+
+            const itemWidth = firstItem.getBoundingClientRect().width;
+            const gap = 24; // 1.5rem gap
+            const offset = this.currentIndex * (itemWidth + gap);
+            track.style.transform = `translateX(-${offset}px)`;
+
+            if (dotsContainer) {
+                const dots = dotsContainer.querySelectorAll('.slider-dot');
+                dots.forEach((d, idx) => d.classList.toggle('active', idx === this.currentIndex));
+            }
+
+            // Toggle arrow buttons visibility / disabled state
+            if (prevBtn && nextBtn) {
+                if (max <= 0) {
+                    prevBtn.style.opacity = '0.35';
+                    nextBtn.style.opacity = '0.35';
+                    prevBtn.style.pointerEvents = 'none';
+                    nextBtn.style.pointerEvents = 'none';
+                } else {
+                    prevBtn.style.opacity = '1';
+                    nextBtn.style.opacity = '1';
+                    prevBtn.style.pointerEvents = 'auto';
+                    nextBtn.style.pointerEvents = 'auto';
+                }
+            }
+        };
+
+        renderDots();
+        update();
 
         if (prevBtn) {
             prevBtn.addEventListener('click', () => {
-                this.prevSlide();
-                this.startAutoSlide();
+                const max = getMaxIndex();
+                this.currentIndex = (this.currentIndex > 0) ? this.currentIndex - 1 : max;
+                update();
+                restartAutoplay();
             });
         }
 
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
-                this.nextSlide();
-                this.startAutoSlide();
+                const max = getMaxIndex();
+                this.currentIndex = (this.currentIndex < max) ? this.currentIndex + 1 : 0;
+                update();
+                restartAutoplay();
             });
         }
 
-        if (container) {
-            container.addEventListener('mouseenter', () => { this.isPaused = true; });
-            container.addEventListener('mouseleave', () => { this.isPaused = false; });
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                renderDots();
+                update();
+            }, 100);
+        });
 
-            container.addEventListener('touchstart', (e) => {
-                this.touchStartX = e.changedTouches[0].screenX;
-                this.isPaused = true;
-            }, { passive: true });
+        // Touch & Swipe Support
+        let startX = 0;
+        let isDragging = false;
 
-            container.addEventListener('touchend', (e) => {
-                this.touchEndX = e.changedTouches[0].screenX;
-                this.isPaused = false;
-                this.handleSwipe();
-            }, { passive: true });
+        container.addEventListener('touchstart', (e) => {
+            if (e.touches && e.touches.length) {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            }
+        }, { passive: true });
+
+        container.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            if (e.changedTouches && e.changedTouches.length) {
+                const diff = startX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 40) {
+                    const max = getMaxIndex();
+                    if (diff > 0) {
+                        this.currentIndex = (this.currentIndex < max) ? this.currentIndex + 1 : 0;
+                    } else {
+                        this.currentIndex = (this.currentIndex > 0) ? this.currentIndex - 1 : max;
+                    }
+                    update();
+                    restartAutoplay();
+                }
+            }
+            isDragging = false;
+        });
+
+        container.addEventListener('mouseenter', () => {
+            if (this.timer) clearInterval(this.timer);
+        });
+        container.addEventListener('mouseleave', restartAutoplay);
+
+        restartAutoplay();
+    }
+};
+
+const NavigationModule = {
+    init() {
+        const toggleBtn = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+        if (toggleBtn && navMenu) {
+            toggleBtn.addEventListener('click', () => navMenu.classList.toggle('active'));
         }
 
-        window.addEventListener('resize', () => {
-            const maxIdx = this.getMaxIndex();
-            if (this.currentIndex > maxIdx) {
-                this.currentIndex = maxIdx;
+        document.querySelectorAll('.has-dropdown').forEach(item => {
+            const btn = item.querySelector('.nav-dropdown-btn');
+            if (btn) {
+                btn.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 1140) {
+                        e.preventDefault();
+                        item.classList.toggle('open');
+                    }
+                });
             }
-            this.renderDots();
-            this.updateSlider();
         });
+
+        this.highlightActiveLink();
     },
 
-    handleSwipe() {
-        const diff = this.touchStartX - this.touchEndX;
-        if (Math.abs(diff) > 40) {
-            if (diff > 0) {
-                this.nextSlide();
+    highlightActiveLink() {
+        const navLinks = document.querySelectorAll('.nav-menu .nav-link');
+        if (!navLinks.length) return;
+
+        const currentUrl = new URL(window.location.href);
+        const currentPath = currentUrl.pathname.toLowerCase().replace(/\/index\.(html|php)$/, '').replace(/\/$/, '') || '/';
+
+        const isHomePage = (
+            currentPath === '' || 
+            currentPath === '/' || 
+            currentPath.endsWith('/agricultural_marketing_wordpress') || 
+            currentPath.endsWith('/theme')
+        );
+
+        // Clear all active classes first to ensure only 1 is active
+        navLinks.forEach(l => l.classList.remove('active'));
+
+        let activeFound = false;
+
+        navLinks.forEach(link => {
+            if (activeFound) return;
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            const linkUrl = new URL(href, window.location.href);
+            const linkPath = linkUrl.pathname.toLowerCase().replace(/\/index\.(html|php)$/, '').replace(/\/$/, '') || '/';
+
+            const isLinkHome = (
+                linkPath === '' || 
+                linkPath === '/' || 
+                linkPath.endsWith('/agricultural_marketing_wordpress') || 
+                linkPath.endsWith('/theme') ||
+                link.getAttribute('data-i18n') === 'nav_home'
+            );
+
+            if (isHomePage) {
+                if (isLinkHome) {
+                    link.classList.add('active');
+                    activeFound = true;
+                }
             } else {
-                this.prevSlide();
+                if (!isLinkHome && (currentPath === linkPath || (linkPath !== '/' && currentPath.endsWith(linkPath)))) {
+                    link.classList.add('active');
+                    activeFound = true;
+                }
             }
-            this.startAutoSlide();
+        });
+
+        if (!activeFound && isHomePage) {
+            const homeLink = document.querySelector('.nav-menu a[data-i18n="nav_home"]');
+            if (homeLink) homeLink.classList.add('active');
         }
     }
 };
 
 /* ==========================================================================
-   13. NAVIGATION & ACTIVE ROUTING MODULE
+   15. PWA & TOAST ENGINE
    ========================================================================== */
-const NavigationModule = {
+const PWAModule = {
     init() {
-        const toggleBtn = document.getElementById('mobileMenuToggle');
-        const navMenu = document.getElementById('navMenu');
-
-        if (toggleBtn && navMenu) {
-            toggleBtn.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-            });
-
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                });
-            });
+        if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+            navigator.serviceWorker.register('./sw.js').then(() => {
+                console.info('AgriMarketing PWA Service Worker Registered');
+            }).catch(e => console.info('SW registration bypassed in file/dev mode'));
         }
 
-        const cleanPath = (p) => (p || '')
-            .split('?')[0]
-            .split('#')[0]
-            .split('/')
-            .filter(Boolean)
-            .pop() || 'index';
-        const normCurrent = cleanPath(window.location.pathname).replace(/\.(html|htm)$/i, '').toLowerCase();
-        const activeName = (normCurrent === '' || normCurrent === '/' || normCurrent === 'index') ? 'index' : normCurrent;
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            const href = link.getAttribute('href');
-            if (href) {
-                const normHref = cleanPath(href).replace(/\.(html|htm)$/i, '').toLowerCase();
-                const linkName = (normHref === '' || normHref === '/' || normHref === 'index') ? 'index' : normHref;
-                if (linkName === activeName) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            }
-        });
-
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.main-header');
-            if (header) {
-                if (window.scrollY > 30) {
-                    header.classList.add('header-scrolled');
-                } else {
-                    header.classList.remove('header-scrolled');
-                }
-            }
-        }, { passive: true });
+        window.addEventListener('online', () => showToast('🌐 Online: Mandi rate feed synced with AGMARKNET 2.0', 'success'));
+        window.addEventListener('offline', () => showToast('📶 Offline Mode: Using cached commodity price bulletins', 'info'));
     }
 };
 
@@ -1992,4 +1869,11 @@ function showToast(message, type = 'info') {
         toast.style.transform = 'translateX(100%)';
         setTimeout(() => toast.remove(), 300);
     }, 3800);
+}
+
+setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(100%)';
+    setTimeout(() => toast.remove(), 300);
+}, 3800);
 }

@@ -29,144 +29,222 @@ $s3_desc  = agri_get_meta($post_id, 'scheme_s3_desc', 'Receive formal in-princip
 $s4_title = agri_get_meta($post_id, 'scheme_s4_title', 'Direct Bank Transfer (DBT)');
 $s4_desc  = agri_get_meta($post_id, 'scheme_s4_desc', 'Subsidy amount is credited directly to the beneficiary\'s linked bank account upon asset delivery.');
 
-// 3 Flagship Initiative Card Images
-$card1_img = agri_get_meta($post_id, 'scheme_card1_image', $theme_uri . '/images/sufal-market.jpg');
-$card2_img = agri_get_meta($post_id, 'scheme_card2_image', $theme_uri . '/images/hero-farmer.jpg');
-$card3_img = agri_get_meta($post_id, 'scheme_card3_image', $theme_uri . '/images/cold-storage.jpg');
+// 4 Flagship Initiative Card Images
+$card1_img = agri_get_meta($post_id, 'scheme_card1_image', $theme_uri . '/images/scheme-sufal-bangla.jpg');
+$card2_img = agri_get_meta($post_id, 'scheme_card2_image', $theme_uri . '/images/scheme-amar-fasal.jpg');
+$card3_img = agri_get_meta($post_id, 'scheme_card3_image', $theme_uri . '/images/scheme-cold-storage.jpg');
+$card4_img = agri_get_meta($post_id, 'scheme_card4_image', $theme_uri . '/images/scheme-ami-packhouse.jpg');
 
-// Dynamic Schemes Query
+// Dynamic Schemes Query (Retrieve all published schemes for interactive slider)
 $schemes_query = new WP_Query(array(
     'post_type'      => 'agri_scheme',
-    'posts_per_page' => 6,
-    'post_status'    => 'publish'
+    'posts_per_page' => -1,
+    'post_status'    => 'publish',
+    'orderby'        => 'menu_order date',
+    'order'          => 'ASC'
+));
+?>
+
+<?php
+agri_render_inner_banner(array(
+    'title'       => get_the_title(),
+    'subtitle'    => $banner_subtitle,
+    'tag'         => '🌾 State Farmer Subsidies & Benefits',
+    'image'       => $theme_uri . '/images/banner-schemes.jpg',
+    'badge_label' => 'Direct Benefit Transfer',
+    'badge_val'   => '100% DBT Verified',
+    'i18n_title'  => 'srv_schemes_title',
+    'i18n_sub'    => 'srv_schemes_desc',
+    'i18n_crumb'  => 'nav_schemes',
+    'meta_pills'  => array('🚜 Amar Fasal Amar Gari', '🛒 Sufal Bangla', '🧮 Subsidy Calculator')
 ));
 ?>
 
 <!-- ==========================================================================
-   INNER PAGE BANNER WITH BREADCRUMBS
+   FLAGSHIP INITIATIVES SLIDER
    ========================================================================== -->
-<section class="page-banner">
+<section class="section schemes-slider-section" id="schemesSliderSection">
     <div class="container">
-        <div class="page-banner-content">
-            <div class="breadcrumb">
-                <a href="<?php echo esc_url(home_url('/')); ?>" data-i18n="nav_home">Home</a>
-                <span class="separator">/</span>
-                <span class="current" data-i18n="nav_schemes"><?php the_title(); ?></span>
+        <div class="section-header-flex">
+            <div class="section-header-left">
+                <div class="section-tag" data-i18n="services_tag">🌟 Flagship Initiatives</div>
+                <h2 class="section-title" data-i18n="srv_schemes_title">Government Schemes & Infrastructure Subsidies</h2>
+                <p class="section-subtitle" data-i18n="srv_schemes_desc">
+                    Explore financial assistance, modern cold chain infrastructure, and direct retail support for farmers and FPOs.
+                </p>
             </div>
-            <h1 class="page-banner-title"><?php the_title(); ?></h1>
-            <p class="page-banner-desc">
-                <?php echo esc_html($banner_subtitle); ?>
-            </p>
+            <div class="slider-arrow-controls">
+                <button type="button" class="slider-arrow-btn" id="schemesPrevBtn" aria-label="Previous Scheme Slide">‹</button>
+                <button type="button" class="slider-arrow-btn" id="schemesNextBtn" aria-label="Next Scheme Slide">›</button>
+            </div>
         </div>
-    </div>
-</section>
 
-<!-- ==========================================================================
-   FLAGSHIP INITIATIVES GRID
-   ========================================================================== -->
-<section class="section">
-    <div class="container">
-        <div class="initiatives-grid">
-            <?php if ($schemes_query->have_posts()) : ?>
-                <?php while ($schemes_query->have_posts()) : $schemes_query->the_post(); 
-                    $s_id = get_the_ID();
-                    $pct = get_post_meta($s_id, '_subsidy_pct', true);
-                    $badge = $pct ? ($pct . '% Subsidy') : 'Govt Initiative';
-                    $benefits = get_post_meta($s_id, '_key_benefits', true);
-                    $b_lines = !empty($benefits) ? explode("\n", str_replace("\r", "", $benefits)) : array();
-                    $apply_link = get_post_meta($s_id, '_apply_url', true) ?: '#calculator';
-                    $img_url = get_post_meta($s_id, '_scheme_image', true) ?: (get_the_post_thumbnail_url($s_id, 'large') ?: ($theme_uri . '/images/hero-farmer.jpg'));
-                ?>
-                    <div class="initiative-card">
-                        <div class="initiative-img-wrap">
-                            <img src="<?php echo esc_url($img_url); ?>" alt="<?php the_title_attribute(); ?>" class="initiative-img">
-                            <span class="initiative-badge" style="background:var(--accent-gradient);"><?php echo esc_html($badge); ?></span>
-                        </div>
-                        <div class="initiative-body">
-                            <h3 class="initiative-title"><?php the_title(); ?></h3>
-                            <div class="initiative-desc">
-                                <?php echo wp_trim_words(get_the_content(), 22); ?>
+        <div class="initiatives-slider-container" id="schemesSliderContainer">
+            <div class="initiatives-slider-track" id="schemesSliderTrack">
+                <?php if ($schemes_query->have_posts()) : ?>
+                    <?php 
+                    $fallback_cycle = array(
+                        $theme_uri . '/images/scheme-amar-fasal.jpg',
+                        $theme_uri . '/images/scheme-sufal-bangla.jpg',
+                        $theme_uri . '/images/scheme-cold-storage.jpg',
+                        $theme_uri . '/images/scheme-ami-packhouse.jpg'
+                    );
+                    $scheme_item_idx = 0;
+                    while ($schemes_query->have_posts()) : $schemes_query->the_post(); 
+                        $s_id = get_the_ID();
+                        $pct = get_post_meta($s_id, '_subsidy_pct', true);
+                        $badge = $pct ? ($pct . '% Subsidy') : 'Govt Initiative';
+                        $benefits = get_post_meta($s_id, '_key_benefits', true);
+                        $b_lines = !empty($benefits) ? explode("\n", str_replace("\r", "", $benefits)) : array();
+                        $apply_link = get_post_meta($s_id, '_apply_url', true);
+                        if (empty($apply_link) || $apply_link === '#') {
+                            $apply_link = '#calculator';
+                        }
+                        
+                        // Distinct image per scheme
+                        $title_l = strtolower(get_the_title());
+                        $distinct_default = $fallback_cycle[$scheme_item_idx % count($fallback_cycle)];
+                        if (strpos($title_l, 'amar fasal') !== false || strpos($title_l, 'gari') !== false || strpos($title_l, 'transport') !== false || strpos($title_l, 'vehicle') !== false) {
+                            $distinct_default = $theme_uri . '/images/scheme-amar-fasal.jpg';
+                        } elseif (strpos($title_l, 'sufal') !== false || strpos($title_l, 'retail') !== false || strpos($title_l, 'outlet') !== false || strpos($title_l, 'kiosk') !== false) {
+                            $distinct_default = $theme_uri . '/images/scheme-sufal-bangla.jpg';
+                        } elseif (strpos($title_l, 'cold') !== false || strpos($title_l, 'storage') !== false || strpos($title_l, 'warehous') !== false || strpos($title_l, 'grid') !== false) {
+                            $distinct_default = $theme_uri . '/images/scheme-cold-storage.jpg';
+                        } elseif (strpos($title_l, 'ami') !== false || strpos($title_l, 'infra') !== false || strpos($title_l, 'packhouse') !== false || strpos($title_l, 'process') !== false) {
+                            $distinct_default = $theme_uri . '/images/scheme-ami-packhouse.jpg';
+                        }
+                        
+                        $stored_img = get_post_meta($s_id, '_scheme_image', true);
+                        if (empty($stored_img) || strpos($stored_img, 'banner-schemes') !== false || strpos($stored_img, 'hero-farmer') !== false) {
+                            $img_url = get_the_post_thumbnail_url($s_id, 'large') ?: $distinct_default;
+                        } else {
+                            $img_url = $stored_img;
+                        }
+                        $scheme_item_idx++;
+                    ?>
+                        <div class="initiative-slide-item">
+                            <div class="initiative-card">
+                                <div class="initiative-img-wrap">
+                                    <img src="<?php echo esc_url($img_url); ?>" alt="<?php the_title_attribute(); ?>" class="initiative-img">
+                                    <span class="initiative-badge" style="background:var(--accent-gradient);"><?php echo esc_html($badge); ?></span>
+                                </div>
+                                <div class="initiative-body">
+                                    <h3 class="initiative-title"><?php the_title(); ?></h3>
+                                    <div class="initiative-desc">
+                                        <?php echo wp_trim_words(get_the_content(), 22); ?>
+                                    </div>
+                                    <?php if (!empty($b_lines)) : ?>
+                                        <ul class="initiative-features-list">
+                                            <?php foreach (array_slice($b_lines, 0, 3) as $bl) : if (trim($bl)) : ?>
+                                                <li><span class="check-icon">✓</span> <span><?php echo esc_html(trim($bl)); ?></span></li>
+                                            <?php endif; endforeach; ?>
+                                        </ul>
+                                    <?php endif; ?>
+                                    <a href="<?php echo esc_url($apply_link); ?>" class="btn btn-outline" style="margin-top:auto">
+                                        🚀 Apply / Check Eligibility →
+                                    </a>
+                                </div>
                             </div>
-                            <?php if (!empty($b_lines)) : ?>
+                        </div>
+                    <?php endwhile; wp_reset_postdata(); ?>
+
+                <?php else : ?>
+                    <!-- Fallback Initial Schemes -->
+                    <div class="initiative-slide-item">
+                        <div class="initiative-card">
+                            <div class="initiative-img-wrap">
+                                <img src="<?php echo esc_url($card1_img); ?>" alt="Sufal Bangla Modern Retail Stall" class="initiative-img">
+                                <span class="initiative-badge">Direct Market</span>
+                            </div>
+                            <div class="initiative-body">
+                                <h3 class="initiative-title">Sufal Bangla Outlets</h3>
+                                <p class="initiative-desc">
+                                    Direct farm-to-door retail network selling fresh vegetables, fruits, and dairy at fair prices while eliminating intermediaries.
+                                </p>
                                 <ul class="initiative-features-list">
-                                    <?php foreach (array_slice($b_lines, 0, 3) as $bl) : if (trim($bl)) : ?>
-                                        <li><span class="check-icon">✓</span> <span><?php echo esc_html(trim($bl)); ?></span></li>
-                                    <?php endif; endforeach; ?>
+                                    <li><span class="check-icon">✓</span> <span>450+ Static and Mobile Kiosks across WB</span></li>
+                                    <li><span class="check-icon">✓</span> <span>Direct daily procurement from FPOs</span></li>
+                                    <li><span class="check-icon">✓</span> <span>Quality grading & fair retail price tags</span></li>
                                 </ul>
-                            <?php endif; ?>
-                            <a href="<?php echo esc_url($apply_link); ?>" class="btn btn-outline" style="margin-top:auto">
-                                🚀 Apply / Check Eligibility →
-                            </a>
+                                <a href="#calculator" class="btn btn-outline" style="margin-top:auto">
+                                    🚀 Apply / Check Eligibility →
+                                </a>
+                            </div>
                         </div>
                     </div>
-                <?php endwhile; wp_reset_postdata(); ?>
 
-            <?php else : ?>
-                <!-- Fallback Initial Schemes -->
-                <div class="initiative-card">
-                    <div class="initiative-img-wrap">
-                        <img src="<?php echo esc_url($card1_img); ?>" alt="Sufal Bangla Modern Retail Stall" class="initiative-img">
-                        <span class="initiative-badge">Direct Market</span>
+                    <div class="initiative-slide-item">
+                        <div class="initiative-card">
+                            <div class="initiative-img-wrap">
+                                <img src="<?php echo esc_url($card2_img); ?>" alt="Amar Fasal Amar Gari Logistics Support" class="initiative-img">
+                                <span class="initiative-badge" style="background:var(--accent-gradient);">50% Subsidy</span>
+                            </div>
+                            <div class="initiative-body">
+                                <h3 class="initiative-title">Amar Fasal Amar Gari</h3>
+                                <p class="initiative-desc">
+                                    Capital subsidy program offering up to 50% financial assistance to farmers and self-help groups for purchasing produce transport vans.
+                                </p>
+                                <ul class="initiative-features-list">
+                                    <li><span class="check-icon">✓</span> <span>50% Vehicle Cost Subsidy (Up to ₹1.5L)</span></li>
+                                    <li><span class="check-icon">✓</span> <span>Reduces post-harvest transit losses</span></li>
+                                    <li><span class="check-icon">✓</span> <span>Fast direct delivery to wholesale mandis</span></li>
+                                </ul>
+                                <a href="#calculator" class="btn btn-outline" style="margin-top:auto">
+                                    🚀 Apply / Check Eligibility →
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="initiative-body">
-                        <h3 class="initiative-title">Sufal Bangla Outlets</h3>
-                        <p class="initiative-desc">
-                            Direct farm-to-door retail network selling fresh vegetables, fruits, and dairy at fair prices while eliminating intermediaries.
-                        </p>
-                        <ul class="initiative-features-list">
-                            <li><span class="check-icon">✓</span> <span>450+ Static and Mobile Kiosks</span></li>
-                            <li><span class="check-icon">✓</span> <span>Direct daily procurement from FPOs</span></li>
-                            <li><span class="check-icon">✓</span> <span>Quality grading & fair retail price tags</span></li>
-                        </ul>
-                        <button class="btn btn-outline" style="margin-top:auto" onclick="if(window.showToast) showToast('Locating nearest Sufal Bangla Kiosks in your area...', 'info')">
-                            📍 Locate Nearby Outlets
-                        </button>
-                    </div>
-                </div>
 
-                <div class="initiative-card">
-                    <div class="initiative-img-wrap">
-                        <img src="<?php echo esc_url($card2_img); ?>" alt="Amar Fasal Amar Gari Logistics Support" class="initiative-img">
-                        <span class="initiative-badge" style="background:var(--accent-gradient);">50% Subsidy</span>
+                    <div class="initiative-slide-item">
+                        <div class="initiative-card">
+                            <div class="initiative-img-wrap">
+                                <img src="<?php echo esc_url($card3_img); ?>" alt="Modern Cold Storage Network" class="initiative-img">
+                                <span class="initiative-badge" style="background:linear-gradient(135deg, #1a5276 0%, #2980b9 100%);">Infrastructure</span>
+                            </div>
+                            <div class="initiative-body">
+                                <h3 class="initiative-title">Cold Storage & Warehousing Grid</h3>
+                                <p class="initiative-desc">
+                                    Integrated network of multi-chamber cold storage facilities with real-time slot booking and moisture-controlled potato chambers.
+                                </p>
+                                <ul class="initiative-features-list">
+                                    <li><span class="check-icon">✓</span> <span>Real-time district capacity tracker</span></li>
+                                    <li><span class="check-icon">✓</span> <span>Subsidized electricity tariff for agri-units</span></li>
+                                    <li><span class="check-icon">✓</span> <span>Scientific preservation & Agmark quality testing labs</span></li>
+                                </ul>
+                                <a href="<?php echo esc_url(home_url('/cold-storage/')); ?>" class="btn btn-outline" style="margin-top:auto">
+                                    🚀 Apply / Check Eligibility →
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="initiative-body">
-                        <h3 class="initiative-title">Amar Fasal Amar Gari</h3>
-                        <p class="initiative-desc">
-                            Capital subsidy program offering up to 50% financial assistance to farmers and self-help groups for purchasing produce transport vans.
-                        </p>
-                        <ul class="initiative-features-list">
-                            <li><span class="check-icon">✓</span> <span>50% Vehicle Cost Subsidy (Up to ₹1.5L)</span></li>
-                            <li><span class="check-icon">✓</span> <span>Reduces post-harvest transit losses</span></li>
-                            <li><span class="check-icon">✓</span> <span>Fast direct delivery to wholesale mandis</span></li>
-                        </ul>
-                        <a href="#calculator" class="btn btn-outline" style="margin-top:auto">
-                            🧮 Check Vehicle Subsidy
-                        </a>
-                    </div>
-                </div>
 
-                <div class="initiative-card">
-                    <div class="initiative-img-wrap">
-                        <img src="<?php echo esc_url($card3_img); ?>" alt="Modern Cold Storage Network" class="initiative-img">
-                        <span class="initiative-badge" style="background:linear-gradient(135deg, #1a5276 0%, #2980b9 100%);">Infrastructure</span>
+                    <div class="initiative-slide-item">
+                        <div class="initiative-card">
+                            <div class="initiative-img-wrap">
+                                <img src="<?php echo esc_url($card4_img); ?>" alt="Agricultural Marketing Infrastructure" class="initiative-img">
+                                <span class="initiative-badge" style="background:var(--accent-gradient);">35%-55% Subsidy</span>
+                            </div>
+                            <div class="initiative-body">
+                                <h3 class="initiative-title">Agricultural Marketing Infrastructure (AMI)</h3>
+                                <p class="initiative-desc">
+                                    Assistance for setting up primary processing, washing, sorting, grading, and scientific packaging centers.
+                                </p>
+                                <ul class="initiative-features-list">
+                                    <li><span class="check-icon">✓</span> <span>Up to 35%-55% Capital Investment Subsidy</span></li>
+                                    <li><span class="check-icon">✓</span> <span>Scientific Agmark certification support</span></li>
+                                    <li><span class="check-icon">✓</span> <span>Increases commodity shelf life & export potential</span></li>
+                                </ul>
+                                <a href="#calculator" class="btn btn-outline" style="margin-top:auto">
+                                    🚀 Apply / Check Eligibility →
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="initiative-body">
-                        <h3 class="initiative-title">Cold Storage & Warehousing Grid</h3>
-                        <p class="initiative-desc">
-                            Integrated network of multi-chamber cold storage facilities with real-time slot booking and moisture-controlled potato chambers.
-                        </p>
-                        <ul class="initiative-features-list">
-                            <li><span class="check-icon">✓</span> <span>Real-time district capacity tracker</span></li>
-                            <li><span class="check-icon">✓</span> <span>Subsidized electricity tariff for agri-units</span></li>
-                            <li><span class="check-icon">✓</span> <span>Scientific preservation & Agmark labs</span></li>
-                        </ul>
-                        <a href="<?php echo esc_url(home_url('/cold-storage/')); ?>" class="btn btn-outline" style="margin-top:auto">
-                            ❄️ View Available Chambers
-                        </a>
-                    </div>
-                </div>
-            <?php endif; ?>
+                <?php endif; ?>
+            </div>
         </div>
+        <div class="initiatives-slider-dots" id="schemesSliderDots"></div>
     </div>
 </section>
 

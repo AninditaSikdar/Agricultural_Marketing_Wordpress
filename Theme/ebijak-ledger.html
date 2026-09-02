@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="e-Bijak Digital Invoicing & APMC Tax Ledger Hub - Standardized digital billing, statutory cess calculation, commission breakdown, and client bookkeeping.">
+    <title>e-Bijak Digital Invoicing & Ledgers | Agricultural Marketing Department</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/button.css">
+</head>
+
+<body>
+
+    <!-- Common Header Container (Rendered dynamically via app.js) -->
+    <div id="common-header"></div>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="banner-ambient-glow"></div>
+        <div class="container">
+            <div class="page-banner-grid">
+                <div class="page-banner-content">
+                    <div class="page-banner-badge">
+                        <span class="pulse-dot"></span>
+                        <span>📑 Digital APMC Billing & Ledger</span>
+                    </div>
+
+                    <div class="breadcrumb">
+                        <a href="index.html" data-i18n="nav_home">Home</a>
+                        <span class="separator">/</span>
+                        <span class="current" data-i18n="nav_ebijak">e-Bijak & Ledgers</span>
+                    </div>
+
+                    <h1 class="page-banner-title" data-i18n="ebijak_heading">e-Bijak Digital Invoicing & Tax Ledger Engine</h1>
+                    <p class="page-banner-desc" data-i18n="ebijak_subheading">
+                        Standardized APMC tax invoice generator compliant with statutory commission rules, hamali fees, and digital bookkeeping.
+                    </p>
+
+                    <div class="page-banner-meta-pills">
+                        <span class="meta-pill">🖨️ Instant Print</span>
+                        <span class="meta-pill">⚖️ APMC Statutory Cess</span>
+                        <span class="meta-pill">📊 Digital Arhat Khata</span>
+                    </div>
+                </div>
+
+                <div class="page-banner-visual">
+                    <div class="banner-image-frame">
+                        <img src="./images/banner-mandi-rates.jpg" alt="e-Bijak Digital Invoicing Engine" class="banner-main-img">
+                        <div class="banner-floating-chip">
+                            <span class="chip-icon">✨</span>
+                            <div>
+                                <div class="chip-label">APMC Invoicing Engine</div>
+                                <div class="chip-val">GST & Cess Compliant</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Invoicing Section -->
+    <section class="section">
+        <div class="container">
+            <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:2.5rem; align-items:start;">
+                <!-- Left: Interactive e-Bijak Generator Form -->
+                <div class="ebijak-container">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                        <h2 style="font-size:1.3rem; font-weight:800; color:var(--text-main); margin:0;">📝 New e-Bijak Voucher</h2>
+                        <span class="badge-apmc-licensed">APMC Form-IX</span>
+                    </div>
+
+                    <form id="ebijakForm" onsubmit="event.preventDefault(); EBijakModule.generateInvoice();">
+                        <div class="form-grid-2">
+                            <div class="calc-group">
+                                <label class="calc-label">Farmer (Seller) Name:</label>
+                                <input type="text" id="ebijakFarmerName" class="form-input" value="Subhash Mondal" required>
+                            </div>
+                            <div class="calc-group">
+                                <label class="calc-label">Farmer KYC / ID:</label>
+                                <input type="text" id="ebijakFarmerKyc" class="form-input" value="WB-KYC-994821" required>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="calc-group">
+                                <label class="calc-label">Buyer / Trader Entity:</label>
+                                <input type="text" id="ebijakTraderName" class="form-input" value="Bengal Agro Wholesale Corp" required>
+                            </div>
+                            <div class="calc-group">
+                                <label class="calc-label">APMC License No:</label>
+                                <input type="text" id="ebijakTraderLic" class="form-input" value="APMC-LIC-HGY-2026-441" required>
+                            </div>
+                        </div>
+
+                        <div class="calc-group">
+                            <label class="calc-label">Select Commodity:</label>
+                            <select id="ebijakCropSelect" class="form-select">
+                                <option value="1">🥔 Potato (Jyoti Grade-A)</option>
+                                <option value="2">🥔 Potato (Chandramukhi)</option>
+                                <option value="3">🧅 Onion (Nashik Red)</option>
+                                <option value="5">🌾 Gobindobhog Rice</option>
+                                <option value="7">🌻 Mustard (Yellow)</option>
+                                <option value="8">🌿 Raw Jute (TD-5)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="calc-group">
+                                <label class="calc-label">Quantity (in Quintals):</label>
+                                <input type="number" id="ebijakQtyInput" class="form-input" value="100" min="1" step="0.5" required>
+                            </div>
+                            <div class="calc-group">
+                                <label class="calc-label">Base Rate (₹ / Quintal):</label>
+                                <input type="number" id="ebijakRateInput" class="form-input" value="1540" min="100" required>
+                            </div>
+                        </div>
+
+                        <div style="background:var(--bg-subtle); padding:1rem; border-radius:var(--radius-md); font-size:0.85rem; margin-bottom:1.5rem; line-height:1.6;">
+                            <div>✓ <strong>APMC Cess:</strong> 1.5% statutory market fee automatically calculated</div>
+                            <div>✓ <strong>Arhtiya Commission:</strong> 2.0% regulated commission applied</div>
+                            <div>✓ <strong>Hamali / Handling:</strong> Standardized at ₹12.00 / Qtl</div>
+                        </div>
+
+                        <button type="button" id="ebijakCalculateBtn" class="btn btn-primary" style="width:100%;">
+                            ⚡ <span data-i18n="btn_generate_invoice">Calculate & Generate e-Bijak</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right: Live e-Bijak Voucher Preview -->
+                <div>
+                    <div id="ebijakVoucherPreview">
+                        <!-- Populated dynamically via app.js -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digital Khata & Compliance Section -->
+            <div style="margin-top:4.5rem;">
+                <div class="section-header">
+                    <div class="section-tag">📚 Digital Bookkeeping</div>
+                    <h2 class="section-title">Digital Khata (Commission Agent Ledger)</h2>
+                    <p class="section-subtitle">Real-time ledger entries, outstanding balances, and APMC statutory audit reports.</p>
+                </div>
+
+                <div class="mandi-table-container">
+                    <table class="mandi-table">
+                        <thead>
+                            <tr>
+                                <th>Date & Voucher ID</th>
+                                <th>Client / Entity</th>
+                                <th>Commodity & Lot</th>
+                                <th>Gross Value (₹)</th>
+                                <th>APMC Cess (1.5%)</th>
+                                <th>Agent Commission (2.0%)</th>
+                                <th>Settlement Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>02 Sep 2026</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">EB-WB-994102</span></td>
+                                <td>Subhash Mondal ➔ Bengal Agro</td>
+                                <td>🥔 Potato Jyoti (LOT-HGY-8841)</td>
+                                <td><strong>₹1,54,000.00</strong></td>
+                                <td>₹2,310.00</td>
+                                <td>₹3,080.00</td>
+                                <td><span class="badge-verified-kyc">Settled via DBT</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>01 Sep 2026</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">EB-WB-994088</span></td>
+                                <td>Burdwan SHG ➔ Kolkata Traders</td>
+                                <td>🌾 Gobindobhog Rice (LOT-BWN-5520)</td>
+                                <td><strong>₹3,90,000.00</strong></td>
+                                <td>₹5,850.00</td>
+                                <td>₹7,800.00</td>
+                                <td><span class="badge-verified-kyc">Settled via DBT</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>31 Aug 2026</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">EB-WB-993950</span></td>
+                                <td>Tapan Roy ➔ Malda Wholesale</td>
+                                <td>🫚 Raw Turmeric (LOT-JPG-7801)</td>
+                                <td><strong>₹2,07,500.00</strong></td>
+                                <td>₹3,112.50</td>
+                                <td>₹4,150.00</td>
+                                <td><span class="badge-apmc-licensed">Clearing in Escrow</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Common Footer Container (Rendered dynamically via app.js) -->
+    <div id="common-footer"></div>
+
+    <script src="./js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                EBijakModule.generateInvoice();
+            }, 300);
+        });
+    </script>
+</body>
+
+</html>

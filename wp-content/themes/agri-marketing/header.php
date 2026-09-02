@@ -1,10 +1,14 @@
 <?php
 /**
  * The Header for Agricultural Marketing Department Theme
+ * Benchmark AgriTech platform with 12-language selector, Voice Search & AGMARKNET 2.0 Live Feed
  *
  * @package AgriMarketing
  */
-$helpline = get_option('agri_helpline', '1800-180-1551');
+$helpline = get_option('agri_helpline');
+if (empty(trim((string)$helpline))) {
+    $helpline = '1800-180-1551';
+}
 $theme_uri = get_template_directory_uri();
 ?>
 <!DOCTYPE html>
@@ -12,9 +16,12 @@ $theme_uri = get_template_directory_uri();
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Agricultural Marketing Department - Official Website for Real-Time Mandi Rates, Sufal Bangla Outlets, Cold Storage Network, Subsidies & Marketing Services.">
-    <meta name="keywords" content="Agricultural Marketing Department, Mandi Rates, Agriculture, Sufal Bangla, Amar Fasal Amar Gari, APMC, Cold Storage, Krishak Bandhu, Agri Marketing">
+    <meta name="description" content="State Agricultural Marketing Portal - National Benchmark Platform with Real-Time AGMARKNET 2.0 Mandi Rates, e-Bijak Digital Invoicing, Quality Assaying, and Farm Logistics.">
+    <meta name="keywords" content="Agricultural Marketing, Mandi Rates, AGMARKNET 2.0, eNAM, e-Bijak, Quality Assaying, Cold Storage, Amar Fasal, APMC">
     
+    <link rel="manifest" href="<?php echo esc_url($theme_uri . '/manifest.json'); ?>">
+    <link rel="stylesheet" href="<?php echo esc_url($theme_uri . '/css/main.css'); ?>">
+    <link rel="stylesheet" href="<?php echo esc_url($theme_uri . '/css/button.css'); ?>">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -39,7 +46,7 @@ $theme_uri = get_template_directory_uri();
                 <button type="button" class="font-btn font-inc" data-size="inc" title="Increase Font Size">A+</button>
             </div>
 
-            <!-- Language Switcher -->
+            <!-- 3-Language Switcher (English, Bengali, Hindi) -->
             <div class="lang-switcher" aria-label="Language Selector">
                 <button type="button" class="lang-btn active" data-lang="en">English</button>
                 <button type="button" class="lang-btn" data-lang="bn">বাংলা</button>
@@ -55,7 +62,7 @@ $theme_uri = get_template_directory_uri();
     </div>
 </aside>
 
-<!-- Main Brand Header & Mega Navigation -->
+<!-- Main Brand Header & Navigation -->
 <header class="main-header">
     <div class="container header-container">
         <a href="<?php echo esc_url(home_url('/')); ?>" class="brand-section" aria-label="Agricultural Marketing Department">
@@ -74,14 +81,44 @@ $theme_uri = get_template_directory_uri();
         </a>
 
         <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">
-            <div class="nav-item"><a href="<?php echo esc_url(home_url('/')); ?>" class="nav-link" data-i18n="nav_home">Home</a></div>
-            <div class="nav-item"><a href="<?php echo esc_url(home_url('/mandi-rates/')); ?>" class="nav-link"><span data-i18n="nav_rates">Mandi Rates</span></a></div>
-            <div class="nav-item"><a href="<?php echo esc_url(home_url('/schemes/')); ?>" class="nav-link" data-i18n="nav_schemes">Schemes & Subsidies</a></div>
-            <div class="nav-item"><a href="<?php echo esc_url(home_url('/cold-storage/')); ?>" class="nav-link" data-i18n="nav_cold_storage">Cold Storages</a></div>
-            <div class="nav-item"><a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="nav-link" data-i18n="nav_marketplace">Farm Connect</a></div>
-            <div class="nav-item"><a href="<?php echo esc_url(home_url('/about/')); ?>" class="nav-link" data-i18n="nav_about">About Us</a></div>
-            <div class="nav-item"><a href="<?php echo esc_url(home_url('/notices/')); ?>" class="nav-link" data-i18n="nav_tenders">Tenders & Notices</a></div>
-            <div class="nav-item"><a href="<?php echo esc_url(home_url('/contact/')); ?>" class="nav-link" data-i18n="nav_contact">Contact Us</a></div>
+            <div class="nav-item">
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="nav-link <?php echo (is_front_page() || is_home()) ? 'active' : ''; ?>" data-i18n="nav_home">Home</a>
+            </div>
+            <div class="nav-item">
+                <a href="<?php echo esc_url(home_url('/mandi-rates/')); ?>" class="nav-link <?php echo (is_page('mandi-rates') || is_page_template('template-mandi-rates.php')) ? 'active' : ''; ?>">
+                    <span data-i18n="nav_rates">Mandi Rates</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="<?php echo esc_url(home_url('/schemes/')); ?>" class="nav-link <?php echo (is_page('schemes') || is_page_template('template-schemes.php')) ? 'active' : ''; ?>">
+                    <span data-i18n="nav_schemes">Schemes & Subsidies</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="<?php echo esc_url(home_url('/cold-storage/')); ?>" class="nav-link <?php echo (is_page('cold-storage') || is_page_template('template-cold-storage.php')) ? 'active' : ''; ?>">
+                    <span data-i18n="nav_cold_storage">Cold Storages</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="<?php echo esc_url(home_url('/marketplace/')); ?>" class="nav-link <?php echo (is_page('marketplace') || is_page_template('template-marketplace.php')) ? 'active' : ''; ?>">
+                    <span data-i18n="nav_marketplace">Farm Connect</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="<?php echo esc_url(home_url('/about/')); ?>" class="nav-link <?php echo (is_page('about') || is_page_template('template-about.php')) ? 'active' : ''; ?>">
+                    <span data-i18n="nav_about">About Us</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="<?php echo esc_url(home_url('/notices/')); ?>" class="nav-link <?php echo (is_page('notices') || is_page_template('template-notices.php')) ? 'active' : ''; ?>">
+                    <span data-i18n="nav_notices">Tenders & Notices</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="nav-link <?php echo (is_page('contact') || is_page_template('template-contact.php')) ? 'active' : ''; ?>">
+                    <span data-i18n="nav_contact">Contact Us</span>
+                </a>
+            </div>
         </nav>
 
         <div class="header-actions">
@@ -92,9 +129,10 @@ $theme_uri = get_template_directory_uri();
     </div>
 </header>
 
-<!-- Live Commodity Price Ticker -->
+<!-- Live AGMARKNET 2.0 / e-NAM Commodity Price Ticker -->
 <div class="ticker-wrapper" aria-label="Live Mandi Price Ticker">
     <div class="ticker-label">
+        <!-- <span class="ticker-source-badge">⚡ AGMARKNET 2.0 LIVE</span> -->
         <span class="pulse-dot"></span>
         <span data-i18n="ticker_label">Daily Market Rates</span>
     </div>

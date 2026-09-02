@@ -5,6 +5,7 @@
  * @package AgriMarketing
  */
 get_header();
+$theme_uri = get_template_directory_uri();
 $post_id = get_the_ID();
 $banner_subtitle = agri_get_meta($post_id, 'banner_subtitle', 'Official e-Procurement announcements, daily arrival bulletins, MSP guidelines, and agricultural market advisories.');
 
@@ -16,24 +17,20 @@ $adv_query = new WP_Query(array(
 ));
 ?>
 
-<!-- ==========================================================================
-   INNER PAGE BANNER WITH BREADCRUMBS
-   ========================================================================== -->
-<section class="page-banner">
-    <div class="container">
-        <div class="page-banner-content">
-            <div class="breadcrumb">
-                <a href="<?php echo esc_url(home_url('/')); ?>" data-i18n="nav_home">Home</a>
-                <span class="separator">/</span>
-                <span class="current" data-i18n="nav_tenders"><?php the_title(); ?></span>
-            </div>
-            <h1 class="page-banner-title"><?php the_title(); ?></h1>
-            <p class="page-banner-desc">
-                <?php echo esc_html($banner_subtitle); ?>
-            </p>
-        </div>
-    </div>
-</section>
+<?php
+agri_render_inner_banner(array(
+    'title'       => get_the_title(),
+    'subtitle'    => $banner_subtitle,
+    'tag'         => '📢 Official Tenders, EOIs & Price Bulletins',
+    'image'       => $theme_uri . '/images/banner-notices.jpg',
+    'badge_label' => 'Public Notice Board',
+    'badge_val'   => 'Gazette & Procurement',
+    'i18n_title'  => 'nav_notices',
+    'i18n_sub'    => '',
+    'i18n_crumb'  => 'nav_notices',
+    'meta_pills'  => array('📑 e-Procurement', '📊 Daily Price Bulletins', '📜 MSP Notifications')
+));
+?>
 
 <!-- ==========================================================================
    NOTICES & ADVISORY CONTENT SECTION

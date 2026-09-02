@@ -7,21 +7,17 @@
 get_header();
 ?>
 
-<section class="page-banner">
-    <div class="container">
-        <div class="page-banner-content">
-            <div class="breadcrumb">
-                <a href="<?php echo esc_url(home_url('/')); ?>" data-i18n="nav_home">Home</a>
-                <span class="separator">/</span>
-                <span class="current"><?php the_title(); ?></span>
-            </div>
-            <h1 class="page-banner-title"><?php the_title(); ?></h1>
-            <div style="margin-top:0.5rem; font-size:0.88rem; opacity:0.85;">
-                Published: <?php echo get_the_date('d M Y'); ?>
-            </div>
-        </div>
-    </div>
-</section>
+<?php
+agri_render_inner_banner(array(
+    'title'       => get_the_title(),
+    'subtitle'    => 'Published: ' . get_the_date('d F Y'),
+    'tag'         => '🏛️ Official Publication & Notice',
+    'image'       => has_post_thumbnail() ? get_the_post_thumbnail_url(null, 'large') : ($theme_uri . '/images/banner-notices.jpg'),
+    'badge_label' => 'Government Circular',
+    'badge_val'   => 'Official Release',
+    'meta_pills'  => array('📅 ' . get_the_date('d M Y'), '🏛️ Directorate Verified')
+));
+?>
 
 <section class="section">
     <div class="container">

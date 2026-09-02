@@ -5,42 +5,36 @@
  * @package AgriMarketing
  */
 get_header();
+$theme_uri = get_template_directory_uri();
 $post_id = get_the_ID();
-$banner_subtitle = agri_get_meta($post_id, 'banner_subtitle', 'Live modal prices, minimum-maximum ranges, and daily arrivals updated directly from APMC checkposts.');
+$banner_subtitle = agri_get_meta($post_id, 'banner_subtitle', 'Live modal prices, minimum-maximum ranges, quality assaying, and daily arrivals updated directly from AGMARKNET 2.0 connected mandis.');
 
-// 3 Guidelines
 $g1_title = agri_get_meta($post_id, 'rate_g1_title', 'Daily Modal Rate Formula');
-$g1_desc  = agri_get_meta($post_id, 'rate_g1_desc', 'The Modal Price represents the most frequently transacted transaction rate for standard Agmark quality parameters during primary arrivals.');
+$g1_desc  = agri_get_meta($post_id, 'rate_g1_desc', 'Modal price represents the most frequent transaction price realized by farmers on the trading floor for standard quality grade.');
 
-$g2_title = agri_get_meta($post_id, 'rate_g2_title', 'Transparent Electronic Auctions');
-$g2_desc  = agri_get_meta($post_id, 'rate_g2_desc', 'All APMC checkposts operate under e-NAM (National Agriculture Market) guidelines ensuring electronic weighing and direct bank settlement within 24 hours.');
+$g2_title = agri_get_meta($post_id, 'rate_g2_title', 'Transparent Electronic Auction');
+$g2_desc  = agri_get_meta($post_id, 'rate_g2_desc', 'All APMC yards operate under e-NAM electronic weighing and direct bank settlement within 24 hours.');
 
-$g3_title = agri_get_meta($post_id, 'rate_g3_title', 'Grievance Redressal & Support');
-$g3_desc  = agri_get_meta($post_id, 'rate_g3_desc', 'For weighing discrepancies or delayed payments, contact the Mandi Secretary or dial our 24x7 Kisan Call Center: 1800-180-1551.');
+$g3_title = agri_get_meta($post_id, 'rate_g3_title', 'Dispute Resolution');
+$g3_desc  = agri_get_meta($post_id, 'rate_g3_desc', 'For pricing disputes or weighing anomalies, contact the APMC Market Secretary or call Toll-Free Helpline: 1800-180-1551.');
 ?>
 
-<!-- ==========================================================================
-   INNER PAGE BANNER WITH BREADCRUMBS
-   ========================================================================== -->
-<section class="page-banner">
-    <div class="container">
-        <div class="page-banner-content">
-            <div class="breadcrumb">
-                <a href="<?php echo esc_url(home_url('/')); ?>" data-i18n="nav_home">Home</a>
-                <span class="separator">/</span>
-                <span class="current" data-i18n="nav_rates"><?php the_title(); ?></span>
-            </div>
-            <h1 class="page-banner-title"><?php the_title(); ?></h1>
-            <p class="page-banner-desc">
-                <?php echo esc_html($banner_subtitle); ?>
-            </p>
-        </div>
-    </div>
-</section>
+<?php
+agri_render_inner_banner(array(
+    'title'       => get_the_title(),
+    'subtitle'    => $banner_subtitle,
+    'tag'         => '📊 Real-Time Market Intelligence',
+    'image'       => $theme_uri . '/images/banner-mandi-rates.jpg',
+    'badge_label' => 'AGMARKNET 2.0 Feed',
+    'badge_val'   => '4,367 Mandis Synced',
+    'i18n_title'  => 'mandi_title',
+    'i18n_sub'    => 'mandi_subtitle',
+    'i18n_crumb'  => 'nav_rates',
+    'meta_pills'  => array('⚡ 24h Price Updates', '🌾 247 Commodities', '⚖️ Electronic Weighbridge')
+));
+?>
 
-<!-- ==========================================================================
-   FULL MANDI RATES BOARD
-   ========================================================================== -->
+<!-- Full Mandi Rates Board -->
 <section class="section">
     <div class="container">
         <div class="mandi-board-card">
@@ -61,7 +55,8 @@ $g3_desc  = agri_get_meta($post_id, 'rate_g3_desc', 'For weighing discrepancies 
                 <div class="filter-search-row">
                     <div class="search-input-wrap">
                         <span class="search-icon">🔍</span>
-                        <input type="text" id="mandiSearchInput" class="form-input" placeholder="Search crop (e.g. Potato, Onion, Rice)..." data-i18n="search_crop_ph">
+                        <input type="text" id="mandiSearchInput" class="form-input"
+                            placeholder="Search crop (e.g. Potato, Onion, Rice)..." data-i18n="search_crop_ph">
                     </div>
 
                     <div class="filter-dropdowns">
@@ -82,6 +77,9 @@ $g3_desc  = agri_get_meta($post_id, 'rate_g3_desc', 'For weighing discrepancies 
                         <button class="btn btn-accent" onclick="ModalManager.open('alertModal')">
                             🔔 <span data-i18n="btn_set_alert">Get SMS Alert</span>
                         </button>
+                        <button class="btn btn-outline" onclick="MandiRatesModule.exportCSV()">
+                            📥 <span data-i18n="btn_download_csv">Export CSV</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -96,7 +94,7 @@ $g3_desc  = agri_get_meta($post_id, 'rate_g3_desc', 'For weighing discrepancies 
                             <th data-i18n="th_min">Min (₹/Qtl)</th>
                             <th data-i18n="th_max">Max (₹/Qtl)</th>
                             <th data-i18n="th_modal">Modal Price (₹/Qtl)</th>
-                            <th data-i18n="th_trend">24h Trend</th>
+                            <th data-i18n="th_trend">24h Trend & Arrivals</th>
                             <th data-i18n="th_action">Action</th>
                         </tr>
                     </thead>
@@ -132,100 +130,132 @@ $g3_desc  = agri_get_meta($post_id, 'rate_g3_desc', 'For weighing discrepancies 
                 <h3 class="step-title"><?php echo esc_html($g1_title); ?></h3>
                 <p class="step-desc"><?php echo esc_html($g1_desc); ?></p>
             </div>
-
             <div class="workflow-step-card">
                 <span class="step-number">2</span>
                 <h3 class="step-title"><?php echo esc_html($g2_title); ?></h3>
                 <p class="step-desc"><?php echo esc_html($g2_desc); ?></p>
             </div>
-
             <div class="workflow-step-card">
                 <span class="step-number">3</span>
                 <h3 class="step-title"><?php echo esc_html($g3_title); ?></h3>
                 <p class="step-desc"><?php echo esc_html($g3_desc); ?></p>
             </div>
         </div>
-
     </div>
 </section>
 
-<!-- ==========================================================================
-   INTERACTIVE 7-DAY PRICE TREND MODAL
-   ========================================================================== -->
-<div class="modal-overlay" id="trendModal">
-    <div class="modal-card">
+<!-- Modals -->
+<!-- 1. Interactive Canvas Price Chart Modal -->
+<div class="modal-overlay" id="chartModal">
+    <div class="modal-card" style="max-width:720px;">
         <div class="modal-header">
-            <h3 class="modal-title" id="trendModalTitle">📈 7-Day Modal Price Trend</h3>
+            <div>
+                <h3 class="modal-title" id="modalCropTitle">Potato (Jyoti) - Hooghly APMC</h3>
+                <div style="font-size:0.85rem; color:var(--text-muted);">
+                    Lot Ref: <span id="modalLotBadge" class="badge-apmc-licensed" style="margin-left:0.35rem;">LOT-HGY-8841</span>
+                </div>
+            </div>
             <button type="button" class="modal-close-btn">&times;</button>
         </div>
         <div class="modal-body">
-            <div style="background:var(--bg-subtle); padding:1rem; border-radius:var(--radius-md); margin-bottom:1.5rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
                 <div>
-                    <span style="font-size:0.8rem; color:var(--text-muted);">Current Modal Price</span>
-                    <div id="trendCurrentPrice" style="font-size:1.4rem; font-weight:800; color:var(--primary);">₹1,540/Qtl</div>
+                    <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Today's Modal Rate</span>
+                    <div style="font-size:1.8rem; font-weight:800; color:var(--primary); font-family:'Outfit';" id="modalCurrentPrice">₹1,540 / Qtl</div>
                 </div>
-                <div>
-                    <span style="font-size:0.8rem; color:var(--text-muted);">Weekly Change</span>
-                    <div id="trendWeeklyDelta" style="font-size:1.2rem; font-weight:700; color:var(--success);">+₹60 (+4.0%)</div>
+                <div style="text-align:right;">
+                    <div class="timeframe-switchers">
+                        <button type="button" class="timeframe-btn active" data-days="7" data-i18n="tab_7day">7-Day Trend</button>
+                        <button type="button" class="timeframe-btn" data-days="30" data-i18n="tab_30day">30-Day Trend</button>
+                    </div>
+                    <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.4rem;" id="modalMinMax">Min: ₹1,450 | Max: ₹1,620</div>
                 </div>
             </div>
-            <div style="position:relative; width:100%; height:260px;">
-                <canvas id="trendCanvas" width="560" height="260" style="width:100%; height:100%;"></canvas>
+            <div class="chart-canvas-wrapper">
+                <canvas id="priceTrendChart"></canvas>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; color:var(--text-muted); margin-top:1rem; flex-wrap:wrap; gap:0.5rem;">
+                <span>📊 Source: AGMARKNET 2.0 / e-NAM APMC Checkpost Feed</span>
+                <button class="btn btn-sm btn-primary" onclick="ModalManager.open('alertModal'); ModalManager.close('chartModal');">
+                    🔔 Track Crop via SMS
+                </button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ==========================================================================
-   SMS PRICE ALERT SUBSCRIPTION MODAL
-   ========================================================================== -->
-<div class="modal-overlay" id="alertModal">
-    <div class="modal-card" style="max-width:480px;">
+<!-- 3. Quality Assaying Certificate Modal -->
+<div class="modal-overlay" id="assayModal">
+    <div class="modal-card" style="max-width:620px;">
         <div class="modal-header">
-            <h3 class="modal-title">🔔 Subscribe to Daily Mandi SMS Alerts</h3>
+            <div>
+                <h3 class="modal-title" id="assayCropTitle">🧪 Quality Assaying Certificate</h3>
+                <div style="font-size:0.85rem; color:var(--text-muted);">Assaying Lab Report Ref: <strong id="assayCertId">WB-QC-2026-8841</strong></div>
+            </div>
             <button type="button" class="modal-close-btn">&times;</button>
         </div>
         <div class="modal-body">
-            <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.2rem;">
-                Receive daily morning wholesale rates for your selected commodity directly on your mobile via free government SMS.
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <span class="assay-header-badge" id="assayAgmarkBadge">AGMARK Grade-I</span>
+                <span class="badge-verified-kyc" id="assayFssaiBadge">FSSAI Grade-A</span>
+                <span style="font-size:0.85rem; color:var(--text-muted);">Lot: <strong id="assayLotId">LOT-HGY-8841</strong></span>
+            </div>
+            <div class="assay-grid-params">
+                <div class="assay-param-box"><div class="assay-param-val" id="assayMoisture">11.2%</div><div class="assay-param-lbl">Moisture Level</div></div>
+                <div class="assay-param-box"><div class="assay-param-val" id="assayForeign">0.3%</div><div class="assay-param-lbl">Foreign Matter</div></div>
+                <div class="assay-param-box"><div class="assay-param-val" id="assayGrain">45-55 mm</div><div class="assay-param-lbl">Size Uniformity</div></div>
+                <div class="assay-param-box"><div class="assay-param-val" id="assayDefect">0.5%</div><div class="assay-param-lbl">Visual Defect</div></div>
+            </div>
+            <button type="button" class="btn btn-primary" style="width:100%;" onclick="showToast('Assaying Certificate PDF Downloaded!', 'success')">
+                📄 Download Official Assaying Certificate (PDF)
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- 4. SMS Alert Modal -->
+<div class="modal-overlay" id="alertModal">
+    <div class="modal-card" style="max-width:480px;">
+        <div class="modal-header">
+            <h3 class="modal-title">🔔 Daily Mandi Price Alerts</h3>
+            <button type="button" class="modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.25rem;">
+                Get real-time morning SMS / WhatsApp alerts for your chosen crops directly from your local APMC Mandi.
             </p>
-            <form onsubmit="event.preventDefault(); if(window.showToast) showToast('SMS Alert subscription active! You will receive daily morning bulletins.', 'success'); ModalManager.close('alertModal');">
+            <form id="smsAlertForm">
                 <div class="calc-group">
-                    <label class="calc-label">Select Crop:</label>
-                    <select class="form-select" required>
-                        <option value="">Choose Commodity...</option>
-                        <option>Potato (Jyoti)</option>
-                        <option>Potato (Chandramukhi)</option>
-                        <option>Onion (Nasik / Local)</option>
-                        <option>Paddy (Common / Grade-A)</option>
-                        <option>Raw Jute (TD-5)</option>
-                        <option>Mustard (Yellow)</option>
-                        <option>Tomato (Hybrid)</option>
-                    </select>
-                </div>
-                <div class="calc-group">
-                    <label class="calc-label">Your Mandi / District:</label>
-                    <select class="form-select" required>
-                        <option value="">Choose District Mandi...</option>
-                        <option>Sheoraphuli APMC (Hooghly)</option>
-                        <option>Memari Central APMC (Burdwan)</option>
-                        <option>Krishnanagar APMC (Nadia)</option>
-                        <option>Matigara Yard (Siliguri)</option>
-                        <option>English Bazar APMC (Malda)</option>
-                        <option>Berhampore APMC (Murshidabad)</option>
-                    </select>
-                </div>
-                <div class="calc-group">
-                    <label class="calc-label">Mobile Number (10-digit):</label>
+                    <label class="calc-label">Mobile Number (WhatsApp Enabled):</label>
                     <input type="tel" class="form-input" placeholder="e.g. 9830012345" required pattern="[0-9]{10}">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.8rem;">
-                    📲 Activate Free SMS Alerts
+                <div class="calc-group">
+                    <label class="calc-label">Select Primary Commodity:</label>
+                    <select class="form-select" required>
+                        <option value="potato">🥔 Potato (আলু / आलू)</option>
+                        <option value="onion">🧅 Onion (পেঁয়াজ / प्याज)</option>
+                        <option value="rice">🌾 Paddy & Rice (ধান ও চাল)</option>
+                        <option value="tomato">🍅 Tomato (টমেটো)</option>
+                        <option value="jute">🌿 Raw Jute (পাট)</option>
+                        <option value="mustard">🌻 Mustard (সরিষা)</option>
+                    </select>
+                </div>
+                <div class="calc-group">
+                    <label class="calc-label">Select Mandi / District:</label>
+                    <select class="form-select" required>
+                        <option value="hooghly">Hooghly APMC</option>
+                        <option value="burdwan">Burdwan Mandi</option>
+                        <option value="nadia">Nadia Central</option>
+                        <option value="kolkata">Kolkata Koley Market</option>
+                        <option value="all">State Average Bulletin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.5rem;">
+                    ✨ Activate Free SMS Alerts
                 </button>
             </form>
         </div>
     </div>
 </div>
 
-<?php
-get_footer();
+<?php get_footer(); ?>

@@ -1,0 +1,21 @@
+{
+  "name": "State Agricultural Marketing Portal",
+  "short_name": "AgriMarketing",
+  "description": "Real-time Mandi Rates, AGMARKNET 2.0 Live Feeds, e-Bijak Invoicing, Quality Assaying & Farm Logistics",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f6838",
+  "icons": [
+    {
+      "src": "./images/Logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./images/Logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

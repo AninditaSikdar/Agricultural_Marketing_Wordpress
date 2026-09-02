@@ -5,20 +5,20 @@
  * @package AgriMarketing
  */
 get_header();
+$theme_uri = get_template_directory_uri();
 ?>
 
-<section class="page-banner">
-    <div class="container">
-        <div class="page-banner-content">
-            <div class="breadcrumb">
-                <a href="<?php echo esc_url(home_url('/')); ?>" data-i18n="nav_home">Home</a>
-                <span class="separator">/</span>
-                <span class="current"><?php the_title(); ?></span>
-            </div>
-            <h1 class="page-banner-title"><?php the_title(); ?></h1>
-        </div>
-    </div>
-</section>
+<?php
+agri_render_inner_banner(array(
+    'title'       => get_the_title(),
+    'subtitle'    => get_the_excerpt() ?: 'State Agricultural Marketing Department official resource and documentation portal.',
+    'tag'         => '🏛️ State Agricultural Portal',
+    'image'       => $theme_uri . '/images/banner-default.jpg',
+    'badge_label' => 'Official Portal Service',
+    'badge_val'   => 'Active & Verified',
+    'meta_pills'  => array('⚡ Verified Service', '🛡️ Directorate of Agricultural Marketing', '📞 1800-180-1551')
+));
+?>
 
 <section class="section">
     <div class="container">
