@@ -76,6 +76,113 @@ function agri_enqueue_assets() {
 add_action('wp_enqueue_scripts', 'agri_enqueue_assets');
 
 /**
+ * Enqueue Admin Scripts & Media Uploader for CMS
+ */
+function agri_enqueue_admin_assets($hook) {
+    wp_enqueue_media();
+    wp_add_inline_script('jquery', "
+        jQuery(document).ready(function($){
+            $(document).on('click', '.agri-media-upload-btn', function(e){
+                e.preventDefault();
+                var button = $(this);
+                var targetSelector = button.data('target');
+                var previewSelector = button.data('preview');
+                var removeSelector = button.data('remove');
+                var placeholderSelector = button.data('placeholder');
+
+                var customUploader = wp.media({
+                    title: 'Select or Upload Media File',
+                    button: { text: 'Use This Image' },
+                    multiple: false
+                }).on('select', function(){
+                    var attachment = customUploader.state().get('selection').first().toJSON();
+                    $(targetSelector).val(attachment.url).trigger('change');
+                    if($(previewSelector).length) {
+                        $(previewSelector).attr('src', attachment.url).show();
+                    }
+                    if($(placeholderSelector).length) {
+                        $(placeholderSelector).hide();
+                    }
+                    if($(removeSelector).length) {
+                        $(removeSelector).show();
+                    }
+                }).open();
+            });
+
+            $(document).on('click', '.agri-media-remove-btn', function(e){
+                e.preventDefault();
+                var button = $(this);
+                var targetSelector = button.data('target');
+                var previewSelector = button.data('preview');
+                var placeholderSelector = button.data('placeholder');
+
+                $(targetSelector).val('').trigger('change');
+                if($(previewSelector).length) {
+                    $(previewSelector).attr('src', '').hide();
+                }
+                if($(placeholderSelector).length) {
+                    $(placeholderSelector).show();
+                }
+                button.hide();
+            });
+        });
+    ");
+}
+add_action('admin_enqueue_scripts', 'agri_enqueue_admin_assets');
+
+/**
+ * Reusable Media Uploader Field Component
+ */
+function agri_render_image_uploader_field($field_name, $current_value, $label = 'Image', $default_fallback = '') {
+    $img_src = !empty($current_value) ? $current_value : $default_fallback;
+    $has_val = !empty($current_value);
+    ?>
+    <div class="agri-media-field-wrapper" style="display:flex; align-items:flex-start; gap:15px; margin:8px 0;">
+        <div style="width:130px; height:85px; border-radius:6px; overflow:hidden; border:1px solid #cbd5e1; background:#f8fafc; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <img id="<?php echo esc_attr($field_name); ?>_preview" 
+                 src="<?php echo esc_url($img_src); ?>" 
+                 style="width:100%; height:100%; object-fit:cover; display:<?php echo !empty($img_src) ? 'block' : 'none'; ?>;" 
+                 alt="Image Preview">
+            <span id="<?php echo esc_attr($field_name); ?>_placeholder" style="display:<?php echo empty($img_src) ? 'block' : 'none'; ?>; font-size:11px; color:#94a3b8; text-align:center;">No Image Selected</span>
+        </div>
+        <div style="flex:1;">
+            <input type="text" 
+                   id="<?php echo esc_attr($field_name); ?>" 
+                   name="<?php echo esc_attr($field_name); ?>" 
+                   value="<?php echo esc_attr($current_value); ?>" 
+                   class="large-text" 
+                   placeholder="https://... or click Choose / Upload Image" 
+                   style="margin-bottom:8px;">
+            <div style="display:flex; gap:8px; align-items:center;">
+                <button type="button" 
+                        class="button button-secondary agri-media-upload-btn" 
+                        data-target="#<?php echo esc_attr($field_name); ?>" 
+                        data-preview="#<?php echo esc_attr($field_name); ?>_preview" 
+                        data-placeholder="#<?php echo esc_attr($field_name); ?>_placeholder" 
+                        data-remove="#<?php echo esc_attr($field_name); ?>_remove_btn">
+                    🖼️ Choose / Upload Image
+                </button>
+                <button type="button" 
+                        id="<?php echo esc_attr($field_name); ?>_remove_btn" 
+                        class="button agri-media-remove-btn" 
+                        data-target="#<?php echo esc_attr($field_name); ?>" 
+                        data-preview="#<?php echo esc_attr($field_name); ?>_preview" 
+                        data-placeholder="#<?php echo esc_attr($field_name); ?>_placeholder" 
+                        style="color:#b32d2e; border-color:#d63638; display:<?php echo $has_val ? 'inline-block' : 'none'; ?>;">
+                    ❌ Remove Image
+                </button>
+            </div>
+            <?php if (!empty($default_fallback)) : ?>
+                <p class="description" style="margin-top:5px; font-size:11px; color:#64748b;">
+                    Default fallback: <code><?php echo esc_html(basename($default_fallback)); ?></code>
+                </p>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php
+}
+
+/**
  * 3. Register Custom Post Types for CMS Management
  */
 function agri_register_custom_post_types() {
@@ -139,7 +246,7 @@ function agri_register_custom_post_types() {
         'public'        => true,
         'has_archive'   => false,
         'menu_icon'     => 'dashicons-building',
-        'supports'      => array('title'),
+        'supports'      => array('title', 'thumbnail'),
         'show_in_rest'  => true,
     ));
 
@@ -198,31 +305,97 @@ add_action('init', 'agri_register_custom_post_types');
  */
 function agri_get_meta($post_id, $key, $default = '') {
     $val = get_post_meta($post_id, '_' . $key, true);
-    if ($val === '' || $val === false || $val === null) {
-        return $default;
-    }
-    return $val;
+    return !empty($val) ? $val : $default;
 }
 
 /**
- * 5. Custom Meta Boxes Registration
+ * 5. Add Custom Meta Boxes to CPTs and Page Templates
  */
-function agri_add_meta_boxes() {
-    add_meta_box('mandi_rate_meta', 'Mandi Commodity Pricing Details', 'agri_render_mandi_rate_meta_box', 'mandi_rate', 'normal', 'high');
-    add_meta_box('notice_meta', 'Notice & Tender Details', 'agri_render_notice_meta_box', 'notice_item', 'normal', 'high');
-    add_meta_box('scheme_meta', 'Scheme & Subsidy Details', 'agri_render_scheme_meta_box', 'agri_scheme', 'normal', 'high');
-    add_meta_box('cold_storage_meta', 'Cold Storage Capacity & Location', 'agri_render_cold_storage_meta_box', 'cold_storage', 'normal', 'high');
-    add_meta_box('produce_meta', 'Produce / Hub Details', 'agri_render_produce_meta_box', 'market_produce', 'normal', 'high');
-    add_meta_box('advisory_meta', 'Crop Advisory Metadata', 'agri_render_advisory_meta_box', 'market_advisory', 'normal', 'high');
-    add_meta_box('inquiry_meta', 'Citizen Inquiry Details & Status', 'agri_render_inquiry_meta_box', 'citizen_inquiry', 'normal', 'high');
+function agri_add_custom_meta_boxes() {
+    // 5.1 Mandi Rate Details
+    add_meta_box(
+        'agri_mandi_meta',
+        __('📊 Mandi Commodity Rate & Market Details', 'agri-marketing'),
+        'agri_render_mandi_meta_box',
+        'mandi_rate',
+        'normal',
+        'high'
+    );
 
-    // Dedicated Full Page CMS Meta Box for Pages
-    add_meta_box('agri_page_cms_meta', '🌟 Full Page CMS Content & Section Configuration', 'agri_render_page_cms_meta_box', 'page', 'normal', 'high');
+    // 5.2 Notice / Tender Metadata
+    add_meta_box(
+        'agri_notice_meta',
+        __('📄 Notice / Document Specification', 'agri-marketing'),
+        'agri_render_notice_meta_box',
+        'notice_item',
+        'normal',
+        'high'
+    );
+
+    // 5.3 Scheme Details
+    add_meta_box(
+        'agri_scheme_meta',
+        __('🧮 Scheme Eligibility & Subsidy Details', 'agri-marketing'),
+        'agri_render_scheme_meta_box',
+        'agri_scheme',
+        'normal',
+        'high'
+    );
+
+    // 5.4 Cold Storage Details
+    add_meta_box(
+        'agri_cold_storage_meta',
+        __('❄️ Cold Storage Facility Specification', 'agri-marketing'),
+        'agri_render_cold_storage_meta_box',
+        'cold_storage',
+        'normal',
+        'high'
+    );
+
+    // 5.5 Produce & Marketplace Details
+    add_meta_box(
+        'agri_produce_meta',
+        __('🌾 Farm Produce & Lot Information', 'agri-marketing'),
+        'agri_render_produce_meta_box',
+        'market_produce',
+        'normal',
+        'high'
+    );
+
+    // 5.6 Market Advisory Details
+    add_meta_box(
+        'agri_advisory_meta',
+        __('📢 Market Advisory & Alert Data', 'agri-marketing'),
+        'agri_render_advisory_meta_box',
+        'market_advisory',
+        'normal',
+        'high'
+    );
+
+    // 5.7 Citizen Inquiry Review Box
+    add_meta_box(
+        'agri_inquiry_meta',
+        __('📬 Citizen Inquiry & Grievance Details', 'agri-marketing'),
+        'agri_render_inquiry_meta_box',
+        'citizen_inquiry',
+        'normal',
+        'high'
+    );
+
+    // 5.8 Page CMS Settings
+    add_meta_box(
+        'agri_page_cms_meta',
+        __('⚙️ Department Portal - Page CMS Content Editor', 'agri-marketing'),
+        'agri_render_page_cms_meta_box',
+        'page',
+        'normal',
+        'high'
+    );
 }
-add_action('add_meta_boxes', 'agri_add_meta_boxes');
+add_action('add_meta_boxes', 'agri_add_custom_meta_boxes');
 
 // 5.1 Mandi Rate Meta Box HTML
-function agri_render_mandi_rate_meta_box($post) {
+function agri_render_mandi_meta_box($post) {
     wp_nonce_field('agri_save_meta', 'agri_meta_nonce');
     $commodity_bn = get_post_meta($post->ID, '_commodity_bn', true);
     $variety      = get_post_meta($post->ID, '_variety', true);
@@ -231,7 +404,7 @@ function agri_render_mandi_rate_meta_box($post) {
     $min_price    = get_post_meta($post->ID, '_min_price', true);
     $max_price    = get_post_meta($post->ID, '_max_price', true);
     $modal_price  = get_post_meta($post->ID, '_modal_price', true);
-    $trend        = get_post_meta($post->ID, '_trend', true) ?: 'stable';
+    $trend        = get_post_meta($post->ID, '_trend', true);
     $arrival_date = get_post_meta($post->ID, '_arrival_date', true) ?: date('Y-m-d');
     ?>
     <table class="form-table" style="width:100%;">
@@ -240,38 +413,32 @@ function agri_render_mandi_rate_meta_box($post) {
             <td><input type="text" id="commodity_bn" name="commodity_bn" value="<?php echo esc_attr($commodity_bn); ?>" class="regular-text" placeholder="e.g. আলু (জ্যোতি)"></td>
         </tr>
         <tr>
-            <th><label for="variety">Variety / Grade:</label></th>
-            <td><input type="text" id="variety" name="variety" value="<?php echo esc_attr($variety); ?>" class="regular-text" placeholder="e.g. Jyoti / FAQ / Local"></td>
+            <th><label for="variety">Crop Variety / Grade:</label></th>
+            <td><input type="text" id="variety" name="variety" value="<?php echo esc_attr($variety); ?>" class="regular-text" placeholder="e.g. Jyoti / FAQ / Super Fine"></td>
         </tr>
         <tr>
-            <th><label for="market">Market / APMC Mandi:</label></th>
-            <td><input type="text" id="market" name="market" value="<?php echo esc_attr($market); ?>" class="regular-text" placeholder="e.g. Sheoraphuli APMC"></td>
+            <th><label for="market">APMC Market / Checkpost:</label></th>
+            <td><input type="text" id="market" name="market" value="<?php echo esc_attr($market); ?>" class="regular-text" placeholder="e.g. Hooghly APMC"></td>
         </tr>
         <tr>
             <th><label for="district">District:</label></th>
-            <td><input type="text" id="district" name="district" value="<?php echo esc_attr($district); ?>" class="regular-text" placeholder="e.g. Hooghly, Burdwan, Nadia"></td>
+            <td><input type="text" id="district" name="district" value="<?php echo esc_attr($district); ?>" class="regular-text" placeholder="e.g. Hooghly, Nadia, Burdwan"></td>
         </tr>
         <tr>
-            <th><label for="modal_price">Modal Price (₹/Qtl):</label></th>
-            <td><input type="number" step="1" id="modal_price" name="modal_price" value="<?php echo esc_attr($modal_price); ?>" class="regular-text" placeholder="e.g. 1450"></td>
+            <th><label for="min_price">Minimum Price (₹/Quintal):</label></th>
+            <td><input type="number" step="0.01" id="min_price" name="min_price" value="<?php echo esc_attr($min_price); ?>" class="regular-text" placeholder="e.g. 1450"></td>
         </tr>
         <tr>
-            <th><label for="min_price">Min Price (₹/Qtl):</label></th>
-            <td><input type="number" step="1" id="min_price" name="min_price" value="<?php echo esc_attr($min_price); ?>" class="regular-text" placeholder="e.g. 1380"></td>
+            <th><label for="max_price">Maximum Price (₹/Quintal):</label></th>
+            <td><input type="number" step="0.01" id="max_price" name="max_price" value="<?php echo esc_attr($max_price); ?>" class="regular-text" placeholder="e.g. 1620"></td>
         </tr>
         <tr>
-            <th><label for="max_price">Max Price (₹/Qtl):</label></th>
-            <td><input type="number" step="1" id="max_price" name="max_price" value="<?php echo esc_attr($max_price); ?>" class="regular-text" placeholder="e.g. 1520"></td>
+            <th><label for="modal_price">Modal / Prevailing Price (₹/Quintal):</label></th>
+            <td><input type="number" step="0.01" id="modal_price" name="modal_price" value="<?php echo esc_attr($modal_price); ?>" class="regular-text" placeholder="e.g. 1540"></td>
         </tr>
         <tr>
-            <th><label for="trend">Price Trend:</label></th>
-            <td>
-                <select id="trend" name="trend">
-                    <option value="up" <?php selected($trend, 'up'); ?>>📈 Up (+)</option>
-                    <option value="down" <?php selected($trend, 'down'); ?>>📉 Down (-)</option>
-                    <option value="stable" <?php selected($trend, 'stable'); ?>>➖ Stable</option>
-                </select>
-            </td>
+            <th><label for="trend">24h Price Trend:</label></th>
+            <td><input type="text" id="trend" name="trend" value="<?php echo esc_attr($trend); ?>" class="regular-text" placeholder="e.g. +40 or -20 or 0"></td>
         </tr>
         <tr>
             <th><label for="arrival_date">Arrival Date:</label></th>
@@ -287,14 +454,14 @@ function agri_render_notice_meta_box($post) {
     $ref_no       = get_post_meta($post->ID, '_ref_no', true);
     $category     = get_post_meta($post->ID, '_category', true) ?: 'tenders';
     $file_url     = get_post_meta($post->ID, '_file_url', true);
-    $file_size    = get_post_meta($post->ID, '_file_size', true) ?: '1.2 MB';
+    $file_size    = get_post_meta($post->ID, '_file_size', true);
     $publish_date = get_post_meta($post->ID, '_publish_date', true) ?: date('Y-m-d');
     $is_new       = get_post_meta($post->ID, '_is_new', true);
     ?>
     <table class="form-table" style="width:100%;">
         <tr>
-            <th><label for="ref_no">Reference / NIT No:</label></th>
-            <td><input type="text" id="ref_no" name="ref_no" value="<?php echo esc_attr($ref_no); ?>" class="regular-text" placeholder="e.g. WBSAMB/NIT-14/2026"></td>
+            <th><label for="ref_no">Memo / Ref Number:</label></th>
+            <td><input type="text" id="ref_no" name="ref_no" value="<?php echo esc_attr($ref_no); ?>" class="regular-text" placeholder="e.g. WB/AGRI-MKT/NIT-2026/04"></td>
         </tr>
         <tr>
             <th><label for="category">Category Tab:</label></th>
@@ -336,8 +503,15 @@ function agri_render_scheme_meta_box($post) {
     $eligibility  = get_post_meta($post->ID, '_eligibility', true);
     $key_benefits = get_post_meta($post->ID, '_key_benefits', true);
     $apply_url    = get_post_meta($post->ID, '_apply_url', true);
+    $scheme_image = get_post_meta($post->ID, '_scheme_image', true);
     ?>
     <table class="form-table" style="width:100%;">
+        <tr>
+            <th><label for="scheme_image">Scheme Showcase Image:</label></th>
+            <td>
+                <?php agri_render_image_uploader_field('scheme_image', $scheme_image, 'Scheme Image', get_template_directory_uri() . '/images/hero-farmer.jpg'); ?>
+            </td>
+        </tr>
         <tr>
             <th><label for="scheme_code">Scheme Code / Key:</label></th>
             <td><input type="text" id="scheme_code" name="scheme_code" value="<?php echo esc_attr($scheme_code); ?>" class="regular-text" placeholder="e.g. AFAG, SUFAL, COLD_CHAIN"></td>
@@ -380,15 +554,22 @@ function agri_render_scheme_meta_box($post) {
 // 5.4 Cold Storage Meta Box HTML
 function agri_render_cold_storage_meta_box($post) {
     wp_nonce_field('agri_save_meta', 'agri_meta_nonce');
-    $district    = get_post_meta($post->ID, '_district', true);
-    $location    = get_post_meta($post->ID, '_location', true);
-    $capacity    = get_post_meta($post->ID, '_capacity', true);
-    $available   = get_post_meta($post->ID, '_available', true);
-    $type        = get_post_meta($post->ID, '_type', true) ?: 'Multi-Commodity';
-    $contact     = get_post_meta($post->ID, '_contact', true);
-    $status      = get_post_meta($post->ID, '_status', true) ?: 'Available';
+    $district      = get_post_meta($post->ID, '_district', true);
+    $location      = get_post_meta($post->ID, '_location', true);
+    $capacity      = get_post_meta($post->ID, '_capacity', true);
+    $available     = get_post_meta($post->ID, '_available', true);
+    $type          = get_post_meta($post->ID, '_type', true) ?: 'Multi-Commodity';
+    $contact       = get_post_meta($post->ID, '_contact', true);
+    $status        = get_post_meta($post->ID, '_status', true) ?: 'Available';
+    $storage_image = get_post_meta($post->ID, '_storage_image', true);
     ?>
     <table class="form-table" style="width:100%;">
+        <tr>
+            <th><label for="storage_image">Storage Facility Photo:</label></th>
+            <td>
+                <?php agri_render_image_uploader_field('storage_image', $storage_image, 'Storage Photo', get_template_directory_uri() . '/images/cold-storage.jpg'); ?>
+            </td>
+        </tr>
         <tr>
             <th><label for="district">District:</label></th>
             <td><input type="text" id="district" name="district" value="<?php echo esc_attr($district); ?>" class="regular-text" placeholder="e.g. Hooghly, Purba Bardhaman, Nadia"></td>
@@ -430,16 +611,23 @@ function agri_render_cold_storage_meta_box($post) {
 // 5.5 Farm Connect Meta Box HTML
 function agri_render_produce_meta_box($post) {
     wp_nonce_field('agri_save_meta', 'agri_meta_nonce');
-    $district  = get_post_meta($post->ID, '_district', true);
-    $location  = get_post_meta($post->ID, '_location', true);
-    $quantity  = get_post_meta($post->ID, '_quantity', true);
-    $price     = get_post_meta($post->ID, '_price', true);
-    $category  = get_post_meta($post->ID, '_category', true) ?: 'vegetables';
-    $contact   = get_post_meta($post->ID, '_contact', true);
-    $farmer    = get_post_meta($post->ID, '_farmer', true);
-    $grade     = get_post_meta($post->ID, '_grade', true) ?: 'Agmark Grade-A';
+    $district      = get_post_meta($post->ID, '_district', true);
+    $location      = get_post_meta($post->ID, '_location', true);
+    $quantity      = get_post_meta($post->ID, '_quantity', true);
+    $price         = get_post_meta($post->ID, '_price', true);
+    $category      = get_post_meta($post->ID, '_category', true) ?: 'vegetables';
+    $contact       = get_post_meta($post->ID, '_contact', true);
+    $farmer        = get_post_meta($post->ID, '_farmer', true);
+    $grade         = get_post_meta($post->ID, '_grade', true) ?: 'Agmark Grade-A';
+    $produce_image = get_post_meta($post->ID, '_produce_image', true);
     ?>
     <table class="form-table" style="width:100%;">
+        <tr>
+            <th><label for="produce_image">Produce / Crop Photo:</label></th>
+            <td>
+                <?php agri_render_image_uploader_field('produce_image', $produce_image, 'Produce Photo', get_template_directory_uri() . '/images/hero-farmer.jpg'); ?>
+            </td>
+        </tr>
         <tr>
             <th><label for="farmer">Farmer / FPO Name:</label></th>
             <td><input type="text" id="farmer" name="farmer" value="<?php echo esc_attr($farmer); ?>" class="regular-text" placeholder="e.g. Subhash Mondal / Ranaghat FPO"></td>
@@ -577,12 +765,33 @@ function agri_render_page_cms_meta_box($post) {
         <textarea name="banner_subtitle" rows="2" class="large-text" placeholder="Enter page banner subtitle text..."><?php echo esc_textarea($banner_subtitle); ?></textarea>
     </div>
 
+    <?php if ($is_home) : ?>
+        <!-- ==================== HOMEPAGE SECTION ==================== -->
+        <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:20px; margin-bottom:20px;">
+            <h3 style="color:#2e7d32; border-bottom:2px solid #2e7d32; padding-bottom:8px; margin-top:0;">🏠 Homepage Hero & Showcase</h3>
+            <table class="form-table">
+                <tr>
+                    <th scope="row"><label>Hero Showcase Image:</label></th>
+                    <td>
+                        <?php agri_render_image_uploader_field('hero_image', get_post_meta($post->ID, '_hero_image', true), 'Hero Image', get_template_directory_uri() . '/images/hero-farmer.jpg'); ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    <?php endif; ?>
+
     <?php if ($is_about || (!$template && !$is_contact && !$is_schemes && !$is_cold_storage && !$is_marketplace && !$is_rates && !$is_notices && !$is_home)) : ?>
         <!-- ==================== ABOUT US SECTION ==================== -->
         <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:20px; margin-bottom:20px;">
             <h3 style="color:#2e7d32; border-bottom:2px solid #2e7d32; padding-bottom:8px; margin-top:0;">🏛️ About Us Page Configuration</h3>
             
             <table class="form-table">
+                <tr>
+                    <th scope="row"><label>Mandate & Vision Showcase Image:</label></th>
+                    <td>
+                        <?php agri_render_image_uploader_field('about_image', get_post_meta($post->ID, '_about_image', true), 'About Showcase Image', get_template_directory_uri() . '/images/sufal-market.jpg'); ?>
+                    </td>
+                </tr>
                 <tr>
                     <th scope="row"><label for="about_mandate_tag">Mandate Section Tag:</label></th>
                     <td><input type="text" id="about_mandate_tag" name="about_mandate_tag" value="<?php echo esc_attr(get_post_meta($post->ID, '_about_mandate_tag', true)); ?>" class="regular-text" placeholder="🏛️ Department Mandate"></td>
@@ -751,6 +960,29 @@ function agri_render_page_cms_meta_box($post) {
         <!-- ==================== SCHEMES WORKFLOW ==================== -->
         <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:20px; margin-bottom:20px;">
             <h3 style="color:#2e7d32; border-bottom:2px solid #2e7d32; padding-bottom:8px; margin-top:0;">📑 Schemes & Calculator Configuration</h3>
+            
+            <h4 style="color:#1e293b; border-bottom:1px solid #e2e8f0; padding-bottom:6px; margin-top:10px;">🖼️ Featured Scheme / Initiative Cards Images</h4>
+            <table class="form-table" style="margin-bottom:20px;">
+                <tr>
+                    <th scope="row"><label>Card 1 Image (Sufal Bangla):</label></th>
+                    <td>
+                        <?php agri_render_image_uploader_field('scheme_card1_image', get_post_meta($post->ID, '_scheme_card1_image', true), 'Sufal Bangla Image', get_template_directory_uri() . '/images/sufal-market.jpg'); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><label>Card 2 Image (Amar Fasal Amar Gari):</label></th>
+                    <td>
+                        <?php agri_render_image_uploader_field('scheme_card2_image', get_post_meta($post->ID, '_scheme_card2_image', true), 'Amar Fasal Image', get_template_directory_uri() . '/images/hero-farmer.jpg'); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><label>Card 3 Image (Cold Storage Grid):</label></th>
+                    <td>
+                        <?php agri_render_image_uploader_field('scheme_card3_image', get_post_meta($post->ID, '_scheme_card3_image', true), 'Cold Storage Grid Image', get_template_directory_uri() . '/images/cold-storage.jpg'); ?>
+                    </td>
+                </tr>
+            </table>
+
             <table class="form-table">
                 <tr>
                     <th scope="row">Calculator Section Tag:</th>
@@ -911,12 +1143,13 @@ function agri_save_post_meta($post_id) {
         // CPT fields
         'commodity_bn', 'variety', 'market', 'district', 'min_price', 'max_price', 'modal_price', 'trend', 'arrival_date',
         'ref_no', 'category', 'file_url', 'file_size', 'publish_date', 'is_new',
-        'scheme_code', 'subsidy_pct', 'max_subsidy', 'eligibility', 'key_benefits', 'apply_url',
+        'scheme_code', 'subsidy_pct', 'max_subsidy', 'eligibility', 'key_benefits', 'apply_url', 'scheme_image',
         'location', 'capacity', 'available', 'type', 'contact', 'status', 'quantity', 'price', 'farmer', 'grade',
-        'crop_name', 'crop_icon', 'urgency', 'inquiry_status',
+        'crop_name', 'crop_icon', 'urgency', 'inquiry_status', 'storage_image', 'produce_image',
 
         // Page CMS fields
-        'banner_subtitle',
+        'banner_subtitle', 'hero_image', 'about_image',
+        'scheme_card1_image', 'scheme_card2_image', 'scheme_card3_image',
         'about_mandate_tag', 'about_mandate_title', 'about_mandate_p1', 'about_mandate_p2',
         'about_vision_title', 'about_vision_desc', 'about_quality_title', 'about_quality_desc',
         'about_stat1_icon', 'about_stat1_num', 'about_stat1_suffix', 'about_stat1_label',
@@ -943,6 +1176,8 @@ function agri_save_post_meta($post_id) {
         if (isset($_POST[$field])) {
             if (in_array($field, array('about_mandate_p1', 'about_mandate_p2', 'about_vision_desc', 'about_quality_desc', 'about_pillars_subtitle', 'about_p1_desc', 'about_p2_desc', 'about_p3_desc', 'about_p4_desc', 'about_cta_desc', 'contact_kisan_desc', 'contact_apmc_offices', 'contact_form_desc', 'schemes_calc_subtitle', 'schemes_wf_subtitle', 'scheme_s1_desc', 'scheme_s2_desc', 'scheme_s3_desc', 'scheme_s4_desc', 'cs_protocols_subtitle', 'cs_p1_desc', 'cs_p2_desc', 'cs_p3_desc', 'mp_safeguards_subtitle', 'mp_s1_desc', 'mp_s2_desc', 'mp_s3_desc', 'rate_g1_desc', 'rate_g2_desc', 'rate_g3_desc', 'eligibility', 'key_benefits', 'banner_subtitle'))) {
                 update_post_meta($post_id, '_' . $field, sanitize_textarea_field($_POST[$field]));
+            } elseif (in_array($field, array('hero_image', 'about_image', 'scheme_card1_image', 'scheme_card2_image', 'scheme_card3_image', 'scheme_image', 'storage_image', 'produce_image', 'file_url', 'apply_url', 'about_cta_url'))) {
+                update_post_meta($post_id, '_' . $field, esc_url_raw($_POST[$field]));
             } else {
                 update_post_meta($post_id, '_' . $field, sanitize_text_field($_POST[$field]));
             }
@@ -968,12 +1203,14 @@ function agri_register_theme_settings_page() {
 add_action('admin_menu', 'agri_register_theme_settings_page');
 
 function agri_register_settings() {
+    register_setting('agri_settings_group', 'agri_logo_image');
     register_setting('agri_settings_group', 'agri_helpline');
     register_setting('agri_settings_group', 'agri_alt_helpline');
     register_setting('agri_settings_group', 'agri_email');
     register_setting('agri_settings_group', 'agri_address');
     register_setting('agri_settings_group', 'agri_office_hours');
 
+    register_setting('agri_settings_group', 'agri_hero_image');
     register_setting('agri_settings_group', 'agri_hero_badge');
     register_setting('agri_settings_group', 'agri_hero_title');
     register_setting('agri_settings_group', 'agri_hero_desc');
@@ -1008,6 +1245,16 @@ function agri_render_theme_settings_page() {
                 settings_fields('agri_settings_group');
                 do_settings_sections('agri_settings_group');
                 ?>
+                <h3 style="border-bottom:2px solid #2e7d32; padding-bottom:8px; color:#2e7d32; margin-top:0;">🏛️ Department Branding & Insignia</h3>
+                <table class="form-table" style="margin-bottom:20px;">
+                    <tr>
+                        <th scope="row">Department Brand Logo:</th>
+                        <td>
+                            <?php agri_render_image_uploader_field('agri_logo_image', get_option('agri_logo_image'), 'Portal Logo', get_template_directory_uri() . '/images/Logo.png'); ?>
+                        </td>
+                    </tr>
+                </table>
+
                 <h3 style="border-bottom:2px solid #2e7d32; padding-bottom:8px; color:#2e7d32; margin-top:0;">📞 State Helpline & Contact Information</h3>
                 <table class="form-table">
                     <tr>
@@ -1042,6 +1289,12 @@ function agri_render_theme_settings_page() {
                 ?>
                 <h3 style="border-bottom:2px solid #2e7d32; padding-bottom:8px; color:#2e7d32; margin-top:0;">🏠 Homepage Hero Showcase</h3>
                 <table class="form-table">
+                    <tr>
+                        <th scope="row">Hero Showcase Image:</th>
+                        <td>
+                            <?php agri_render_image_uploader_field('agri_hero_image', get_option('agri_hero_image'), 'Hero Image', get_template_directory_uri() . '/images/hero-farmer.jpg'); ?>
+                        </td>
+                    </tr>
                     <tr>
                         <th scope="row">Hero Pill Badge:</th>
                         <td><input type="text" name="agri_hero_badge" value="<?php echo esc_attr(get_option('agri_hero_badge', 'Agricultural Price Discovery & Market Intelligence')); ?>" class="large-text" /></td>
@@ -1190,6 +1443,7 @@ function agri_get_cms_data() {
                 'temp'       => get_post_meta($id, '_type', true) ?: '2°C - 4°C (Potato / Veg)',
                 'phone'      => get_post_meta($id, '_contact', true),
                 'status'     => strtolower(get_post_meta($id, '_status', true) ?: 'available'),
+                'image'      => get_post_meta($id, '_storage_image', true) ?: (get_the_post_thumbnail_url($id, 'medium') ?: (AGRI_THEME_URI . '/images/cold-storage.jpg')),
                 'address'    => get_post_meta($id, '_location', true) ?: ''
             );
         }
@@ -1218,6 +1472,7 @@ function agri_get_cms_data() {
                 'qty'         => get_post_meta($id, '_quantity', true),
                 'price'       => get_post_meta($id, '_price', true),
                 'grade'       => get_post_meta($id, '_grade', true) ?: 'Agmark Grade-A',
+                'image'       => get_post_meta($id, '_produce_image', true) ?: (get_the_post_thumbnail_url($id, 'medium') ?: (AGRI_THEME_URI . '/images/hero-farmer.jpg')),
                 'harvestDate' => date('M Y'),
                 'contact'     => get_post_meta($id, '_contact', true)
             );
@@ -1285,7 +1540,7 @@ function agri_get_cms_data() {
                 'titleBn'     => get_post_meta($id, '_title_bn', true) ?: get_the_title(),
                 'titleHi'     => get_post_meta($id, '_title_hi', true) ?: get_the_title(),
                 'badge'       => (get_post_meta($id, '_subsidy_pct', true) ? get_post_meta($id, '_subsidy_pct', true) . '% Subsidy' : 'Subsidy Scheme'),
-                'image'       => get_the_post_thumbnail_url($id, 'medium') ?: (AGRI_THEME_URI . '/images/hero-farmer.jpg'),
+                'image'       => get_post_meta($id, '_scheme_image', true) ?: (get_the_post_thumbnail_url($id, 'medium') ?: (AGRI_THEME_URI . '/images/hero-farmer.jpg')),
                 'descEn'      => get_the_content() ?: 'Government financial and technical assistance scheme.',
                 'descBn'      => get_post_meta($id, '_desc_bn', true) ?: get_the_content(),
                 'descHi'      => get_post_meta($id, '_desc_hi', true) ?: get_the_content(),
@@ -1332,6 +1587,8 @@ function agri_get_cms_data() {
 
     // 9.8 Department Settings
     $settings = array(
+        'logo_image'        => get_option('agri_logo_image', AGRI_THEME_URI . '/images/Logo.png'),
+        'hero_image'        => get_option('agri_hero_image', AGRI_THEME_URI . '/images/hero-farmer.jpg'),
         'helpline'          => get_option('agri_helpline', '1800-180-1551'),
         'alt_helpline'      => get_option('agri_alt_helpline', '033-2225-8888'),
         'email'             => get_option('agri_email', 'agrimarketing-wb@nic.in'),

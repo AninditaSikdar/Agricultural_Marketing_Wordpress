@@ -20,6 +20,14 @@ $vision_desc       = agri_get_meta($post_id, 'about_vision_desc', 'To double far
 $quality_title     = agri_get_meta($post_id, 'about_quality_title', '🛡️ Quality Standards');
 $quality_desc      = agri_get_meta($post_id, 'about_quality_desc', 'State-of-the-art Agmark certified testing laboratories ensuring quality grading and chemical residue checks.');
 
+$about_img = agri_get_meta($post_id, 'about_image', '');
+if (empty($about_img) && has_post_thumbnail()) {
+    $about_img = get_the_post_thumbnail_url($post_id, 'large');
+}
+if (empty($about_img)) {
+    $about_img = $theme_uri . '/images/sufal-market.jpg';
+}
+
 // 4 Impact Stats
 $stat1_icon        = agri_get_meta($post_id, 'about_stat1_icon', '🏢');
 $stat1_num         = agri_get_meta($post_id, 'about_stat1_num', '650');
@@ -117,11 +125,7 @@ $cta_url           = agri_get_meta($post_id, 'about_cta_url', home_url('/contact
             </div>
 
             <div class="hero-image-frame" style="box-shadow:var(--shadow-lg);">
-                <?php if (has_post_thumbnail()) : ?>
-                    <?php the_post_thumbnail('large', array('class' => 'hero-main-img', 'alt' => get_the_title())); ?>
-                <?php else : ?>
-                    <img src="<?php echo esc_url($theme_uri . '/images/sufal-market.jpg'); ?>" alt="Agricultural Marketing Department Produce Stall" class="hero-main-img">
-                <?php endif; ?>
+                <img src="<?php echo esc_url($about_img); ?>" alt="Agricultural Marketing Department Produce Stall" class="hero-main-img">
             </div>
         </div>
 

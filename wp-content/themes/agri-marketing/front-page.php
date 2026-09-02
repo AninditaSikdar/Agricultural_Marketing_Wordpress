@@ -14,6 +14,17 @@ $stat_farmers = get_option('agri_stat_farmers', '1.6M+');
 $stat_mandis  = get_option('agri_stat_mandis', '650+');
 $stat_cold_storage = get_option('agri_stat_cold_storage', '480+');
 $stat_subsidy = get_option('agri_stat_subsidy', '₹1,250 Cr');
+
+$hero_img = get_option('agri_hero_image');
+if (empty($hero_img)) {
+    $hero_img = get_post_meta(get_the_ID(), '_hero_image', true);
+}
+if (empty($hero_img) && has_post_thumbnail()) {
+    $hero_img = get_the_post_thumbnail_url(null, 'full');
+}
+if (empty($hero_img)) {
+    $hero_img = $theme_uri . '/images/hero-farmer.jpg';
+}
 ?>
 
 <!-- ==========================================================================
@@ -89,7 +100,7 @@ $stat_subsidy = get_option('agri_stat_subsidy', '₹1,250 Cr');
             <!-- Hero Visual Media with Floating Interactive Cards -->
             <div class="hero-media-wrapper">
                 <div class="hero-image-frame">
-                    <img src="<?php echo esc_url($theme_uri . '/images/hero-farmer.jpg'); ?>" alt="Agricultural Farmland & Fresh Harvest Produce" class="hero-main-img">
+                    <img src="<?php echo esc_url($hero_img); ?>" alt="Agricultural Farmland & Fresh Harvest Produce" class="hero-main-img">
                 </div>
 
                 <!-- Floating Glass Card 1 -->

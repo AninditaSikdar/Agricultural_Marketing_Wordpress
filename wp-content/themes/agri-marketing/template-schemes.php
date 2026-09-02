@@ -29,6 +29,11 @@ $s3_desc  = agri_get_meta($post_id, 'scheme_s3_desc', 'Receive formal in-princip
 $s4_title = agri_get_meta($post_id, 'scheme_s4_title', 'Direct Bank Transfer (DBT)');
 $s4_desc  = agri_get_meta($post_id, 'scheme_s4_desc', 'Subsidy amount is credited directly to the beneficiary\'s linked bank account upon asset delivery.');
 
+// 3 Flagship Initiative Card Images
+$card1_img = agri_get_meta($post_id, 'scheme_card1_image', $theme_uri . '/images/sufal-market.jpg');
+$card2_img = agri_get_meta($post_id, 'scheme_card2_image', $theme_uri . '/images/hero-farmer.jpg');
+$card3_img = agri_get_meta($post_id, 'scheme_card3_image', $theme_uri . '/images/cold-storage.jpg');
+
 // Dynamic Schemes Query
 $schemes_query = new WP_Query(array(
     'post_type'      => 'agri_scheme',
@@ -70,7 +75,7 @@ $schemes_query = new WP_Query(array(
                     $benefits = get_post_meta($s_id, '_key_benefits', true);
                     $b_lines = !empty($benefits) ? explode("\n", str_replace("\r", "", $benefits)) : array();
                     $apply_link = get_post_meta($s_id, '_apply_url', true) ?: '#calculator';
-                    $img_url = get_the_post_thumbnail_url($s_id, 'large') ?: ($theme_uri . '/images/hero-farmer.jpg');
+                    $img_url = get_post_meta($s_id, '_scheme_image', true) ?: (get_the_post_thumbnail_url($s_id, 'large') ?: ($theme_uri . '/images/hero-farmer.jpg'));
                 ?>
                     <div class="initiative-card">
                         <div class="initiative-img-wrap">
@@ -100,7 +105,7 @@ $schemes_query = new WP_Query(array(
                 <!-- Fallback Initial Schemes -->
                 <div class="initiative-card">
                     <div class="initiative-img-wrap">
-                        <img src="<?php echo esc_url($theme_uri . '/images/sufal-market.jpg'); ?>" alt="Sufal Bangla Modern Retail Stall" class="initiative-img">
+                        <img src="<?php echo esc_url($card1_img); ?>" alt="Sufal Bangla Modern Retail Stall" class="initiative-img">
                         <span class="initiative-badge">Direct Market</span>
                     </div>
                     <div class="initiative-body">
@@ -121,7 +126,7 @@ $schemes_query = new WP_Query(array(
 
                 <div class="initiative-card">
                     <div class="initiative-img-wrap">
-                        <img src="<?php echo esc_url($theme_uri . '/images/hero-farmer.jpg'); ?>" alt="Amar Fasal Amar Gari Logistics Support" class="initiative-img">
+                        <img src="<?php echo esc_url($card2_img); ?>" alt="Amar Fasal Amar Gari Logistics Support" class="initiative-img">
                         <span class="initiative-badge" style="background:var(--accent-gradient);">50% Subsidy</span>
                     </div>
                     <div class="initiative-body">
@@ -142,7 +147,7 @@ $schemes_query = new WP_Query(array(
 
                 <div class="initiative-card">
                     <div class="initiative-img-wrap">
-                        <img src="<?php echo esc_url($theme_uri . '/images/cold-storage.jpg'); ?>" alt="Modern Cold Storage Network" class="initiative-img">
+                        <img src="<?php echo esc_url($card3_img); ?>" alt="Modern Cold Storage Network" class="initiative-img">
                         <span class="initiative-badge" style="background:linear-gradient(135deg, #1a5276 0%, #2980b9 100%);">Infrastructure</span>
                     </div>
                     <div class="initiative-body">

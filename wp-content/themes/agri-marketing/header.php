@@ -61,7 +61,10 @@ $theme_uri = get_template_directory_uri();
         <a href="<?php echo esc_url(home_url('/')); ?>" class="brand-section" aria-label="Agricultural Marketing Department">
             <div class="brand-emblem-wrapper">
                 <?php 
-                if (has_custom_logo()) {
+                $portal_logo = get_option('agri_logo_image');
+                if (!empty($portal_logo)) {
+                    echo '<img src="' . esc_url($portal_logo) . '" alt="' . esc_attr(get_bloginfo('name')) . '" class="brand-logo-img">';
+                } elseif (has_custom_logo()) {
                     the_custom_logo();
                 } else {
                     echo '<img src="' . esc_url($theme_uri . '/images/Logo.png') . '" alt="' . esc_attr(get_bloginfo('name')) . '" class="brand-logo-img">';
