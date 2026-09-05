@@ -3,7 +3,7 @@
  * Benchmarked against AGMARKNET 2.0 and e-NAM standards for rural connectivity
  */
 
-const CACHE_NAME = 'agri-marketing-cache-v2';
+const CACHE_NAME = 'agri-marketing-cache-v3';
 const STATIC_ASSETS = [
     './',
     './index.html',
@@ -16,8 +16,10 @@ const STATIC_ASSETS = [
     './about.html',
     './contact.html',
     './notices.html',
+    './services.html',
     './css/main.css',
     './css/button.css',
+    './css/responsive.css',
     './js/app.js',
     './data/mandi-rates.json',
     './data/translations.json',
@@ -52,24 +54,20 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-    // Stale-While-Revalidate Strategy for fast rendering + background refresh
     if (e.request.method !== 'GET') return;
 
+    // Network-First for core code & styles to allow immediate refreshes
     e.respondWith(
-        caches.match(e.request).then((cachedResponse) => {
-            const fetchPromise = fetch(e.request).then((networkResponse) => {
-                if (networkResponse && networkResponse.status === 200) {
-                    const responseClone = networkResponse.clone();
-                    caches.open(CACHE_NAME).then((cache) => {
-                        cache.put(e.request, responseClone);
-                    });
-                }
-                return networkResponse;
-            }).catch(() => {
-                return cachedResponse;
-            });
-
-            return cachedResponse || fetchPromise;
+        fetch(e.request).then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+                const responseClone = networkResponse.clone();
+                caches.open(CACHE_NAME).then((cache) => {
+                    cache.put(e.request, responseClone);
+                });
+            }
+            return networkResponse;
+        }).catch(() => {
+            return caches.match(e.request);
         })
     );
 });

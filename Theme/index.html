@@ -11,8 +11,9 @@
     <title>State Agricultural Marketing Department | National AgriTech Portal</title>
 
     <link rel="manifest" href="./manifest.json">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/button.css">
+    <link rel="stylesheet" href="./css/main.css?v=3.0">
+    <link rel="stylesheet" href="./css/button.css?v=3.0">
+    <link rel="stylesheet" href="./css/responsive.css?v=3.0">
 </head>
 
 <body>
@@ -246,6 +247,16 @@
                         </button>
                     </div>
                 </div>
+                <!-- Mobile Slider Navigation for Farmer Pane -->
+                <div class="persona-slider-footer" data-pane="pane-farmer">
+                    <button type="button" class="slider-arrow-btn slider-arrow-sm persona-prev-btn" aria-label="Previous Farmer Feature">‹</button>
+                    <div class="persona-slider-dots">
+                        <span class="persona-slider-dot active"></span>
+                        <span class="persona-slider-dot"></span>
+                        <span class="persona-slider-dot"></span>
+                    </div>
+                    <button type="button" class="slider-arrow-btn slider-arrow-sm persona-next-btn" aria-label="Next Farmer Feature">›</button>
+                </div>
             </div>
 
             <!-- PANE 2: TRADER & BUYER WORKFLOWS -->
@@ -296,6 +307,16 @@
                         </button>
                     </div>
                 </div>
+                <!-- Mobile Slider Navigation for Trader Pane -->
+                <div class="persona-slider-footer" data-pane="pane-trader">
+                    <button type="button" class="slider-arrow-btn slider-arrow-sm persona-prev-btn" aria-label="Previous Trader Feature">‹</button>
+                    <div class="persona-slider-dots">
+                        <span class="persona-slider-dot active"></span>
+                        <span class="persona-slider-dot"></span>
+                        <span class="persona-slider-dot"></span>
+                    </div>
+                    <button type="button" class="slider-arrow-btn slider-arrow-sm persona-next-btn" aria-label="Next Trader Feature">›</button>
+                </div>
             </div>
 
             <!-- PANE 3: COMMISSION AGENT (ARHTIYA) WORKFLOWS -->
@@ -342,6 +363,16 @@
                             📊 View Tax Statements →
                         </a>
                     </div>
+                </div>
+                <!-- Mobile Slider Navigation for Agent Pane -->
+                <div class="persona-slider-footer" data-pane="pane-agent">
+                    <button type="button" class="slider-arrow-btn slider-arrow-sm persona-prev-btn" aria-label="Previous Agent Feature">‹</button>
+                    <div class="persona-slider-dots">
+                        <span class="persona-slider-dot active"></span>
+                        <span class="persona-slider-dot"></span>
+                        <span class="persona-slider-dot"></span>
+                    </div>
+                    <button type="button" class="slider-arrow-btn slider-arrow-sm persona-next-btn" aria-label="Next Agent Feature">›</button>
                 </div>
             </div>
         </div>
@@ -778,109 +809,123 @@
                         for indigenous agricultural wealth.
                     </p>
                 </div>
-                <div>
-                    <a href="marketplace.html" class="btn btn-outline">
+                <div class="gi-header-actions slider-arrow-controls">
+                    <a href="marketplace.html" class="btn btn-outline gi-browse-btn">
                         🛒 Browse All GI Produce Lots →
                     </a>
+                    <div class="gi-slider-arrow-btns">
+                        <button class="slider-arrow-btn" id="giPrevBtn" aria-label="Previous GI Produce">‹</button>
+                        <button class="slider-arrow-btn" id="giNextBtn" aria-label="Next GI Produce">›</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="gi-showcase-grid">
-                <!-- 1. Malda Mango -->
-                <div class="gi-card">
-                    <div class="gi-badge">GI Tagged</div>
-                    <div class="gi-icon">🥭</div>
-                    <h3 class="gi-title">Malda Mango (Fazli & Himsagar)</h3>
-                    <p class="gi-origin">📍 District: Malda (মালদা)</p>
-                    <p class="gi-desc">Famous for sweet pulp and high export demand. Supported by dedicated cold rooms,
-                        vapor heat treatment, and packaging centres.</p>
-                    <div class="gi-tags">
-                        <span>Export Quality</span>
-                        <span>APEDA Certified</span>
-                        <span>Traceable</span>
+            <div class="gi-slider-container" id="giSliderContainer">
+                <div class="gi-showcase-grid" id="giShowcaseGrid">
+                    <!-- 1. Malda Mango -->
+                    <div class="gi-card">
+                        <div class="gi-badge">GI Tagged</div>
+                        <div class="gi-icon">🥭</div>
+                        <h3 class="gi-title">Malda Mango (Fazli & Himsagar)</h3>
+                        <p class="gi-origin">📍 District: Malda (মালদা)</p>
+                        <p class="gi-desc">Famous for sweet pulp and high export demand. Supported by dedicated cold rooms,
+                            vapor heat treatment, and packaging centres.</p>
+                        <div class="gi-tags">
+                            <span>Export Quality</span>
+                            <span>APEDA Certified</span>
+                            <span>Traceable</span>
+                        </div>
+                        <a href="marketplace.html" class="gi-link">View Malda Lots →</a>
                     </div>
-                    <a href="marketplace.html" class="gi-link">View Malda Lots →</a>
-                </div>
 
-                <!-- 2. Purba Medinipur Chilli -->
-                <div class="gi-card">
-                    <div class="gi-badge">Speciality Cluster</div>
-                    <div class="gi-icon">🌶️</div>
-                    <h3 class="gi-title">Purba Medinipur Chilli</h3>
-                    <p class="gi-origin">📍 District: Purba Medinipur (পূর্ব মেদিনীপুর)</p>
-                    <p class="gi-desc">High capsaicin content and vibrant color. Supported by commodity-specific drying
-                        yards, sorting facilities, and bulk processing.</p>
-                    <div class="gi-tags">
-                        <span>High Pungency</span>
-                        <span>Direct FPO</span>
-                        <span>Lab Tested</span>
+                    <!-- 2. Purba Medinipur Chilli -->
+                    <div class="gi-card">
+                        <div class="gi-badge">Speciality Cluster</div>
+                        <div class="gi-icon">🌶️</div>
+                        <h3 class="gi-title">Purba Medinipur Chilli</h3>
+                        <p class="gi-origin">📍 District: Purba Medinipur (পূর্ব মেদিনীপুর)</p>
+                        <p class="gi-desc">High capsaicin content and vibrant color. Supported by commodity-specific drying
+                            yards, sorting facilities, and bulk processing.</p>
+                        <div class="gi-tags">
+                            <span>High Pungency</span>
+                            <span>Direct FPO</span>
+                            <span>Lab Tested</span>
+                        </div>
+                        <a href="marketplace.html" class="gi-link">View Chilli Lots →</a>
                     </div>
-                    <a href="marketplace.html" class="gi-link">View Chilli Lots →</a>
-                </div>
 
-                <!-- 3. Bankura Gobindobhog Rice -->
-                <div class="gi-card">
-                    <div class="gi-badge">GI Tagged</div>
-                    <div class="gi-icon">🌾</div>
-                    <h3 class="gi-title">Bankura Gobindobhog Rice</h3>
-                    <p class="gi-origin">📍 District: Bankura & Burdwan (বাঁকুড়া / বর্ধমান)</p>
-                    <p class="gi-desc">Aromatic short-grain heritage rice. Premium grading, dehusking, destoning, and
-                        vacuum retail packaging support.</p>
-                    <div class="gi-tags">
-                        <span>Aromatic Heritage</span>
-                        <span>AGMARK Graded</span>
-                        <span>100% Pure</span>
+                    <!-- 3. Bankura Gobindobhog Rice -->
+                    <div class="gi-card">
+                        <div class="gi-badge">GI Tagged</div>
+                        <div class="gi-icon">🌾</div>
+                        <h3 class="gi-title">Bankura Gobindobhog Rice</h3>
+                        <p class="gi-origin">📍 District: Bankura & Burdwan (বাঁকুড়া / বর্ধমান)</p>
+                        <p class="gi-desc">Aromatic short-grain heritage rice. Premium grading, dehusking, destoning, and
+                            vacuum retail packaging support.</p>
+                        <div class="gi-tags">
+                            <span>Aromatic Heritage</span>
+                            <span>AGMARK Graded</span>
+                            <span>100% Pure</span>
+                        </div>
+                        <a href="marketplace.html" class="gi-link">View Rice Lots →</a>
                     </div>
-                    <a href="marketplace.html" class="gi-link">View Rice Lots →</a>
-                </div>
 
-                <!-- 4. Sundarbans Organic Honey -->
-                <div class="gi-card">
-                    <div class="gi-badge">GI Tagged</div>
-                    <div class="gi-icon">🍯</div>
-                    <h3 class="gi-title">Sundarbans Mangrove Honey</h3>
-                    <p class="gi-origin">📍 District: South 24 Parganas (সুন্দরবন)</p>
-                    <p class="gi-desc">Pure wild mangrove forest honey with high therapeutic properties. AGMARK Grade-A
-                        certified with FSSAI compliance.</p>
-                    <div class="gi-tags">
-                        <span>100% Wild Forest</span>
-                        <span>AGMARK Grade-A</span>
-                        <span>FSSAI Compliant</span>
+                    <!-- 4. Sundarbans Organic Honey -->
+                    <div class="gi-card">
+                        <div class="gi-badge">GI Tagged</div>
+                        <div class="gi-icon">🍯</div>
+                        <h3 class="gi-title">Sundarbans Mangrove Honey</h3>
+                        <p class="gi-origin">📍 District: South 24 Parganas (সুন্দরবন)</p>
+                        <p class="gi-desc">Pure wild mangrove forest honey with high therapeutic properties. AGMARK Grade-A
+                            certified with FSSAI compliance.</p>
+                        <div class="gi-tags">
+                            <span>100% Wild Forest</span>
+                            <span>AGMARK Grade-A</span>
+                            <span>FSSAI Compliant</span>
+                        </div>
+                        <a href="marketplace.html" class="gi-link">View Honey Lots →</a>
                     </div>
-                    <a href="marketplace.html" class="gi-link">View Honey Lots →</a>
-                </div>
 
-                <!-- 5. Nadia Fresh Vegetables -->
-                <div class="gi-card">
-                    <div class="gi-badge">Agri Export Cluster</div>
-                    <div class="gi-icon">🥬</div>
-                    <h3 class="gi-title">Nadia Intensive Vegetables</h3>
-                    <p class="gi-origin">📍 District: Nadia (নদিয়া)</p>
-                    <p class="gi-desc">High-yield direct farm-fresh greens and exotic vegetables connected to Sufal
-                        Bangla retail hubs via reefer logistics.</p>
-                    <div class="gi-tags">
-                        <span>Same-Day Harvest</span>
-                        <span>Sufal Bangla</span>
-                        <span>0% Residue</span>
+                    <!-- 5. Nadia Fresh Vegetables -->
+                    <div class="gi-card">
+                        <div class="gi-badge">Agri Export Cluster</div>
+                        <div class="gi-icon">🥬</div>
+                        <h3 class="gi-title">Nadia Intensive Vegetables</h3>
+                        <p class="gi-origin">📍 District: Nadia (নদিয়া)</p>
+                        <p class="gi-desc">High-yield direct farm-fresh greens and exotic vegetables connected to Sufal
+                            Bangla retail hubs via reefer logistics.</p>
+                        <div class="gi-tags">
+                            <span>Same-Day Harvest</span>
+                            <span>Sufal Bangla</span>
+                            <span>0% Residue</span>
+                        </div>
+                        <a href="marketplace.html" class="gi-link">View Vegetable Lots →</a>
                     </div>
-                    <a href="marketplace.html" class="gi-link">View Vegetable Lots →</a>
-                </div>
 
-                <!-- 6. Darjeeling Orthodox Tea -->
-                <div class="gi-card">
-                    <div class="gi-badge">GI Tagged</div>
-                    <div class="gi-icon">🍵</div>
-                    <h3 class="gi-title">Darjeeling Orthodox Tea</h3>
-                    <p class="gi-origin">📍 District: Darjeeling (দার্জিলিং)</p>
-                    <p class="gi-desc">The 'Champagne of Teas' with distinct muscatel flavour. Complete electronic
-                        auction catalogue and international export testing.</p>
-                    <div class="gi-tags">
-                        <span>World GI</span>
-                        <span>Single Estate</span>
-                        <span>E-Auction</span>
+                    <!-- 6. Darjeeling Orthodox Tea -->
+                    <div class="gi-card">
+                        <div class="gi-badge">GI Tagged</div>
+                        <div class="gi-icon">🍵</div>
+                        <h3 class="gi-title">Darjeeling Orthodox Tea</h3>
+                        <p class="gi-origin">📍 District: Darjeeling (দার্জিলিং)</p>
+                        <p class="gi-desc">The 'Champagne of Teas' with distinct muscatel flavour. Complete electronic
+                            auction catalogue and international export testing.</p>
+                        <div class="gi-tags">
+                            <span>World GI</span>
+                            <span>Single Estate</span>
+                            <span>E-Auction</span>
+                        </div>
+                        <a href="marketplace.html" class="gi-link">View Tea Lots →</a>
                     </div>
-                    <a href="marketplace.html" class="gi-link">View Tea Lots →</a>
                 </div>
+            </div>
+
+            <!-- Mobile Slider Controls (Shown on mobile responsive view) -->
+            <div class="gi-slider-footer" id="giSliderFooter">
+                <button class="slider-arrow-btn gi-footer-arrow-btn" id="giFooterPrevBtn" aria-label="Previous GI Produce">‹</button>
+                <div class="gi-slider-dots" id="giSliderDots"></div>
+                <span class="gi-slider-counter" id="giSliderCounter">1 / 6</span>
+                <button class="slider-arrow-btn gi-footer-arrow-btn" id="giFooterNextBtn" aria-label="Next GI Produce">›</button>
             </div>
         </div>
     </section>
@@ -1270,7 +1315,7 @@
     <div id="common-footer"></div>
 
     <!-- Main Application Engine -->
-    <script src="./js/app.js"></script>
+    <script src="./js/app.js?v=3.0"></script>
 </body>
 
 </html>

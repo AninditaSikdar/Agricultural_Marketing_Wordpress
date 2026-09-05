@@ -8,8 +8,9 @@
         content="Official 19-Pillar Agricultural Marketing Services and Infrastructure Directory - Regulated market yards, post-harvest processing, multi-commodity cold storage, export pack houses, digital e-auction platforms, and project consultancy.">
     <title>Agricultural Marketing Services & Infrastructure | 19 Service Domains</title>
     <link rel="manifest" href="./manifest.json">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/button.css">
+    <link rel="stylesheet" href="./css/main.css?v=3.0">
+    <link rel="stylesheet" href="./css/button.css?v=3.0">
+    <link rel="stylesheet" href="./css/responsive.css?v=3.0">
 </head>
 
 <body>
@@ -119,8 +120,16 @@
        ========================================================================== -->
     <section class="section services-grid-section">
         <div class="container">
-            <div class="services-master-grid" id="servicesMasterGrid">
-                <!-- Dynamically populated via ServicesModule in app.js -->
+            <div class="services-slider-wrapper" id="servicesSliderWrapper">
+                <div class="services-master-grid" id="servicesMasterGrid">
+                    <!-- Dynamically populated via ServicesModule in app.js -->
+                </div>
+            </div>
+            <!-- Mobile Slider Controls (Shown only on mobile <=768px via responsive.css) -->
+            <div class="services-slider-footer" id="servicesSliderControls">
+                <button type="button" class="slider-arrow-btn" id="srvSliderPrevBtn" aria-label="Previous Service">‹</button>
+                <div class="services-slider-counter" id="srvSliderCounter">1 / 19</div>
+                <button type="button" class="slider-arrow-btn" id="srvSliderNextBtn" aria-label="Next Service">›</button>
             </div>
         </div>
     </section>

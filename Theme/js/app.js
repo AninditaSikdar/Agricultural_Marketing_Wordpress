@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     MarketplaceModule.init();
     NumberCounterModule.init();
     ServicesSliderModule.init();
+    GIShowcaseSliderModule.init();
     ServicesModule.init();
     SchemesSliderModule.init();
     NetRealisationModule.init();
@@ -268,9 +269,9 @@ const FooterComponent = {
         <a href="about.html#training-institute" class="affiliated-body-card" title="Netaji Subhas Training Institute of Agricultural Marketing (NSTIAM)">
             <img src="./images/logo-sec/nstiam-logo.jpg" alt="NSTIAM Enabling Employability" class="affiliated-body-img">
         </a>
-        <a href="services.html" class="affiliated-body-card affiliated-card-text" title="Construction Permission">
+        <!-- <a href="services.html" class="affiliated-body-card affiliated-card-text" title="Construction Permission">
             <span>Construction Permission</span>
-        </a>
+        </a> -->
     </div>
 </section>
 
@@ -1024,6 +1025,75 @@ const PersonaHubModule = {
 
         // Live E-Auction Simulator Timer
         this.initAuctionSimulator();
+
+        // Mobile Slider Controls for Persona Panes
+        this.initPersonaSliders();
+    },
+
+    initPersonaSliders() {
+        document.querySelectorAll('.persona-hub-pane').forEach(pane => {
+            const grid = pane.querySelector('.persona-grid');
+            const footer = pane.querySelector('.persona-slider-footer');
+            if (!grid || !footer) return;
+
+            const cards = Array.from(grid.querySelectorAll('.persona-feature-card'));
+            const prevBtn = footer.querySelector('.persona-prev-btn');
+            const nextBtn = footer.querySelector('.persona-next-btn');
+            const dots = footer.querySelectorAll('.persona-slider-dot');
+
+            let currentIdx = 0;
+
+            const updateControls = () => {
+                if (prevBtn) {
+                    prevBtn.disabled = currentIdx <= 0;
+                    prevBtn.style.opacity = currentIdx <= 0 ? '0.35' : '1';
+                    prevBtn.style.cursor = currentIdx <= 0 ? 'not-allowed' : 'pointer';
+                }
+                if (nextBtn) {
+                    nextBtn.disabled = currentIdx >= cards.length - 1;
+                    nextBtn.style.opacity = currentIdx >= cards.length - 1 ? '0.35' : '1';
+                    nextBtn.style.cursor = currentIdx >= cards.length - 1 ? 'not-allowed' : 'pointer';
+                }
+                dots.forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === currentIdx);
+                });
+            };
+
+            const scrollToCard = (index) => {
+                if (index < 0 || index >= cards.length) return;
+                currentIdx = index;
+                const card = cards[index];
+                if (card) {
+                    grid.scrollTo({
+                        left: card.offsetLeft - grid.offsetLeft,
+                        behavior: 'smooth'
+                    });
+                }
+                updateControls();
+            };
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => scrollToCard(currentIdx - 1));
+            }
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => scrollToCard(currentIdx + 1));
+            }
+
+            // Sync dots on scroll
+            grid.addEventListener('scroll', () => {
+                const scrollLeft = grid.scrollLeft;
+                const cardWidth = grid.offsetWidth;
+                if (cardWidth > 0) {
+                    const newIdx = Math.round(scrollLeft / cardWidth);
+                    if (newIdx !== currentIdx && newIdx >= 0 && newIdx < cards.length) {
+                        currentIdx = newIdx;
+                        updateControls();
+                    }
+                }
+            }, { passive: true });
+
+            updateControls();
+        });
     },
 
     generateGatePass() {
@@ -1771,12 +1841,164 @@ const ServicesSliderModule = {
 };
 
 /* ==========================================================================
+   GI COMMODITY SHOWCASE SLIDER MODULE (ONE-BY-ONE MOBILE SLIDER)
+   ========================================================================== */
+const GIShowcaseSliderModule = {
+    currentIndex: 0,
+    track: null,
+    cards: [],
+    dotsContainer: null,
+    counter: null,
+
+    init() {
+        this.track = document.getElementById('giShowcaseGrid') || document.querySelector('.gi-showcase-grid');
+        if (!this.track) return;
+
+        this.cards = Array.from(this.track.querySelectorAll('.gi-card'));
+        if (!this.cards.length) return;
+
+        this.dotsContainer = document.getElementById('giSliderDots');
+        this.counter = document.getElementById('giSliderCounter');
+
+        this.renderDots();
+        this.bindEvents();
+        this.update();
+    },
+
+    renderDots() {
+        if (!this.dotsContainer) return;
+        this.dotsContainer.innerHTML = '';
+        this.cards.forEach((_, idx) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = `slider-dot ${idx === this.currentIndex ? 'active' : ''}`;
+            dot.setAttribute('aria-label', `Go to slide ${idx + 1}`);
+            dot.addEventListener('click', () => this.goTo(idx));
+            this.dotsContainer.appendChild(dot);
+        });
+    },
+
+    bindEvents() {
+        // Wire up all prev buttons (both in header and in footer)
+        const prevButtons = [
+            document.getElementById('giPrevBtn'),
+            document.getElementById('giFooterPrevBtn')
+        ].filter(Boolean);
+        prevButtons.forEach(btn => btn.addEventListener('click', () => this.prev()));
+
+        // Wire up all next buttons (both in header and in footer)
+        const nextButtons = [
+            document.getElementById('giNextBtn'),
+            document.getElementById('giFooterNextBtn')
+        ].filter(Boolean);
+        nextButtons.forEach(btn => btn.addEventListener('click', () => this.next()));
+
+        // Touch swipe gestures
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+
+        this.track.addEventListener('touchstart', (e) => {
+            if (window.innerWidth > 768) return;
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        this.track.addEventListener('touchend', (e) => {
+            if (window.innerWidth > 768) return;
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            const diffX = touchStartX - touchEndX;
+            const diffY = touchStartY - touchEndY;
+            // Only trigger if horizontal swipe is dominant and passes threshold
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
+                if (diffX > 0) this.next();
+                else this.prev();
+            }
+        }, { passive: true });
+
+        // Mouse drag swipe support for desktop responsive emulation
+        let isMouseDown = false;
+        let mouseStartX = 0;
+
+        this.track.addEventListener('mousedown', (e) => {
+            if (window.innerWidth > 768) return;
+            isMouseDown = true;
+            mouseStartX = e.clientX;
+            this.track.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('mouseup', (e) => {
+            if (!isMouseDown) return;
+            isMouseDown = false;
+            this.track.style.cursor = '';
+            const diff = mouseStartX - e.clientX;
+            if (Math.abs(diff) > 40) {
+                if (diff > 0) this.next();
+                else this.prev();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            this.update();
+        });
+    },
+
+    next() {
+        this.currentIndex = (this.currentIndex < this.cards.length - 1) ? this.currentIndex + 1 : 0;
+        this.update();
+    },
+
+    prev() {
+        this.currentIndex = (this.currentIndex > 0) ? this.currentIndex - 1 : this.cards.length - 1;
+        this.update();
+    },
+
+    goTo(idx) {
+        if (idx < 0) idx = 0;
+        if (idx >= this.cards.length) idx = this.cards.length - 1;
+        this.currentIndex = idx;
+        this.update();
+    },
+
+    update() {
+        if (window.innerWidth > 768) {
+            if (this.track) this.track.style.transform = '';
+            return;
+        }
+
+        if (this.track) {
+            this.track.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+        }
+        this.updateUI();
+    },
+
+    updateUI() {
+        if (this.dotsContainer) {
+            const dots = this.dotsContainer.querySelectorAll('.slider-dot');
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === this.currentIndex);
+            });
+        }
+        if (this.counter) {
+            this.counter.textContent = `${this.currentIndex + 1} / ${this.cards.length}`;
+        }
+    }
+};
+
+/* ==========================================================================
    SERVICES DIRECTORY MODULE (19 DOCUMENT DOMAINS)
    ========================================================================== */
 const ServicesModule = {
     data: [],
     activeCategory: 'all',
     searchQuery: '',
+    currentIndex: 0,
+    totalCards: 0,
+    sliderInitialized: false,
+    touchStartX: 0,
+    touchEndX: 0,
 
     async init() {
         const container = document.getElementById('servicesMasterGrid');
@@ -1904,6 +2126,9 @@ const ServicesModule = {
                     <p style="color:var(--text-muted); max-width:450px; margin:0 auto;">No services match "${this.searchQuery}". Try searching for terms like "Mandi", "Cold storage", "Rice", "Malda", or "FPO".</p>
                 </div>
             `;
+            this.totalCards = 0;
+            this.currentIndex = 0;
+            this.updateSlider();
             return;
         }
 
@@ -2082,6 +2307,139 @@ const ServicesModule = {
         });
 
         grid.innerHTML = html;
+        this.totalCards = filtered.length;
+        this.currentIndex = 0;
+        this.setupSlider();
+        this.updateSlider();
+    },
+
+    setupSlider() {
+        if (this.sliderInitialized) return;
+        const prevBtn = document.getElementById('srvSliderPrevBtn');
+        const nextBtn = document.getElementById('srvSliderNextBtn');
+        const grid = document.getElementById('servicesMasterGrid');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => this.prev());
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => this.next());
+        }
+
+        if (grid) {
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let touchEndY = 0;
+
+            grid.addEventListener('touchstart', (e) => {
+                if (e.touches && e.touches.length) {
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                }
+            }, { passive: true });
+
+            grid.addEventListener('touchend', (e) => {
+                if (e.changedTouches && e.changedTouches.length) {
+                    touchEndX = e.changedTouches[0].clientX;
+                    touchEndY = e.changedTouches[0].clientY;
+                    const diffX = touchStartX - touchEndX;
+                    const diffY = touchStartY - touchEndY;
+                    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
+                        if (diffX > 0) this.next();
+                        else this.prev();
+                    }
+                }
+            }, { passive: true });
+
+            // Mouse drag gesture for browser emulation testing
+            let isMouseDown = false;
+            let mouseStartX = 0;
+            grid.addEventListener('mousedown', (e) => {
+                if (window.innerWidth > 768) return;
+                isMouseDown = true;
+                mouseStartX = e.clientX;
+            });
+            window.addEventListener('mouseup', (e) => {
+                if (!isMouseDown) return;
+                isMouseDown = false;
+                const diffX = mouseStartX - e.clientX;
+                if (Math.abs(diffX) > 40) {
+                    if (diffX > 0) this.next();
+                    else this.prev();
+                }
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            const g = document.getElementById('servicesMasterGrid');
+            const controls = document.getElementById('servicesSliderControls');
+            if (window.innerWidth > 768) {
+                if (g) g.style.transform = '';
+                if (controls) controls.style.display = '';
+            } else {
+                this.updateSlider();
+            }
+        });
+
+        this.sliderInitialized = true;
+    },
+
+    prev() {
+        if (this.currentIndex > 0) {
+            this.currentIndex--;
+            this.updateSlider();
+        }
+    },
+
+    next() {
+        if (this.currentIndex < this.totalCards - 1) {
+            this.currentIndex++;
+            this.updateSlider();
+        }
+    },
+
+    goTo(index) {
+        if (index >= 0 && index < this.totalCards) {
+            this.currentIndex = index;
+            this.updateSlider();
+        }
+    },
+
+    updateSlider() {
+        const grid = document.getElementById('servicesMasterGrid');
+        const counter = document.getElementById('srvSliderCounter');
+        const prevBtn = document.getElementById('srvSliderPrevBtn');
+        const nextBtn = document.getElementById('srvSliderNextBtn');
+        const controls = document.getElementById('servicesSliderControls');
+
+        if (!grid) return;
+
+        if (window.innerWidth <= 768) {
+            grid.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+            if (controls) {
+                controls.style.display = this.totalCards > 1 ? 'flex' : 'none';
+            }
+            const currentNum = this.totalCards === 0 ? 0 : this.currentIndex + 1;
+            if (counter) {
+                counter.textContent = `${currentNum} / ${this.totalCards}`;
+            }
+            if (prevBtn) {
+                const isFirst = this.currentIndex <= 0;
+                prevBtn.disabled = isFirst;
+                prevBtn.style.opacity = isFirst ? '0.35' : '1';
+                prevBtn.style.cursor = isFirst ? 'not-allowed' : 'pointer';
+            }
+            if (nextBtn) {
+                const isLast = this.currentIndex >= this.totalCards - 1;
+                nextBtn.disabled = isLast;
+                nextBtn.style.opacity = isLast ? '0.35' : '1';
+                nextBtn.style.cursor = isLast ? 'not-allowed' : 'pointer';
+            }
+        } else {
+            grid.style.transform = '';
+            if (controls) controls.style.display = 'none';
+        }
     }
 };
 
