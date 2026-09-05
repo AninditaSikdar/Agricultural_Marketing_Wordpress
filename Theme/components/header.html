@@ -41,47 +41,138 @@
 <!-- Main Brand Header & Navigation -->
 <header class="main-header">
     <div class="container header-container">
-        <a href="index.html" class="brand-section" aria-label="Agricultural Marketing Department">
+        <a href="index.html" class="brand-section"
+            aria-label="Agricultural Marketing Department, Government of West Bengal">
             <div class="brand-emblem-wrapper">
-                <img src="./images/Logo.png" alt="Agricultural Marketing Department Logo" class="brand-logo-img">
+                <img src="./images/Logo.png" alt="Emblem of India" class="brand-logo-img">
+            </div>
+            <div class="brand-text-block">
+                <span class="brand-title" data-i18n="dept_title">Agricultural Marketing Department</span>
+                <br>
+                <span class="brand-subtitle" data-i18n="dept_gov_wb">Government of West Bengal</span>
             </div>
         </a>
 
         <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">
+            <!-- Mobile Drawer Header with Close Button -->
+            <div class="nav-drawer-header">
+                <div class="nav-drawer-brand">
+                    <span class="nav-drawer-logo">🌾</span>
+                    <span class="nav-drawer-title">Navigation</span>
+                </div>
+                <button type="button" class="nav-close-btn" id="navCloseBtn" aria-label="Close Navigation Menu">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
             <div class="nav-item"><a href="index.html" class="nav-link" data-i18n="nav_home">Home</a></div>
+
             <div class="nav-item">
                 <a href="mandi-rates.html" class="nav-link">
                     <span data-i18n="nav_rates">Mandi Rates</span>
                 </a>
             </div>
-            <div class="nav-item">
-                <a href="logistics-freight.html" class="nav-link">
-                    <span data-i18n="nav_logistics">Logistics</span>
-                </a>
+
+            <!-- Services & Infrastructure Dropdown -->
+            <div class="nav-item has-dropdown">
+                <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+                    <span data-i18n="nav_services">Services</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="nav-dropdown-menu">
+                    <a href="services.html" class="dropdown-item">
+                        <span class="dropdown-icon">🏛️</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_services">Services & Infrastructure</span>
+                            <span class="dropdown-subtitle">19 Core Strategic Domains</span>
+                        </div>
+                    </a>
+                    <a href="logistics-freight.html" class="dropdown-item">
+                        <span class="dropdown-icon">🚚</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_logistics">Logistics & Freight</span>
+                            <span class="dropdown-subtitle">Agri Fleet & Route Transit</span>
+                        </div>
+                    </a>
+                    <a href="cold-storage.html" class="dropdown-item">
+                        <span class="dropdown-icon">❄️</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_cold_storage">Cold Storages & Silos</span>
+                            <span class="dropdown-subtitle">WDRA Grid & e-NWR Financing</span>
+                        </div>
+                    </a>
+                    <a href="schemes.html" class="dropdown-item">
+                        <span class="dropdown-icon">🌾</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_schemes">Schemes & Subsidies</span>
+                            <span class="dropdown-subtitle">State Grants & Applications</span>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="nav-item">
-                <a href="cold-storage.html" class="nav-link">
-                    <span data-i18n="nav_cold_storage">Cold Storages</span>
-                </a>
+
+            <!-- Digital Trade Dropdown -->
+            <div class="nav-item has-dropdown">
+                <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+                    <span data-i18n="nav_trade">Digital Trade</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="nav-dropdown-menu">
+                    <a href="marketplace.html" class="dropdown-item">
+                        <span class="dropdown-icon">🤝</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_marketplace">Farm Connect Marketplace</span>
+                            <span class="dropdown-subtitle">Verified Lots & Live e-Auctions</span>
+                        </div>
+                    </a>
+                    <a href="ebijak-ledger.html" class="dropdown-item">
+                        <span class="dropdown-icon">📑</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_ebijak">e-Bijak Invoicing</span>
+                            <span class="dropdown-subtitle">APMC Cess & Digital Ledgers</span>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="nav-item">
-                <a href="marketplace.html" class="nav-link">
-                    <span data-i18n="nav_marketplace">Farm Connect</span>
-                </a>
+
+            <!-- About Department Dropdown -->
+            <div class="nav-item has-dropdown dropdown-right">
+                <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+                    <span data-i18n="nav_about">About Us</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="nav-dropdown-menu">
+                    <a href="about.html" class="dropdown-item">
+                        <span class="dropdown-icon">🏛️</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_about_dept">About Agricultural Marketing Department</span>
+                        </div>
+                    </a>
+                    <a href="about.html#krishak-bazar" class="dropdown-item">
+                        <span class="dropdown-icon">🏪</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_krishak_bazar">Krishak Bazar</span>
+                        </div>
+                    </a>
+                    <a href="about.html#paddy-procurement" class="dropdown-item">
+                        <span class="dropdown-icon">🌾</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_paddy_proc">Paddy Procurement</span>
+                        </div>
+                    </a>
+                    <a href="schemes.html" class="dropdown-item">
+                        <span class="dropdown-icon">📋</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_proj_scheme">Project and Scheme</span>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="nav-item">
-                <a href="ebijak-ledger.html" class="nav-link">
-                    <span data-i18n="nav_ebijak">e-Bijak</span>
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="schemes.html" class="nav-link">
-                    <span data-i18n="nav_schemes">Schemes & Subsidies</span>
-                </a>
-            </div>
-            <div class="nav-item"><a href="about.html" class="nav-link" data-i18n="nav_about">About Us</a></div>
-            <div class="nav-item"><a href="notices.html" class="nav-link"><span data-i18n="nav_notices">Tenders &
-                        Notices</span></a></div>
+
             <div class="nav-item"><a href="contact.html" class="nav-link" data-i18n="nav_contact">Contact Us</a></div>
         </nav>
 

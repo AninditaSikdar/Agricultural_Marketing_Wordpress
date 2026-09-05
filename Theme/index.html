@@ -46,9 +46,6 @@
                         <a href="ebijak-ledger.html" class="btn hero-btn-ebijak">
                             📑 <span data-i18n="btn_ebijak">Generate e-Bijak Invoice</span>
                         </a>
-                        <a href="schemes.html" class="btn hero-btn-subsidy">
-                            🧮 <span data-i18n="btn_calc_subsidy">Subsidy Calculator</span>
-                        </a>
                     </div>
 
                     <!-- Instant Commodity Price Discovery Card -->
@@ -517,8 +514,7 @@
                             </div>
                         </div>
 
-                        <div class="form-grid-3"
-                            style="display:grid; grid-template-columns: repeat(3, 1fr); gap:0.75rem;">
+                        <div class="form-grid-3">
                             <div class="calc-group">
                                 <label class="calc-label">Transport (₹/Qtl):</label>
                                 <input type="number" id="nrTransport" class="form-input" value="85">
@@ -555,7 +551,8 @@
                             <div class="real-box term-box">
                                 <div class="box-lbl">Option B: Terminal Market</div>
                                 <div class="box-val" id="nrTermNet" style="color:var(--success);">₹1,640
-                                    <small>/Qtl</small></div>
+                                    <small>/Qtl</small>
+                                </div>
                                 <div class="box-sub">Gross: ₹1,780 | Deductions: ₹140</div>
                             </div>
                         </div>
@@ -571,8 +568,8 @@
                             </div>
                         </div>
 
-                        <div style="display:flex; gap:0.6rem; margin-top:1.25rem;">
-                            <a href="logistics-freight.html" class="btn btn-primary" style="flex:1;">
+                        <div class="net-real-actions">
+                            <a href="logistics-freight.html" class="btn btn-primary">
                                 🚛 Book Freight Dispatch →
                             </a>
                             <button type="button" class="btn btn-outline"
@@ -601,7 +598,11 @@
                         logistics, cold chain, and direct trade.
                     </p>
                 </div>
-                <div class="slider-arrow-controls">
+                <div class="slider-arrow-controls" style="display:flex; align-items:center; gap:0.75rem;">
+                    <a href="services.html" class="btn btn-outline"
+                        style="font-size:0.85rem; padding:0.45rem 0.9rem; white-space:nowrap;">
+                        📄 All 19 Services →
+                    </a>
                     <button class="slider-arrow-btn" id="servicesPrevBtn" aria-label="Previous Service Slide">‹</button>
                     <button class="slider-arrow-btn" id="servicesNextBtn" aria-label="Next Service Slide">›</button>
                 </div>
@@ -753,6 +754,12 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div style="text-align:center; margin-top:2.2rem;">
+                <a href="services.html" class="btn btn-primary"
+                    style="padding:0.75rem 1.75rem; font-size:0.95rem; font-weight:700;">
+                    🏛️ Explore All Services →
+                </a>
             </div>
         </div>
     </section>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Official 19-Pillar Agricultural Marketing Services and Infrastructure Directory - Regulated market yards, post-harvest processing, multi-commodity cold storage, export pack houses, digital e-auction platforms, and project consultancy.">
+    <title>Agricultural Marketing Services & Infrastructure | 19 Service Domains</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/button.css">
+</head>
+
+<body>
+
+    <!-- Common Header Container (Rendered dynamically via app.js) -->
+    <div id="common-header"></div>
+
+    <!-- ==========================================================================
+       PAGE BANNER WITH AMBIENT GLOW
+       ========================================================================== -->
+    <section class="page-banner">
+        <div class="banner-ambient-glow"></div>
+        <div class="container">
+            <div class="page-banner-grid">
+                <div class="page-banner-content">
+                    <div class="page-banner-badge">
+                        <span class="pulse-dot"></span>
+                        <span data-i18n="services_banner_badge">19 Strategic Service Domains</span>
+                    </div>
+
+                    <div class="breadcrumb">
+                        <a href="index.html" data-i18n="nav_home">Home</a>
+                        <span class="separator">/</span>
+                        <span class="current" data-i18n="nav_services">Services</span>
+                    </div>
+
+                    <h1 class="page-banner-title" data-i18n="services_banner_title">Agricultural Marketing Services & Infrastructure</h1>
+                    <p class="page-banner-desc" data-i18n="services_banner_desc">
+                        Comprehensive operational directory of all 19 specialized service domains across West Bengal - from regulated market yards and cold chains to export cargo and project consultancy.
+                    </p>
+
+                    <div class="page-banner-meta-pills">
+                        <span class="meta-pill">🏛️ Regulated Mandis</span>
+                        <span class="meta-pill">❄️ Cold Chain & Warehousing</span>
+                        <span class="meta-pill">🚚 4-Tier Logistics</span>
+                        <span class="meta-pill">🌾 Post-Harvest & Processing</span>
+                        <span class="meta-pill">👥 FPO Aggregation</span>
+                        <span class="meta-pill">📱 Digital Platforms</span>
+                    </div>
+                </div>
+
+                <div class="page-banner-visual">
+                    <div class="banner-image-frame">
+                        <img src="./images/banner-schemes.jpg" alt="Agricultural Services & Infrastructure" class="banner-main-img">
+                        <div class="banner-floating-chip">
+                            <span class="chip-icon">🌟</span>
+                            <div>
+                                <div class="chip-label">Official State Blueprint</div>
+                                <div class="chip-val">19 Core Infrastructure Pillars</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       SERVICES DIRECTORY CONTROLS: SEARCH & CATEGORY CLUSTERS
+       ========================================================================== -->
+    <section class="services-controls-section">
+        <div class="container">
+            <div class="services-search-wrapper">
+                <div class="services-search-bar">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="servicesSearchInput" class="services-search-input"
+                        placeholder="Search services by name, crop, or district (e.g. Cold storage, Rice, Malda, FPO)..."
+                        data-i18n="services_search_placeholder">
+                    <button type="button" id="servicesSearchClear" class="search-clear-btn" style="display:none;" aria-label="Clear search">✕</button>
+                </div>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="services-filter-tabs" id="servicesFilterTabs" role="tablist">
+                <button type="button" class="service-tab-btn active" data-category="all" data-i18n="services_filter_all">
+                    🌟 All 19 Services
+                </button>
+                <button type="button" class="service-tab-btn" data-category="market_infra" data-i18n="services_filter_infra">
+                    🏛️ Market Infrastructure
+                </button>
+                <button type="button" class="service-tab-btn" data-category="post_harvest" data-i18n="services_filter_post_harvest">
+                    🌾 Post-Harvest & Processing
+                </button>
+                <button type="button" class="service-tab-btn" data-category="cold_chain" data-i18n="services_filter_cold">
+                    ❄️ Cold Chain & Warehousing
+                </button>
+                <button type="button" class="service-tab-btn" data-category="logistics" data-i18n="services_filter_logistics">
+                    🚚 Logistics & Export
+                </button>
+                <button type="button" class="service-tab-btn" data-category="farmer_fpo" data-i18n="services_filter_fpo">
+                    👥 Farmer & FPO Ecosystem
+                </button>
+                <button type="button" class="service-tab-btn" data-category="digital_consultancy" data-i18n="services_filter_digital">
+                    💻 Digital & Consultancy
+                </button>
+            </div>
+
+            <div class="services-count-bar">
+                <span id="servicesCountDisplay">Showing all <strong>19</strong> Services & Infrastructure Pillars</span>
+                <span class="services-legend">📄 Mapped to Department Specification Document</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       MAIN 19-SERVICE DOMAIN GRID
+       ========================================================================== -->
+    <section class="section services-grid-section">
+        <div class="container">
+            <div class="services-master-grid" id="servicesMasterGrid">
+                <!-- Dynamically populated via ServicesModule in app.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       SERVICE INQUIRY & ONBOARDING MODAL
+       ========================================================================== -->
+    <div class="modal-overlay" id="serviceInquiryModal">
+        <div class="modal-card" style="max-width:580px;">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title">📋 Service Inquiry & Facility Access</h3>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.2rem;" id="modalServiceTarget">
+                        Agricultural Marketing Department Official Assistance
+                    </p>
+                </div>
+                <button type="button" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="serviceInquiryForm">
+                    <input type="hidden" id="inquiryServiceNumber" value="">
+                    
+                    <div class="calc-group">
+                        <label class="calc-label">Selected Service Domain:</label>
+                        <input type="text" id="inquiryServiceName" class="form-input" readonly
+                            style="background:var(--bg-subtle); font-weight:700; color:var(--primary);">
+                    </div>
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.85rem;">
+                        <div class="calc-group">
+                            <label class="calc-label">Applicant / Entity Name *</label>
+                            <input type="text" id="inquiryApplicantName" class="form-input" placeholder="e.g. Subhash Ghosh / Hooghly FPO" required>
+                        </div>
+                        <div class="calc-group">
+                            <label class="calc-label">Applicant Type *</label>
+                            <select id="inquiryApplicantType" class="form-select" required>
+                                <option value="farmer">Individual Farmer / Grower</option>
+                                <option value="fpo">FPO / FPC / Cooperative</option>
+                                <option value="trader">APMC Commission Agent / Trader</option>
+                                <option value="processor">Food Processor / Mill Owner</option>
+                                <option value="institution">Institutional Buyer / Retail Chain</option>
+                                <option value="exporter">Agri Exporter</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.85rem;">
+                        <div class="calc-group">
+                            <label class="calc-label">District *</label>
+                            <select id="inquiryDistrict" class="form-select" required>
+                                <option value="Hooghly">Hooghly</option>
+                                <option value="Burdwan">Purba Bardhaman</option>
+                                <option value="Nadia">Nadia</option>
+                                <option value="Malda">Malda</option>
+                                <option value="Murshidabad">Murshidabad</option>
+                                <option value="Bankura">Bankura</option>
+                                <option value="Purba Medinipur">Purba Medinipur</option>
+                                <option value="Darjeeling">Darjeeling</option>
+                                <option value="North 24 Parganas">North 24 Parganas</option>
+                                <option value="South 24 Parganas">South 24 Parganas</option>
+                                <option value="Kolkata">Kolkata</option>
+                                <option value="Other">Other District</option>
+                            </select>
+                        </div>
+                        <div class="calc-group">
+                            <label class="calc-label">Phone / WhatsApp *</label>
+                            <input type="tel" id="inquiryPhone" class="form-input" placeholder="+91 98300 XXXXX" required>
+                        </div>
+                    </div>
+
+                    <div class="calc-group">
+                        <label class="calc-label">Facility Details / Specific Requirement</label>
+                        <textarea id="inquiryDetails" class="form-input" rows="3"
+                            placeholder="Describe your produce quantity, required cold chamber, logistics route, or project DPR requirement..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.5rem;">
+                        📨 Submit Service Onboarding Request
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Common Footer Container (Rendered dynamically via app.js) -->
+    <div id="common-footer"></div>
+
+    <script src="./js/app.js"></script>
+</body>
+
+</html>

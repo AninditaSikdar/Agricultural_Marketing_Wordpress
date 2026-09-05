@@ -23,7 +23,6 @@
     white-space: nowrap;
     user-select: none;
     flex-shrink: 0;
-    min-width: max-content;
     box-sizing: border-box;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
@@ -312,9 +311,8 @@
     transform: scale(1.02);
 }
 
-/* Mobile Toggle Hamburger Button */
+/* Mobile Toggle Hamburger Button — visibility controlled by main.css @media rules */
 .mobile-toggle-btn {
-    display: none;
     background: transparent;
     border: none;
     color: var(--text-main, #1e293b);

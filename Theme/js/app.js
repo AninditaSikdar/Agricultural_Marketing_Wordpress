@@ -23,11 +23,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     PersonaHubModule.init();
     EBijakModule.init();
     FreightCalculatorModule.init();
-    SubsidyCalculatorModule.init();
     ColdStorageModule.init();
     MarketplaceModule.init();
     NumberCounterModule.init();
     ServicesSliderModule.init();
+    ServicesModule.init();
     SchemesSliderModule.init();
     NetRealisationModule.init();
     BackToTopModule.init();
@@ -77,36 +77,135 @@ const HeaderComponent = {
 <!-- Main Brand Header & Navigation -->
 <header class="main-header">
     <div class="container header-container">
-        <a href="index.html" class="brand-section" aria-label="Agricultural Marketing Department">
+        <a href="index.html" class="brand-section" aria-label="Agricultural Marketing Department, Government of West Bengal">
             <div class="brand-emblem-wrapper">
-                <img src="./images/Logo.png" alt="Agricultural Marketing Department Logo" class="brand-logo-img">
+                <img src="./images/Logo.png" alt="Government of West Bengal Emblem" class="brand-logo-img">
+            </div>
+            <div class="brand-text-block">
+                <span class="brand-title" data-i18n="dept_title">Agricultural Marketing Department</span>
+                <span class="brand-subtitle" data-i18n="dept_gov_wb">Government of West Bengal</span>
             </div>
         </a>
 
         <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">
+            <!-- Mobile Drawer Header with Close Button -->
+            <div class="nav-drawer-header">
+                <div class="nav-drawer-brand">
+                    <span class="nav-drawer-logo">🌾</span>
+                    <span class="nav-drawer-title">Navigation</span>
+                </div>
+                <button type="button" class="nav-close-btn" id="navCloseBtn" aria-label="Close Navigation Menu">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
             <div class="nav-item"><a href="index.html" class="nav-link" data-i18n="nav_home">Home</a></div>
+            
             <div class="nav-item">
                 <a href="mandi-rates.html" class="nav-link">
                     <span data-i18n="nav_rates">Mandi Rates</span>
                 </a>
             </div>
-            <div class="nav-item">
-                <a href="schemes.html" class="nav-link">
-                    <span data-i18n="nav_schemes">Schemes & Subsidies</span>
-                </a>
+
+            <!-- Services & Infrastructure Dropdown -->
+            <div class="nav-item has-dropdown">
+                <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+                    <span data-i18n="nav_services">Services</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="nav-dropdown-menu">
+                    <a href="services.html" class="dropdown-item">
+                        <span class="dropdown-icon">🏛️</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_services">Services & Infrastructure</span>
+                            <span class="dropdown-subtitle">19 Core Strategic Domains</span>
+                        </div>
+                    </a>
+                    <a href="logistics-freight.html" class="dropdown-item">
+                        <span class="dropdown-icon">🚚</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_logistics">Logistics & Freight</span>
+                            <span class="dropdown-subtitle">Agri Fleet & Route Transit</span>
+                        </div>
+                    </a>
+                    <a href="cold-storage.html" class="dropdown-item">
+                        <span class="dropdown-icon">❄️</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_cold_storage">Cold Storages & Silos</span>
+                            <span class="dropdown-subtitle">WDRA Grid & e-NWR Financing</span>
+                        </div>
+                    </a>
+                    <a href="schemes.html" class="dropdown-item">
+                        <span class="dropdown-icon">🌾</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_schemes">Schemes & Subsidies</span>
+                            <span class="dropdown-subtitle">State Grants & Applications</span>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="nav-item">
-                <a href="cold-storage.html" class="nav-link">
-                    <span data-i18n="nav_cold_storage">Cold Storages</span>
-                </a>
+
+            <!-- Digital Trade Dropdown -->
+            <div class="nav-item has-dropdown">
+                <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+                    <span data-i18n="nav_trade">Digital Trade</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="nav-dropdown-menu">
+                    <a href="marketplace.html" class="dropdown-item">
+                        <span class="dropdown-icon">🤝</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_marketplace">Farm Connect Marketplace</span>
+                            <span class="dropdown-subtitle">Verified Lots & Live e-Auctions</span>
+                        </div>
+                    </a>
+                    <a href="ebijak-ledger.html" class="dropdown-item">
+                        <span class="dropdown-icon">📑</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_ebijak">e-Bijak Invoicing</span>
+                            <span class="dropdown-subtitle">APMC Cess & Digital Ledgers</span>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="nav-item">
-                <a href="marketplace.html" class="nav-link">
-                    <span data-i18n="nav_marketplace">Farm Connect</span>
-                </a>
+
+            <!-- About Department Dropdown -->
+            <div class="nav-item has-dropdown dropdown-right">
+                <button type="button" class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+                    <span data-i18n="nav_about">About Us</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="nav-dropdown-menu">
+                    <a href="about.html" class="dropdown-item">
+                        <span class="dropdown-icon">🏛️</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_about_dept">About Agricultural Marketing Department</span>
+                        </div>
+                    </a>
+                    <a href="about.html#krishak-bazar" class="dropdown-item">
+                        <span class="dropdown-icon">🏪</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_krishak_bazar">Krishak Bazar</span>
+                        </div>
+                    </a>
+                    <a href="about.html#paddy-procurement" class="dropdown-item">
+                        <span class="dropdown-icon">🌾</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_paddy_proc">Paddy Procurement</span>
+                        </div>
+                    </a>
+                    <a href="schemes.html" class="dropdown-item">
+                        <span class="dropdown-icon">📋</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_proj_scheme">Project and Scheme</span>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="nav-item"><a href="about.html" class="nav-link" data-i18n="nav_about">About Us</a></div>
-            <div class="nav-item"><a href="notices.html" class="nav-link"><span data-i18n="nav_notices">Tenders & Notices</span></a></div>
+
             <div class="nav-item"><a href="contact.html" class="nav-link" data-i18n="nav_contact">Contact Us</a></div>
         </nav>
 
@@ -155,6 +254,26 @@ const HeaderComponent = {
    ========================================================================== */
 const FooterComponent = {
     template: `
+<section class="affiliated-bodies-strip" aria-label="Affiliated Bodies and Directorates">
+    <div class="container affiliated-bodies-container">
+        <a href="about.html#directorate" class="affiliated-body-card" title="Directorate of Agricultural Marketing, Govt. of West Bengal">
+            <img src="./images/logo-sec/Directorate.jpg" alt="Directorate Agri.Mkt., Govt.of WB" class="affiliated-body-img">
+        </a>
+        <a href="about.html#wbsamb" class="affiliated-body-card" title="West Bengal State Agricultural Marketing Board (WBSAMB)">
+            <img src="./images/logo-sec/WBSAMB.jpg" alt="WBSAMB" class="affiliated-body-img">
+        </a>
+        <a href="about.html#corporation" class="affiliated-body-card" title="Paschimbanga Agri Marketing Corporation Ltd.">
+            <img src="./images/logo-sec/corporation.jpg" alt="Paschimbanga Agri Marketing Corporation Ltd." class="affiliated-body-img">
+        </a>
+        <a href="about.html#training-institute" class="affiliated-body-card" title="Netaji Subhas Training Institute of Agricultural Marketing (NSTIAM)">
+            <img src="./images/logo-sec/nstiam-logo.jpg" alt="NSTIAM Enabling Employability" class="affiliated-body-img">
+        </a>
+        <a href="services.html" class="affiliated-body-card affiliated-card-text" title="Construction Permission">
+            <span>Construction Permission</span>
+        </a>
+    </div>
+</section>
+
 <footer class="footer">
     <div class="container">
         <div class="footer-grid">
@@ -175,6 +294,7 @@ const FooterComponent = {
                 <ul class="footer-links">
                     <li><a href="index.html">› <span data-i18n="nav_home">Home</span></a></li>
                     <li><a href="mandi-rates.html">› <span data-i18n="nav_rates">Daily Mandi Rates</span></a></li>
+                    <li><a href="services.html">› <span data-i18n="nav_services">Services & Infrastructure</span></a></li>
                     <li><a href="ebijak-ledger.html">› <span data-i18n="nav_ebijak">e-Bijak & Ledgers</span></a></li>
                     <li><a href="logistics-freight.html">› <span data-i18n="nav_logistics">Logistics & Freight</span></a></li>
                     <li><a href="schemes.html">› <span data-i18n="nav_schemes">Schemes & Subsidies</span></a></li>
@@ -283,13 +403,14 @@ const BackToTopModule = {
 const DataLoader = {
     async init() {
         try {
-            const [mandiRes, csRes, marketRes, noticesRes, schemesRes, transRes] = await Promise.allSettled([
+            const [mandiRes, csRes, marketRes, noticesRes, schemesRes, transRes, servicesRes] = await Promise.allSettled([
                 fetch('./data/mandi-rates.json').then(r => r.json()),
                 fetch('./data/cold-storage.json').then(r => r.json()),
                 fetch('./data/marketplace.json').then(r => r.json()),
                 fetch('./data/notices.json').then(r => r.json()),
                 fetch('./data/schemes.json').then(r => r.json()),
-                fetch('./data/translations.json').then(r => r.json())
+                fetch('./data/translations.json').then(r => r.json()),
+                fetch('./data/services.json').then(r => r.json())
             ]);
 
             if (mandiRes.status === 'fulfilled' && Array.isArray(mandiRes.value)) {
@@ -311,6 +432,9 @@ const DataLoader = {
             }
             if (transRes.status === 'fulfilled' && transRes.value) {
                 I18nEngine.translations = transRes.value;
+            }
+            if (servicesRes.status === 'fulfilled' && Array.isArray(servicesRes.value)) {
+                DataLoader.services = servicesRes.value;
             }
         } catch (e) {
             console.info("Using embedded datasets.");
@@ -382,9 +506,9 @@ const I18nEngine = {
         try { if (typeof QuickDiscoveryModule !== 'undefined') QuickDiscoveryModule.updateLocalizedOptions(); } catch (e) { }
         try { if (typeof EBijakModule !== 'undefined') EBijakModule.updateLocalizedLabels(); } catch (e) { }
         try { if (typeof FreightCalculatorModule !== 'undefined') FreightCalculatorModule.calculate(); } catch (e) { }
-        try { if (typeof SubsidyCalculatorModule !== 'undefined') SubsidyCalculatorModule.calculate(); } catch (e) { }
         try { if (typeof ColdStorageModule !== 'undefined') ColdStorageModule.render(); } catch (e) { }
         try { if (typeof MarketplaceModule !== 'undefined') MarketplaceModule.render(); } catch (e) { }
+        try { if (typeof ServicesModule !== 'undefined') ServicesModule.render(); } catch (e) { }
     }
 };
 
@@ -1231,95 +1355,6 @@ const FreightCalculatorModule = {
     }
 };
 
-/* ==========================================================================
-   7. SUBSIDY & SCHEME CALCULATOR
-   ========================================================================== */
-const SubsidyCalculatorModule = {
-    selectedBeneficiary: 'small_farmer',
-    selectedFacility: 'vehicle',
-    costValue: 3.5,
-
-    init() {
-        document.querySelectorAll('.calc-opt-beneficiary').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.calc-opt-beneficiary').forEach(b => b.classList.remove('active'));
-                e.currentTarget.classList.add('active');
-                this.selectedBeneficiary = e.currentTarget.getAttribute('data-val');
-                this.calculate();
-            });
-        });
-
-        document.querySelectorAll('.calc-opt-facility').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.calc-opt-facility').forEach(b => b.classList.remove('active'));
-                e.currentTarget.classList.add('active');
-                this.selectedFacility = e.currentTarget.getAttribute('data-val');
-                this.calculate();
-            });
-        });
-
-        const costInput = document.getElementById('calcCostInput');
-        if (costInput) {
-            costInput.addEventListener('input', (e) => {
-                this.costValue = parseFloat(e.target.value) || 1;
-                const costDisplay = document.getElementById('calcCostDisplay');
-                if (costDisplay) costDisplay.textContent = `₹${this.costValue.toFixed(1)} Lakhs`;
-                this.calculate();
-            });
-        }
-
-        this.calculate();
-    },
-
-    calculate() {
-        let percent = 50;
-        let maxCap = 1.5;
-        let schemeName = "Amar Fasal Amar Gari Scheme";
-
-        if (this.selectedBeneficiary === 'small_farmer') {
-            percent = 50;
-            maxCap = 1.5;
-        } else if (this.selectedBeneficiary === 'women_farmer') {
-            percent = 60;
-            maxCap = 2.5;
-        } else if (this.selectedBeneficiary === 'fpo') {
-            percent = 55;
-            maxCap = 15.0;
-        } else if (this.selectedBeneficiary === 'agri_startup') {
-            percent = 35;
-            maxCap = 10.0;
-        }
-
-        if (this.selectedFacility === 'cold') {
-            schemeName = "Solar Cold Room & Storage Support Scheme";
-            percent = Math.min(percent + 5, 60);
-            maxCap = 5.0;
-        } else if (this.selectedFacility === 'packhouse') {
-            schemeName = "Agricultural Marketing Infrastructure (AMI) Scheme";
-            maxCap = 8.0;
-        } else if (this.selectedFacility === 'kiosk') {
-            schemeName = "Amar Dukan Modern Retail Kiosk Grant";
-            maxCap = 1.2;
-        }
-
-        const eligibleSubsidy = Math.min((this.costValue * percent) / 100, maxCap);
-        const farmerShare = this.costValue - eligibleSubsidy;
-
-        const amountEl = document.getElementById('calcResAmount');
-        const percentEl = document.getElementById('calcResPercent');
-        const schemeEl = document.getElementById('calcResScheme');
-        const breakTotal = document.getElementById('calcBreakTotal');
-        const breakGov = document.getElementById('calcBreakGov');
-        const breakOwn = document.getElementById('calcBreakOwn');
-
-        if (amountEl) amountEl.textContent = `₹${eligibleSubsidy.toFixed(2)} Lakhs`;
-        if (percentEl) percentEl.textContent = `${percent}% (Max ₹${maxCap}L)`;
-        if (schemeEl) schemeEl.textContent = schemeName;
-        if (breakTotal) breakTotal.textContent = `₹${this.costValue.toFixed(2)} Lakhs`;
-        if (breakGov) breakGov.textContent = `₹${eligibleSubsidy.toFixed(2)} Lakhs`;
-        if (breakOwn) breakOwn.textContent = `₹${farmerShare.toFixed(2)} Lakhs`;
-    }
-};
 
 /* ==========================================================================
    8. COLD STORAGE & WDRA E-NWR LOCATOR MODULE
@@ -1708,17 +1743,345 @@ const ServicesSliderModule = {
             }
         };
 
+        const getMax = () => {
+            const items = document.querySelectorAll('.service-slide-item');
+            const visible = window.innerWidth <= 680 ? 1 : (window.innerWidth <= 1024 ? 2 : 3);
+            return Math.max(0, items.length - visible);
+        };
+
         if (prevBtn) prevBtn.addEventListener('click', () => {
             if (this.currentIndex > 0) this.currentIndex--;
+            else this.currentIndex = getMax();
             update();
         });
 
         if (nextBtn) nextBtn.addEventListener('click', () => {
-            const max = Math.max(0, document.querySelectorAll('.service-slide-item').length - 2);
+            const max = getMax();
             if (this.currentIndex < max) this.currentIndex++;
             else this.currentIndex = 0;
             update();
         });
+
+        window.addEventListener('resize', () => {
+            const max = getMax();
+            if (this.currentIndex > max) this.currentIndex = max;
+            update();
+        });
+    }
+};
+
+/* ==========================================================================
+   SERVICES DIRECTORY MODULE (19 DOCUMENT DOMAINS)
+   ========================================================================== */
+const ServicesModule = {
+    data: [],
+    activeCategory: 'all',
+    searchQuery: '',
+
+    async init() {
+        const container = document.getElementById('servicesMasterGrid');
+        if (!container) return;
+
+        if (DataLoader.services && DataLoader.services.length) {
+            this.data = DataLoader.services;
+        } else {
+            try {
+                const res = await fetch('./data/services.json');
+                if (res.ok) {
+                    this.data = await res.json();
+                }
+            } catch (err) {
+                console.warn('Could not fetch services.json, checking DataLoader', err);
+            }
+        }
+
+        this.setupFilterTabs();
+        this.setupSearch();
+        this.setupInquiryForm();
+        this.render();
+    },
+
+    setupFilterTabs() {
+        const tabs = document.querySelectorAll('.service-tab-btn');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                this.activeCategory = tab.dataset.category || 'all';
+                this.render();
+            });
+        });
+    },
+
+    setupSearch() {
+        const searchInput = document.getElementById('servicesSearchInput');
+        const clearBtn = document.getElementById('servicesSearchClear');
+        if (!searchInput) return;
+
+        searchInput.addEventListener('input', (e) => {
+            this.searchQuery = e.target.value.trim().toLowerCase();
+            if (clearBtn) {
+                clearBtn.style.display = this.searchQuery ? 'block' : 'none';
+            }
+            this.render();
+        });
+
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                this.searchQuery = '';
+                clearBtn.style.display = 'none';
+                this.render();
+                searchInput.focus();
+            });
+        }
+    },
+
+    setupInquiryForm() {
+        const form = document.getElementById('serviceInquiryForm');
+        if (!form) return;
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const serviceName = document.getElementById('inquiryServiceName')?.value || 'Agricultural Marketing Service';
+            const applicantName = document.getElementById('inquiryApplicantName')?.value || 'Applicant';
+            const refCode = 'WB-SERV-' + Math.floor(1000 + Math.random() * 9000);
+
+            showToast(`Thank you ${applicantName}! Inquiry for "${serviceName}" submitted. Reference ID: ${refCode}`, 'success');
+            ModalManager.close('serviceInquiryModal');
+            form.reset();
+        });
+    },
+
+    openInquiry(serviceNumber, serviceTitle) {
+        const numInput = document.getElementById('inquiryServiceNumber');
+        const nameInput = document.getElementById('inquiryServiceName');
+        const targetLabel = document.getElementById('modalServiceTarget');
+
+        if (numInput) numInput.value = serviceNumber;
+        if (nameInput) nameInput.value = `#${serviceNumber} - ${serviceTitle}`;
+        if (targetLabel) targetLabel.textContent = `Official State Department Assistance for Domain ${serviceNumber}`;
+
+        ModalManager.open('serviceInquiryModal');
+    },
+
+    render() {
+        const grid = document.getElementById('servicesMasterGrid');
+        const countDisplay = document.getElementById('servicesCountDisplay');
+        if (!grid) return;
+
+        let filtered = this.data;
+
+        // Category filter
+        if (this.activeCategory !== 'all') {
+            filtered = filtered.filter(s => s.category === this.activeCategory);
+        }
+
+        // Search query filter
+        if (this.searchQuery) {
+            const q = this.searchQuery;
+            filtered = filtered.filter(s => {
+                const title = (s.title || '').toLowerCase();
+                const titleBn = (s.titleBn || '').toLowerCase();
+                const titleHi = (s.titleHi || '').toLowerCase();
+                const desc = (s.desc || '').toLowerCase();
+                const subs = (s.subServices || []).join(' ').toLowerCase();
+                const clusters = (s.regionalClusters || []).join(' ').toLowerCase();
+                const commodities = (s.targetCommodities || []).join(' ').toLowerCase();
+                return title.includes(q) || titleBn.includes(q) || titleHi.includes(q) || desc.includes(q) || subs.includes(q) || clusters.includes(q) || commodities.includes(q);
+            });
+        }
+
+        if (countDisplay) {
+            countDisplay.innerHTML = `Showing <strong>${filtered.length}</strong> of <strong>${this.data.length}</strong> Services & Infrastructure Pillars`;
+        }
+
+        if (!filtered.length) {
+            grid.innerHTML = `
+                <div class="services-empty-state" style="grid-column:1/-1; text-align:center; padding:4rem 1rem;">
+                    <div style="font-size:3.5rem; margin-bottom:1rem;">🔍</div>
+                    <h3 style="font-size:1.4rem; font-weight:700; color:var(--text-main); margin-bottom:0.5rem;">No matching services found</h3>
+                    <p style="color:var(--text-muted); max-width:450px; margin:0 auto;">No services match "${this.searchQuery}". Try searching for terms like "Mandi", "Cold storage", "Rice", "Malda", or "FPO".</p>
+                </div>
+            `;
+            return;
+        }
+
+        const currentLang = (typeof I18nEngine !== 'undefined') ? I18nEngine.currentLang : 'en';
+
+        let html = '';
+        filtered.forEach(s => {
+            let displayTitle = s.title;
+            if (currentLang === 'bn' && s.titleBn) displayTitle = s.titleBn;
+            if (currentLang === 'hi' && s.titleHi) displayTitle = s.titleHi;
+
+            // Sub-services checklist
+            let subListHtml = '';
+            if (s.subServices && s.subServices.length) {
+                subListHtml = `
+                    <div class="service-subitems-wrapper">
+                        <div class="service-subitems-header">
+                            <span>Key Operational Capabilities (${s.subServices.length}):</span>
+                        </div>
+                        <ul class="service-subitems-list">
+                            ${s.subServices.map(item => `<li><span class="chk">✓</span> <span>${item}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            // Workflow trail
+            let workflowHtml = '';
+            if (s.workflow && s.workflow.length) {
+                workflowHtml = `
+                    <div class="service-extra-block">
+                        <div class="extra-block-label">Operational Workflow:</div>
+                        <div class="service-workflow-trail">
+                            ${s.workflow.map((step, idx) => `
+                                <span class="wf-step">${step}</span>
+                                ${idx < s.workflow.length - 1 ? '<span class="wf-arrow">→</span>' : ''}
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Formula box
+            let formulaHtml = '';
+            if (s.formula) {
+                formulaHtml = `
+                    <div class="service-extra-block">
+                        <div class="extra-block-label">Advisory Calculation:</div>
+                        <div class="service-formula-box">
+                            <code>${s.formula}</code>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Regional clusters
+            let clustersHtml = '';
+            if (s.regionalClusters && s.regionalClusters.length) {
+                clustersHtml = `
+                    <div class="service-extra-block">
+                        <div class="extra-block-label">West Bengal Regional GI Hubs:</div>
+                        <div class="service-tags-wrap">
+                            ${s.regionalClusters.map(c => `<span class="service-cluster-tag">📍 ${c}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Processing flows
+            let processingHtml = '';
+            if (s.processingFlows && s.processingFlows.length) {
+                processingHtml = `
+                    <div class="service-extra-block">
+                        <div class="extra-block-label">Value Addition Processing Lines:</div>
+                        <div class="service-proc-lines">
+                            ${s.processingFlows.map(p => `
+                                <div class="proc-line-item">
+                                    <strong>${p.crop}:</strong> ${p.steps.join(' → ')}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Export flow
+            let exportHtml = '';
+            if (s.exportFlow && s.exportFlow.length) {
+                exportHtml = `
+                    <div class="service-extra-block">
+                        <div class="extra-block-label">Export Corridor Pipeline:</div>
+                        <div class="service-workflow-trail">
+                            ${s.exportFlow.map((step, idx) => `
+                                <span class="wf-step export-step">${step}</span>
+                                ${idx < s.exportFlow.length - 1 ? '<span class="wf-arrow">→</span>' : ''}
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Target commodities
+            let commoditiesHtml = '';
+            if (s.targetCommodities && s.targetCommodities.length) {
+                commoditiesHtml = `
+                    <div class="service-extra-block">
+                        <div class="extra-block-label">Key Export Commodities:</div>
+                        <div class="service-tags-wrap">
+                            ${s.targetCommodities.map(tc => `<span class="service-tag-pill">${tc}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Potential buyers
+            let buyersHtml = '';
+            if (s.potentialBuyers && s.potentialBuyers.length) {
+                buyersHtml = `
+                    <div class="service-extra-block">
+                        <div class="extra-block-label">Potential Institutional Buyers:</div>
+                        <div class="service-tags-wrap">
+                            ${s.potentialBuyers.map(pb => `<span class="service-tag-pill">🏢 ${pb}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // GIS layers
+            let gisHtml = '';
+            if (s.gisMappedLayers && s.gisMappedLayers.length) {
+                gisHtml = `
+                    <div class="service-extra-block">
+                        <div class="extra-block-label">GIS Spatial Asset Layers:</div>
+                        <div class="service-tags-wrap">
+                            ${s.gisMappedLayers.map(l => `<span class="service-gis-tag">🗺️ ${l}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `
+                <div class="service-domain-card" data-domain="${s.number}" data-category="${s.category}">
+                    <div class="domain-card-header">
+                        <div class="domain-num-badge">Domain ${String(s.number).padStart(2, '0')}</div>
+                        <div class="domain-cat-badge">${s.categoryLabel || s.category}</div>
+                    </div>
+
+                    <div class="domain-main-row">
+                        <div class="domain-icon">${s.icon || '🌾'}</div>
+                        <div class="domain-title-wrap">
+                            <h3 class="domain-title">${displayTitle}</h3>
+                            <p class="domain-desc">${s.desc}</p>
+                        </div>
+                    </div>
+
+                    ${workflowHtml}
+                    ${formulaHtml}
+                    ${clustersHtml}
+                    ${processingHtml}
+                    ${exportHtml}
+                    ${commoditiesHtml}
+                    ${buyersHtml}
+                    ${gisHtml}
+                    ${subListHtml}
+
+                    <div class="domain-card-footer">
+                        <a href="${s.actionUrl || '#'}" class="btn btn-outline btn-sm">
+                            ${s.actionText || 'Explore Facility'} →
+                        </a>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="ServicesModule.openInquiry('${s.number}', '${s.title.replace(/'/g, "\\'")}')">
+                            📋 Inquire / Onboard
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+
+        grid.innerHTML = html;
     }
 };
 
@@ -1889,80 +2252,193 @@ const SchemesSliderModule = {
 };
 
 const NavigationModule = {
+    _overlay: null,
+
     init() {
-        const toggleBtn = document.getElementById('mobileMenuToggle');
         const navMenu = document.getElementById('navMenu');
-        if (toggleBtn && navMenu) {
-            toggleBtn.addEventListener('click', () => navMenu.classList.toggle('active'));
+
+        // ── Ensure overlay element exists in DOM ─────────────────────────
+        if (!document.querySelector('.mobile-nav-overlay')) {
+            const overlay = document.createElement('div');
+            overlay.className = 'mobile-nav-overlay';
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.appendChild(overlay);
+            this._overlay = overlay;
+        } else {
+            this._overlay = document.querySelector('.mobile-nav-overlay');
         }
 
-        document.querySelectorAll('.has-dropdown').forEach(item => {
-            const btn = item.querySelector('.nav-dropdown-btn');
-            if (btn) {
-                btn.addEventListener('click', (e) => {
-                    if (window.innerWidth <= 1140) {
-                        e.preventDefault();
-                        item.classList.toggle('open');
-                    }
+        // ── Ensure drawer header exists inside nav ──────────────────────
+        if (navMenu && !navMenu.querySelector('.nav-close-btn')) {
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'nav-drawer-header';
+            headerDiv.innerHTML = `
+                <div class="nav-drawer-brand">
+                    <span class="nav-drawer-logo">🌾</span>
+                    <span class="nav-drawer-title">Navigation</span>
+                </div>
+                <button type="button" class="nav-close-btn" id="navCloseBtn" aria-label="Close Navigation Menu">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            `;
+            navMenu.insertBefore(headerDiv, navMenu.firstChild);
+        }
+
+        // ── Delegated Document Click Handler (Bulletproof) ───────────────
+        document.addEventListener('click', (e) => {
+            // 1. Mobile Menu Toggle Button
+            const toggleBtn = e.target.closest('#mobileMenuToggle, .mobile-toggle-btn');
+            if (toggleBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const menu = document.getElementById('navMenu');
+                if (menu && menu.classList.contains('active')) {
+                    NavigationModule._closeMenu();
+                } else {
+                    NavigationModule._openMenu();
+                }
+                return;
+            }
+
+            // 2. Drawer Close Button (✕)
+            if (e.target.closest('.nav-close-btn')) {
+                e.preventDefault();
+                e.stopPropagation();
+                NavigationModule._closeMenu();
+                return;
+            }
+
+            // 3. Shaded Backdrop Overlay Click
+            if (e.target.classList.contains('mobile-nav-overlay')) {
+                e.preventDefault();
+                NavigationModule._closeMenu();
+                return;
+            }
+
+            // 4. Dropdown Accordion Toggle (Inside nav)
+            const dropdownBtn = e.target.closest('.nav-dropdown-btn');
+            if (dropdownBtn) {
+                const navItem = dropdownBtn.closest('.has-dropdown');
+                if (navItem) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const isOpen = navItem.classList.contains('open');
+
+                    // Close any other open dropdowns
+                    document.querySelectorAll('.has-dropdown').forEach(other => {
+                        if (other !== navItem) {
+                            other.classList.remove('open');
+                            const otherBtn = other.querySelector('.nav-dropdown-btn');
+                            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+
+                    navItem.classList.toggle('open', !isOpen);
+                    dropdownBtn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+                }
+                return;
+            }
+
+            // 5. Nav links (non-dropdown links and dropdown menu links) close drawer
+            const navLink = e.target.closest('a.nav-link, a.dropdown-item');
+            if (navLink && document.getElementById('navMenu')?.classList.contains('active')) {
+                NavigationModule._closeMenu();
+                return;
+            }
+
+            // 6. Click outside dropdowns closes open dropdowns on desktop
+            if (!e.target.closest('.has-dropdown')) {
+                document.querySelectorAll('.has-dropdown.open').forEach(item => {
+                    item.classList.remove('open');
+                    const btn = item.querySelector('.nav-dropdown-btn');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
                 });
             }
         });
 
+        // ── Close on Escape key ───────────────────────────────────────────
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                NavigationModule._closeMenu();
+                document.querySelectorAll('.has-dropdown.open').forEach(item => {
+                    item.classList.remove('open');
+                    const btn = item.querySelector('.nav-dropdown-btn');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });
+
+        // ── Header scroll effect ──────────────────────────────────────────
+        const mainHeader = document.querySelector('.main-header');
+        if (mainHeader) {
+            window.addEventListener('scroll', () => {
+                mainHeader.classList.toggle('header-scrolled', window.scrollY > 10);
+            }, { passive: true });
+        }
+
         this.highlightActiveLink();
     },
 
+    _openMenu() {
+        const navMenu = document.getElementById('navMenu');
+        const overlay = document.querySelector('.mobile-nav-overlay') || this._overlay;
+        if (navMenu) navMenu.classList.add('active');
+        if (overlay) overlay.classList.add('active');
+        document.body.classList.add('nav-open');
+        const toggleBtn = document.getElementById('mobileMenuToggle');
+        if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
+    },
+
+    _closeMenu() {
+        const navMenu = document.getElementById('navMenu');
+        const overlay = document.querySelector('.mobile-nav-overlay') || this._overlay;
+        if (navMenu) navMenu.classList.remove('active');
+        if (overlay) overlay.classList.remove('active');
+        document.body.classList.remove('nav-open');
+        const toggleBtn = document.getElementById('mobileMenuToggle');
+        if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+    },
+
     highlightActiveLink() {
-        const navLinks = document.querySelectorAll('.nav-menu .nav-link');
-        if (!navLinks.length) return;
+        const navMenu = document.getElementById('navMenu');
+        if (!navMenu) return;
 
         const currentUrl = new URL(window.location.href);
         const currentPath = currentUrl.pathname.toLowerCase().replace(/\/index\.(html|php)$/, '').replace(/\/$/, '') || '/';
 
         const isHomePage = (
-            currentPath === '' || 
-            currentPath === '/' || 
-            currentPath.endsWith('/agricultural_marketing_wordpress') || 
+            currentPath === '' ||
+            currentPath === '/' ||
+            currentPath.endsWith('/agricultural_marketing_wordpress') ||
             currentPath.endsWith('/theme')
         );
 
-        // Clear all active classes first to ensure only 1 is active
-        navLinks.forEach(l => l.classList.remove('active'));
+        // Clear all active classes first to ensure clean state
+        navMenu.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
 
-        let activeFound = false;
+        if (isHomePage) {
+            const homeLink = navMenu.querySelector('a[data-i18n="nav_home"]') || navMenu.querySelector('a[href="index.html"]');
+            if (homeLink) homeLink.classList.add('active');
+            return;
+        }
 
-        navLinks.forEach(link => {
-            if (activeFound) return;
+        // Only highlight direct top-level links (Home, Mandi Rates, Contact Us)
+        // Do NOT select dropdowns or dropdown items under the menu
+        const topLinks = navMenu.querySelectorAll('.nav-item:not(.has-dropdown) > .nav-link');
+        topLinks.forEach(link => {
             const href = link.getAttribute('href');
             if (!href) return;
 
             const linkUrl = new URL(href, window.location.href);
             const linkPath = linkUrl.pathname.toLowerCase().replace(/\/index\.(html|php)$/, '').replace(/\/$/, '') || '/';
 
-            const isLinkHome = (
-                linkPath === '' || 
-                linkPath === '/' || 
-                linkPath.endsWith('/agricultural_marketing_wordpress') || 
-                linkPath.endsWith('/theme') ||
-                link.getAttribute('data-i18n') === 'nav_home'
-            );
-
-            if (isHomePage) {
-                if (isLinkHome) {
-                    link.classList.add('active');
-                    activeFound = true;
-                }
-            } else {
-                if (!isLinkHome && (currentPath === linkPath || (linkPath !== '/' && currentPath.endsWith(linkPath)))) {
-                    link.classList.add('active');
-                    activeFound = true;
-                }
+            if (currentPath === linkPath || (linkPath !== '/' && currentPath.endsWith(linkPath))) {
+                link.classList.add('active');
             }
         });
-
-        if (!activeFound && isHomePage) {
-            const homeLink = document.querySelector('.nav-menu a[data-i18n="nav_home"]');
-            if (homeLink) homeLink.classList.add('active');
-        }
     }
 };
 
