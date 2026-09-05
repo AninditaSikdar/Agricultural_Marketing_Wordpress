@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Frequently Asked Questions (FAQ) - Agricultural Marketing Department, Government of West Bengal. Mandi rates, cold chain subsidies, Sufal Bangla outlets, and public grievance resolution.">
+    <title>Frequently Asked Questions (FAQ) | Agricultural Marketing Department</title>
+    <link rel="stylesheet" href="./css/main.css?v=3.0">
+    <link rel="stylesheet" href="./css/button.css?v=3.0">
+    <link rel="stylesheet" href="./css/responsive.css?v=3.0">
+</head>
+
+<body>
+
+    <!-- Common Header Container (Rendered dynamically from components/header.html) -->
+    <div id="common-header"></div>
+
+    <!-- ==========================================================================
+       INNER PAGE BANNER WITH AMBIENT GLOW & SEARCH
+       ========================================================================== -->
+    <section class="page-banner">
+        <div class="banner-ambient-glow"></div>
+        <div class="container">
+            <div class="page-banner-grid">
+                <div class="page-banner-content">
+                    <div class="page-banner-badge">
+                        <span class="pulse-dot"></span>
+                        <span>❓ Citizen & Farmer Knowledge Base</span>
+                    </div>
+
+                    <h1 class="page-banner-title">Frequently Asked Questions</h1>
+                    <p class="page-banner-desc">
+                        Official answers on daily Mandi rates, farmer vehicle subsidies, Sufal Bangla tie-ups,
+                        cold storage reservations, APMC licenses, and grievance escalation.
+                    </p>
+
+                    <div class="page-banner-meta-pills">
+                        <span class="meta-pill">⚡ Real-Time Search</span>
+                        <span class="meta-pill">📚 6 Core Topic Categories</span>
+                        <span class="meta-pill">📞 Toll-Free: 1800-180-1551</span>
+                    </div>
+                </div>
+
+                <div class="page-banner-visual">
+                    <div class="banner-image-frame">
+                        <img src="./images/banner-default.jpg" alt="Agricultural Marketing Knowledge Desk"
+                            class="banner-main-img">
+                        <div class="banner-floating-chip">
+                            <span class="chip-icon">💡</span>
+                            <div>
+                                <div class="chip-label">Official Knowledge Desk</div>
+                                <div class="chip-val">Updated Daily for West Bengal Farmers</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       MAIN FAQ DIRECTORY SECTION
+       ========================================================================== -->
+    <section class="section" style="padding-top: 2rem;">
+        <div class="container">
+
+            <!-- Real-Time Interactive Search Bar -->
+            <div class="faq-search-box">
+                <span class="faq-search-icon">🔍</span>
+                <input type="text" id="faqSearchInput" class="faq-search-input"
+                    placeholder="Search by topic, keyword, scheme name, or question..."
+                    aria-label="Search frequently asked questions">
+                <button type="button" id="faqSearchClear" class="faq-search-clear" aria-label="Clear search">✕</button>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div class="faq-categories-wrapper" id="faqCategoryFilters">
+                <button type="button" class="faq-filter-btn active" data-category="all">
+                    <span>📑 All Questions</span>
+                </button>
+                <button type="button" class="faq-filter-btn" data-category="mandi">
+                    <span>🌾 Mandi Rates & Auctions</span>
+                </button>
+                <button type="button" class="faq-filter-btn" data-category="schemes">
+                    <span>💰 Schemes & Subsidies</span>
+                </button>
+                <button type="button" class="faq-filter-btn" data-category="sufal">
+                    <span>🛒 Sufal Bangla & FPOs</span>
+                </button>
+                <button type="button" class="faq-filter-btn" data-category="storage">
+                    <span>❄️ Cold Storage & WDRA</span>
+                </button>
+                <button type="button" class="faq-filter-btn" data-category="licensing">
+                    <span>📑 e-Bijak & Licensing</span>
+                </button>
+                <button type="button" class="faq-filter-btn" data-category="grievance">
+                    <span>⚖️ Grievances & Helpline</span>
+                </button>
+            </div>
+
+            <!-- Metadata Toolbar (Count + Expand All) -->
+            <div class="faq-toolbar">
+                <span id="faqResultCount">Showing <strong>15</strong> authoritative FAQs</span>
+                <button type="button" id="faqToggleAllBtn" class="faq-toggle-all-btn">
+                    <span id="faqToggleAllText">Expand All</span> <span>↕</span>
+                </button>
+            </div>
+
+            <!-- Empty Search Results State -->
+            <div class="faq-empty-state" id="faqEmptyState">
+                <span class="faq-empty-icon">🔎</span>
+                <h3 class="faq-empty-title">No Matching Questions Found</h3>
+                <p class="faq-empty-desc">
+                    We couldn't find any questions matching your query. Please try searching for a different keyword
+                    or contact our 24x7 Kisan Call Center.
+                </p>
+                <button type="button" class="btn btn-primary" id="faqResetSearchBtn">
+                    Clear Search & View All
+                </button>
+            </div>
+
+            <!-- FAQ Accordion List -->
+            <div class="faq-list" id="faqList">
+
+                <!-- 1. MANDI RATES & AUCTIONS -->
+                <div class="faq-card" data-category="mandi"
+                    data-keywords="mandi rates agmarknet enam wholesale price daily potato onion paddy arrivals">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Mandi & Auctions</span>
+                            <span class="faq-question-text">How are daily Mandi rates collected, verified, and updated on this portal?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            Mandi prices are synchronized in real-time through the unified <strong>AGMARKNET 2.0</strong> and <strong>e-NAM</strong> gateway connected to APMC checkposts across all 23 districts of West Bengal.
+                        </p>
+                        <ul>
+                            <li><strong>Morning Session:</strong> Market Secretaries and Enumerators record wholesale arrivals and initial opening rates between 06:00 AM and 09:30 AM.</li>
+                            <li><strong>Modal Price Verification:</strong> The most representative (modal) wholesale trade value is calculated after major auctions conclude by 11:30 AM.</li>
+                            <li><strong>Public Broadcasting:</strong> Validated figures are reflected immediately on this portal, via SMS alerts, and displayed at digital Krishak Bazar price boards.</li>
+                        </ul>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="mandi-rates.html" style="color:var(--primary-dark); font-weight:600;">View Today's Mandi Rates →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-card" data-category="mandi"
+                    data-keywords="participate auction krishak bazar bidding kiosk gate entry lot assaying">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Mandi & Auctions</span>
+                            <span class="faq-question-text">How can a farmer participate in live transparent e-auctions at Krishak Bazars?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            Participating in transparent electronic auctions at any of West Bengal's 186+ Krishak Bazars is completely free for growers:
+                        </p>
+                        <ol>
+                            <li><strong>Advance Gate Entry:</strong> Drive your vehicle to the APMC Gate. Present your Krishak Bandhu ID or Voter Card to receive an electronic Lot Identification Number (Lot-ID).</li>
+                            <li><strong>Quality Assaying:</strong> The on-site Agmark laboratory conducts a quick 10-minute assessment of moisture, foreign matter, and grain size.</li>
+                            <li><strong>Live Bidding:</strong> Your lot details are projected onto the bidding display. Registered traders bid electronically, ensuring you receive the highest market-driven price.</li>
+                            <li><strong>Instant Settlement:</strong> Sale agreement and weighbridge weight receipts are generated digitally, with payment credited via DBT within 24 hours.</li>
+                        </ol>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="marketplace.html" style="color:var(--primary-dark); font-weight:600;">Explore Live E-Auctions →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-card" data-category="mandi"
+                    data-keywords="buyer trader delayed payment 24 hours apmc act dispute resolution market secretary">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Mandi & Auctions</span>
+                            <span class="faq-question-text">What legal remedies exist if a registered trader or buyer delays payment after purchase?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            Under Section 17 of the <em>West Bengal Agricultural Produce Marketing (Regulation) Act</em>, buyers and commission agents are legally mandated to disburse full payment to farmers on the same day or within <strong>24 hours</strong> of sale completion.
+                        </p>
+                        <p>
+                            If payment is withheld or delayed without justification:
+                        </p>
+                        <ul>
+                            <li>Lodge an on-the-spot formal complaint with the APMC Market Secretary at the market yard office.</li>
+                            <li>Register an online Grievance Docket on this portal or call the Kisan Helpline at <strong>1800-180-1551</strong>.</li>
+                            <li>The APMC has statutory powers to suspend the trader's trading license, invoke their bank security deposit, and disburse the outstanding principal plus penal interest directly to the farmer.</li>
+                        </ul>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="contact.html" style="color:var(--primary-dark); font-weight:600;">File Grievance Docket →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. SCHEMES & SUBSIDIES -->
+                <div class="faq-card" data-category="schemes"
+                    data-keywords="amar fasal amar gari vehicle transport subsidy 50 percent small marginal farmer apply">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Schemes & Grants</span>
+                            <span class="faq-question-text">How do I apply for the "Amar Fasal Amar Gari" transport subsidy scheme?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            The <strong>"Amar Fasal Amar Gari"</strong> scheme provides financial assistance to small and marginal farmers, Farmer Producer Organizations (FPOs), and Self Help Groups (SHGs) to acquire customized agri-transport vehicles (mini trucks, motorized three-wheelers, or solar e-carts).
+                        </p>
+                        <ul>
+                            <li><strong>Subsidy Quantum:</strong> 50% capital subsidy on the on-road vehicle cost, up to a ceiling of <strong>₹1,25,000</strong> per individual beneficiary.</li>
+                            <li><strong>Eligibility:</strong> Permanent resident of West Bengal holding a Krishak Bandhu card, owning cultivable farmland, and possessing a valid commercial driver's license.</li>
+                            <li><strong>Application Process:</strong> Submit your application online via the <a href="schemes.html">Schemes & Subsidies</a> section or physically at your District/Sub-Divisional Agricultural Marketing Office along with land records, bank passbook, and vehicle quotation.</li>
+                        </ul>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="schemes.html" style="color:var(--primary-dark); font-weight:600;">View Scheme Guidelines →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-card" data-category="schemes"
+                    data-keywords="solar cold room micro storage aif agriculture infrastructure fund interest subvention">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Schemes & Grants</span>
+                            <span class="faq-question-text">What financial grants are available for setting up Solar Micro Cold Storage units?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            To eliminate distress sales of perishable horticultural produce (tomatoes, green chillies, betel vine, and seasonal vegetables), the department promotes farm-gate 5 MT to 10 MT Solar-Powered Micro Cold Rooms:
+                        </p>
+                        <ul>
+                            <li><strong>State Assistance:</strong> Up to 50% back-ended capital subsidy on technical machinery, thermal insulation, and photovoltaic solar arrays.</li>
+                            <li><strong>Agriculture Infrastructure Fund (AIF) Convergence:</strong> 3% per annum interest subvention on institutional term loans for repayment tenures up to 7 years.</li>
+                            <li><strong>Priority Beneficiaries:</strong> FPOs, women-led SHGs, and PACS (Primary Agricultural Credit Societies) operating pack-houses in rural hubs.</li>
+                        </ul>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="schemes.html" style="color:var(--primary-dark); font-weight:600;">Explore Cold Chain Schemes →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-card" data-category="schemes"
+                    data-keywords="krishak bandhu dbt mandatory subsidy application benefits adhaar link">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Schemes & Grants</span>
+                            <span class="faq-question-text">Is Krishak Bandhu registration mandatory to receive marketing incentives?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            While routine retail sale of produce at Krishak Bazars and village haats is open to all farmers, having a registered <strong>Krishak Bandhu ID (KB-ID)</strong> is strongly recommended and mandatory for capital grants:
+                        </p>
+                        <ul>
+                            <li><strong>Zero-Friction DBT:</strong> Subsidy disbursements (such as vehicle purchases or pack-house grants) are credited directly to your bank account via Aadhaar-linked DBT.</li>
+                            <li><strong>Assuring Priority:</strong> KB-ID holders receive priority booking for government cold storage chambers, subsidized freight movement, and subsidized seed/fertilizer allocations.</li>
+                        </ul>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="schemes.html" style="color:var(--primary-dark); font-weight:600;">Check Scheme Eligibility →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. SUFAL BANGLA & FPOS -->
+                <div class="faq-card" data-category="sufal"
+                    data-keywords="sufal bangla fpo supplier empanelment fresh vegetable retail direct procurement pamcl">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Sufal Bangla & FPOs</span>
+                            <span class="faq-question-text">How can Farmer Producer Organizations (FPOs) become official suppliers to Sufal Bangla?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            <strong>Sufal Bangla</strong>, managed by the Paschimbanga Agri Marketing Corporation Ltd. (PAMCL), procures fresh vegetables, fruits, pulses, and organic honey directly from farmers at remunerative rates:
+                        </p>
+                        <ol>
+                            <li><strong>Empanelment Application:</strong> Submit FPO registration certificate, board resolution, GSTIN (if applicable), and list of member farmers to <em>sufalbangla@wb.gov.in</em>.</li>
+                            <li><strong>Aggregation Hub Linkage:</strong> PAMCL maps your FPO to the nearest regional aggregation hub (e.g., Singur, Dhaniakhali, Krishnanagar, or Malda).</li>
+                            <li><strong>Daily Indent & Weighment:</strong> Sufal Bangla issues digital procurement indents daily based on urban demand. Weighment is conducted transparently at hub weighbridges.</li>
+                            <li><strong>Direct Bank Settlement:</strong> Payment is cleared within 48 to 72 hours via electronic transfer directly to the FPO's official bank account.</li>
+                        </ol>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="about.html#corporation" style="color:var(--primary-dark); font-weight:600;">Learn About PAMCL & Sufal Bangla →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-card" data-category="sufal"
+                    data-keywords="franchise sufal bangla outlet mobile van kiosk youth unemployed cooperative shg apply">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Sufal Bangla & FPOs</span>
+                            <span class="faq-question-text">What is the procedure to operate a Sufal Bangla retail stall or mobile van?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            To generate sustainable livelihoods for local youth, women SHGs, and cooperative bodies, the government invites applications for operating Sufal Bangla retail kiosks and temperature-controlled mobile vending carts:
+                        </p>
+                        <ul>
+                            <li><strong>Infrastructure Provided:</strong> Standardized display counters, digital electronic weighing balances, and unified branding are facilitated by PAMCL.</li>
+                            <li><strong>Assured Supply:</strong> Farm-fresh, graded vegetables and grocery items are delivered daily at wholesale benchmark rates right to the kiosk location.</li>
+                            <li><strong>Guaranteed Margins:</strong> Franchise operators earn fixed retail handling commissions on total daily turnover without inventory procurement risk.</li>
+                            <li><strong>How to Inquire:</strong> Inquiries are accepted at the Sufal Bangla Project Office, Kamal Guha Bhawan, Anandapur, Kolkata, or via telephone at <strong>033-2443-0071</strong>.</li>
+                        </ul>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="contact.html" style="color:var(--primary-dark); font-weight:600;">Contact Sufal Bangla Cell →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. COLD STORAGE & WDRA -->
+                <div class="faq-card" data-category="storage"
+                    data-keywords="e-nwr electronic warehouse receipt pledge loan wdra accredited bank finance cold storage">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Cold Storage & WDRA</span>
+                            <span class="faq-question-text">How do farmers obtain low-interest bank loans using electronic Negotiable Warehouse Receipts (e-NWR)?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            An <strong>e-NWR (electronic Negotiable Warehouse Receipt)</strong> enables farmers to pledge their stored crop as collateral with commercial banks, avoiding distress sales during harvesting gluts:
+                        </p>
+                        <ol>
+                            <li><strong>Deposition:</strong> Deposit your produce (e.g. potatoes, paddy, pulses) at any WDRA-accredited cold storage or state warehouse.</li>
+                            <li><strong>Digital Assay & Token:</strong> The warehouse manager inspects quality standards and generates a tamper-proof digital e-NWR in the central repository (CCR/NERL).</li>
+                            <li><strong>Instant Loan Sanction:</strong> Approach any partner commercial or cooperative bank. The bank pledges the digital receipt online and disburses up to <strong>75% of current market valuation</strong> directly into your account at concessional interest rates.</li>
+                            <li><strong>Repayment & Release:</strong> Repay the loan when market prices rise and electronically release the stored commodities for sale.</li>
+                        </ol>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="cold-storage.html" style="color:var(--primary-dark); font-weight:600;">Browse WDRA Cold Storage Network →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-card" data-category="storage"
+                    data-keywords="check vacancy cold storage capacity district hooghly burdwan chamber space">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Cold Storage & WDRA</span>
+                            <span class="faq-question-text">How can I check available storage capacity before dispatching trucks to a cold store?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            To prevent long transit queues and avoid rejection at gates, farmers and traders can use our online <a href="cold-storage.html">Cold Storage Directory</a>:
+                        </p>
+                        <ul>
+                            <li>Filter by <strong>District</strong> (e.g., Hooghly, Paschim Medinipur, Jalpaiguri) and <strong>Commodity</strong> (Potato, Carrot, Multi-Commodity).</li>
+                            <li>View verified capacity, current occupancy percentages, cold room temperature ranges, and WDRA accreditation status.</li>
+                            <li>Access direct phone numbers for Cold Storage Managers and Sub-Divisional Agricultural Marketing Officers.</li>
+                        </ul>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="cold-storage.html" style="color:var(--primary-dark); font-weight:600;">Check Storage Vacancy Tool →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. E-BIJAK & LICENSING -->
+                <div class="faq-card" data-category="licensing"
+                    data-keywords="ebijak digital invoice apmc cess calculation weighbridge trader legal compliance">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">e-Bijak & Licensing</span>
+                            <span class="faq-question-text">What is an e-Bijak invoice and why is it legally required for wholesale trade?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            <strong>e-Bijak</strong> is the official digital invoice and transit ledger system for all regulated agricultural commodities traded within West Bengal APMC market yards:
+                        </p>
+                        <ul>
+                            <li><strong>Statutory Breakdown:</strong> Accurately computes taxable commodity value, statutory APMC market fee (0.5% - 1.0%), authorized commission charges, and certified weighbridge fees.</li>
+                            <li><strong>Prevents Middleman Exploitation:</strong> Eliminates unauthorized deductions, ensuring farmers receive transparent accounting slips with zero hidden cuts.</li>
+                            <li><strong>Checkpost Transit Clearance:</strong> Embedded QR codes enable enforcement inspectors and highway flying squads to verify consignments instantaneously via mobile scanners.</li>
+                        </ul>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="ebijak-ledger.html" style="color:var(--primary-dark); font-weight:600;">Generate e-Bijak Invoice →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-card" data-category="licensing"
+                    data-keywords="apmc trade license application trader commission agent aratdar registration fee renewal">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">e-Bijak & Licensing</span>
+                            <span class="faq-question-text">What is the application process for obtaining a new APMC Trader or Commission Agent License?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            Operating as a commercial buyer, wholesaler, or commission agent within regulated market yards requires a statutory license issued by the concerned Regulated Market Committee (RMC):
+                        </p>
+                        <ol>
+                            <li><strong>Online Submission:</strong> Register on the departmental portal with PAN card, Aadhaar card, proof of business premises, and trade license from local body.</li>
+                            <li><strong>Statutory Security Deposit:</strong> Remit the prescribed security deposit and annual fee through the GRIPS e-challan system.</li>
+                            <li><strong>Physical Yard Verification:</strong> The Market Secretary conducts verification of premises and weighment equipment within 7 working days.</li>
+                            <li><strong>Digital License Issuance:</strong> Approved certificates with unique License Registration Numbers (LRN) are issued online with 3-year validity.</li>
+                        </ol>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="services.html" style="color:var(--primary-dark); font-weight:600;">View Licensing Services →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. GRIEVANCES & HELPLINE -->
+                <div class="faq-card" data-category="grievance"
+                    data-keywords="report price discrepancy weighbridge under weighment fraud complaint grievance docket">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Grievance & Helpline</span>
+                            <span class="faq-question-text">How do I report inaccurate weighing scales, unauthorized fees, or rate disputes?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            The department maintains a zero-tolerance policy against fraudulent weighment, unlawful market cuts, and anti-competitive cartelization:
+                        </p>
+                        <ul>
+                            <li><strong>Immediate Phone Alert:</strong> Call toll-free <strong>1800-180-1551</strong> (Available 24x7 in Bengali, English, and Hindi). Operators log the location and dispatch immediate inspection instructions.</li>
+                            <li><strong>WhatsApp Evidence:</strong> Send weighbridge slip images, video proof, or receipts to our WhatsApp Helpdesk at <strong>+91 98300-12345</strong>.</li>
+                            <li><strong>Digital Grievance Docket:</strong> Submit an online complaint via <a href="contact.html">Contact Us & Grievance Registration</a>. An automated 16-digit tracking token is issued via SMS, guaranteeing inspection within 4 hours.</li>
+                        </ul>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="contact.html" style="color:var(--primary-dark); font-weight:600;">Register Grievance Online →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-card" data-category="grievance"
+                    data-keywords="right to public services act turnaround time grievance resolution timeline 48 hours 7 days">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Grievance & Helpline</span>
+                            <span class="faq-question-text">What is the guaranteed turnaround timeline for resolving citizen grievances?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            Under the <em>West Bengal Right to Public Services Act</em>, grievance turnaround is strictly monitored through digital dashboards:
+                        </p>
+                        <ul>
+                            <li><strong>Acknowledgement:</strong> Instant SMS notification containing your unique Docket ID within 60 seconds of registration.</li>
+                            <li><strong>Initial Audit & On-Ground Inspection:</strong> Local APMC inspection officer visits the site within <strong>48 hours</strong>.</li>
+                            <li><strong>Interim Status Update:</strong> Telephonic contact and SMS update dispatched on day 3.</li>
+                            <li><strong>Final Resolution & Audit Report:</strong> Completed within <strong>7 working days</strong> with formal written closure uploaded to your docket reference.</li>
+                        </ul>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="contact.html" style="color:var(--primary-dark); font-weight:600;">Track Docket Status →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-card" data-category="grievance"
+                    data-keywords="nstiam training institute post harvest grading packaging youth fpo workshop baidyabati">
+                    <div class="faq-header">
+                        <div class="faq-card-header-inner">
+                            <span class="faq-category-badge">Grievance & Helpline</span>
+                            <span class="faq-question-text">Does the department offer hands-on training for farmers on modern grading and packaging?</span>
+                        </div>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-body">
+                        <p>
+                            Yes. The <strong>Netaji Subhas Training Institute of Agricultural Marketing (NSTIAM)</strong> located at Baidyabati, Hooghly conducts fully funded residential and non-residential skill development programs:
+                        </p>
+                        <ul>
+                            <li><strong>Core Courses:</strong> Post-harvest management, cold room operations, organic assaying, packaging aesthetics, and e-NAM computer bidding.</li>
+                            <li><strong>Target Audience:</strong> Smallholder farmers, rural youth, women self-help group members, and FPO directors.</li>
+                            <li><strong>Free Accommodation & Stipend:</strong> Course materials, lodging, boarding, and travel allowances are subsidized entirely by the State Government.</li>
+                            <li><strong>How to Enroll:</strong> Reach out to your local Block Agricultural Marketing Office or visit NSTIAM website.</li>
+                        </ul>
+                        <div class="faq-action-row">
+                            <span class="faq-helpful-box">
+                                Was this answer helpful?
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='✓ Yes'">👍 Yes</button>
+                                <button type="button" class="faq-vote-btn" onclick="this.innerHTML='Thanks for feedback'">👎 No</button>
+                            </span>
+                            <a href="about.html#training-institute" style="color:var(--primary-dark); font-weight:600;">Learn More About NSTIAM →</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ==================================================================
+               STILL NEED HELP? 3-CARD HELPDESK BANNER
+               ================================================================== -->
+            <div class="faq-help-section">
+                <div class="section-header" style="margin-bottom: 0.5rem;">
+                    <span class="section-tag">🤝 Citizen Assistance</span>
+                    <h2 class="section-title">Still Have Unanswered Questions?</h2>
+                    <p class="section-subtitle">
+                        Our dedicated citizen helpdesk officers and Kisan Call Center advisors are standing by to assist you.
+                    </p>
+                </div>
+
+                <div class="faq-help-grid">
+                    <!-- 1. Kisan Call Center -->
+                    <div class="faq-help-card">
+                        <div>
+                            <div class="faq-help-icon" style="background:rgba(16, 185, 129, 0.12); color:#059669;">📞</div>
+                            <h4>24x7 Kisan Call Center</h4>
+                            <p>
+                                Speak directly with agricultural marketing officers in Bengali, Hindi, or English for real-time rates and subsidy advice.
+                            </p>
+                        </div>
+                        <a href="tel:18001801551" class="btn btn-primary" style="width:100%; text-align:center;">
+                            Call 1800-180-1551
+                        </a>
+                    </div>
+
+                    <!-- 2. WhatsApp Support -->
+                    <div class="faq-help-card">
+                        <div>
+                            <div class="faq-help-icon" style="background:rgba(37, 211, 102, 0.12); color:#16a34a;">💬</div>
+                            <h4>WhatsApp Document Desk</h4>
+                            <p>
+                                Send photos of weighbridge slips, mandi receipts, or scheme documents directly to our verified WhatsApp support number.
+                            </p>
+                        </div>
+                        <a href="https://wa.me/919830012345" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="width:100%; text-align:center;">
+                            Chat on WhatsApp
+                        </a>
+                    </div>
+
+                    <!-- 3. Register Online Grievance -->
+                    <div class="faq-help-card">
+                        <div>
+                            <div class="faq-help-icon" style="background:rgba(255, 147, 1, 0.12); color:var(--primary-dark);">✍️</div>
+                            <h4>File an Official Grievance</h4>
+                            <p>
+                                Submit a tracked complaint with instant SMS token issuance, assigned directly to your local APMC Market Secretary.
+                            </p>
+                        </div>
+                        <a href="contact.html#citizenContactForm" class="btn btn-primary" style="width:100%; text-align:center;">
+                            Submit Online Docket
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Common Footer Container (Rendered dynamically from components/footer.html) -->
+    <div id="common-footer"></div>
+
+    <!-- Core App Logic -->
+    <script src="./js/app.js?v=3.0"></script>
+</body>
+
+</html>

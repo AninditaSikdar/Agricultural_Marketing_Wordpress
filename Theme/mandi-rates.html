@@ -29,15 +29,10 @@
                         <span>📊 Real-Time Market Intelligence</span>
                     </div>
 
-                    <div class="breadcrumb">
-                        <a href="index.html" data-i18n="nav_home">Home</a>
-                        <span class="separator">/</span>
-                        <span class="current" data-i18n="nav_rates">Mandi Rates</span>
-                    </div>
-
                     <h1 class="page-banner-title" data-i18n="mandi_title">Daily Commodity Mandi Rates</h1>
                     <p class="page-banner-desc" data-i18n="mandi_subtitle">
-                        Live modal prices, minimum-maximum ranges, quality assaying, and daily arrivals updated directly from AGMARKNET 2.0 connected mandis.
+                        Live modal prices, minimum-maximum ranges, quality assaying, and daily arrivals updated directly
+                        from AGMARKNET 2.0 connected mandis.
                     </p>
 
                     <div class="page-banner-meta-pills">
@@ -49,7 +44,8 @@
 
                 <div class="page-banner-visual">
                     <div class="banner-image-frame">
-                        <img src="./images/banner-mandi-rates.jpg" alt="Daily Commodity Mandi Rates" class="banner-main-img">
+                        <img src="./images/banner-mandi-rates.jpg" alt="Daily Commodity Mandi Rates"
+                            class="banner-main-img">
                         <div class="banner-floating-chip">
                             <span class="chip-icon">✨</span>
                             <div>
@@ -75,7 +71,8 @@
                         <button class="category-pill" data-cat="veg" data-i18n="tab_veg">Vegetables</button>
                         <button class="category-pill" data-cat="grain" data-i18n="tab_grain">Cereals & Grains</button>
                         <button class="category-pill" data-cat="pulses" data-i18n="tab_pulses">Pulses</button>
-                        <button class="category-pill" data-cat="oilseed" data-i18n="tab_oilseed">Oilseeds & Cash Crops</button>
+                        <button class="category-pill" data-cat="oilseed" data-i18n="tab_oilseed">Oilseeds & Cash
+                            Crops</button>
                         <button class="category-pill" data-cat="fruits" data-i18n="tab_fruits">Fruits</button>
                         <button class="category-pill" data-cat="spices" data-i18n="tab_spices">Spices</button>
                     </div>
@@ -136,16 +133,19 @@
                 <!-- Table Pagination Bar -->
                 <div class="mandi-pagination-bar">
                     <div class="pagination-info">
-                        Showing <span id="mandiStartIdx">1</span>–<span id="mandiEndIdx">6</span> of <strong id="mandiResultCount">12</strong> commodity entries
+                        Showing <span id="mandiStartIdx">1</span>–<span id="mandiEndIdx">6</span> of <strong
+                            id="mandiResultCount">12</strong> commodity entries
                     </div>
                     <div class="pagination-controls" id="mandiPaginationNav">
-                        <button class="pagination-nav-btn" id="mandiPrevBtn" onclick="MandiRatesModule.prevPage()" disabled aria-label="Previous Page">
+                        <button class="pagination-nav-btn" id="mandiPrevBtn" onclick="MandiRatesModule.prevPage()"
+                            disabled aria-label="Previous Page">
                             ‹ Previous
                         </button>
                         <div class="pagination-pages" id="mandiPageNumbers">
                             <!-- Populated dynamically via app.js -->
                         </div>
-                        <button class="pagination-nav-btn" id="mandiNextBtn" onclick="MandiRatesModule.nextPage()" aria-label="Next Page">
+                        <button class="pagination-nav-btn" id="mandiNextBtn" onclick="MandiRatesModule.nextPage()"
+                            aria-label="Next Page">
                             Next ›
                         </button>
                     </div>
@@ -157,17 +157,20 @@
                 <div class="workflow-step-card">
                     <span class="step-number">1</span>
                     <h3 class="step-title" data-i18n="mandi_guide_1_title">Daily Modal Rate Formula</h3>
-                    <p class="step-desc" data-i18n="mandi_guide_1_desc">Modal price represents the most frequent transaction price realized by farmers on the trading floor for standard quality grade.</p>
+                    <p class="step-desc" data-i18n="mandi_guide_1_desc">Modal price represents the most frequent
+                        transaction price realized by farmers on the trading floor for standard quality grade.</p>
                 </div>
                 <div class="workflow-step-card">
                     <span class="step-number">2</span>
                     <h3 class="step-title" data-i18n="mandi_guide_2_title">Transparent Electronic Auction</h3>
-                    <p class="step-desc" data-i18n="mandi_guide_2_desc">All APMC yards operate under e-NAM electronic weighing and direct bank settlement within 24 hours.</p>
+                    <p class="step-desc" data-i18n="mandi_guide_2_desc">All APMC yards operate under e-NAM electronic
+                        weighing and direct bank settlement within 24 hours.</p>
                 </div>
                 <div class="workflow-step-card">
                     <span class="step-number">3</span>
                     <h3 class="step-title" data-i18n="mandi_guide_3_title">Dispute Resolution</h3>
-                    <p class="step-desc" data-i18n="mandi_guide_3_desc">For pricing disputes or weighing anomalies, contact the APMC Market Secretary or call Toll-Free Helpline: 1800-180-1551.</p>
+                    <p class="step-desc" data-i18n="mandi_guide_3_desc">For pricing disputes or weighing anomalies,
+                        contact the APMC Market Secretary or call Toll-Free Helpline: 1800-180-1551.</p>
                 </div>
             </div>
         </div>
@@ -181,23 +184,30 @@
                 <div>
                     <h3 class="modal-title" id="modalCropTitle">Potato (Jyoti) - Hooghly APMC</h3>
                     <div style="font-size:0.85rem; color:var(--text-muted);">
-                        Lot Ref: <span id="modalLotBadge" class="badge-apmc-licensed" style="margin-left:0.35rem;">LOT-HGY-8841</span>
+                        Lot Ref: <span id="modalLotBadge" class="badge-apmc-licensed"
+                            style="margin-left:0.35rem;">LOT-HGY-8841</span>
                     </div>
                 </div>
                 <button type="button" class="modal-close-btn">&times;</button>
             </div>
             <div class="modal-body">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+                <div
+                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
                     <div>
-                        <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Today's Modal Rate</span>
-                        <div style="font-size:1.8rem; font-weight:800; color:var(--primary); font-family:'Outfit';" id="modalCurrentPrice">₹1,540 / Qtl</div>
+                        <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Today's
+                            Modal Rate</span>
+                        <div style="font-size:1.8rem; font-weight:800; color:var(--primary); font-family:'Outfit';"
+                            id="modalCurrentPrice">₹1,540 / Qtl</div>
                     </div>
                     <div style="text-align:right;">
                         <div class="timeframe-switchers">
-                            <button type="button" class="timeframe-btn active" data-days="7" data-i18n="tab_7day">7-Day Trend</button>
-                            <button type="button" class="timeframe-btn" data-days="30" data-i18n="tab_30day">30-Day Trend</button>
+                            <button type="button" class="timeframe-btn active" data-days="7" data-i18n="tab_7day">7-Day
+                                Trend</button>
+                            <button type="button" class="timeframe-btn" data-days="30" data-i18n="tab_30day">30-Day
+                                Trend</button>
                         </div>
-                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.4rem;" id="modalMinMax">Min: ₹1,450 | Max: ₹1,620</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.4rem;" id="modalMinMax">Min:
+                            ₹1,450 | Max: ₹1,620</div>
                     </div>
                 </div>
 
@@ -205,9 +215,11 @@
                     <canvas id="priceTrendChart"></canvas>
                 </div>
 
-                <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; color:var(--text-muted); margin-top:1rem; flex-wrap:wrap; gap:0.5rem;">
+                <div
+                    style="display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; color:var(--text-muted); margin-top:1rem; flex-wrap:wrap; gap:0.5rem;">
                     <span>📊 Source: AGMARKNET 2.0 / e-NAM APMC Checkpost Feed</span>
-                    <button class="btn btn-sm btn-primary" onclick="ModalManager.open('alertModal'); ModalManager.close('chartModal');">
+                    <button class="btn btn-sm btn-primary"
+                        onclick="ModalManager.open('alertModal'); ModalManager.close('chartModal');">
                         🔔 Track Crop via SMS
                     </button>
                 </div>
@@ -231,7 +243,8 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
                     <span class="assay-header-badge" id="assayAgmarkBadge">AGMARK Grade-I</span>
                     <span class="badge-verified-kyc" id="assayFssaiBadge">FSSAI Grade-A</span>
-                    <span style="font-size:0.85rem; color:var(--text-muted);">Lot: <strong id="assayLotId">LOT-HGY-8841</strong></span>
+                    <span style="font-size:0.85rem; color:var(--text-muted);">Lot: <strong
+                            id="assayLotId">LOT-HGY-8841</strong></span>
                 </div>
 
                 <div class="assay-grid-params">
@@ -253,12 +266,16 @@
                     </div>
                 </div>
 
-                <div style="background:var(--bg-subtle); padding:1rem; border-radius:var(--radius-md); font-size:0.85rem; line-height:1.6; margin-bottom:1.25rem;">
-                    <div><strong>Testing Laboratory:</strong> Regional Agmark Quality Testing Lab, Hooghly Mandi Yard</div>
-                    <div><strong>Assaying Status:</strong> Certified for Direct Electronic Bidding & Sufal Bangla Retail Linkage</div>
+                <div
+                    style="background:var(--bg-subtle); padding:1rem; border-radius:var(--radius-md); font-size:0.85rem; line-height:1.6; margin-bottom:1.25rem;">
+                    <div><strong>Testing Laboratory:</strong> Regional Agmark Quality Testing Lab, Hooghly Mandi Yard
+                    </div>
+                    <div><strong>Assaying Status:</strong> Certified for Direct Electronic Bidding & Sufal Bangla Retail
+                        Linkage</div>
                 </div>
 
-                <button type="button" class="btn btn-primary" style="width:100%;" onclick="showToast('Assaying Certificate PDF Downloaded!', 'success')">
+                <button type="button" class="btn btn-primary" style="width:100%;"
+                    onclick="showToast('Assaying Certificate PDF Downloaded!', 'success')">
                     📄 Download Official Assaying Certificate (PDF)
                 </button>
             </div>
@@ -274,7 +291,8 @@
             </div>
             <div class="modal-body">
                 <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.25rem;">
-                    Get real-time morning SMS / WhatsApp alerts for your chosen crops directly from your local APMC Mandi.
+                    Get real-time morning SMS / WhatsApp alerts for your chosen crops directly from your local APMC
+                    Mandi.
                 </p>
                 <form id="smsAlertForm">
                     <div class="calc-group">

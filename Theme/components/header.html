@@ -57,8 +57,10 @@
             <!-- Mobile Drawer Header with Close Button -->
             <div class="nav-drawer-header">
                 <div class="nav-drawer-brand">
-                    <span class="nav-drawer-logo">🌾</span>
-                    <span class="nav-drawer-title">Navigation</span>
+                    <div class="nav-drawer-logo-wrap">
+                        <img src="./images/Logo.png" alt="Emblem of India" class="nav-drawer-logo-img">
+                    </div>
+                    <span class="nav-drawer-title" data-i18n="dept_title">Agricultural Marketing Department</span>
                 </div>
                 <button type="button" class="nav-close-btn" id="navCloseBtn" aria-label="Close Navigation Menu">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -67,6 +69,18 @@
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </button>
+            </div>
+
+            <!-- Mobile Drawer CM Dignitary Card -->
+            <div class="nav-drawer-cm-card" aria-label="Hon'ble Chief Minister, Government of West Bengal">
+                <div class="cm-photo-wrapper">
+                    <img src="./images/logo-sec/cm_new.jpg"
+                        alt="Suvendu Adhikari, Hon'ble CM, Government of West Bengal" class="cm-photo">
+                </div>
+                <div class="cm-info-badge">
+                    <div class="cm-name" data-i18n="cm_name">Suvendu Adhikari</div>
+                    <div class="cm-designation" data-i18n="cm_designation">Hon'ble CM,Government of West Bengal</div>
+                </div>
             </div>
 
             <div class="nav-item"><a href="index.html" class="nav-link" data-i18n="nav_home">Home</a></div>
@@ -170,11 +184,28 @@
                             <span class="dropdown-title" data-i18n="nav_proj_scheme">Project and Scheme</span>
                         </div>
                     </a>
+                    <a href="faq.html" class="dropdown-item">
+                        <span class="dropdown-icon">📋</span>
+                        <div>
+                            <span class="dropdown-title" data-i18n="nav_faq">FAQ</span>
+                        </div>
+                    </a>
                 </div>
             </div>
-
             <div class="nav-item"><a href="contact.html" class="nav-link" data-i18n="nav_contact">Contact Us</a></div>
         </nav>
+
+        <!-- Hon'ble Chief Minister Dignitary Card -->
+        <div class="cm-dignitary-card" aria-label="Hon'ble Chief Minister, Government of West Bengal">
+            <div class="cm-photo-wrapper">
+                <img src="./images/logo-sec/cm_new.jpg" alt="Suvendu Adhikari, Hon'ble CM, Government of West Bengal"
+                    class="cm-photo">
+            </div>
+            <div class="cm-info-badge">
+                <div class="cm-name" data-i18n="cm_name">Suvendu Adhikari</div>
+                <div class="cm-designation" data-i18n="cm_designation">Hon'ble CM,Government of West Bengal</div>
+            </div>
+        </div>
 
         <div class="header-actions">
             <button class="mobile-toggle-btn" id="mobileMenuToggle" aria-label="Toggle Navigation Menu">

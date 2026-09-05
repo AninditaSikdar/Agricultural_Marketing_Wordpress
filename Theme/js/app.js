@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     SchemesSliderModule.init();
     NetRealisationModule.init();
     BackToTopModule.init();
+    ContactModule.init();
+    FAQModule.init();
     PWAModule.init();
 });
 
@@ -92,8 +94,10 @@ const HeaderComponent = {
             <!-- Mobile Drawer Header with Close Button -->
             <div class="nav-drawer-header">
                 <div class="nav-drawer-brand">
-                    <span class="nav-drawer-logo">🌾</span>
-                    <span class="nav-drawer-title">Navigation</span>
+                    <div class="nav-drawer-logo-wrap">
+                        <img src="./images/Logo.png" alt="Emblem of India" class="nav-drawer-logo-img">
+                    </div>
+                    <span class="nav-drawer-title" data-i18n="dept_title">Agricultural Marketing Department</span>
                 </div>
                 <button type="button" class="nav-close-btn" id="navCloseBtn" aria-label="Close Navigation Menu">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -101,6 +105,17 @@ const HeaderComponent = {
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </button>
+            </div>
+
+            <!-- Mobile Drawer CM Dignitary Card -->
+            <div class="nav-drawer-cm-card" aria-label="Hon'ble Chief Minister, Government of West Bengal">
+                <div class="cm-photo-wrapper">
+                    <img src="./images/logo-sec/cm_new.jpg" alt="Suvendu Adhikari, Hon'ble CM, Government of West Bengal" class="cm-photo">
+                </div>
+                <div class="cm-info-badge">
+                    <div class="cm-name" data-i18n="cm_name">Suvendu Adhikari</div>
+                    <div class="cm-designation" data-i18n="cm_designation">Hon'ble CM,Government of West Bengal</div>
+                </div>
             </div>
 
             <div class="nav-item"><a href="index.html" class="nav-link" data-i18n="nav_home">Home</a></div>
@@ -207,8 +222,20 @@ const HeaderComponent = {
                 </div>
             </div>
 
+            <div class="nav-item"><a href="faq.html" class="nav-link" data-i18n="nav_faq">FAQ</a></div>
             <div class="nav-item"><a href="contact.html" class="nav-link" data-i18n="nav_contact">Contact Us</a></div>
         </nav>
+
+        <!-- Hon'ble Chief Minister Dignitary Card -->
+        <div class="cm-dignitary-card" aria-label="Hon'ble Chief Minister, Government of West Bengal">
+            <div class="cm-photo-wrapper">
+                <img src="./images/logo-sec/cm_new.jpg" alt="Suvendu Adhikari, Hon'ble CM, Government of West Bengal" class="cm-photo">
+            </div>
+            <div class="cm-info-badge">
+                <div class="cm-name" data-i18n="cm_name">Suvendu Adhikari</div>
+                <div class="cm-designation" data-i18n="cm_designation">Hon'ble CM,Government of West Bengal</div>
+            </div>
+        </div>
 
         <div class="header-actions">
             <button class="mobile-toggle-btn" id="mobileMenuToggle" aria-label="Toggle Navigation Menu">
@@ -302,6 +329,7 @@ const FooterComponent = {
                     <li><a href="cold-storage.html">› <span data-i18n="nav_cold_storage">Cold Storage Network</span></a></li>
                     <li><a href="marketplace.html">› <span data-i18n="nav_marketplace">Farm Connect Hub</span></a></li>
                     <li><a href="about.html">› <span data-i18n="nav_about">About Us</span></a></li>
+                    <li><a href="faq.html">› <span data-i18n="nav_faq">FAQ</span></a></li>
                     <li><a href="contact.html">› <span data-i18n="nav_contact">Contact Us</span></a></li>
                 </ul>
             </div>
@@ -2835,3 +2863,229 @@ function showToast(message, type = 'info') {
         setTimeout(() => toast.remove(), 300);
     }, 3800);
 }
+
+/* ==========================================================================
+   16. CONTACT & CITIZEN HELPDESK MODULE
+   ========================================================================== */
+const ContactModule = {
+    init() {
+        const contactForm = document.getElementById('citizenContactForm');
+        const modal = document.getElementById('contactSuccessModal');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalTokenVal = document.getElementById('modalTokenVal');
+        const apmcSearchInput = document.getElementById('apmcSearchInput');
+        const apmcCardsGrid = document.getElementById('apmcCardsGrid');
+        const trackDocketBtn = document.getElementById('trackDocketBtn');
+        const docketInput = document.getElementById('docketInput');
+        const trackTokenDisplay = document.getElementById('trackTokenDisplay');
+        const trackerResultPanel = document.getElementById('trackerResultPanel');
+
+        // 1. Citizen Contact Form Submission
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const randomNum = Math.floor(1000 + Math.random() * 9000);
+                const generatedToken = `WB-AGRI-2026-${randomNum}`;
+                
+                if (modalTokenVal) {
+                    modalTokenVal.textContent = generatedToken;
+                }
+                if (modal) {
+                    modal.classList.add('active');
+                }
+                showToast(`✅ Docket ${generatedToken} generated! Confirmation SMS dispatched.`, 'success');
+                contactForm.reset();
+            });
+        }
+
+        // 2. Modal Close
+        if (modalCloseBtn && modal) {
+            modalCloseBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.remove('active');
+            });
+        }
+
+        // 3. APMC District Directory Search Filter
+        if (apmcSearchInput && apmcCardsGrid) {
+            apmcSearchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                const items = apmcCardsGrid.querySelectorAll('.apmc-district-box');
+                items.forEach(item => {
+                    const text = (item.getAttribute('data-district') || '') + ' ' + item.textContent.toLowerCase();
+                    const isMatch = text.includes(query);
+                    item.style.display = isMatch ? '' : 'none';
+                });
+            });
+        }
+
+        // 4. Live Docket Status Tracking
+        if (trackDocketBtn && docketInput) {
+            trackDocketBtn.addEventListener('click', () => {
+                const val = docketInput.value.trim();
+                if (!val) {
+                    showToast('Please enter a valid Docket ID', 'warning');
+                    return;
+                }
+                if (trackTokenDisplay) {
+                    trackTokenDisplay.textContent = val.toUpperCase();
+                }
+                if (trackerResultPanel) {
+                    trackerResultPanel.style.animation = 'none';
+                    trackerResultPanel.offsetHeight; // trigger reflow
+                    trackerResultPanel.style.animation = 'modalScale 0.3s ease';
+                }
+                showToast(`Docket ${val.toUpperCase()} found: Investigation in progress by APMC Division`, 'info');
+            });
+        }
+
+    }
+};
+
+/* ==========================================================================
+   17. FAQ KNOWLEDGE BASE MODULE
+   ========================================================================== */
+const FAQModule = {
+    init() {
+        const searchInput = document.getElementById('faqSearchInput');
+        const searchClear = document.getElementById('faqSearchClear');
+        const resetBtn = document.getElementById('faqResetSearchBtn');
+        const filterBtns = document.querySelectorAll('#faqCategoryFilters .faq-filter-btn');
+        const faqCards = document.querySelectorAll('#faqList .faq-card');
+        const resultCount = document.getElementById('faqResultCount');
+        const toggleAllBtn = document.getElementById('faqToggleAllBtn');
+        const toggleAllText = document.getElementById('faqToggleAllText');
+        const emptyState = document.getElementById('faqEmptyState');
+
+        if (!faqCards.length) return;
+
+        let activeCategory = 'all';
+        let searchQuery = '';
+
+        const filterFAQs = () => {
+            let visibleCount = 0;
+            const q = searchQuery.toLowerCase().trim();
+
+            faqCards.forEach(card => {
+                const cat = card.getAttribute('data-category') || '';
+                const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+                const questionText = (card.querySelector('.faq-question-text')?.textContent || '').toLowerCase();
+                const bodyText = (card.querySelector('.faq-body')?.textContent || '').toLowerCase();
+
+                const matchesCat = (activeCategory === 'all' || cat === activeCategory);
+                const matchesQuery = !q || keywords.includes(q) || questionText.includes(q) || bodyText.includes(q);
+
+                if (matchesCat && matchesQuery) {
+                    card.style.display = '';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (resultCount) {
+                resultCount.innerHTML = `Showing <strong>${visibleCount}</strong> of <strong>${faqCards.length}</strong> FAQs`;
+            }
+
+            if (emptyState) {
+                emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
+        };
+
+        // 1. Search input handling
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                if (searchClear) {
+                    searchClear.style.display = searchQuery ? 'block' : 'none';
+                }
+                filterFAQs();
+            });
+
+            if (searchClear) {
+                searchClear.addEventListener('click', () => {
+                    searchInput.value = '';
+                    searchQuery = '';
+                    searchClear.style.display = 'none';
+                    filterFAQs();
+                    searchInput.focus();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    searchInput.value = '';
+                    searchQuery = '';
+                    if (searchClear) searchClear.style.display = 'none';
+                    activeCategory = 'all';
+                    filterBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === 'all'));
+                    filterFAQs();
+                });
+            }
+        }
+
+        // 2. Category tab handling
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeCategory = btn.getAttribute('data-category') || 'all';
+                filterFAQs();
+            });
+        });
+
+        // 3. Toggle All (Expand / Collapse)
+        if (toggleAllBtn) {
+            let allExpanded = false;
+            toggleAllBtn.addEventListener('click', () => {
+                allExpanded = !allExpanded;
+                faqCards.forEach(card => {
+                    if (card.style.display !== 'none') {
+                        const body = card.querySelector('.faq-body');
+                        if (allExpanded) {
+                            card.classList.add('open');
+                            if (body) body.style.display = 'block';
+                        } else {
+                            card.classList.remove('open');
+                            if (body) body.style.display = 'none';
+                        }
+                    }
+                });
+                if (toggleAllText) {
+                    toggleAllText.textContent = allExpanded ? 'Collapse All' : 'Expand All';
+                }
+            });
+        }
+
+        // 4. Accordion click handlers (Collapsible on click)
+        faqCards.forEach(card => {
+            const header = card.querySelector('.faq-header');
+            if (!header) return;
+            header.addEventListener('click', (e) => {
+                e.preventDefault();
+                const isOpen = card.classList.contains('open');
+                const body = card.querySelector('.faq-body');
+
+                if (isOpen) {
+                    // Collapse the current card
+                    card.classList.remove('open');
+                    if (body) body.style.display = 'none';
+                } else {
+                    // Close other open cards for clean accordion effect
+                    faqCards.forEach(otherCard => {
+                        if (otherCard !== card && otherCard.classList.contains('open')) {
+                            otherCard.classList.remove('open');
+                            const otherBody = otherCard.querySelector('.faq-body');
+                            if (otherBody) otherBody.style.display = 'none';
+                        }
+                    });
+                    // Expand this card
+                    card.classList.add('open');
+                    if (body) body.style.display = 'block';
+                }
+            });
+        });
+    }
+};

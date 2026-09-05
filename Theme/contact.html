@@ -18,7 +18,6 @@
     <div id="common-header"></div>
 
     <!-- ==========================================================================
-    <!-- ==========================================================================
        INNER PAGE BANNER WITH VISUAL MEDIA & AMBIENT GLOW
        ========================================================================== -->
     <section class="page-banner">
@@ -30,28 +29,23 @@
                         <span class="pulse-dot"></span>
                         <span>📞 24x7 Farmer Helpline & Citizen Desk</span>
                     </div>
-
-                    <div class="breadcrumb">
-                        <a href="index.html" data-i18n="nav_home">Home</a>
-                        <span class="separator">/</span>
-                        <span class="current" data-i18n="nav_contact">Contact Us</span>
-                    </div>
-
                     <h1 class="page-banner-title" data-i18n="nav_contact">Contact Us & Citizen Helpdesk</h1>
                     <p class="page-banner-desc">
-                        Get in touch with State Headquarters, district APMC offices, or access the 24x7 Kisan Helpline.
+                        Get in touch with State Headquarters, district APMC offices, statutory directorates, or access
+                        the round-the-clock Kisan Helpline.
                     </p>
 
                     <div class="page-banner-meta-pills">
                         <span class="meta-pill">💬 WhatsApp Grievance</span>
-                        <span class="meta-pill">✉️ agrimarketing@gov.in</span>
+                        <span class="meta-pill">✉️ agrimarketing@wb.gov.in</span>
                         <span class="meta-pill">🏢 Subhanna, Salt Lake</span>
                     </div>
                 </div>
 
                 <div class="page-banner-visual">
                     <div class="banner-image-frame">
-                        <img src="./images/banner-contact.jpg" alt="Farmer Helpdesk & Support Desk" class="banner-main-img">
+                        <img src="./images/banner-contact.jpg" alt="Farmer Helpdesk & Support Desk"
+                            class="banner-main-img">
                         <div class="banner-floating-chip">
                             <span class="chip-icon">✨</span>
                             <div>
@@ -66,140 +60,451 @@
     </section>
 
     <!-- ==========================================================================
-       DISTRICT APMC DIRECTORY & CITIZEN CONTACT FORM
+       CONTACT DIRECTORY & CITIZEN HELPDESK SECTION
        ========================================================================== -->
     <section class="section">
         <div class="container">
-            <div class="section-header">
-                <div class="section-tag">📞 Reach Out</div>
-                <h2 class="section-title">Department Headquarters & District Offices</h2>
-                <p class="section-subtitle">
-                    Connect directly with departmental officers, visit local APMC mandis, or submit your queries online.
-                </p>
+
+            <!-- 1. Quick Reach-Out Action Cards Grid -->
+            <div class="contact-quick-grid">
+                <!-- 1. Toll Free Call Center -->
+                <div class="contact-quick-card">
+                    <span class="quick-card-badge badge-green">⚡ 24x7 Toll-Free</span>
+                    <div class="quick-card-icon" style="background:rgba(16, 185, 129, 0.12); color:#059669;">📞</div>
+                    <h3 class="quick-card-title">Kisan Call Center</h3>
+                    <p class="quick-card-desc">
+                        Real-time Mandi price advisory, crop distress counseling, and government scheme guidance in
+                        Bengali, English, and Hindi.
+                    </p>
+                    <a href="tel:18001801551" class="quick-card-val">1800-180-1551</a>
+                </div>
+
+                <!-- 2. WhatsApp Grievance Desk -->
+                <div class="contact-quick-card">
+                    <span class="quick-card-badge badge-orange">💬 Instant Token</span>
+                    <div class="quick-card-icon" style="background:rgba(255, 147, 1, 0.12); color:var(--primary-dark);">
+                        💬</div>
+                    <h3 class="quick-card-title">WhatsApp Helpdesk</h3>
+                    <p class="quick-card-desc">
+                        Submit mandi price discrepancy receipts, weighbridge weight slip photos, and track token status
+                        directly via WhatsApp.
+                    </p>
+                    <a href="https://wa.me/919830012345" target="_blank" rel="noopener noreferrer"
+                        class="quick-card-val">+91 98300-12345</a>
+                </div>
+
+                <!-- 3. Official Email Support -->
+                <div class="contact-quick-card">
+                    <span class="quick-card-badge badge-blue">✉️ 24-48 Hr SLA</span>
+                    <div class="quick-card-icon" style="background:rgba(14, 165, 233, 0.12); color:#0284c7;">✉️</div>
+                    <h3 class="quick-card-title">Public Helpdesk Email</h3>
+                    <p class="quick-card-desc">
+                        Official communications, APMC trader license renewals, e-Bijak technical assistance, and RTI
+                        queries.
+                    </p>
+                    <a href="mailto:agrimarketing@wb.gov.in" class="quick-card-val"
+                        style="font-size:0.95rem;">agrimarketing@wb.gov.in</a>
+                </div>
+
+                <!-- 4. State Headquarters -->
+                <div class="contact-quick-card">
+                    <span class="quick-card-badge badge-purple">🏢 Salt Lake & Anandapur</span>
+                    <div class="quick-card-icon" style="background:rgba(139, 92, 246, 0.12); color:#7c3aed;">🏛️</div>
+                    <h3 class="quick-card-title">Secretariat Reception</h3>
+                    <p class="quick-card-desc">
+                        Kamal Guha Krishi Bipanan Bhawan & Subhanna Administrative Complex. Mon–Fri, 10:00 AM – 5:30 PM.
+                    </p>
+                    <a href="tel:03324430071" class="quick-card-val">033-2443-0071</a>
+                </div>
             </div>
 
+            <!-- 2. Main 2-Column Directory & Citizen Form -->
             <div class="contact-layout-grid">
-                <!-- Left Stack: Headquarters & District Offices -->
+
+                <!-- Left Column: Department Headquarters & District Directory -->
                 <div class="info-cards-stack">
+
+                    <!-- Card A: Apex State Headquarters -->
                     <div class="contact-info-card">
-                        <div class="cic-icon">🏢</div>
-                        <div>
-                            <h3
-                                style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom:0.35rem;">
-                                State Headquarters (Subhanna)
-                            </h3>
-                            <p
-                                style="font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:0.6rem;">
-                                5th & 6th Floor, DF Block, Sector-I, Salt Lake, Kolkata - 700064
-                            </p>
+                        <div class="cic-header">
+                            <div class="cic-icon">🏛️</div>
+                            <div>
+                                <h3 class="cic-title">State Apex Headquarters</h3>
+                                <p class="cic-subtitle">Agricultural Marketing Department, Government of West Bengal</p>
+                            </div>
+                        </div>
+
+                        <div class="cic-content">
+                            <!-- Location 1: Kamal Guha Bhawan -->
                             <div
-                                style="font-size:0.85rem; color:var(--text-main); display:flex; flex-direction:column; gap:0.25rem;">
-                                <div>📞 <strong>Phone:</strong> 033-2334-0125 / 0126</div>
-                                <div>✉️ <strong>Email:</strong> agrimarketing@gov.in</div>
-                                <div>⏰ <strong>Office Hours:</strong> Monday – Friday (10:00 AM – 5:30 PM)</div>
+                                style="margin-bottom:1.25rem; padding-bottom:1.25rem; border-bottom:1px solid var(--border-subtle);">
+                                <h4
+                                    style="font-size:0.98rem; font-weight:700; color:var(--text-main); margin-bottom:0.4rem;">
+                                    📍 Kamal Guha Krishi Bipanan Bhawan (Board HQ)
+                                </h4>
+                                <div class="cic-item">
+                                    <span class="cic-item-icon">🏢</span>
+                                    <span>729, Anandapur, EM Bypass Link Road, Kolkata - 700107</span>
+                                </div>
+                                <div class="cic-item">
+                                    <span class="cic-item-icon">📞</span>
+                                    <span><strong>Phone:</strong> 033-2443-0071 / 2443-0072</span>
+                                </div>
+                                <div class="cic-item">
+                                    <span class="cic-item-icon">✉️</span>
+                                    <span><strong>Email:</strong> wbsamb@wb.gov.in / director.agrimkt@wb.gov.in</span>
+                                </div>
+                            </div>
+
+                            <!-- Location 2: Subhanna Bhawan -->
+                            <div>
+                                <h4
+                                    style="font-size:0.98rem; font-weight:700; color:var(--text-main); margin-bottom:0.4rem;">
+                                    📍 Subhanna Administrative Complex (Salt Lake)
+                                </h4>
+                                <div class="cic-item">
+                                    <span class="cic-item-icon">🏢</span>
+                                    <span>5th & 6th Floor, DF Block, Sector-I, Bidhannagar, Kolkata - 700064</span>
+                                </div>
+                                <div class="cic-item">
+                                    <span class="cic-item-icon">📞</span>
+                                    <span><strong>Phone:</strong> 033-2334-0125 / 2334-0126</span>
+                                </div>
+                                <div class="cic-item">
+                                    <span class="cic-item-icon">⏰</span>
+                                    <span><strong>Hours:</strong> Monday to Friday: 10:00 AM – 5:30 PM (Govt. Holidays
+                                        Closed)</span>
+                                </div>
+                            </div>
+
+                            <div class="cic-actions">
+                                <a href="https://maps.google.com/?q=Kamal+Guha+Krishi+Bipanan+Bhawan+Kolkata"
+                                    target="_blank" rel="noopener noreferrer" class="btn btn-outline"
+                                    style="padding:0.45rem 0.85rem; font-size:0.84rem;">
+                                    📍 Get HQ Directions →
+                                </a>
+                                <a href="tel:03324430071" class="btn btn-primary"
+                                    style="padding:0.45rem 0.85rem; font-size:0.84rem;">
+                                    📞 Call Headquarters
+                                </a>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Card B: Statutory Bodies & Parallel Wings -->
                     <div class="contact-info-card">
-                        <div class="cic-icon" style="background:var(--accent-soft); color:var(--accent-dark);">📞</div>
-                        <div>
-                            <h3
-                                style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom:0.35rem;">
-                                Kisan Toll-Free Support Desk
-                            </h3>
-                            <p
-                                style="font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:0.6rem;">
-                                Available 24x7 in Bengali, English, and Hindi for live Mandi rates, dispute reporting,
-                                and subsidy guidance.
-                            </p>
-                            <span
-                                style="font-size:1.35rem; font-weight:800; color:var(--primary); font-family:'Outfit';">1800-180-1551</span>
+                        <div class="cic-header">
+                            <div class="cic-icon" style="background:rgba(2, 132, 199, 0.12); color:#0284c7;">🏢</div>
+                            <div>
+                                <h3 class="cic-title">Affiliated Bodies & Directorates</h3>
+                                <p class="cic-subtitle">Statutory boards, training institutes, and retail corporations
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="cic-content">
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+                                <div
+                                    style="background:var(--bg-subtle); padding:0.85rem; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+                                    <strong
+                                        style="font-size:0.88rem; color:var(--text-main); display:block; margin-bottom:0.25rem;">
+                                        Directorate Agri. Marketing
+                                    </strong>
+                                    <span
+                                        style="font-size:0.78rem; color:var(--text-muted); display:block; margin-bottom:0.35rem;">
+                                        APMC Regulation & Licensing
+                                    </span>
+                                    <a href="tel:03324430071"
+                                        style="font-size:0.8rem; font-weight:700; color:var(--primary); text-decoration:none;">
+                                        📞 033-2443-0071
+                                    </a>
+                                </div>
+
+                                <div
+                                    style="background:var(--bg-subtle); padding:0.85rem; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+                                    <strong
+                                        style="font-size:0.88rem; color:var(--text-main); display:block; margin-bottom:0.25rem;">
+                                        WBSAMB Marketing Board
+                                    </strong>
+                                    <span
+                                        style="font-size:0.78rem; color:var(--text-muted); display:block; margin-bottom:0.35rem;">
+                                        Krishak Bazars & Cold Storage
+                                    </span>
+                                    <a href="tel:03324430072"
+                                        style="font-size:0.8rem; font-weight:700; color:var(--primary); text-decoration:none;">
+                                        📞 033-2443-0072
+                                    </a>
+                                </div>
+
+                                <div
+                                    style="background:var(--bg-subtle); padding:0.85rem; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+                                    <strong
+                                        style="font-size:0.88rem; color:var(--text-main); display:block; margin-bottom:0.25rem;">
+                                        PAMCL (Sufal Bangla)
+                                    </strong>
+                                    <span
+                                        style="font-size:0.78rem; color:var(--text-muted); display:block; margin-bottom:0.35rem;">
+                                        Direct Retail & Procurement
+                                    </span>
+                                    <a href="tel:03323340127"
+                                        style="font-size:0.8rem; font-weight:700; color:var(--primary); text-decoration:none;">
+                                        📞 033-2334-0127
+                                    </a>
+                                </div>
+
+                                <div
+                                    style="background:var(--bg-subtle); padding:0.85rem; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+                                    <strong
+                                        style="font-size:0.88rem; color:var(--text-main); display:block; margin-bottom:0.25rem;">
+                                        NSTIAM Baidyabati
+                                    </strong>
+                                    <span
+                                        style="font-size:0.78rem; color:var(--text-muted); display:block; margin-bottom:0.35rem;">
+                                        Assaying Labs & FPO Training
+                                    </span>
+                                    <a href="tel:03326329901"
+                                        style="font-size:0.8rem; font-weight:700; color:var(--primary); text-decoration:none;">
+                                        📞 033-2632-9901
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Card C: Searchable District APMC & Krishak Bazar Directory -->
                     <div class="contact-info-card">
-                        <div class="cic-icon" style="background:rgba(2, 132, 199, 0.15); color:var(--info);">📍</div>
-                        <div>
-                            <h3
-                                style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom:0.35rem;">
-                                Regional APMC Administrative Offices
-                            </h3>
-                            <ul style="font-size:0.85rem; color:var(--text-muted); list-style:none; line-height:1.8;">
-                                <li>• <strong>Hooghly APMC:</strong> Dhaniakhali Market Yard | 033-2680-1122</li>
-                                <li>• <strong>Burdwan Central:</strong> Memari GT Road Complex | 0342-265-4433</li>
-                                <li>• <strong>Nadia APMC:</strong> Krishnanagar Station Road | 03472-251-889</li>
-                                <li>• <strong>Siliguri North Bengal:</strong> Matigara Regulated Yard | 0353-257-2200
-                                </li>
-                                <li>• <strong>Malda Regional:</strong> English Bazar APMC Compound | 03512-252-114</li>
-                                <li>• <strong>Murshidabad Market:</strong> Berhampore Station Road | 03482-250-990</li>
-                            </ul>
+                        <div class="cic-header">
+                            <div class="cic-icon" style="background:rgba(16, 185, 129, 0.12); color:#059669;">📍</div>
+                            <div style="flex:1;">
+                                <h3 class="cic-title">District APMC & Mandi Directory</h3>
+                                <p class="cic-subtitle">Regional Regulated Market Committees across 23 districts of West
+                                    Bengal</p>
+                            </div>
+                        </div>
+
+                        <!-- Live District Search Input -->
+                        <div class="directory-search-box">
+                            <span class="directory-search-icon">🔍</span>
+                            <input type="text" id="apmcSearchInput" class="directory-search-input"
+                                placeholder="Search district or market yard (e.g. Hooghly, Memari, Malda, Siliguri)...">
+                        </div>
+
+                        <!-- APMC District Cards Grid -->
+                        <div class="apmc-cards-grid" id="apmcCardsGrid">
+                            <!-- 1. Hooghly -->
+                            <div class="apmc-district-box" data-district="Hooghly Dhaniakhali">
+                                <div class="apmc-dist-name">
+                                    <span>Hooghly APMC</span>
+                                    <span class="apmc-dist-badge">হুগলি</span>
+                                </div>
+                                <div class="apmc-dist-yard">📍 Dhaniakhali Regulated Yard & Cold Complex</div>
+                                <a href="tel:03326801122" class="apmc-dist-phone">📞 033-2680-1122</a>
+                            </div>
+
+                            <!-- 2. Burdwan Central -->
+                            <div class="apmc-district-box" data-district="Burdwan Bardhaman Memari">
+                                <div class="apmc-dist-name">
+                                    <span>Burdwan Central APMC</span>
+                                    <span class="apmc-dist-badge">পূর্ব বর্ধমান</span>
+                                </div>
+                                <div class="apmc-dist-yard">📍 Memari GT Road Market Complex</div>
+                                <a href="tel:03422654433" class="apmc-dist-phone">📞 0342-265-4433</a>
+                            </div>
+
+                            <!-- 3. Nadia -->
+                            <div class="apmc-district-box" data-district="Nadia Krishnanagar">
+                                <div class="apmc-dist-name">
+                                    <span>Nadia APMC</span>
+                                    <span class="apmc-dist-badge">নদিয়া</span>
+                                </div>
+                                <div class="apmc-dist-yard">📍 Krishnanagar Station Road Market Yard</div>
+                                <a href="tel:03472251889" class="apmc-dist-phone">📞 03472-251-889</a>
+                            </div>
+
+                            <!-- 4. North 24 Parganas -->
+                            <div class="apmc-district-box" data-district="North 24 Parganas Barasat">
+                                <div class="apmc-dist-name">
+                                    <span>North 24 Pgs APMC</span>
+                                    <span class="apmc-dist-badge">উত্তর ২৪ পরগনা</span>
+                                </div>
+                                <div class="apmc-dist-yard">📍 Barasat Central Regulated Market Yard</div>
+                                <a href="tel:03325843311" class="apmc-dist-phone">📞 033-2584-3311</a>
+                            </div>
+
+                            <!-- 5. South 24 Parganas -->
+                            <div class="apmc-district-box" data-district="South 24 Parganas Baruipur">
+                                <div class="apmc-dist-name">
+                                    <span>South 24 Pgs APMC</span>
+                                    <span class="apmc-dist-badge">দক্ষিণ ২৪ পরগনা</span>
+                                </div>
+                                <div class="apmc-dist-yard">📍 Baruipur Sub-Divisional Mandi Yard</div>
+                                <a href="tel:03324338822" class="apmc-dist-phone">📞 033-2433-8822</a>
+                            </div>
+
+                            <!-- 6. Siliguri / Darjeeling -->
+                            <div class="apmc-district-box" data-district="Siliguri Darjeeling Matigara">
+                                <div class="apmc-dist-name">
+                                    <span>Siliguri North Bengal</span>
+                                    <span class="apmc-dist-badge">শিলিগুড়ি</span>
+                                </div>
+                                <div class="apmc-dist-yard">📍 Matigara Regulated Wholesale Terminal</div>
+                                <a href="tel:03532572200" class="apmc-dist-phone">📞 0353-257-2200</a>
+                            </div>
+
+                            <!-- 7. Malda -->
+                            <div class="apmc-district-box" data-district="Malda English Bazar">
+                                <div class="apmc-dist-name">
+                                    <span>Malda Regional APMC</span>
+                                    <span class="apmc-dist-badge">মালদা</span>
+                                </div>
+                                <div class="apmc-dist-yard">📍 English Bazar APMC Market Compound</div>
+                                <a href="tel:03512252114" class="apmc-dist-phone">📞 03512-252-114</a>
+                            </div>
+
+                            <!-- 8. Murshidabad -->
+                            <div class="apmc-district-box" data-district="Murshidabad Berhampore">
+                                <div class="apmc-dist-name">
+                                    <span>Murshidabad APMC</span>
+                                    <span class="apmc-dist-badge">মুর্শিদাবাদ</span>
+                                </div>
+                                <div class="apmc-dist-yard">📍 Berhampore Station Road Terminal Yard</div>
+                                <a href="tel:03482250990" class="apmc-dist-phone">📞 03482-250-990</a>
+                            </div>
+
+                            <!-- 9. Bankura -->
+                            <div class="apmc-district-box" data-district="Bankura Sadar">
+                                <div class="apmc-dist-name">
+                                    <span>Bankura APMC</span>
+                                    <span class="apmc-dist-badge">বাঁকুড়া</span>
+                                </div>
+                                <div class="apmc-dist-yard">📍 Bankura Sadar Krishak Bazar Yard</div>
+                                <a href="tel:03242250711" class="apmc-dist-phone">📞 03242-250-711</a>
+                            </div>
+
+                            <!-- 10. Purulia -->
+                            <div class="apmc-district-box" data-district="Purulia Raghabpur">
+                                <div class="apmc-dist-name">
+                                    <span>Purulia APMC</span>
+                                    <span class="apmc-dist-badge">পুরুলিয়া</span>
+                                </div>
+                                <div class="apmc-dist-yard">📍 Raghabpur APMC Market Complex</div>
+                                <a href="tel:03252222414" class="apmc-dist-phone">📞 03252-222-414</a>
+                            </div>
+
+                            <!-- 11. Paschim Medinipur -->
+                            <div class="apmc-district-box" data-district="Medinipur Kharagpur Midnapore">
+                                <div class="apmc-dist-name">
+                                    <span>Paschim Medinipur</span>
+                                    <span class="apmc-dist-badge">মেদিনীপুর</span>
+                                </div>
+                                <div class="apmc-dist-yard">📍 Kharagpur Regulated Market Yard</div>
+                                <a href="tel:03222255890" class="apmc-dist-phone">📞 03222-255-890</a>
+                            </div>
+
+                            <!-- 12. Jalpaiguri -->
+                            <div class="apmc-district-box" data-district="Jalpaiguri Dhupguri">
+                                <div class="apmc-dist-name">
+                                    <span>Jalpaiguri APMC</span>
+                                    <span class="apmc-dist-badge">জলপাইগুড়ি</span>
+                                </div>
+                                <div class="apmc-dist-yard">📍 Dhupguri Wholesale Krishak Yard</div>
+                                <a href="tel:03563250101" class="apmc-dist-phone">📞 03563-250-101</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Side: Online Inquiry & Feedback Form -->
+                <!-- Right Column: Interactive Citizen Grievance & Feedback Form -->
                 <div class="contact-form-card">
-                    <h3 style="font-size:1.3rem; font-weight:800; color:var(--text-main); margin-bottom:0.4rem;">
-                        Citizen Feedback & Inquiries
-                    </h3>
-                    <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.5rem;">
-                        Submit feedback, rate dispute issues, or general inquiries. You will receive an instant SMS
-                        tracking ID.
-                    </p>
+                    <div class="contact-form-header">
+                        <span class="contact-form-tag">📝 Public Grievance Redressal</span>
+                        <h2 class="contact-form-title">Citizen Feedback & Inquiry Form</h2>
+                        <p class="contact-form-desc">
+                            Submit rate disputes, license inquiries, or feedback. An official SMS tracking token will be
+                            dispatched to your registered mobile number within minutes.
+                        </p>
+                    </div>
 
                     <form id="citizenContactForm">
                         <div class="form-grid-2">
                             <div class="calc-group">
-                                <label class="calc-label">Your Full Name:</label>
-                                <input type="text" class="form-input" placeholder="e.g. Ramesh Chandra Das" required>
+                                <label class="calc-label">Your Full Name <span style="color:#ef4444;">*</span></label>
+                                <input type="text" id="contactName" class="form-input"
+                                    placeholder="e.g. Ramesh Chandra Das" required>
                             </div>
                             <div class="calc-group">
-                                <label class="calc-label">Mobile Number (for SMS Tracking):</label>
-                                <input type="tel" class="form-input" placeholder="10-digit mobile" required
-                                    pattern="[0-9]{10}">
+                                <label class="calc-label">Mobile Number (for SMS Tracking) <span
+                                        style="color:#ef4444;">*</span></label>
+                                <input type="tel" id="contactPhone" class="form-input"
+                                    placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required>
                             </div>
                         </div>
 
                         <div class="form-grid-2">
                             <div class="calc-group">
-                                <label class="calc-label">Your District:</label>
-                                <select class="form-select" required>
+                                <label class="calc-label">Your District <span style="color:#ef4444;">*</span></label>
+                                <select id="contactDistrict" class="form-select" required>
                                     <option value="">Select District...</option>
-                                    <option>Hooghly</option>
-                                    <option>Burdwan</option>
-                                    <option>Nadia</option>
-                                    <option>Kolkata</option>
-                                    <option>Murshidabad</option>
-                                    <option>Bankura</option>
-                                    <option>Jalpaiguri</option>
-                                    <option>Malda</option>
-                                    <option>North 24 Parganas</option>
-                                    <option>South 24 Parganas</option>
-                                    <option>Other District</option>
+                                    <option value="Hooghly">Hooghly (হুগলি)</option>
+                                    <option value="Burdwan">Purba & Paschim Bardhaman (বর্ধমান)</option>
+                                    <option value="Nadia">Nadia (নদিয়া)</option>
+                                    <option value="Kolkata">Kolkata (কলকাতা)</option>
+                                    <option value="North 24 Pgs">North 24 Parganas (উত্তর ২৪ পরগনা)</option>
+                                    <option value="South 24 Pgs">South 24 Parganas (দক্ষিণ ২৪ পরগনা)</option>
+                                    <option value="Murshidabad">Murshidabad (মুর্শিদাবাদ)</option>
+                                    <option value="Bankura">Bankura (বাঁকুড়া)</option>
+                                    <option value="Purulia">Purulia (পুরুলিয়া)</option>
+                                    <option value="Medinipur">Paschim & Purba Medinipur (মেদিনীপুর)</option>
+                                    <option value="Jalpaiguri">Jalpaiguri (জলপাইগুড়ি)</option>
+                                    <option value="Darjeeling">Siliguri / Darjeeling (দার্জিলিং)</option>
+                                    <option value="Malda">Malda (মালদা)</option>
+                                    <option value="Other">Other District</option>
                                 </select>
                             </div>
                             <div class="calc-group">
-                                <label class="calc-label">Category of Inquiry:</label>
-                                <select class="form-select" required>
-                                    <option value="rate_dispute">Mandi Rate Dispute / Query</option>
-                                    <option value="subsidy_status">Subsidy Application Status</option>
-                                    <option value="cold_storage">Cold Storage Slot Issue</option>
-                                    <option value="sufal_bangla">Sufal Bangla Retail Feedback</option>
-                                    <option value="general">General Administrative Inquiry</option>
+                                <label class="calc-label">I Am A: <span style="color:#ef4444;">*</span></label>
+                                <select id="contactUserType" class="form-select" required>
+                                    <option value="farmer">Farmer / Cultivator (কৃষক)</option>
+                                    <option value="fpo">FPO / SHG Cluster Leader</option>
+                                    <option value="trader">APMC Commission Agent / Trader</option>
+                                    <option value="cold_storage">Cold Storage Owner / Operator</option>
+                                    <option value="citizen">General Consumer / Citizen</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="calc-group" style="margin-bottom:1.2rem;">
-                            <label class="calc-label">Description / Inquiry Details:</label>
-                            <textarea class="form-input" rows="4"
-                                placeholder="Provide specific details about your query or feedback..."
+                        <div class="calc-group" style="margin-bottom:1rem;">
+                            <label class="calc-label">Category of Inquiry / Grievance <span
+                                    style="color:#ef4444;">*</span></label>
+                            <select id="contactCategory" class="form-select" required>
+                                <option value="rate_dispute">📊 Mandi Rate Discrepancy / Below MSP Selling</option>
+                                <option value="ebijak_issue">📑 e-Bijak Digital Invoicing / Market Cess Issue</option>
+                                <option value="cold_storage">❄️ Cold Storage Space Allocation / e-NWR Financing</option>
+                                <option value="amar_fasal">🌾 Amar Fasal Amar Gari Scheme Application Status</option>
+                                <option value="sufal_bangla">🛒 Sufal Bangla Outlet & Van Procurement Inquiry</option>
+                                <option value="license_trade">📜 APMC Trader License & Regulated Yard Allocation
+                                </option>
+                                <option value="general">🏛️ General Administrative & RTI Inquiry</option>
+                            </select>
+                        </div>
+
+                        <div class="calc-group" style="margin-bottom:1rem;">
+                            <label class="calc-label">Subject Line <span style="color:#ef4444;">*</span></label>
+                            <input type="text" id="contactSubject" class="form-input"
+                                placeholder="Brief summary of your inquiry or grievance..." required>
+                        </div>
+
+                        <div class="calc-group" style="margin-bottom:1.25rem;">
+                            <label class="calc-label">Detailed Description / Grievance Details <span
+                                    style="color:#ef4444;">*</span></label>
+                            <textarea id="contactMessage" class="form-input" rows="4"
+                                placeholder="Please provide specific mandi names, transaction dates, lot numbers, or officer details to expedite resolution..."
                                 required></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" style="width:100%;">
-                            🚀 Submit Inquiry / Feedback
+                        <button type="submit" id="contactSubmitBtn" class="btn btn-primary"
+                            style="width:100%; padding:0.85rem; font-size:1rem; font-weight:700;">
+                            🚀 Submit Inquiry / Grievance & Get Token ID
                         </button>
                     </form>
                 </div>
@@ -207,11 +512,38 @@
         </div>
     </section>
 
+    <!-- Confirmation Modal Popup -->
+    <div class="contact-modal-overlay" id="contactSuccessModal" role="dialog" aria-modal="true"
+        aria-labelledby="modalTitle">
+        <div class="contact-modal-card">
+            <div class="contact-modal-icon">✓</div>
+            <h3 class="contact-modal-title" id="modalTitle">Grievance Submitted Successfully!</h3>
+            <p class="contact-modal-desc">
+                Your inquiry has been registered in the Agricultural Marketing Department Central Citizen Helpdesk. An
+                official SMS notification has been dispatched to your mobile number.
+            </p>
+
+            <div class="contact-modal-token-box">
+                <div class="contact-modal-token-lbl">Your Official Tracking Docket ID:</div>
+                <div class="contact-modal-token-val" id="modalTokenVal">WB-AGRI-2026-8942</div>
+            </div>
+
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;">
+                Keep this Docket ID handy. You can use it in the status tracker on this page or quote it when calling
+                the toll-free helpline 1800-180-1551.
+            </p>
+
+            <button type="button" class="btn btn-primary" id="modalCloseBtn" style="width:100%;">
+                Dismiss & Return to Portal
+            </button>
+        </div>
+    </div>
+
     <!-- Common Footer Container (Rendered dynamically from components/footer.html) -->
     <div id="common-footer"></div>
 
     <!-- Core App Logic -->
-    <script src="./js/app.js"></script>
+    <script src="./js/app.js?v=3.0"></script>
 </body>
 
 </html>

@@ -19,13 +19,14 @@
     "nav_ebijak": "e-Bijak & Ledgers",
     "nav_logistics": "Logistics & Freight",
     "nav_about": "About Us",
-    "nav_about_dept": "About Agricultural Marketing Department",
+    "nav_about_dept": "About Us",
     "nav_krishak_bazar": "Krishak Bazar",
     "nav_training_inst": "Training Institute",
     "nav_paddy_proc": "Paddy Procurement",
     "nav_proj_scheme": "Project and Scheme",
     "nav_notices": "Tenders & Notices",
     "nav_contact": "Contact Us",
+    "nav_faq": "FAQ",
     "ticker_badge": "AGMARKNET 2.0 LIVE FEED",
     "ticker_label": "Daily Market Intelligence",
     "hero_badge": "National Benchmark AgriTech & Price Intelligence Platform",
@@ -156,7 +157,9 @@
     "footer_about_desc": "Committed to empowering farmers, stabilizing food prices, providing state-of-the-art agricultural logistics, and building transparent market mechanisms.",
     "footer_quick_links": "Quick Navigation",
     "footer_schemes_links": "Key Schemes & Services",
-    "footer_rights": "© 2026 Agricultural Marketing Department. All Rights Reserved."
+    "footer_rights": "© 2026 Agricultural Marketing Department. All Rights Reserved.",
+    "cm_name": "Suvendu Adhikari",
+    "cm_designation": "Hon'ble CM,Government of West Bengal"
   },
   "bn": {
     "gov_name": "রাজ্য কৃষি বিপণন পর্ষদ",
@@ -185,6 +188,7 @@
     "nav_proj_scheme": "প্রকল্প ও স্কিমসমূহ",
     "nav_notices": "টেন্ডার ও বিজ্ঞপ্তি",
     "nav_contact": "যোগাযোগ",
+    "nav_faq": "সাধারণ জিজ্ঞাসা",
     "ticker_badge": "এগমার্কনেট ২.০ লাইভ ফিড",
     "ticker_label": "সরাসরি বাজার তথ্য",
     "hero_badge": "জাতীয় বেঞ্চমার্ক এগ্রিটেক ও মূল্য আবিষ্কার প্ল্যাটফর্ম",
@@ -315,7 +319,9 @@
     "footer_about_desc": "কৃষকদের ন্যায্য মূল্য প্রদান, খাদ্যদ্রব্যের মূল্য স্থিতিশীল রাখা ও আধুনিক বিপণন ব্যবস্থা গড়ে তুলতে দায়বদ্ধ।",
     "footer_quick_links": "প্রয়োজনীয় লিংক",
     "footer_schemes_links": "গুরুত্বপূর্ণ প্রকল্প ও সেবা",
-    "footer_rights": "© 2026 কৃষি বিপণন বিভাগ। সর্বস্বত্ব সংরক্ষিত।"
+    "footer_rights": "© 2026 কৃষি বিপণন বিভাগ। সর্বস্বত্ব সংরক্ষিত।",
+    "cm_name": "শুভেন্দু অধিকারী",
+    "cm_designation": "মাননীয় মুখ্যমন্ত্রী, পশ্চিমবঙ্গ সরকার"
   },
   "hi": {
     "gov_name": "राज्य कृषि विपणन बोर्ड",
@@ -344,6 +350,7 @@
     "nav_proj_scheme": "परियोजनाएं एवं योजनाएं",
     "nav_notices": "निविदाएं व सूचनाएं",
     "nav_contact": "संपर्क करें",
+    "nav_faq": "अक्सर पूछे जाने वाले प्रश्न",
     "ticker_badge": "एगमार्कनेट 2.0 लाइव फीड",
     "ticker_label": "दैनिक बाजार भाव",
     "hero_badge": "राष्ट्रीय बेंचमार्क एग्रीटेक एवं मूल्य प्रकटीकरण मंच",
@@ -474,7 +481,9 @@
     "footer_about_desc": "किसानों के सशक्तिकरण, खाद्य मूल्यों में स्थिरता और आधुनिक कृषि विपणन प्रणाली के निर्माण के लिए प्रतिबद्ध।",
     "footer_quick_links": "त्वरित लिंक",
     "footer_schemes_links": "प्रमुख योजनाएं व सेवाएं",
-    "footer_rights": "© 2026 कृषि विपणन विभाग। सर्वाधिकार सुरक्षित।"
+    "footer_rights": "© 2026 कृषि विपणन विभाग। सर्वाधिकार सुरक्षित।",
+    "cm_name": "शुभेंदु अधिकारी",
+    "cm_designation": "माननीय मुख्यमंत्री, पश्चिम बंगाल सरकार"
   },
   "gu": {
     "gov_name": "રાજ્ય કૃષિ માર્કેટિંગ બોર્ડ",
